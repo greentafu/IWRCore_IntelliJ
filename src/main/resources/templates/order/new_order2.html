@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/prolayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>신규 등록</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">발주서 /</span> 신규 등록</h4>
+
+              <div class="fullscreen-background">
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div>
+                      <label class="col-form-label" ><h5>발주 요청 가능 목록</h5></label><br/>
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-outline-primary mb-4">
+                          모두선택
+                        </button>
+                      </div>
+                      <div class="row mb-4">
+                        &nbsp;&nbsp;&nbsp;
+                        <button type="button" class="col-md-2 btn btn-outline-primary" style="width: fit-content;">전체수량</button>&nbsp;
+                        <div class="col-md-10">
+                          <div class="row">
+                            <input type="date" class="form-control col-md-2" style="width: 300px;">&nbsp;
+                          <button type="button" class="btn btn-outline-primary col-md-2" style="width: fit-content;">예정일 일괄 등록</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <table class="table table-bordered mb-4">
+                        <tr>
+                          <th rowspan="4" style="width: 10px;"><input type="checkbox" class="form-check-input"></th>
+                          <th>자재번호</th>
+                          <th>자재명</th>
+                          <th>계약수량</th>
+                          <th>수량</th>
+                          <th>요청일</th>
+                        </tr>
+                        <tr>
+                          <td>AE-8704</td>
+                          <td>앞타이어</td>
+                          <td>500</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송장소</td>
+                          <td colspan="4"><input type="text" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송 요청 사항</td>
+                          <td colspan="4"><textarea style="width: 100%; border: 0;" rows="4"></textarea></td>
+                        </tr>
+                      </table>
+                      <table class="table table-bordered mb-4">
+                        <tr>
+                          <th rowspan="4" style="width: 10px;"><input type="checkbox" class="form-check-input"></th>
+                          <th>자재번호</th>
+                          <th>자재명</th>
+                          <th>계약수량</th>
+                          <th>수량</th>
+                          <th>요청일</th>
+                        </tr>
+                        <tr>
+                          <td>AE-8705</td>
+                          <td>뒷타이어</td>
+                          <td>500</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송장소</td>
+                          <td colspan="4"><input type="text" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송 요청 사항</td>
+                          <td colspan="4"><textarea style="width: 100%; border: 0;" rows="4"></textarea></td>
+                        </tr>
+                      </table>
+                      <table class="table table-bordered mb-4">
+                        <tr>
+                          <th rowspan="4" style="width: 10px;"><input type="checkbox" class="form-check-input"></th>
+                          <th>자재번호</th>
+                          <th>자재명</th>
+                          <th>계약수량</th>
+                          <th>수량</th>
+                          <th>요청일</th>
+                        </tr>
+                        <tr>
+                          <td>KE-1053</td>
+                          <td>앞브레이크</td>
+                          <td>500</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송장소</td>
+                          <td colspan="4"><input type="text" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송 요청 사항</td>
+                          <td colspan="4"><textarea style="width: 100%; border: 0;" rows="4"></textarea></td>
+                        </tr>
+                      </table>
+                      <table class="table table-bordered mb-4">
+                        <tr>
+                          <th rowspan="4" style="width: 10px;"><input type="checkbox" class="form-check-input"></th>
+                          <th>자재번호</th>
+                          <th>자재명</th>
+                          <th>계약수량</th>
+                          <th>수량</th>
+                          <th>요청일</th>
+                        </tr>
+                        <tr>
+                          <td>KE-1054</td>
+                          <td>뒷브레이크</td>
+                          <td>500</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송장소</td>
+                          <td colspan="4"><input type="text" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송 요청 사항</td>
+                          <td colspan="4"><textarea style="width: 100%; border: 0;" rows="4"></textarea></td>
+                        </tr>
+                      </table>
+                      <table class="table table-bordered mb-4">
+                        <tr>
+                          <th rowspan="4" style="width: 10px;"><input type="checkbox" class="form-check-input"></th>
+                          <th>자재번호</th>
+                          <th>자재명</th>
+                          <th>계약수량</th>
+                          <th>수량</th>
+                          <th>요청일</th>
+                        </tr>
+                        <tr>
+                          <td>BN-5410</td>
+                          <td>배터리</td>
+                          <td>500</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송장소</td>
+                          <td colspan="4"><input type="text" style="border: 0; width: 100%;"></td>
+                        </tr>
+                        <tr>
+                          <td>배송 요청 사항</td>
+                          <td colspan="4"><textarea style="width: 100%; border: 0;" rows="4"></textarea></td>
+                        </tr>
+                      </table>
+                    </div>
+
+                    <div class="d-flex justify-content-between w-100">
+                      <a th:href="@{/order/list_order}">
+                        <button type="reset" class="btn btn-outline-secondary">취소</button>
+                      </a>
+                    <a th:href="@{/order/list_order}">
+                        <button class="btn btn-primary">등록</button>
+                      </a>
+                    </div>
+                  </div>
+                  <!--/Card body-->
+                </div>
+                <!--/ Card-->
+              </div>
+            </div>
+
+      <!--Modal-->
+
+        <!--/Modal-->
+        <!--Script-->
+  <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+      <!-- endbuild -->
+
+      <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+      <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+      <!-- Page JS -->
+    <script src="../assets/js/dashboards-analytics.js"></script>
+
+      <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

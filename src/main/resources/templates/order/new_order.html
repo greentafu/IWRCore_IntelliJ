@@ -11,20 +11,497 @@
 <th:block th:replace="~{/layout/prolayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
-    <title>타이틀</title>
+    <title>신규 등록</title>
       <!--Style-->
 
       <!--/Style-->
   </span>
 
     <span id="content">
-    가나다라마바사
+    <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">발주서 /</span> 신규 등록</h4>
 
+      <!-- Hoverable Table rows -->
+            <div class="card">
+
+              <div class="card-body">
+                <div class="row justify-content-between w-100">
+                  <h5>공급자 정보</h5>
+                  <div class="col-md-9">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <input type="text" class="form-control">
+                      </div>
+                      <button
+                              type="button"
+                              class="btn btn-outline-primary col-md-2"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalScrollable"
+                      >
+                        공급자 선택
+                      </button>&nbsp;
+                    </div>
+                  </div>
+                  <div class="col-md-2" style="width: fit-content;">
+                    <button
+                            type="button"
+                            class="btn btn-outline-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalScrollable3"
+                    >
+                      자재추가
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="firstName" class="form-label">사업자등록명</label>
+                    <input class="form-control" type="text" id="firstName" name="firstName"
+                           value="000.00-00000" readonly />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="firstName" class="form-label">협력회사명</label>
+                    <input class="form-control" type="text" id="firstName" name="firstName"
+                           value="(주)IWL CORE" readonly />
+                  </div>
+                </div>
+              </div>
+              <hr class="m-0">
+              <div class="card-body">
+                <h5>발주 자재 정보</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-bordered mb-4">
+                    <tr>
+                      <th rowspan="4" style="width: 10px;"><input type="checkbox" class="form-check-input"></th>
+                      <th>자재번호</th>
+                      <th>자재명</th>
+                      <th>수량</th>
+                      <th>요청일</th>
+                    </tr>
+                    <tr>
+                      <td>AE-8704</td>
+                      <td>앞타이어</td>
+                      <td>500</td>
+                      <td><input type="number" style="border: 0; width: 100%;"></td>
+                      <td><input type="date" style="border: 0; width: 100%;"></td>
+                    </tr>
+                    <tr>
+                      <td>배송장소</td>
+                      <td colspan="4"><input type="text" style="border: 0; width: 100%;"></td>
+                    </tr>
+                    <tr>
+                      <td>배송 요청 사항</td>
+                      <td colspan="4"><textarea style="width: 100%; border: 0;" rows="4"></textarea></td>
+                    </tr>
+                  </table>
+                </div>
+                <!--뒤로가기,등록 버튼 세트-->
+                <div class="d-flex justify-content-between w-100">
+                 <a th:href="@{/order/list_order}">
+                    <button type="reset" class="btn btn-outline-secondary">취소</button>
+                  </a>
+                  <button class="btn btn-primary">등록</button>
+                </div>
+                <!--/뒤로가기,등록 버튼 세트-->
+              </div>
+              <!-- Modal -->
+              <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <h5 class="modal-title mb-4" id="modalScrollableTitle">공급자 검색</h5>
+
+                      <div class="row mb-10 mb-2">
+                        <label class="form-label col-md-2" style="width: fit-content;">협력회사</label>
+                        <div class="col-md-10">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <form class="d-flex" onsubmit="return false">
+                          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                          <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+                      </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="modal-body" style="height: 350px;">
+                      <table class="table table-hover">
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                        <tr>
+                          <td>(주)한일전자</td>
+                          <td>000-00-00000</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        닫기
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Modal-->
+              <!-- Modal2 -->
+              <div class="modal fade" id="modalScrollable2" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                  <div class="modal-content" style="width: fit-content;">
+                    <div class="modal-body">
+                      <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
+
+                      <div class="row mb-10 mb-2">
+                        <label class="form-label col-md-2" style="width: fit-content;">제품</label>
+                        <div class="col-md-10">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-10 mb-2">
+                        <label class="form-label col-md-2" style="width: fit-content;">자재</label>
+                        <div class="col-md-10">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <form class="d-flex" onsubmit="return false">
+                          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                          <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+                      </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="modal-body" style="height: 350px;">
+                      <div class="table-responsive text-nowrap">
+                        <table class="table table-hover">
+                          <tr>
+                            <th></th>
+                            <th>자재번호</th>
+                            <th>자재명</th>
+                            <th>입고일</th>
+                            <th>입고수량</th>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input" checked>
+                            </td>
+                            <td>KE-8705</td>
+                            <td>전선100m(3mm)</td>
+                            <td>2024-07-02</td>
+                            <td>10</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input" checked>
+                            </td>
+                            <td>KE-8706</td>
+                            <td>전선100m(1.5mm)</td>
+                            <td>2024-07-03</td>
+                            <td>10</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>YF-8705</td>
+                            <td>브레이크(검정)</td>
+                            <td>2024-07-05</td>
+                            <td>200</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>YF-8705</td>
+                            <td>충전기(검정)</td>
+                            <td>2024-07-06</td>
+                            <td>200</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        확인
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        닫기
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Modal2-->
+              <!-- Modal3 -->
+              <div class="modal fade" id="modalScrollable3" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                  <div class="modal-content" style="width: 500px;">
+                    <div class="modal-body">
+                      <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
+
+                      <div class="row mb-10 mb-2">
+                        <label class="form-label col-md-2" style="width: fit-content;">제품</label>
+                        <div class="col-md-10">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-10 mb-2">
+                        <label class="form-label col-md-2" style="width: fit-content;">자재</label>
+                        <div class="col-md-10">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4">
+                              <select class="form-select form-select-sm">
+                                <option>전체보기</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <form class="d-flex" onsubmit="return false">
+                          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                          <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+                      </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="modal-body" style="height: 350px;">
+                      <button type="button" class="btn btn-primary btn-sm mb-2">모두선택</button>
+                      <div class="table-responsive text-nowrap">
+                        <table class="table table-hover">
+                          <tr>
+                            <th></th>
+                            <th>자재번호</th>
+                            <th>자재명</th>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td></td>
+                            <td>직접입력</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>QR-1234</td>
+                            <td>앞브레이크</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>QR-1235</td>
+                            <td>뒷브레이크</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>OC-2765</td>
+                            <td>T바</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>YX-8125</td>
+                            <td>스티어링튜브</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>WE-1534</td>
+                            <td>폴딩레버</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>LB-2795</td>
+                            <td>충전소켓</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>ZO-3548</td>
+                            <td>배터리</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>ZA-2154</td>
+                            <td>모터</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="checkbox" class="form-check-input">
+                            </td>
+                            <td>VG-3012</td>
+                            <td>킥스탠드</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        확인
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        닫기
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Modal3-->
+
+
+            </div>
+  </div>
         <!--Modal-->
 
         <!--/Modal-->
         <!--Script-->
+<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
+    <script src="../assets/vendor/js/menu.js"></script>
+      <!-- endbuild -->
+
+      <!-- Vendors JS -->
+
+      <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+      <!-- Page JS -->
+    <script src="../assets/js/pages-account-settings-account.js"></script>
+
+      <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!--Script-->
   </span>
 
