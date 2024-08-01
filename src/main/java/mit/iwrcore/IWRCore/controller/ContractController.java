@@ -13,6 +13,13 @@ public class ContractController {
     @GetMapping("/download_contract")
     public void download_contract(){
     }
+    @GetMapping("/list_contract")
+    public void list_contract(){
 
+    }
+    @GetMapping("/modify_contract")
+    public void modify_contract(){
+
+    }
 }
 
