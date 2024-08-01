@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/prolayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>생산 계획 보기</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">생산부서 /</span> 계획 정보 보기</h4>
+        <!-- Accordion -->
+              <div class="card mb-4">
+                <div class="card-body">
+
+
+                  <p><strong>전동 킥보드 생산 계획</strong></p>
+
+                  <p><strong>1. 생산 개요</strong></p>
+                  <p>제품명: 전동 킥보드 - 모델 X</p>
+                  <p>제품 번호:  ZK-103</p>
+                  <p>총 생산량: 1500 대</p>
+                  <p>생산 기간: 2024년 08월 20일 - 2024년 12월 10일</p>
+
+
+                  <p><strong>2. 주요 마일스톤</strong></p>
+                  <p>생산 준비 완료: 2024년 08월 18일</p>
+                  <p>첫 생산 시작: 2024년 08월 20일</p>
+                  <p>중간 점검 및 품질 검사: 2024년 9월 01일</p>
+                  <p>생산 완료: 2024년 12월 10일</p>
+                  <p>최종 품질 검사 및 포장: 2024년 8월 21일 - 2024년 8월 25일</p>
+                  <p>출하 준비 완료: 2024년 8월 25일</p>
+
+                  <p><strong>3. 품질 관리</strong></p>
+                  <p>초기 품질 검사: 생산 시작 전 모든 부품 및 재료의 품질 검사</p>
+                  <p>중간 품질 점검: 생산 중간에 랜덤 샘플을 통한 품질 점검</p>
+                  <p>최종 품질 검사: 생산 완료 후 최종 품질 검사 및 포장 전 점검</p>
+
+                  <p><strong>4. 인력 배치 계획</strong></p>
+                  <p>생산 팀: 총 10명 (주간 5명, 야간 5명)</p>
+                  <p>품질 관리 팀: 총 3명 (각 주에 1명씩)</p>
+                  <p>포장 및 출하 팀: 총 2명</p>
+
+                  <p><strong>5. 기타 사항</strong></p>
+                  <p>비상 대책: 생산 장비 고장 시 예비 장비 준비 및 즉각 대응</p>
+                  <p>자재 관리: 생산 부품 및 재료의 지속적 자재 관리 및 보충</p>
+
+                   <a th:href="@{/proteam/list_pro}">
+                    <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+        <!--Modal-->
+
+        <!--/Modal-->
+        <!--Script-->
+  <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+        <!-- endbuild -->
+
+        <!-- Vendors JS -->
+
+        <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+        <!-- Page JS -->
+
+        <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

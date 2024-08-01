@@ -58,7 +58,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="schedule.html" class="app-brand-link">
+            <a th:href="@{/partner/main}" class="app-brand-link">
               <span class="app-brand-logo demo">
                   <defs>
                     <path
@@ -123,32 +123,32 @@
               <span class="menu-header-text">서류 다운로드</span>
             </li>
             <li class="menu-item">
-              <a href="list_contract.html" class="menu-link">
+              <a th:href="@{/partner/list_contract}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div data-i18n="Basic">계약서</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="list_order_form.html" class="menu-link">
+              <a th:href="@{/partner/list_order}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div data-i18n="Basic">발주서</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="list_specifications.html" class="menu-link">
+              <a th:href="@{/partner/list_invoice}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div data-i18n="Basic">거래명세서</div>
               </a>
             </li>
             <li class="menu-header small text-uppercase"><span class="menu-header-text">반품/긴급납품 확인</span></li>
             <li class="menu-item">
-              <a href="list_return.html" class="menu-link">
+              <a th:href="@{/partner/list_return}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">반품 목록</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="list_urgent.html" class="menu-link">
+              <a th:href="@{/partner/list_urgent}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">긴급납품 목록</div>
               </a>
@@ -235,6 +235,7 @@
 
     <!-- Page JS -->
     <script src="../assets/js/dashboards-analytics.js"></script>
+    <script src="../assets/js/extended-ui-perfect-scrollbar.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

@@ -11,14 +11,73 @@
 <th:block th:replace="~{/layout/partlayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
-    <title>타이틀</title>
+    <title>반품내용 상세보기</title>
     <!--Style-->
 
     <!--/Style-->
   </span>
 
   <span id="content">
-    가나다라마바사
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">반품 /</span> 반품 상세 내용 보기</h4>
+      <div class="row">
+        <div class="fullscreen-background">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5>반품 상세 내용 보기</h5>
+              <div class="mb-3">
+                <label class="form-label">자재명</label>
+                <input
+                        class="form-control"
+                        type="text"
+                        value="슬라이딩 슬리브"
+                        readonly
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">수량</label>
+                <input
+                        class="form-control"
+                        type="text"
+                        value="200"
+                        readonly
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">반품 내용</label>
+                <select class="form-select" aria-label="Default select example" disabled>
+                  <option>항목 선택</option>
+                  <option value="1">규격</option>
+                  <option value="2">수량</option>
+                  <option value="3" selected>무게</option>
+                  <option value="4">색상</option>
+                  <option value="5">재질</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">이유</label>
+                <input
+                        class="form-control"
+                        value="1.3kg 초과"
+                        readonly
+                />
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label">비고</label>
+                <textarea class="form-control" rows="3" readonly>빠른 시일 내에 다시 보내주시기를 바랍니다.</textarea>
+              </div>
+              <div class="d-flex justify-content-between w-100">
+                <a th:href="@{/partner/list_return}">
+                  <button type="button" class="btn btn-outline-secondary">목록가기</button>
+                </a>
+                <button class="btn btn-primary">확인</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--Modal-->
 

@@ -11,18 +11,87 @@
 <th:block th:replace="~{/layout/partlayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
-    <title>타이틀</title>
+    <title>긴급납품 목록</title>
     <!--Style-->
 
     <!--/Style-->
   </span>
 
   <span id="content">
-    가나다라마바사
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">반품/긴급납품 확인 /</span> 긴급납품 목록</h4>
+      <div class="card">
+        <div class="table-responsive text-nowrap">
+          <div class="card-body">
+            <h5>긴급납품 목록</h5>
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th>요청일자</th>
+                  <th>수령희망일자</th>
+                  <th>제품명</th>
+                  <th>수량</th>
+                  <th>
+                    <select class="form-select form-select-sm" style="width: fit-content;">
+                      <option>확인상태</option>
+                      <option>확인</option>
+                      <option>확인완료</option>
+                    </select>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <tr>
+                  <td>2024.07.21</td>
+                  <td>2024.07.23</td>
+                  <td>슬라이딩 슬리브
+                  </td>
+                  <td>200</td>
+                  <td><button class="btn btn-primary">확인</button></td>
+                </tr>
+                <tr>
+                  <td>2024.05.29</td>
+                  <td>2024.06.03</td>
+                  <td>후미등</td>
+                  <td>200</td>
+                  <td><button class="btn btn-secondary">확인완료</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item prev">
+                  <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item next">
+                  <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--Modal-->
 
     <!--/Modal-->
+
     <!--Script-->
 
     <!--Script-->
