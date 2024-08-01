@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>진척검수일 등록</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">진척검수 관리 /</span> 진척검수 등록</h4>
+      <div class="card">
+        <div class="card-body">
+          <label class="form-label" style="width: fit-content;">담당자</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control">
+          </div>
+        </div>
+        <hr class="m-0">
+        <div class="card-body">
+          <label class="form-label" style="width: fit-content;">협력회사</label>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-md-4">
+              <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalScrollable"
+              >
+                공급자 선택
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="mb-4">
+            <button type="button" class="btn btn-primary mb-1">모두 선택</button>
+            <button type="button" class="btn btn-primary mb-1">30% 수량</button>
+            <button type="button" class="btn btn-primary mb-1">50% 수량</button>
+            <button type="button" class="btn btn-primary mb-1">70% 수량</button><br/>
+          </div>
+          <div class="col">
+            <div class="row mb-4">
+              <div class="col-md-5">
+                <input type="date" class="form-control">
+              </div>
+              <div class="col-md-5">
+                <button type="button" class="btn btn-outline-primary" style="width: fit-content;">일괄등록</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>선택</th>
+                  <th>자재</th>
+                  <th>발주수량</th>
+                  <th>입고예정일</th>
+                  <th>전척검수날짜</th>
+                  <th>진척검수 수량</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-row">
+                  <td rowspan="5">
+                    <input type="checkbox">
+                  </td>
+                  <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
+                  </td>
+                  <td>300</td>
+                  <td>2024-12-07</td>
+                  <td>
+                    <div class="select-box">
+                      <label for="year">년도:</label>
+                      <select class="year-select"></select>
+                      <label for="month">월:</label>
+                      <select class="month-select"></select>
+                      <label for="day">일:</label>
+                      <select class="day-select"></select>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="number">
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
+                  </td>
+                  <td>300</td>
+                  <td>2024-12-07</td>
+                  <td>
+                    <div class="select-box">
+                      <label for="year">년도:</label>
+                      <select class="year-select"></select>
+                      <label for="month">월:</label>
+                      <select class="month-select"></select>
+                      <label for="day">일:</label>
+                      <select class="day-select"></select>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="number">
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
+                  </td>
+                  <td>300</td>
+                  <td>2024-12-07</td>
+                  <td>
+                    <div class="select-box">
+                      <label for="year">년도:</label>
+                      <select class="year-select"></select>
+                      <label for="month">월:</label>
+                      <select class="month-select"></select>
+                      <label for="day">일:</label>
+                      <select class="day-select"></select>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="number">
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
+                  </td>
+                  <td>300</td>
+                  <td>2024-12-07</td>
+                  <td>
+                    <div class="select-box">
+                      <label for="year">년도:</label>
+                      <select class="year-select"></select>
+                      <label for="month">월:</label>
+                      <select class="month-select"></select>
+                      <label for="day">일:</label>
+                      <select class="day-select"></select>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="number">
+                  </td>
+                </tr>
+                <tr class="table-row">
+                  <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
+                  </td>
+                  <td>300</td>
+                  <td>2024-12-07</td>
+                  <td>
+                    <div class="select-box">
+                      <label for="year">년도:</label>
+                      <select class="year-select"></select>
+                      <label for="month">월:</label>
+                      <select class="month-select"></select>
+                      <label for="day">일:</label>
+                      <select class="day-select"></select>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="number">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <a th:href="@{/progress/requiring_progress}">
+            <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+          </a>
+           <a th:href="@{/progress/requiring_progress}">
+            <button type="button" class="btn btn-primary">등록</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5 class="modal-title mb-4" id="modalScrollableTitle">공급자 검색</h5>
+            <div class="row mb-10 mb-2">
+              <label class="form-label col-md-2" style="width: fit-content;">협력회사</label>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <form class="d-flex" onsubmit="return false">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+          <hr class="m-0">
+          <div class="modal-body" style="height: 350px;">
+            <table class="table table-hover">
+              <tr>
+                <td>(주)한일전자</td>
+                <td>000-00-00000</td>
+              </tr>
+              <tr>
+                <td>(주)HAN생활공업</td>
+                <td>000-00-00000</td>
+              </tr>
+              <tr>
+                <td>사주제일</td>
+                <td>000-00-00000</td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/Modal-->
+
+    <!--Script-->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const tableRows = document.querySelectorAll('.table-row');
+        const startYear = 24;
+        const endYear = 99;
+
+        // 연도 옵션 추가 함수
+        function populateYearOptions(select) {
+          for (let year = startYear; year <= endYear; year++) {
+            const option = document.createElement('option');
+            const fullYear = 2000 + year;
+            option.value = fullYear;
+            option.textContent = fullYear;
+            select.appendChild(option);
+          }
+        }
+        // 월 옵션 추가 함수
+        function populateMonthOptions(select) {
+          for (let month = 1; month <= 12; month++) {
+            const option = document.createElement('option');
+            const monthValue = month < 10 ? '0' + month : month.toString();
+            option.value = monthValue;
+            option.textContent = monthValue;
+            select.appendChild(option);
+          }
+        }
+        // 일 옵션 추가 함수
+        function populateDayOptions(selectYear, selectMonth, selectDay) {
+          selectYear.addEventListener('change', function() {
+            populateDays(selectYear, selectMonth, selectDay);
+          });
+          selectMonth.addEventListener('change', function() {
+            populateDays(selectYear, selectMonth, selectDay);
+          });
+          populateDays(selectYear, selectMonth, selectDay);
+        }
+        function populateDays(selectYear, selectMonth, selectDay) {
+          const selectedYear = parseInt(selectYear.value);
+          const selectedMonth = parseInt(selectMonth.value);
+          const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+
+          selectDay.innerHTML = ''; // 기존 옵션 초기화
+
+          for (let day = 1; day <= daysInMonth; day++) {
+            const option = document.createElement('option');
+            const dayValue = day < 10 ? '0' + day : day.toString();
+            option.value = dayValue;
+            option.textContent = dayValue;
+            selectDay.appendChild(option);
+          }
+        }
+        // 각 테이블 행의 연도, 월, 일 옵션 추가
+        tableRows.forEach(function(row, index) {
+          const yearSelect = row.querySelector('.year-select');
+          const monthSelect = row.querySelector('.month-select');
+          const daySelect = row.querySelector('.day-select');
+
+          populateYearOptions(yearSelect);
+          populateMonthOptions(monthSelect);
+          populateDayOptions(yearSelect, monthSelect, daySelect);
+        });
+      });
+
+    </script>
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>
