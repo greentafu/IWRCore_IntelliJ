@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>입고 목록</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">입고/출하 관리 /</span> 입고/반품</h4>
+      <div class="card">
+        <!--검색-->
+        <div class="card-body">
+          <div class="card border">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <th class="bg-label-primary">협력회사</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">제품</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">자재</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--/검색-->
+        <div class="card-body">
+          <div class="table-responsive text-nowrap">
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th rowspan="2">수령일자</th>
+                  <th rowspan="2">자재번호</th>
+                  <th rowspan="2">자재명</th>
+                  <th colspan="4" class="text-center">수량</th>
+                  <th rowspan="2">
+                    <select class="form-select form-select-sm" style="width: fit-content;">
+                      <option>전체 입고상태</option>
+                      <option>완료</option>
+                      <option>미완료</option>
+                    </select>
+                  </th>
+                  <th rowspan="2">업체명</th>
+                  <th rowspan="2">다운로드</th>
+                  <th rowspan="2">반품/입고</th>
+                  <th rowspan="2">추가 요청</th>
+                </tr>
+                <tr>
+                  <th>요청</th>
+                  <th>총입고</th>
+                  <th>필요</th>
+                  <th>입고대기</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>배송중</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">앞 브레이크</a></td>
+                  <td>300</td>
+                  <td>200</td>
+                  <td>100</td>
+                  <td>
+                    <button
+                            type="button"
+                            class="btn btn-outline-primary btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalCenter2"
+                    >
+                      수령
+                    </button>
+                  </td>
+                  <td><span style="color: red;">미완료</span></td>
+                  <td>AAA</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary">
+                      <span class="bx bx-download"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/goodshandling/return_received}">
+                      <button class="btn btn-primary">반품</button>
+                    </a>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalCenter"
+                    >
+                      입고
+                    </button>
+                  </td>
+                  <td>
+                    <button onclick="showOptions()" class="btn btn-primary">요청</button>
+                    <div id="myModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <p>원하는 작업을 선택하세요:</p>
+                        <button onclick="callContact()" class="btn btn-secondary">담당자 전화 걸기</button>
+                        <button onclick="emailContact()" class="btn btn-secondary">담당자 이메일 보내기</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>배송중</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>BB-124</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">뒷 브레이크</a></td>
+                  <td>200</td>
+                  <td>150</td>
+                  <td>50</td>
+                  <td>
+                    <button
+                            type="button"
+                            class="btn btn-outline-primary btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalCenter2"
+                    >
+                      수령
+                    </button>
+                  </td>
+                  <td><span style="color: red;">미완료</span></td>
+                  <td>AAA</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary">
+                              <span class="bx bx-download"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/goodshandling/return_received}">
+                      <button class="btn btn-primary">반품</button>
+                    </a>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalCenter"
+                    >
+                      입고
+                    </button>
+                  </td>
+                  <td>
+                    <button onclick="showOptions()" class="btn btn-primary">요청</button>
+                    <div id="myModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <p>원하는 작업을 선택하세요:</p>
+                        <button onclick="callContact()" class="btn btn-secondary">담당자 전화 걸기</button>
+                        <button onclick="emailContact()" class="btn btn-secondary">담당자 이메일 보내기</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-15</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>BT-590</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">배터리</a></td>
+                  <td>510</td>
+                  <td>300</td>
+                  <td>210</td>
+                  <td>80</td>
+                  <td><span style="color: red;">미완료</span></td>
+                  <td>AAA</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary">
+                      <span class="bx bx-download"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/goodshandling/return_received}">
+                      <button class="btn btn-primary">반품</button>
+                    </a>
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalCenter"
+                    >
+                      입고
+                    </button>
+                  </td>
+                  <td>
+                    <button onclick="showOptions()" class="btn btn-primary">요청</button>
+                    <div id="myModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <p>원하는 작업을 선택하세요:</p>
+                        <button onclick="callContact()" class="btn btn-secondary">담당자 전화 걸기</button>
+                        <button onclick="emailContact()" class="btn btn-secondary">담당자 이메일 보내기</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AT-152	</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">앞 타이어	</a></td>
+                  <td>300</td>
+                  <td>200</td>
+                  <td>100</td>
+                  <td>100</td>
+                  <td><span style="color: green;">완료</span></td>
+                  <td>BBB</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary">
+                      <span class="bx bx-download"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">입고완료</button>
+                      </a>
+                    </li>
+                  </td><td>
+                  <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                      <button  class="btn btn-secondary">요청</button>
+                    </a>
+                  </li>
+                </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>DT-569</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">뒷 타이어	</a></td>
+                  <td>200</td>
+                  <td>50</td>
+                  <td>150</td>
+                  <td>100</td>
+                  <td><span style="color: red;">미완료</span></td>
+                  <td>BBB</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary">
+                      <span class="bx bx-download"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">입고완료</button>
+                      </a>
+                    </li>
+                  </td><td>
+                  <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                      <button  class="btn btn-secondary">요청</button>
+                    </a>
+                  </li>
+                </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>KT-632</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">컨트롤러	</a></td>
+                  <td>300</td>
+                  <td>200</td>
+                  <td>100</td>
+                  <td>100</td>
+                  <td><span style="color: green;">완료</span></td>
+                  <td>BBB</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary">
+                      <span class="bx bx-download"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">입고완료</button>
+                      </a>
+                    </li>
+                  </td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">요청</button>
+                      </a>
+                    </li>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>SS-149</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">슬라이-슬리브</a></td>
+                  <td>300</td>
+                  <td>200</td>
+                  <td>100</td>
+                  <td>100</td>
+                  <td><span style="color: green;">완료</span></td>
+                  <td>CCC</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary">
+                      <span class="bx bx-download"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">입고완료</button>
+                      </a>
+                    </li>
+                  </td><td>
+                  <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                      <button  class="btn btn-secondary">요청</button>
+                    </a>
+                  </li>
+                </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>ST-694</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">스티어링 튜브	</a></td>
+                  <td>200</td>
+                  <td>70</td>
+                  <td>130</td>
+                  <td>100</td>
+                  <td><span style="color: red;">미완료</span></td>
+                  <td>CCC</td>
+                  <td>
+                    <button type="button" class="btn btn-outline-primary">
+                      <span class="bx bx-download"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">입고완료</button>
+                      </a>
+                    </li>
+                  </td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">요청</button>
+                      </a>
+                    </li>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+              <br>
+              <ul class="pagination justify-content-center">
+                <li class="page-item prev">
+                  <a class="page-link" href="javascript:void(0);"
+                  ><i class="tf-icon bx bx-chevrons-left"></i
+                  ></a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item next">
+                  <a class="page-link" href="javascript:void(0);"
+                  ><i class="tf-icon bx bx-chevrons-right"></i
+                  ></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Modal-->
+    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCenterTitle">입고처리</h5>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col mb-3 text-center">
+                AM-823의 반품수량은 0개 입니다.<br/>
+                입고 가능 수량 : 300개
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col mb-0">
+                <label for="emailWithTitle" class="form-label">담당자</label>
+                <input
+                        type="text"
+                        id="emailWithTitle"
+                        class="form-control"
+                        placeholder="실명 입력"
+                />
+              </div>
+              <div class="col mb-0">
+                <label for="dobWithTitle" class="form-label">입고처리 수량 입력</label>
+                <input
+                        type="number"
+                        id="dobWithTitle"
+                        class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              취소
+            </button>
+            <button type="button" class="btn btn-primary">입고확인</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal-->
+    <!--Modal2-->
+    <div class="modal fade" id="modalCenter2" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCenterTitle">수령확인</h5>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col mb-3 text-center">
+                협력회사에서 보낸 수량은 100개 입니다.<br/>
+                수령 가능 수량 : 100개
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col mb-0">
+                <label for="emailWithTitle" class="form-label">담당자</label>
+                <input
+                        type="text"
+                        id="emailWithTitle"
+                        class="form-control"
+                        placeholder="실명 입력"
+                />
+              </div>
+              <div class="col mb-0">
+                <label for="dobWithTitle" class="form-label">수령한 수량 입력</label>
+                <input
+                        type="number"
+                        id="dobWithTitle"
+                        class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              취소
+            </button>
+            <button type="button" class="btn btn-primary">수령확인</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/Modal2-->
+    <!--/Modal-->
+
+    <!--Script-->
+    <script>
+      function showConfirmation() {
+        alert("입고 완료");
+      }
+      function showOptions() {
+        document.getElementById("myModal").style.display = "block";
+      }
+      function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+      }
+      function callContact() {
+        window.location.href = 'tel:123-456-7890'; // 전화 번호를 실제 담당자 번호로 변경하세요
+      }
+      function emailContact() {
+        window.location.href = 'mailto:contact@example.com'; // 이메일 주소를 실제 담당자 이메일로 변경하세요
+      }
+      window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>
