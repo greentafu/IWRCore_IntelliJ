@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>거래명세서 작성</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">거래명세서 /</span> 거래명세서 발행</h4>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <!-- Bordered Table -->
+            <div class="card">
+              <div class="card-body mb-4" style="height: 10px;">
+                <div>
+                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                          data-bs-target="#modalScrollable">
+                    공급자 선택
+                  </button>
+                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                          data-bs-target="#modalScrollable2">
+                    자재선택
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                      <div class="table-responsive text-nowrap">
+                        <table class="table table-bordered">
+                          <tr>
+                            <th rowspan="6" style="writing-mode: vertical-lr;text-align: center; width: 5%;
+                                border-top: 2px solid red; border-bottom: 2px solid red;">
+                              공급자
+                            </th>
+                            <th style="text-align: center; border-top: 2px solid red;">
+                              등록<br />번호
+                            </th>
+                            <td colspan="5" style="border-top: 2px solid red;">
+                              <input type="text" style="border: 0; width: 100%; min-width: 100px;" value="000-00-00000">
+                            </td>
+                            <th style="text-align: center; border-top: 2px solid red;">
+                              종사업장<br />번호
+                            </th>
+                            <td colspan="5" style="border-top: 2px solid red;">
+                              <input type="text" style="border: 0; width: 100%; min-width: 100px">
+                            </td>
+                            <th rowspan="6"
+                                style="writing-mode: vertical-lr; text-align: center; width: 5%;
+                                border-top: 2px solid blue; border-bottom: 2px solid blue; border-left: 3px solid gray;">
+                              공급받는자
+                            </th>
+                            <th style="text-align: center; border-top: 2px solid blue;">
+                              등록<br />번호
+                            </th>
+                            <td colspan="5" style="border-top: 2px solid blue;">
+                              <input type="text" style="border: 0; width: 100%; min-width: 100px;" value="000-00-00000">
+                            </td>
+                            <th style="text-align: center; border-top: 2px solid blue;">
+                              종사업자<br />번호
+                            </th>
+                            <td colspan="5" style="border-top: 2px solid blue;">
+                              <input type="text" style="border: 0; width: 100%; min-width: 100px;">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: center;">상호</th>
+                            <td colspan="5"> <input type="text" style="border: 0;" value="(주)한일전자"> </td>
+                            <th style="text-align: center;">성명</th>
+                            <td colspan="5"> <input type="text" style="border: 0;" value="이대표"> </td>
+                            <th style="text-align: center;">상호</th>
+                            <td colspan="5"> <input type="text" style="border: 0;" value="DG물산"> </td>
+                            <th style="text-align: center;">성명</th>
+                            <td colspan="5"> <input type="text" style="border: 0;" value="박대표"> </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: center;">사업장</th>
+                            <td colspan="11"> <input type="text" style="border: 0; width: 100%;"
+                                                     value="충청북도 청주시 흥덕구 ..."> </td>
+                            <th style="text-align: center;">사업장</th>
+                            <td colspan="11"> <input type="text" style="border: 0; width: 100%;" value="경기도 수원시 ...">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: center;">업태</th>
+                            <td colspan="5"> <input type="text" style="border: 0;" value="제조업"> </td>
+                            <th style="text-align: center;">종목</th>
+                            <td colspan="5"> <input type="text" style="border: 0;" value="도매 및 소매업"> </td>
+                            <th style="text-align: center;">업태</th>
+                            <td colspan="5"> <input type="text" style="border: 0;" value="제조업"> </td>
+                            <th style="text-align: center;">종목</th>
+                            <td colspan="5"> <input type="text" style="border: 0;" value="도매 및 소매업"> </td>
+                          </tr>
+                          <tr>
+                            <th rowspan="2" style="text-align: center; border-bottom: 2px solid red;">
+                              이메일
+                            </th>
+                            <td rowspan="2" colspan="11" style=" border-bottom: 2px solid red;">
+                              <input type="text" style="border: 0;" value="asd1234@mail.com">
+                            </td>
+                            <th style="text-align: center;">이메일</th>
+                            <td colspan="11"> <input type="text" style="border: 0;" value="qwe4567@mail.com"> </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: center; border-bottom: 2px solid blue;">이메일</th>
+                            <td colspan="11" style="border-bottom: 2px solid blue;"> <input type="text"
+                                                                                            style="border: 0; width: 100%;"> </td>
+                          </tr>
+                          <tr>
+                            <td colspan="22"></td>
+                          </tr>
+                          <tr>
+                            <th colspan="2" style="text-align: center;">작성일자</th>
+                            <td colspan="11"> <input type="date" value="2024-07-23"> </td>
+                            <th colspan="2" style="text-align: center;">비고</th>
+                            <td colspan="11"> <input type="text" style="border: 0;"> </td>
+                          </tr>
+                          <tr>
+                            <th colspan="2" style="text-align: center;">합계금액</th>
+                            <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="902,000"> </td>
+                            <th style="text-align: center;">공급가액</th>
+                            <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="820,000"> </td>
+                            <th style="text-align: center;">세액</th>
+                            <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="82,000"> </td>
+                          </tr>
+                          <tr>
+                            <td colspan="22">
+                              <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                                      data-bs-target="#modalScrollable3">
+                                품목 추가
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: center;">월</th>
+                            <th style="text-align: center;">일</th>
+                            <th colspan="6" style="text-align: center;">품목</th>
+                            <th colspan="2" style="text-align: center;">규격</th>
+                            <th style="text-align: center;">수량</th>
+                            <th colspan="4" style="text-align: center;">단가</th>
+                            <th colspan="3" style="text-align: center;">공급가액</th>
+                            <th colspan="3" style="text-align: center;">세액</th>
+                            <th colspan="2" style="text-align: center;">비고</th>
+                          </tr>
+                          <tr>
+                            <td> <input type="text" style="border: 0; width: 100%;" value="07"> </td>
+                            <td> <input type="text" style="border: 0; width: 100%;" value="02"> </td>
+                            <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="전선100m"> </td>
+                            <td colspan="2"> <input type="text" style="border: 0; width: 100%;" value="3mm"> </td>
+                            <td> <input type="text" style="border: 0; width: 100%;" value="10"> </th>
+                            <td colspan="4"> <input type="text" style="border: 0; width: 100%;" value="50,000"> </td>
+                            <td colspan="3"> <input type="text" style="border: 0; width: 100%;" value="500,000"> </td>
+                            <td colspan="3"> <input type="text" style="border: 0; width: 100%;" value="50,000"> </td>
+                            <td colspan="2"> <input type="text" style="border: 0; width: 100%;"> </td>
+                          </tr>
+                          <tr>
+                            <td> <input type="text" style="border: 0; width: 100%;" value="07"> </td>
+                            <td> <input type="text" style="border: 0; width: 100%;" value="03"> </td>
+                            <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="전선100m"> </td>
+                            <td colspan="2"> <input type="text" style="border: 0; width: 100%;" value="1.5mm"> </td>
+                            <td> <input type="text" style="border: 0; width: 100%;" value="10"> </th>
+                            <td colspan="4"> <input type="text" style="border: 0; width: 100%;" value="32,000"> </td>
+                            <td colspan="3"> <input type="text" style="border: 0; width: 100%;" value="320,000"> </td>
+                            <td colspan="3"> <input type="text" style="border: 0; width: 100%;" value="32,000"> </td>
+                            <td colspan="2"> <input type="text" style="border: 0; width: 100%;"> </td>
+                          </tr>
+
+                          <tr>
+                            <td colspan="22"></td>
+                          </tr>
+                          <tr>
+                            <th colspan="5" style="text-align: center;">현금</th>
+                            <th colspan="5" style="text-align: center;">수표</th>
+                            <th colspan="5" style="text-align: center;">어음</th>
+                            <th colspan="5" style="text-align: center;">외상미수금</th>
+                            <th rowspan="2" colspan="2">
+                              <div class="text-center">
+                                <input type="radio" name="type" value="영수" class="mb-2" checked>영수<br />
+                                <input type="radio" name="type" value="청구">청구
+                              </div>
+                            </th>
+                          </tr>
+                          <tr>
+                            <td colspan="5"> <input type="text" style="border: 0; width: 100%;" value="902,000"> </td>
+                            <td colspan="5"> <input type="text" style="border: 0; width: 100%;"> </td>
+                            <td colspan="5"> <input type="text" style="border: 0; width: 100%;"> </td>
+                            <td colspan="5"> <input type="text" style="border: 0; width: 100%;"> </td>
+                          </tr>
+                        </table>
+                        <br>
+                        <!--뒤로가기,등록 버튼 세트-->
+                        <div class="d-flex justify-content-between w-100">
+                          <a href="../pageInvoice/list_invoice.html">
+                            <button type="reset" class="btn btn-outline-secondary">취소</button>
+                          </a>
+                          <div></div>
+                          <button type="button" class="btn btn-primary btn-sm">발급하기</button>
+                        </div>
+                        <!--/-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--/ Bordered Table -->
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+    <!--Modal-->
+
+    <!-- Modal -->
+                  <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <h5 class="modal-title mb-4" id="modalScrollableTitle">공급자 검색</h5>
+
+                          <div class="row mb-10 mb-2">
+                            <label class="form-label col-md-2" style="width: fit-content;">협력회사</label>
+                            <div class="col-md-10">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div>
+                            <form class="d-flex" onsubmit="return false">
+                              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                              <button class="btn btn-outline-primary" type="submit">Search</button>
+                            </form>
+                          </div>
+                        </div>
+                        <hr class="m-0">
+                        <div class="modal-body" style="height: 350px;">
+                          <table class="table table-hover">
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                            <tr>
+                              <td>(주)한일전자</td>
+                              <td>000-00-00000</td>
+                            </tr>
+                          </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            닫기
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    <!--/ Modal-->
+    <!-- Modal2 -->
+                  <div class="modal fade" id="modalScrollable2" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                      <div class="modal-content" style="width: fit-content;">
+                        <div class="modal-body">
+                          <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
+
+                          <div class="row mb-10 mb-2">
+                            <label class="form-label col-md-2" style="width: fit-content;">제품</label>
+                            <div class="col-md-10">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mb-10 mb-2">
+                            <label class="form-label col-md-2" style="width: fit-content;">자재</label>
+                            <div class="col-md-10">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div>
+                            <form class="d-flex" onsubmit="return false">
+                              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                              <button class="btn btn-outline-primary" type="submit">Search</button>
+                            </form>
+                          </div>
+                        </div>
+                        <hr class="m-0">
+                        <div class="modal-body" style="height: 350px;">
+                          <div class="table-responsive text-nowrap">
+                            <table class="table table-hover">
+                              <tr>
+                                <th></th>
+                                <th>자재번호</th>
+                                <th>자재명</th>
+                                <th>입고일</th>
+                                <th>입고수량</th>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input" checked>
+                                </td>
+                                <td>KE-8705</td>
+                                <td>전선100m(3mm)</td>
+                                <td>2024-07-02</td>
+                                <td>10</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input" checked>
+                                </td>
+                                <td>KE-8706</td>
+                                <td>전선100m(1.5mm)</td>
+                                <td>2024-07-03</td>
+                                <td>10</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>YF-8705</td>
+                                <td>브레이크(검정)</td>
+                                <td>2024-07-05</td>
+                                <td>200</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>YF-8705</td>
+                                <td>충전기(검정)</td>
+                                <td>2024-07-06</td>
+                                <td>200</td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            확인
+                          </button>
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            닫기
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    <!--/ Modal2-->
+    <!-- Modal3 -->
+                  <div class="modal fade" id="modalScrollable3" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                      <div class="modal-content" style="width: 500px;">
+                        <div class="modal-body">
+                          <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
+
+                          <div class="row mb-10 mb-2">
+                            <label class="form-label col-md-2" style="width: fit-content;">제품</label>
+                            <div class="col-md-10">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mb-10 mb-2">
+                            <label class="form-label col-md-2" style="width: fit-content;">자재</label>
+                            <div class="col-md-10">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-4">
+                                  <select class="form-select form-select-sm">
+                                    <option>전체보기</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div>
+                            <form class="d-flex" onsubmit="return false">
+                              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                              <button class="btn btn-outline-primary" type="submit">Search</button>
+                            </form>
+                          </div>
+                        </div>
+                        <hr class="m-0">
+                        <div class="modal-body" style="height: 350px;">
+                          <button type="button" class="btn btn-primary btn-sm mb-2">모두선택</button>
+                          <div class="table-responsive text-nowrap">
+                            <table class="table table-hover">
+                              <tr>
+                                <th></th>
+                                <th>자재번호</th>
+                                <th>자재명</th>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td></td>
+                                <td>직접입력</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>QR-1234</td>
+                                <td>앞브레이크</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>QR-1235</td>
+                                <td>뒷브레이크</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>OC-2765</td>
+                                <td>T바</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>YX-8125</td>
+                                <td>스티어링튜브</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>WE-1534</td>
+                                <td>폴딩레버</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>LB-2795</td>
+                                <td>충전소켓</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>ZO-3548</td>
+                                <td>배터리</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>ZA-2154</td>
+                                <td>모터</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <input type="checkbox" class="form-check-input">
+                                </td>
+                                <td>VG-3012</td>
+                                <td>킥스탠드</td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            확인
+                          </button>
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            닫기
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    <!--/ Modal3-->
+
+
+
+    <!--/Modal-->
+    <!--Script-->
+
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>

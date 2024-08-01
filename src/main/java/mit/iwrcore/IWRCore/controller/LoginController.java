@@ -9,8 +9,12 @@ public class LoginController {
     public void login(){
 
     }
-    @GetMapping("main")
+    @GetMapping("/main")
     public void main(){
+
+    }
+    @GetMapping("/category")
+    public void category(){
 
     }
 }
