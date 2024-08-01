@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/prolayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>출하 요청</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+     <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">생산부서 /</span> 출하 요청</h4>
+
+            <div class="row">
+              <div class="fullscreen-background">
+                <div class="card mb-4">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h5>제품 정보</h5>
+                      <div>
+                        <label for="exampleDataList" class="form-label">제품 이름</label>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <input type="text" class="form-control">
+                          </div>
+                          <button type="button" class="btn btn-outline-primary col-md-1" data-bs-toggle="modal"
+                                  data-bs-target="#modalScrollable2">
+                            제품선택
+                          </button>
+                        </div>
+                        <div>
+                          <label for="exampleFormControlTextarea1" class="form-label">비고</label>
+                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="card-body table-responsive text-nowrap">
+
+                      <div class="row mb-3">
+                        <h5>출하 요청 정보</h5>
+                        <div class="col-sm-2">
+                          <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                  data-bs-toggle="dropdown" aria-expanded="false">
+                            라인 선택
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="javascript:void(0);">A 라인</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">B 라인</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">C 라인</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">D 라인</a></li>
+                          </ul>
+                        </div>
+                        <label class="col-sm-1 col-form-label" for="basic-default-email">제품수량 :</label>
+                        <div class="col-sm-1" style="width: 150px;">
+                          <div class="input-group input-group-merge">
+                            <input type="number" id="basic-default-email" class="form-control" />
+                            <span class="input-group-text" id="basic-default-email2">개</span>
+                          </div>
+                        </div>
+                        <label class="col-sm-1 col-form-label" for="basic-default-email">희망일자 :</label>
+                        <div class="col-sm-1" style="width: 150px;">
+                          <input type="date" id="basic-default-email" class="form-control" />
+                        </div>
+                      </div>
+
+
+
+                      <table class="table table-bordered mb-4">
+                        <thead>
+                          <tr>
+                            <th>자재번호</th>
+                            <th>자재명</th>
+                            <th>제품 1개당 소요량</th>
+                            <th style="width: 100px;">현재 자재 수량</th>
+                            <th style="width: 100px;">출하 요청 수량</th>
+                            <th>희망 출하 일자</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>HD-550</td>
+                            <td>핸들</td>
+                            <td>1</td>
+                            <td>850</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>TB-141</td>
+                            <td>T바</td>
+                            <td>1</td>
+                            <td>780</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>DP-405</td>
+                            <td>디스플레이</td>
+                            <td>1</td>
+                            <td>980</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>AT-152
+                            </td>
+                            <td>앞타이어</td>
+                            <td>1</td>
+                            <td>700</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>DT-569</td>
+                            <td>뒤타이어</td>
+                            <td>1</td>
+                            <td>720</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>BT-590</td>
+                            <td>배터리</td>
+                            <td>1</td>
+                            <td>590</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>MT-608</td>
+                            <td>모터</td>
+                            <td>1</td>
+                            <td>600</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>HD-485</td>
+                            <td>후미등</td>
+                            <td>1</td>
+                            <td>780</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>KS-493</td>
+                            <td>킥스탠드</td>
+                            <td>1</td>
+                            <td>900</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>KT-632</td>
+                            <td>컨트롤러</td>
+                            <td>1</td>
+                            <td>700</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>SS-149</td>
+                            <td>슬라이딩 슬리브</td>
+                            <td>1</td>
+                            <td>800</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>AM-823</td>
+                            <td>앞브레이크</td>
+                            <td>1</td>
+                            <td>800</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>BB-124</td>
+                            <td>뒷브레이크</td>
+                            <td>1</td>
+                            <td>700</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                          <tr>
+                            <td>ST-694</td>
+                            <td>스티어링 튜브</td>
+                            <td>1</td>
+                            <td>900</td>
+                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
+                                        aria-describedby="defaultFormControlHelp" /></td>
+                            <td><input type="date" style="border: 0;"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div class="d-flex justify-content-between w-100">
+                         <a th:href="@{/proteam/list_request.html}">
+                          <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+                        </a>
+                         <a th:href="@{/proteam/list_request.html}">
+                          <button class="btn btn-primary">출하 요청</button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!--Modal-->
+<div class="modal fade" id="modalScrollable2" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content" style="width: fit-content;">
+                  <div class="modal-body">
+                    <h5 class="modal-title mb-4" id="modalScrollableTitle">생산계획 등록 제품</h5>
+
+                    <div class="row mb-10 mb-2">
+                      <label class="form-label col-md-2" style="width: fit-content;">제품</label>
+                      <div class="col-md-10">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <select class="form-select form-select-sm">
+                              <option>전체보기</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <select class="form-select form-select-sm">
+                              <option>전체보기</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <select class="form-select form-select-sm">
+                              <option>전체보기</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <form class="d-flex" onsubmit="return false">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                      </form>
+                    </div>
+                  </div>
+                  <hr class="m-0">
+                  <div class="modal-body" style="height: 350px;">
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-hover">
+                        <tr>
+                          <th></th>
+                          <th>제품번호</th>
+                          <th>제품명</th>
+                          <th>생산계획 시작일</th>
+                          <th>생산계획 마감일</th>
+                          <th>생산계획 수량</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            <input type="radio" name="proudct" class="form-check-input">
+                          </td>
+                          <td>KE-8705</td>
+                          <td>AT-전기자전거</td>
+                          <td>2024-07-02</td>
+                          <td>2024-07-02</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <input type="radio" name="proudct" class="form-check-input">
+                          </td>
+                          <td>KE-8706</td>
+                          <td>AK-전기자전거</td>
+                          <td>2024-07-03</td>
+                          <td>2024-07-02</td>
+                          <td>10</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <input type="radio" name="proudct" class="form-check-input">
+                          </td>
+                          <td>YF-8705</td>
+                          <td>OM-산악자전거</td>
+                          <td>2024-07-05</td>
+                          <td>2024-07-02</td>
+                          <td>200</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <input type="radio" name="proudct" class="form-check-input">
+                          </td>
+                          <td>YF-8705</td>
+                          <td>JS-아동용킥보드</td>
+                          <td>2024-07-06</td>
+                          <td>2024-07-02</td>
+                          <td>200</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                      확인
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                      닫기
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </div>
+        <!--/Modal-->
+        <!--Script-->
+<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+        <script src="../assets/vendor/libs/popper/popper.js"></script>
+        <script src="../assets/vendor/js/bootstrap.js"></script>
+        <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+        <script src="../assets/vendor/js/menu.js"></script>
+         <!-- endbuild -->
+
+         <!-- Vendors JS -->
+        <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+         <!-- Main JS -->
+        <script src="../assets/js/main.js"></script>
+
+         <!-- Page JS -->
+        <script src="../assets/js/dashboards-analytics.js"></script>
+
+         <!-- Place this tag in your head or just before your close body tag. -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

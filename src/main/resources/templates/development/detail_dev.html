@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/devlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>관련 자재</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+                <!-- Heading and other content -->
+                <h4 class="fw-bold py-3 mb-4">
+                    <span class="text-muted fw-light">개발 부서 /</span> 등록 정보 보기
+                </h4>
+
+        <!-- Other content can go here -->
+
+        <!-- Vertical Scrollbar -->
+                  <div class="fullscreen-background">
+                    <div class="card overflow-hidden mb-4">
+                      <h5 class="card-header">전동 킥보드</h5>
+                      <div class="card-body">
+                        <img src="image.png" style="width: 100%;">
+                      </div>
+                    </div>
+
+
+                    <div class="card overflow-hidden mb-4" style="height: 300px;">
+
+                      <h5 class="card-header">요구 자재 목록</h5>
+                      <div class="card-body" id="vertical-example">
+                        <div class="table-responsive text-nowrap">
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>제품 번호</th>
+                                <th>자재 명</th>
+                                <th>자재 번호</th>
+                                <th>색상</th>
+                                <th>수량</th>
+                                <th>규격/재질</th>
+                                <th>비고</th>
+                                <th>도면 상세 보기</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>ZK-103</td>
+                                <td>앞 브레이크</td>
+                                <td><strong>BM-8523</strong></td>
+                                <td>화이트</td>
+                                <td>2</td>
+                                <td>120mm</td>
+                                <td>
+                                  디스크 브레이크 사용
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-sm btn-outline-primary">도면 보기</button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>ZK-103</td>
+                                <td>뒷 브레이크</td>
+                                <td><strong>BB-124</strong></td>
+                                <td>블랙</td>
+                                <td>1</td>
+                                <td>130mm</td>
+                                <td>
+
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-sm btn-outline-primary">도면 보기</button>
+                                </td>
+                              </tr> <tr>
+                                <td>ZK-103</td>
+                                <td>배터리</button></td>
+                                <td><strong>BT-590</strong></td>
+                                <td>화이트</td>
+                                <td>2</td>
+                                <td>36V</td>
+                                <td>
+                                  20Ah 용량
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-sm btn-outline-primary">도면 보기</button>
+                                </td>
+                              </tr> <tr>
+                                <td>ZK-103</td>
+                                <td>발판</td>
+                                <td><strong>BP-275</strong></td>
+                                <td>블랙</td>
+                                <td>1</td>
+                                <td>알루미늄 합금</td>
+                                <td>
+                                  브랜드 로고나 패턴이 포함
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-sm btn-outline-primary">도면 보기</button>
+                                </td>
+                              </tr><tr>
+                                <td>ZK-103</td>
+                                <td>핸들</td>
+                                <td><strong>HD-550</strong></td>
+                                <td>화이트</td>
+                                <td>1</td>
+                                <td>플라스틱</td>
+                                <td>
+                                  벨,라이트 추가적인 안전 기능 포함
+                                </td>
+                                <td>
+                                  <button type="button" class="btn btn-sm btn-outline-primary">도면 보기</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                    <div class="col-12">
+                  <div class="card overflow-hidden" style="height: 500px">
+                    <h5 class="card-header">참고 도면</h5>
+                    <div class="card-body" id="both-scrollbars-example" style="height: 80%;">
+                      <img src="../assets/img/backgrounds/image.png" alt="scrollbar-image" />
+                    </div>
+                    <div class="card-body">
+                      <a th:href="@{/development/list_dev.html}">
+                        <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                 </div>
+                </div>
+        <!--Modal-->
+
+        <!--/Modal-->
+        <!--Script-->
+ <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+        <!-- endbuild -->
+
+        <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+        <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+        <!-- Page JS -->
+    <script src="../assets/js/extended-ui-perfect-scrollbar.js"></script>
+
+        <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

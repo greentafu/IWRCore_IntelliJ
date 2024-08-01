@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/devlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>제품 신규 등록</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+          <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">개발부서 /</span> 제품 신규 등록</h4>
+
+              <div class="card">
+                <div class="card-body">
+                  <h5>제품 정보</h5>
+                  <label for="defaultFormControlInput" class="form-label">담당자</label>
+                  <input
+                          type="text"
+                          class="form-control"
+                          id="defaultFormControlInput"
+                          placeholder="실명 작성"
+                          aria-describedby="defaultFormControlHelp"
+                  />
+                  <label for="exampleDataList" class="form-label">제품명</label>
+                    <input
+                            class="form-control"
+                            list="datalistOptions"
+                            id="exampleDataList"
+                            placeholder="등록할 제품 명"
+                    />
+
+
+                  <label class="form-label">카테고리 선택</label>
+                  <div class="col">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <select id="language" class="form-select mb-1">
+                          <option value="">전체선택</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <select id="language" class="form-select mb-1">
+                          <option value="">전체선택</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2">
+                        <select id="language" class="form-select mb-1">
+                          <option value="">전체선택</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-7 mb-1">
+                            <input type="text" class="form-control">
+                          </div>
+                          <div class="col-md-5">
+                            <button type="button" class="btn btn-outline-primary col-md-4">검색</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+                  <label for="exampleDataList" class="form-label">색상</label>
+                    <select class="form-select">
+                      <option>빨강</option>
+                      <option>검정</option>
+                      <option>초록</option>
+                    </select>
+                  <label for="formFile" class="form-label">제품 도안</label>
+                  <div class="input-group">
+                    <input
+                            type="file"
+                            class="form-control"
+                            id="inputGroupFile04"
+                            aria-describedby="inputGroupFileAddon04"
+                            aria-label="Upload"
+                    />
+                    <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+                  </div>
+                  <label for="exampleDataList" class="form-label">비고</label>
+                  <textarea class="form-control" rows="5"></textarea>
+                </div>
+                <!--/ Card-->
+                <hr class="m-0">
+                <div class="card-body">
+                  <h5>자재 정보</h5>
+                  <label class="form-label">기존 자재 검색</label>
+                  <div class="row mb-2">
+                    <div class="col-md-2">
+                      <select id="language" class="form-select mb-1">
+                        <option value="">전체선택</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <select id="language" class="form-select mb-1">
+                        <option value="">전체선택</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <select id="language" class="form-select mb-1">
+                        <option value="">전체선택</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <input type="text" class="form-control mb-1">
+                        </div>
+                        <div class="col-md-4">
+                          <button type="button" class="btn btn-outline-primary col-md-5" style="width: fit-content;">검색</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <label for="language" class="form-label">자재 목록</label>
+                  <div class="row mb-2">
+                    <div class="col-md-7">
+                      <div class="card border overflow-hidden mb-4" style="height: 500px">
+                        <div id="vertical-example">
+                          <table class="table">
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2405</td>
+                              <td>후미등</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2406</td>
+                              <td>T바</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2407</td>
+                              <td>디스플레이</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2408</td>
+                              <td>배터리</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2405</td>
+                              <td>후미등</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2406</td>
+                              <td>T바</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2407</td>
+                              <td>디스플레이</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2408</td>
+                              <td>배터리</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2405</td>
+                              <td>후미등</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2406</td>
+                              <td>T바</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2407</td>
+                              <td>디스플레이</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2408</td>
+                              <td>배터리</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2405</td>
+                              <td>후미등</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2406</td>
+                              <td>T바</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2407</td>
+                              <td>디스플레이</td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <input type="checkbox" class="form-check-input">
+                              </td>
+                              <td>AT-2408</td>
+                              <td>배터리</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5" style="position: relative;">
+                      <div style="position: absolute; bottom: 30px;">
+                        <button type="button" class="btn btn-primary">추가</button>
+                        <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exLargeModal"
+                        >
+                          신규 자재 추가
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <label for="language" class="form-label">제품에 들어가는 자재 목록</label>
+                  <div class="text-nowrap table-responsive">
+                    <table class="table table-bordered mb-4">
+                      <tr>
+                        <th>자재번호</th>
+                        <th>자재명</th>
+                        <th style="width: fit-content;">제품 1개당 소요량</th>
+                        <th>대분류</th>
+                        <th>중분류</th>
+                        <th>소분류</th>
+                        <th>규격</th>
+                        <th>단위</th>
+                        <th>색상</th>
+                        <th>창고위치</th>
+                        <th style="width: 10px;">파일</th>
+                        <th style="width: 10px;">삭제</th>
+                      </tr>
+                      <tr>
+                        <td>AM-8520</td>
+                        <td>앞타이어</td>
+                        <td>
+                          <input type="number" style="border: 0px; width: 80px;">
+                        </td>
+                        <td>대</td>
+                        <td>중</td>
+                        <td>소</td>
+                        <td>30cm*30cm*2cm</td>
+                        <td>개</td>
+                        <td>검정</td>
+                        <td>A창고 c-2</td>
+                        <td>
+                          <button type="button" class="btn btn-outline-primary btn-sm">다운</button>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-sm btn-secondary">삭제</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>BM-8523</td>
+                        <td>앞브레이크</td>
+                        <td>
+                          <input type="number" style="border: 0px; width: 80px;">
+                        </td>
+                        <td>대</td>
+                        <td>중</td>
+                        <td>소</td>
+                        <td>70mm*15mm*10mm</td>
+                        <td>개</td>
+                        <td>검정</td>
+                        <td>A창고 c-2</td>
+                        <td>
+                          <button type="button" class="btn btn-outline-primary btn-sm">다운</button>
+                        </td>
+                        <td>
+                          <button type="button" class="btn btn-sm btn-secondary">삭제</button>
+                        </td>
+                      </tr>
+                    </table>
+                    <div class="text-end mb-4">
+                      <button type="button" class="btn btn-primary">자재등록완료</button>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between w-100">
+                    <a th:href="@{/development/list_dev.html}">
+                      <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+                    </a>
+                    <a th:href="@{/development/list_dev.html}">
+                      <button class="btn btn-primary">등록</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!--Modal-->
+  <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel4">신규 자재 등록</h5>
+                    <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="mb-3">
+                      <label for="organization" class="form-label">담당자</label>
+                      <input type="text" class="form-control">
+                      <label for="organization" class="form-label">자재명</label>
+                      <input type="text" class="form-control">
+                      <label for="organization" class="form-label">첨부 파일</label>
+                      <div class="input-group mb-4">
+                        <input
+                                type="file"
+                                class="form-control"
+                                id="inputGroupFile04"
+                                aria-describedby="inputGroupFileAddon04"
+                                aria-label="Upload"
+                        />
+                        <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">대분류 : </label>
+                      <div class="col-md-3">
+                        <div class="row">
+                          <select id="selectCategory1" class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" onchange="directCategory1(this.value)">
+                            <option selected>카테고리1</option>
+                            <option value="1">카테고리2</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="form-control col-md-2" id="writeCategory1" name="selboxDirectMeasure" hidden>
+                        </div>
+                      </div>
+
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">중분류 : </label>
+                      <div class="col-md-3">
+                        <div class="row">
+                          <select id="selectCategory2" class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" onchange="directCategory2(this.value)">
+                            <option selected>카테고리1</option>
+                            <option value="1">카테고리2</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="form-control col-md-10" id="writeCategory2" name="selboxDirectMeasure" hidden>
+                        </div>
+                      </div>
+
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">소분류 : </label>
+                      <div class="col-md-3">
+                        <div class="row">
+                          <select id="selectCategory3" class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" onchange="directCategory3(this.value)">
+                            <option selected>카테고리1</option>
+                            <option value="1">카테고리2</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="form-control col-md-10" id="writeCategory3" name="selboxDirectMeasure" hidden>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="row mb-4">
+                      <label for="exampleFormControlInput1" class="col-form-label" style="width: 60px;">규격 : </label>
+                      <input
+                              type="email"
+                              id="exampleFormControlInput1"
+                              class="form-control col-md-10"
+                              style="width: 30%;"
+                      />
+                    </div>
+                    <div class="row mb-3">
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 60px;">단위 : </label>
+                      <div class="col-md-10">
+                        <div class="row mb-3">
+                          <select id="selectMeasure" class="col-form-label form-select" style="width: fit-content;" aria-label="Default select example" onchange="directMeasure(this.value)">
+                            <option selected>mm</option>
+                            <option value="1">m</option>
+                            <option value="2">㎡</option>
+                            <option value="3">kg</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="col-md-10 form-control" style="width: 30%;" id="writeMeasure" name="selboxDirectMeasure" hidden>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 60px;">색상 : </label>
+                      <div class="col-md-10">
+                        <div class="row mb-3">
+                          <select id="selectColor" class="col-form-label form-select" style="width: fit-content;" aria-label="Default select example" onchange="directColor(this.value)">
+                            <option selected>빨강</option>
+                            <option value="1">파랑</option>
+                            <option value="2">초록</option>
+                            <option value="3">검정</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="col-md-10 form-control" style="width: 30%;" id="writeColor" name="selboxDirectColor" hidden>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                      취소
+                    </button>
+                    <button type="button" class="btn btn-primary">등록</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <!--/Modal-->
+        <!--Script-->
+
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+      <!-- endbuild -->
+
+      <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+      <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+      <!-- Page JS -->
+    <script src="../assets/js/dashboards-analytics.js"></script>
+    <script src="../assets/js/extended-ui-perfect-scrollbar.js"></script>
+    <script src="../assets/js/selectbox.js"></script>
+
+      <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

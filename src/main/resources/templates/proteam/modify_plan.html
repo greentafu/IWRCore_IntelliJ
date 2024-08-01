@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/prolayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>생산 계획 수정</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+     <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">생산부서 /</span> 생산 계획 수정</h4>
+
+              <div class="row">
+                <div class="fullscreen-background">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h5>담당자</h5>
+                      <div>
+                        <label for="defaultFormControlInput" class="form-label">이름</label>
+                        <input
+                                type="text"
+                                class="form-control mb-3"
+                                id="defaultFormControlInput"
+                                placeholder="실명 작성"
+                                aria-describedby="defaultFormControlHelp"
+                        />
+                      </div>
+                      <label for="formFile" class="form-label">첨부 파일</label>
+                      <div class="input-group mb-4">
+                        <input
+                                type="file"
+                                class="form-control"
+                                id="inputGroupFile04"
+                                aria-describedby="inputGroupFileAddon04"
+                                aria-label="Upload"
+                        />
+                        <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+                      </div>
+                    </div>
+                    <!--Card body-->
+                    <hr class="m-0">
+                    <div class="card-body">
+                      <h5>일일 생산 라인 능력 등록</h5>
+
+
+                      <div class="mb-3 col-md-6">
+                        <label for="exampleFormControlSelect1" class="form-label">제품명</label>
+                        <input class="form-control" type="text" id="firstName" name="firstName"
+                               value="전동 킥보드" readonly />
+                      </div>
+
+                      <label for="exampleFormControlSelect1" class="form-label">생산 라인</label>
+                      <div class="row">
+                        <span class="col-md-1" style="width: fit-content;">A라인:</span>
+                        <div class="col-md-2">
+                          <input type="number" class="form-control col-md-2">
+                        </div>
+                        <span class="col-md-1" style="width: fit-content;">B라인:</span>
+                        <div class="col-md-2">
+                          <input type="number" class="form-control">
+                        </div>
+                        <span class="col-md-1" style="width: fit-content;">C라인:</span>
+                        <div class="col-md-2">
+                          <input type="number" class="form-control">
+                        </div>
+                        <span class="col-md-1" style="width: fit-content;">D라인:</span>
+                        <div class="col-md-2">
+                          <input type="number" class="form-control">
+                        </div>
+                        <div class="col-md-1">
+                          <button class="btn rounded-pill btn-primary">
+                            <span class="tf-icons bx bx-plus"></span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="m-0">
+                    <div class="card-body">
+                      <h5>생산 계획</h5>
+
+                      <label for="exampleNumberInput" class="form-label">제품 생산을 위한 라인</label>
+                      <form class="mb-4">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                name="production_line"
+                                value="line_a"
+                        > 라인A &nbsp;&nbsp;
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                name="production_line"
+                                value="line_b"
+                        > 라인B &nbsp;&nbsp;
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                name="production_line"
+                                value="line_c"
+                        > 라인C &nbsp;&nbsp;
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                name="production_line"
+                                value="line_d"
+                        > 라인D
+                      </form>
+
+                      <label for="exampleNumberInput" class="form-label">총 수량 입력</label>
+                      <input type="number" class="form-control mb-3" id="exampleNumberInput">
+                      <label for="exampleDateInput" class="form-label">생산일 입력</label>
+                      <input type="date" class="form-control mb-3" >
+                      <label for="exampleDateInput" class="form-label">마감일 입력</label>
+                      <input type="date" class="form-control mb-3" value=>
+                      <label for="exampleFormControlTextarea1" class="form-label">등록 상세 내용</label>
+                      <textarea class="form-control mb-3" id="exampleFormControlTextarea1" rows="15"></textarea>
+
+                      <div class="d-flex justify-content-between w-100">
+                        <a href="../pagePro/production_list.html">
+                          <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+                        </a>
+                        <a href="../pagePro/production_list.html">
+                        <button class="btn btn-primary">등록</button>
+                      </a>
+                      </div>
+
+                    </div>
+                    <!--Card body-->
+                  </div>
+                </div>
+              </div>
+            </div>
+      <!--/ Content-->
+      </div>
+      <!--/ Content wrapper-->
+      </div>
+      <!-- / Layout page -->
+      <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+      <!-- / Layout container -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+      </div>
+
+        <!--Modal-->
+
+        <!--/Modal-->
+        <!--Script-->
+  <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+        <!-- endbuild -->
+
+        <!-- Vendors JS -->
+
+        <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+        <!-- Page JS -->
+
+        <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>
