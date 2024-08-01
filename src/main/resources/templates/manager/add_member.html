@@ -1,31 +1,116 @@
 <!DOCTYPE html>
 
 <html
-  lang="ko" xmlns:th="http://www.thymeleaf.org"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+        class="light-style layout-menu-fixed" data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        data-theme="theme-default"
+        dir="ltr"
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
 >
 <th:block th:replace="~{/layout/manlayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
-    <title>타이틀</title>
-    <!--Style-->
+    <title>직원 신규 등록</title>
+      <!--Style-->
 
-    <!--/Style-->
+      <!--/Style-->
   </span>
 
-  <span id="content">
-    가나다라마바사
+    <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">직원 계정 /</span> 신규 등록</h4>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <!-- Account -->
+            <hr class="my-0"/>
+            <div class="card-body">
+              <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">성명</label>
+                    <input
+                            autofocus
+                            class="form-control"
+                            id="name"
+                            name="name"
+                            placeholder="홍길동"
+                            type="text"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">전화번호</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="000-0000-0000"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="country">소속부서</label>
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option value="Australia">자재부서</option>
+                      <option value="Bangladesh">개발부서</option>
+                      <option value="Belarus">생산부서</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="language">접근권한</label>
+                    <select class="select2 form-select" id="language">
+                      <option value="">선택</option>
+                      <option value="en">관리자</option>
+                      <option value="fr">생산/개발사원</option>
+                      <option value="de">자재사원</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">아이디</label>
+                    <input
+                            class="form-control"
+                            id="id"
+                            name="id"
+                            placeholder="ert845dg"
+                            type="text"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">비밀번호</label>
+                    <input
+                            class="form-control"
+                            id="pw"
+                            name="pw"
+                            placeholder="awe#g32sdf*"
+                            type="text"
+                    />
+                  </div>
+                </div>
+                <!--뒤로가기,등록 버튼 세트-->
+                <div class="d-flex justify-content-between w-100">
+                  <a th:href="@{/manager/list_member}">
+                    <button class="btn btn-outline-secondary" type="button">취소</button>
+                  </a>
+                  <button type="submit" class="btn btn-primary">등록</button>
+                </div>
+              </form>
+            </div>
+            <!-- /Account -->
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!--Modal-->
+      <!--Modal-->
 
-    <!--/Modal-->
-    <!--Script-->
+      <!--/Modal-->
+      <!--Script-->
 
-    <!--Script-->
+      <!--Script-->
   </span>
 
 </th:block>

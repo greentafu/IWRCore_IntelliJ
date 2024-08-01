@@ -59,7 +59,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a th:href="@{/list_member}" class="app-brand-link">
+            <a th:href="@{/manager/list_member}" class="app-brand-link">
               <span class="app-brand-logo demo">
                   <defs>
                     <path
@@ -124,13 +124,13 @@
               <span class="menu-header-text">직원 관리</span>
             </li>
             <li class="menu-item">
-              <a th:href="@{/list_member}" class="menu-link">
+              <a th:href="@{/manager/list_member}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Basic">직원 목록</div>
               </a>
             </li>
             <li class="menu-item">
-              <a th:href="@{/add_member}" class="menu-link">
+              <a th:href="@{/manager/add_member}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-plus"></i>
                 <div data-i18n="Basic">직원 신규 등록</div>
               </a>
@@ -140,13 +140,13 @@
               <span class="menu-header-text">협력회사 관리</span>
             </li>
             <li class="menu-item">
-              <a th:href="@{/list_company}" class="menu-link">
+              <a th:href="@{/manager/list_partner}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-buildings"></i>
                 <div data-i18n="Basic">협력회사 목록</div>
               </a>
             </li>
             <li class="menu-item">
-              <a th:href="@{/add_company}" class="menu-link">
+              <a th:href="@{/manager/add_partner}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-plus"></i>
                 <div data-i18n="Basic">협력회사 신규 등록</div>
               </a>
@@ -156,7 +156,7 @@
               <span class="menu-header-text">항목 관리</span>
             </li>
             <li class="menu-item">
-              <a th:href="@{/category}" class="menu-link">
+              <a th:href="@{/manager/category}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-customize"></i>
                 <div data-i18n="Basic">카테고리</div>
               </a>
@@ -264,6 +264,7 @@
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
+    <script src="../assets/js/extended-ui-perfect-scrollbar.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

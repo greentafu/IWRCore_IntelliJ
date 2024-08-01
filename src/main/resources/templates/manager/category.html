@@ -1,31 +1,1507 @@
 <!DOCTYPE html>
 
 <html
-  lang="ko" xmlns:th="http://www.thymeleaf.org"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
+        class="light-style layout-menu-fixed" data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        data-theme="theme-default"
+        dir="ltr"
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
 >
 <th:block th:replace="~{/layout/manlayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
-    <title>타이틀</title>
-    <!--Style-->
+    <title>분류 관리</title>
+      <!--Style-->
 
-    <!--/Style-->
+      <!--/Style-->
   </span>
 
-  <span id="content">
-    가나다라마바사
+    <span id="content">
+    <div class="container-xxl flex-grow-4 container-p-y">
+      <div class="row">
+        <!-- Order Statistics -->
+        <div class="col-md-6 order-0 mb-4" style="height: 750px;">
+          <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between pb-0 mb-3">
+              <div class="card-title mb-0">
+                <h5 class="m-0 me-2">협력회사 카테고리 관리</h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="card shadow-none" style="height: 750px">
+              <div class="card-body mb-3" id="vertical-example" style="height: 550px;">
+                <table class="table table-hover text-center">
+                  <!--기계부품-->
+                  <tr>
+                    <td>기계부품</td>
+                    <td>프레임 및 관련 부품</td>
+                    <td>프레임</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyCompany"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>프레임 및 관련 부품</td>
+                    <td>핸들바 및 그립</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyCompany"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>프레임 및 관련 부품</td>
+                    <td>서스펜션 및 충격흡수기</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyCompany"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                              </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>브레이크 시스템</td>
+                    <td>브레이크 캘리퍼 및 패드</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyCompany"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>브레이크 시스템</td>
+                    <td>브레이크 디스크 및 드럼</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyCompany"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>브레이크 시스템</td>
+                    <td>브레이크 호스 및 파이프</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyCompany"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>변속 시스템</td>
+                    <td>기어박스</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyCompany"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>변속 시스템</td>
+                    <td>변속기 메커니즘</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>휠 및 관련 부품</td>
+                    <td>휠</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>휠 및 관련 부품</td>
+                    <td>휠 허브</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>휠 및 관련 부품</td>
+                    <td>타이어 어셈블리</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>페스너류</td>
+                    <td>볼트/나사/너트/와셔/</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                  <tr>
+                  <td>기계부품</td>
+                  <td>안전 및 조명장치</td>
+                  <td>조명장치</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                    <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                  </td>
+                </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>안전 및 조명장치</td>
+                    <td>신호 및 경고장치</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기계부품</td>
+                    <td>안전 및 조명장치</td>
+                    <td>안전장치</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                    <!--/기계부품-->
+                    <!--전기부품-->
+                  <tr>
+                    <td>전기부품</td>
+                    <td>전동 시스템 및 배터리</td>
+                    <td>모터</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전기부품</td>
+                    <td>전동 시스템 및 배터리</td>
+                    <td>배터리 팩</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전기부품</td>
+                    <td>전동 시스템 및 배터리</td>
+                    <td>컨트롤러</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전기부품</td>
+                    <td>전동 시스템 및 배터리</td>
+                    <td>디스플레이</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전기부품</td>
+                    <td>충전시스템</td>
+                    <td>충전 컨트롤러</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전기부품</td>
+                    <td>충전시스템</td>
+                    <td>충전 포트 및 케이블</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전기부품</td>
+                    <td>전기연결 및 케이블</td>
+                    <td>전선 및 케이블 어셈블리</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                    <!--/전기부품-->
+                    <!--화학제품-->
+                  <tr>
+                    <td>화학제품</td>
+                    <td>도장 및 코팅 재료</td>
+                    <td>도장용 액체 및 스프레이</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>화학제품</td>
+                    <td>도장 및 코팅 재료</td>
+                    <td>코팅 재료</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                    <!--/화학제품-->
+                </table>
+              </div>
+              <hr class="m-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <select class="select2 form-select" id="country">
+                        <option value="">선택</option>
+                        <option selected value="Australia">기계부품</option>
+                        <option value="Bangladesh">전기부품</option>
+                        <option value="Bangladesh">화학제품</option>
+                        <option value="Belarus">직접입력</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="대분류 직접입력"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <select class="select2 form-select" id="country">
+                        <option value="">선택</option>
+                        <option selected value="Australia">프레임 및 관련 부품</option>
+                        <option value="Bangladesh">브레이크 시스템</option>
+                        <option value="Belarus">변속 시스템</option>
+                        <option value="Belarus">직접입력</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="중분류 직접입력"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="소분류 직접입력"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-primary" style="width: 80px;" type="button">추가</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <!--/ Order Statistics -->
+          <!-- Expense Overview -->
+        <div class="col-md-6 order-1 mb-4">
+          <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between pb-0 mb-3">
+              <div class="card-title mb-0">
+                <h5 class="m-0 me-2">제품 카테고리 관리</h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="card shadow-none" style="height: 750px">
+              <div class="card-body mb-3" id="vertical-example2" style="height: 550px;">
+                <table class="table table-hover text-center">
+                  <tr>
+                    <td>자전거</td>
+                    <td>전기자전거</td>
+                    <td>전기자전거</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyProduct"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>자전거</td>
+                    <td>일반자전거</td>
+                    <td>도로자전거</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyProduct"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>자전거</td>
+                    <td>일반자전거</td>
+                    <td>산악자전거</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyProduct"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>킥보드</td>
+                    <td>전기킥보드</td>
+                    <td>전기킥보드</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>킥보드</td>
+                    <td>일반킥보드</td>
+                    <td>성인용킥보드</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>킥보드</td>
+                    <td>일반킥보드</td>
+                    <td>아동용킥보드</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <hr class="m-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <select class="select2 form-select" id="country">
+                        <option value="">선택</option>
+                        <option selected value="Australia">자전거</option>
+                        <option value="Bangladesh">킥보드</option>
+                        <option value="Belarus">직접입력</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="대분류 직접입력"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <select class="select2 form-select" id="country">
+                        <option value="">선택</option>
+                        <option selected value="Australia">전기자전거</option>
+                        <option value="Bangladesh">일반자전거</option>
+                        <option value="Belarus">전기킥보드</option>
+                                <option value="Belarus">일반킥보드</option>
+                        <option value="Belarus">직접입력</option>
+                      </select>
+                    </div>
+                          </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="중분류 직접입력"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-10"><div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="소분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-primary" style="width: 80px;" type="button">추가</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <!--/ Expense Overview -->
+      </div>
+      <div class="row">
+        <!-- Transactions -->
+        <div class=" order-2 mb-4">
+          <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between pb-0 mb-3">
+              <div class="card-title mb-0">
+                <h5 class="m-0 me-2">자재 카테고리 관리</h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="card shadow-none" style="height: 750px">
+              <div class="card-body mb-3" id="vertical-example3" style="height: 550px;">
+                <table class="table table-hover text-center">
+                  <!--프레임 및 서스펜션-->
+                  <tr>
+                    <td>프레임</td>
+                    <td>프레임</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyMaterial"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                    <!--/프레임-->
+                    <!--서스펜션-->
+                  <tr>
+                    <td>서스펜션시스템</td>
+                    <td>서스펜션 유닛</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyMaterial"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>서스펜션시스템</td>
+                    <td>서스펜션 부품</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalModifyMaterial"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        수정
+                      </button>
+                      <button
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-target="#modalDelete"
+                              data-bs-toggle="modal"
+                              type="button"
+                      >
+                        삭제
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>서스펜션시스템</td>
+                    <td>서스펜션 액세서리</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/서스펜션-->
+                  <!-- 브레이크 시스템-->
+                  <tr>
+                    <td>브레이크 시스템</td>
+                    <td>브레이크레버</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>브레이크 시스템</td>
+                    <td>디스크브레이크</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>브레이크 시스템</td>
+                    <td>비비</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>브레이크시스템</td>
+                    <td>디스크 브레이크 패드</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>브레이크시스템</td>
+                    <td>V 브레이크 캘리퍼</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>브레이크시스템</td>
+                    <td>브레이크 와이어</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/브레이크 시스템-->
+                  <!--안장 및 시트포스트-->
+                  <tr>
+                    <td>안장 및 시트포스트</td>
+                    <td>안장</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>안장 및 시트포스트</td>
+                    <td>시트포스트</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/안장 및 시트포스트-->
+                  <!--핸들링 부품-->
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>슬라이딩 슬리브</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>핸들바</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>퀵릴리즈클림프</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>T바</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>스티어링 튜브</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>핸들그립</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/핸들링 부품-->
+                  <!--전자부품-->
+                  <tr>
+                    <td>전자 부품</td>
+                    <td>디스플레이</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/전자부품-->
+                  <!--타이어-->
+                  <tr>
+                    <td>타이어</td>
+                    <td>타이어(킥보드)</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>타이어</td>
+                    <td>타이어(자전거)</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>타이어</td>
+                    <td>림</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>타이어</td>
+                    <td>스포크</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/타이어-->
+                  <!--전원관련 부품-->
+                  <tr>
+                    <td>전원 관련 부품</td>
+                    <td>충전소켓</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전원 관련 부품</td>
+                    <td>배터리</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전원 관련 부품</td>
+                    <td>충전기</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전원 관련 부품</td>
+                    <td>충전기박스</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/전원관련 부품-->
+                  <!--기어 및 변속시스템-->
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>기어</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>기어 레버 및 쉬프터</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>기어 케이블</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>변속기</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>변속기 레버 및 쉬프터</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>변속 케이블</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>드레일러</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>허브</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>스프라켓</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/기어 및 변속 시스템-->
+                  <!--크랭크, 체인-->
+                  <tr>
+                    <td>크랭크, 체인</td>
+                    <td>크랭크</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>크랭크, 체인</td>
+                    <td>체인링</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>크랭크, 체인</td>
+                    <td>체인</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/크랭크, 체인-->
+                  <!--전기(전동)시스템-->
+                  <tr>
+                    <td>전동 시스템</td>
+                    <td>모터</td>
+                    <td>최종제품</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>전동 시스템</td>
+                    <td>컨트롤러</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/전기(전동)시스템-->
+                  <!--연결장치-->
+                  <tr>
+                    <td>연결장치</td>
+                    <td>스템</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>연결장치</td>
+                    <td>페스너류</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/연결장치-->
+                  <!--기타부속품-->
+                  <tr>
+                    <td>기타부속품</td>
+                    <td>조명 및 신호 장치</td>
+                    <td>하부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기타부속품</td>
+                    <td>그립테이프</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기타 부속품</td>
+                    <td>폴딩레버</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기타부속품</td>
+                    <td>세이프티락</td>
+                    <td>상부제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>기타 부속품</td>
+                    <td>킥스탠드</td>
+                    <td>최종제작</td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
+                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
+                    </td>
+                  </tr>
+                  <!--/기타부속품-->
+                </table>
+              </div>
+              <hr class="m-0">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <select class="select2 form-select" id="country">
+                        <option value="">선택</option>
+                        <option selected value="Australia">프레임</option>
+                        <option value="Bangladesh">서스펜션시스템</option>
+                        <option value="Belarus">직접입력</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="대분류 직접입력"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <select class="select2 form-select" id="country">
+                        <option value="">선택</option>
+                        <option selected value="Australia">프레임</option>
+                        <option value="Bangladesh">서스펜션 유닛</option>
+                        <option value="Belarus">서스펜션 부품</option>
+                        <option value="Belarus">직접입력</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-1">
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="중분류 직접입력"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-11">
+                    <div class="input-group input-group-merge">
+                      <input
+                              class="form-control"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              placeholder="소분류 직접입력"
+                              type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <button class="btn btn-primary" style="width: 80px;" type="button">추가</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Transactions -->
+      </div>
+    </div>
 
-    <!--Modal-->
+      <!--Modal-->
+      <!-- Modal(modifycompany) -->
+      <div aria-hidden="true" class="modal fade" id="modalModifyCompany" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5 class="modal-title mb-4" id="modalScrollableTitle">협력회사 카테고리 수정</h5>
+            </div>
+            <hr class="m-0">
+            <div class="modal-body" style="height: 350px;">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">대분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">기계부품</option>
+                      <option value="Bangladesh">전기부품</option>
+                      <option value="Belarus">화학제품</option>
+                      <option value="Belarus">직접입력</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">대분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="대분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">중분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">프레임 및 관련 부품</option>
+                      <option value="Bangladesh">브레이크 시스템</option>
+                      <option value="Belarus">변속 시스템</option>
+                      <option value="Belarus">직접입력</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">중분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="중분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">소분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">프레임</option>
+                      <option value="Bangladesh">핸들바 및 그립</option>
+                      <option value="Belarus">서스펜션 및 충격흡수기</option>
+                      <option value="Belarus">직접입력</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">소분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="소분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-dismiss="modal" type="button">
+                수정
+              </button>
+              <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Modal(modifycompany)-->
+      <!-- Modal(modifyproduct) -->
+      <div aria-hidden="true" class="modal fade" id="modalModifyProduct" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5 class="modal-title mb-4" id="modalScrollableTitle">제품 카테고리 수정</h5>
+            </div>
+            <hr class="m-0">
+            <div class="modal-body" style="height: 350px;">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">대분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">자전거</option>
+                      <option value="Bangladesh">킥보드</option>
+                      <option value="Belarus">직접입력</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">대분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="대분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">중분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">전기자전거</option>
+                      <option value="Bangladesh">일반자전거</option>
+                      <option value="Belarus">전기킥보드</option>
+                      <option value="Belarus">일반킥보드</option>
+                      <option value="Belarus">직접입력</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">중분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="중분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">소분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">전기자전거</option>
+                      <option value="Bangladesh">도로자전거</option>
+                      <option value="Belarus">산악자전거</option>
+                      <option value="Belarus">전기킥보드</option>
+                      <option value="Belarus">성인용킥보드</option>
+                      <option value="Belarus">아동용킥보드</option>
+                      <option value="Belarus">직접입력</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">소분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="소분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-dismiss="modal" type="button">
+                수정
+              </button>
+              <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Modal(modifyproduct)-->
+      <!-- Modal(modifymaterial) -->
+      <div aria-hidden="true" class="modal fade" id="modalModifyMaterial" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 카테고리 수정</h5>
+            </div>
+            <hr class="m-0">
+            <div class="modal-body" style="height: 350px;">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">대분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">프레임</option>
+                      <option value="Bangladesh">서스펜션시스템</option>
+                      <option value="Belarus">브레이크 시스템</option>
+                      <option value="Belarus">직접입력</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">대분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="대분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">중분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">프레임</option>
+                      <option value="Bangladesh">서스펜션 유닛</option>
+                      <option value="Belarus">서스펜션 부품</option>
+                      <option value="Belarus">직접입력</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">중분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="중분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">소분류</label>
+                  <div class="input-group input-group-merge">
+                    <select class="select2 form-select" id="country">
+                      <option value="">선택</option>
+                      <option selected value="Australia">상부제작</option>
+                      <option value="Bangladesh">하부제작</option>
+                      <option value="Belarus">최종제작</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">소분류 직접입력</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            class="form-control"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="소분류 직접입력"
+                            type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-dismiss="modal" type="button">
+                수정
+              </button>
+              <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Modal(modifymaterial)-->
+      <!-- Modal(modifydelete) -->
+      <div aria-hidden="true" class="modal fade" id="modalDelete" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5 class="modal-title" id="modalScrollableTitle">카테고리 삭제</h5>
+            </div>
+            <hr class="m-0">
+            <div class="modal-body text-center">
+              [대분류]-[중분류]-[소분류]를 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-dismiss="modal" type="button">
+                삭제
+              </button>
+              <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Modal(modifydelete)-->
+      <!--/Modal-->
 
-    <!--/Modal-->
-    <!--Script-->
+      <!--Script-->
 
-    <!--Script-->
+      <!--Script-->
   </span>
 
 </th:block>
