@@ -2,9 +2,9 @@ package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.entity.ClubMember;
-import mit.iwrcore.IWRCore.repository.ClubMemberRepository;
-import mit.iwrcore.IWRCore.security.dto.ClubAuthMemberDTO;
+import mit.iwrcore.IWRCore.entity.Member;
+import mit.iwrcore.IWRCore.repository.MemberRepository;
+import mit.iwrcore.IWRCore.security.dto.AuthMemberDTO;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,38 +19,31 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ClubUserDetailsService implements UserDetailsService {
 
-    private final ClubMemberRepository clubMemberRepository;
+    private final MemberRepository MemberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException{
         log.info("------------------------------------------------------------");
-        log.info("ClubUserDetailsService loadUserByUsername "+username);
+        log.info("ClubUserDetailsService loadUserByUsername "+id);
 
-        Optional<ClubMember> result=clubMemberRepository.findByEmail(username, false);
+        Optional<Member> result=MemberRepository.findByID(id);
 
         if(result.isEmpty()){
             throw new UsernameNotFoundException("Check Email or Social ");
         }
-        ClubMember clubMember=result.get();
+        Member member=result.get();
 
         log.info("---------------------------");
-        log.info(clubMember);
-        log.info(clubMember.getEmail());
-        log.info(clubMember.getPassword());
-        log.info(clubMember.isFromSocial());
-        log.info(clubMember.getRoleSet().stream()
-                .map(role->new SimpleGrantedAuthority("ROLE_"+role.name())).collect(Collectors.toSet()));
+        log.info(member);
 
-        ClubAuthMemberDTO clubAuthMember=new ClubAuthMemberDTO(
-                clubMember.getEmail(),
-                clubMember.getPassword(),
-                clubMember.isFromSocial(),
-                clubMember.getRoleSet().stream()
+        AuthMemberDTO authMember=new AuthMemberDTO(
+                member.getId(),
+                member.getPassword(),
+                member.getRoleSet().stream()
                         .map(role->new SimpleGrantedAuthority("ROLE_"+role.name())).collect(Collectors.toSet())
         );
-        clubAuthMember.setName(clubMember.getName());
-        clubAuthMember.setFromSocial(clubMember.isFromSocial());
+        authMember.setName(member.getName());
 
-        return clubAuthMember;
+        return authMember;
     }
 }

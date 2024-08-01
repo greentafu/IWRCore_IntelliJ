@@ -1,8 +1,8 @@
 package mit.iwrcore.IWRCore.security;
 
-import mit.iwrcore.IWRCore.entity.ClubMember;
-import mit.iwrcore.IWRCore.entity.ClubMemberRole;
-import mit.iwrcore.IWRCore.repository.ClubMemberRepository;
+import mit.iwrcore.IWRCore.entity.Member;
+import mit.iwrcore.IWRCore.entity.MemberRole;
+import mit.iwrcore.IWRCore.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 @SpringBootTest
 public class ClubMemberTests {
     @Autowired
-    private ClubMemberRepository repository;
+    private MemberRepository repository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -25,28 +25,26 @@ public class ClubMemberTests {
         //81-90까지는 USER, MANAGER
         //91-100까지는 USER, MANAGER, ADMIN
         IntStream.rangeClosed(1, 100).forEach(i->{
-            ClubMember clubMember=ClubMember.builder()
-                    .email("user"+i+"@zerock.org")
+            Member clubMember= Member.builder()
                     .name("사용자"+i)
-                    .fromSocial(false)
                     .password(passwordEncoder.encode("1111"))
                     .build();
             //default role
-            clubMember.addMemberRole(ClubMemberRole.USER);
-            if(i>80){
-                clubMember.addMemberRole(ClubMemberRole.MANAGER);
-            }
-            if(i>90){
-                clubMember.addMemberRole(ClubMemberRole.ADMIN);
-            }
-            repository.save(clubMember);
+//            clubMember.addMemberRole(MemberRole.USER);
+//            if(i>80){
+//                clubMember.addMemberRole(MemberRole.MANAGER);
+//            }
+//            if(i>90){
+//                clubMember.addMemberRole(MemberRole.ADMIN);
+//            }
+//            repository.save(clubMember);
         });
     }
 
-    @Test
-    public void testRead(){
-        Optional<ClubMember> result=repository.findByEmail("user95@zerock.org", false);
-        ClubMember clubMember=result.get();
-        System.out.println(clubMember);
-    }
+//    @Test
+//    public void testRead(){
+//        Optional<Member> result=repository.findByEmail("user95@zerock.org", false);
+//        Member clubMember=result.get();
+//        System.out.println(clubMember);
+//    }
 }

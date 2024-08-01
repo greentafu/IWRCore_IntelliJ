@@ -15,18 +15,21 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @ToString
-public class ClubMember extends BaseEntity{
+public class Member extends BaseEntity{
     @Id
-    private String email;
-    private String password;
+    private Long mno;
     private String name;
-    private boolean fromSocial;
+    private String department;
+    private String phonenumber;
+    private String id;
+    private String password;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<ClubMemberRole> roleSet=new HashSet<>();
+    private Set<MemberRole> roleSet=new HashSet<>();
 
-    public void addMemberRole(ClubMemberRole clubMemberRole){
-        roleSet.add(clubMemberRole);
+    public void addMemberRole(MemberRole memberRole){
+        roleSet.clear();
+        roleSet.add(memberRole);
     }
 }

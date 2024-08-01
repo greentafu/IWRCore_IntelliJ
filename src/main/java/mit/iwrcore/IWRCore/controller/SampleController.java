@@ -1,7 +1,7 @@
 package mit.iwrcore.IWRCore.controller;
 
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.security.dto.ClubAuthMemberDTO;
+import mit.iwrcore.IWRCore.security.dto.AuthMemberDTO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ public class SampleController {
         log.info("exAll.............");
     }
     @GetMapping("/member")
-    public void member(@AuthenticationPrincipal ClubAuthMemberDTO clubAuthMember){
+    public void member(@AuthenticationPrincipal AuthMemberDTO clubAuthMember){
         log.info("member.............");
 
         log.info("---------------------");

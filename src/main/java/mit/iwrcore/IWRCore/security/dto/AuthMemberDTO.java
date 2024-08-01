@@ -13,18 +13,15 @@ import java.util.Collection;
 @Getter
 @Setter
 @ToString
-public class ClubAuthMemberDTO extends User {
-    private String email;
+public class AuthMemberDTO extends User {
+    private String id;
     private String name;
-    private boolean fromSocial;
 
-    public ClubAuthMemberDTO(
+    public AuthMemberDTO(
             String username,
             String password,
-            boolean fromSocial,
             Collection<? extends GrantedAuthority> authorities){
         super(username, password, authorities);
-        this.email=username;
-        this.fromSocial= fromSocial;
+        this.id=username;
     }
 }
