@@ -26,5 +26,7 @@ public class ProductionController {
     @GetMapping("/list_newProduct")
     public void list_newProduct() {
     }
-
+    @GetMapping("/check_manufacture")
+    public void check_manufacture() {
+    }
 }
