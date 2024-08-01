@@ -10,5 +10,14 @@ public class MaterialController {
     @GetMapping("/list_material")
     public void list_material(){
     }
+    @GetMapping("/material")
+    public void material(){
+    }
+    @GetMapping("/modify_material")
+    public void modify_material(){
+    }
+    @GetMapping("/new_material")
+    public void new_material(){
+    }
 
 }
