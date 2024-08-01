@@ -5,13 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/production")
-public class ProductionController {
-    @GetMapping("/list_manufacture")
-        public void list_manufacture() {
+@RequestMapping("/jodal")
+public class JodalController {
+    @GetMapping("/list_jodal")
+    public void list_jodal(){
     }
-    @GetMapping("/list_newProduct")
-        public void list_newProduct() {
-    }
-
 }
