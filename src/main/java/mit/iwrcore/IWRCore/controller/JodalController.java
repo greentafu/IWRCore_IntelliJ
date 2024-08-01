@@ -10,4 +10,10 @@ public class JodalController {
     @GetMapping("/list_jodal")
     public void list_jodal(){
     }
+    @GetMapping("/jodal_ready")
+    public void jodal_ready(){
+    }
+    @GetMapping("/modify_jodal")
+    public void modify_jodal(){
+    }
 }

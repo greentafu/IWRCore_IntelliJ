@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>검수일정 수정</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">진척검수 관리 /</span> 진척검수 일정 수정</h4>
+      <div class="row">
+        <div class="fullscreen-background">
+          <div class="card mb-4">
+            <h5 class="card-header">담당자</h5>
+            <div class="card-body">
+              <div>
+                <label for="defaultFormControlInput" class="form-label">이름</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="defaultFormControlInput"
+                        placeholder="실명 작성"
+                        aria-describedby="defaultFormControlHelp"
+                />
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+              <h5>진척검수 일정 자재</h5>
+              <div class="table-responsive text-nowrap mb-4">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>자재</th>
+                      <th>발주수량</th>
+                      <th>입고희망일</th>
+                      <th>날짜</th>
+                      <th>수량</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="table-row">
+                      <td>
+                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>프런트 브레이크</strong>
+                      </td>
+                      <td>300</td>
+                      <td>2024-12-07</td>
+                      <td>
+                        <div class="select-box">
+                          <label for="year">년도:</label>
+                          <select class="year-select"></select>
+                          <label for="month">월:</label>
+                          <select class="month-select"></select>
+                          <label for="day">일:</label>
+                          <select class="day-select"></select>
+                        </div>
+                      </td>
+                      <td>
+                        <input type="number">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="d-flex justify-content-between w-100">
+                <a th:href="@{/progress/list_progress}">
+                  <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+                </a>
+                <a th:href="@{/progress/modify_progress}">
+                  <button class="btn btn-primary">수정</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Modal-->
+
+    <!--/Modal-->
+    <!--Script-->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const tableRows = document.querySelectorAll('.table-row');
+        const startYear = 24;
+        const endYear = 99;
+
+        // 연도 옵션 추가 함수
+        function populateYearOptions(select) {
+          for (let year = startYear; year <= endYear; year++) {
+            const option = document.createElement('option');
+            const fullYear = 2000 + year;
+            option.value = fullYear;
+            option.textContent = fullYear;
+            select.appendChild(option);
+          }
+        }
+        // 월 옵션 추가 함수
+        function populateMonthOptions(select) {
+          for (let month = 1; month <= 12; month++) {
+            const option = document.createElement('option');
+            const monthValue = month < 10 ? '0' + month : month.toString();
+            option.value = monthValue;
+            option.textContent = monthValue;
+            select.appendChild(option);
+          }
+        }
+        // 일 옵션 추가 함수
+        function populateDayOptions(selectYear, selectMonth, selectDay) {
+          selectYear.addEventListener('change', function() {
+            populateDays(selectYear, selectMonth, selectDay);
+          });
+          selectMonth.addEventListener('change', function() {
+            populateDays(selectYear, selectMonth, selectDay);
+          });
+          populateDays(selectYear, selectMonth, selectDay);
+        }
+        function populateDays(selectYear, selectMonth, selectDay) {
+          const selectedYear = parseInt(selectYear.value);
+          const selectedMonth = parseInt(selectMonth.value);
+          const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+
+          selectDay.innerHTML = ''; // 기존 옵션 초기화
+
+          for (let day = 1; day <= daysInMonth; day++) {
+            const option = document.createElement('option');
+            const dayValue = day < 10 ? '0' + day : day.toString();
+            option.value = dayValue;
+            option.textContent = dayValue;
+            selectDay.appendChild(option);
+          }
+        }
+        // 각 테이블 행의 연도, 월, 일 옵션 추가
+        tableRows.forEach(function(row, index) {
+          const yearSelect = row.querySelector('.year-select');
+          const monthSelect = row.querySelector('.month-select');
+          const daySelect = row.querySelector('.day-select');
+
+          populateYearOptions(yearSelect);
+          populateMonthOptions(monthSelect);
+          populateDayOptions(yearSelect, monthSelect, daySelect);
+        });
+      });
+
+    </script>
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>
