@@ -32,7 +32,7 @@ public class SecurityConfig {
         http.formLogin(formLogin->
                 formLogin.loginPage("/login")
                         .defaultSuccessUrl("/main")
-                        .failureUrl("/login")
+                        .failureUrl("/sample/all")
                         .permitAll());
         http.csrf(csrf->csrf.disable());
         http.logout(logout->

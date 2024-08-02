@@ -26,6 +26,24 @@ public class Member extends BaseEntity{
     @Builder.Default
     private Set<MemberRole> roleSet=new HashSet<>();
 
+    @PostPersist
+    public void generateId(){
+        if(this.id==null){
+            String tempId=headId(department)+mno+"_"+phonenumber.substring(9);
+            this.id=tempId;
+        }
+    }
+
+    private String headId(String str){
+        String head="";
+        switch(str) {
+            case "자재부서": head="mate"; break;
+            case "개발부서": head="deve"; break;
+            case "생산부서": head="prod";
+        }
+        return head;
+    }
+
     public void changeMemberRole(MemberRole memberRole){
         roleSet.clear();
         roleSet.add(memberRole);
