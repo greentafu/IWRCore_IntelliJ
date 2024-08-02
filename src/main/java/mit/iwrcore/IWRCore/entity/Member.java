@@ -1,11 +1,13 @@
 package mit.iwrcore.IWRCore.entity;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Embeddable
 @Entity
 @Builder
 @AllArgsConstructor
@@ -25,6 +27,7 @@ public class Member extends BaseEntity{
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roleSet=new HashSet<>();
+
 
     @PostPersist
     public void generateId(){

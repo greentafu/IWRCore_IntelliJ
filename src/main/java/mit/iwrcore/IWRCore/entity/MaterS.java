@@ -15,7 +15,7 @@ public class MaterS {
     private Long materScode;
     private String Sname;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "materMcode")
     private MaterL materL;
 

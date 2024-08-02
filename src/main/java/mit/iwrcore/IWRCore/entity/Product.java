@@ -1,9 +1,6 @@
 package mit.iwrcore.IWRCore.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -23,6 +20,9 @@ public class Product extends BaseEntity{
     private String supervisor;
     private String materImsi;
     private boolean check;
+
+    @Embedded
+    private Member member;
 
 
 

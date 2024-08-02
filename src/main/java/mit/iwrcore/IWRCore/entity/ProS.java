@@ -15,7 +15,7 @@ public class ProS{
     private Long manuScode;
     private String Sname;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="manuMcode")
     private ProM proM;
 }
