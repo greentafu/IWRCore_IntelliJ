@@ -8,8 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
-
+@ToString(exclude = "partMcode")
 public class PartS{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

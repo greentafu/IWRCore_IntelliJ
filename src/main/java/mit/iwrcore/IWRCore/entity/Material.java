@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = {"writer", "materScode", "boxCode", "manuCode"})
 public class Material extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +30,4 @@ public class Material extends BaseEntity {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="boxCode")
     private Box box;
-
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="manuCode")
-    private Product product;
-
 }

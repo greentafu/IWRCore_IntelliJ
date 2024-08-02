@@ -8,16 +8,17 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = "materMcode")
-public class MaterS {
+@ToString
+public class Structure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long materScode;
-    private String Sname;
+    private long sno;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "materMcode")
-    private MaterL materL;
+    private Material material;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Product product;
 
+    private long quantity;
 }

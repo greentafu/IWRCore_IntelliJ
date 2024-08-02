@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = {"manuScode", "member"})
 public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,21 +21,10 @@ public class Product extends BaseEntity{
     private String materImsi;
     private boolean check;
 
-    @Embedded
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="manuScode")
     private ProS proS;
-
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="materCode")
-    private Material material;
-
-
-
-
-
-
-
 }

@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = "manuMcode")
 public class ProS{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
