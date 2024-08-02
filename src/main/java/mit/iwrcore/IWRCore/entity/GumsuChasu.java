@@ -12,10 +12,6 @@ import java.time.LocalDateTime;
 @ToString(exclude = {"writer", "gumsu"})
 public class GumsuChasu extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long gumsuChasuNo;  // 검수 차수 번호 (기본 키)
-
     private Long gumsuNum;      // 검수량
     private LocalDateTime gumsu1; // 검수일
 

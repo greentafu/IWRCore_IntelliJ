@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"writer", "shipments", "gumsu"})
+@ToString(exclude = {"writer", "shipments", "gumsu", "emergencies","contract"})
 public class Order extends BaseEntity {
 
     @Id
@@ -31,4 +31,11 @@ public class Order extends BaseEntity {
 
     @OneToOne(mappedBy = "order")
     private Gumsu gumsu;  // 이 Order와 연관된 Gumsu
+
+    @OneToMany(mappedBy = "order")
+    private List<Emergency> emergencies; // 이 Order와 연관된 Emergency 목록
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contract_id")  // 외래 키 컬럼 이름
+    private Contract contract;  // 연관된 Contract 엔티티
 }
