@@ -14,6 +14,4 @@ public class ProL {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long manuLcode;
     private String Lname;
-
-
 }

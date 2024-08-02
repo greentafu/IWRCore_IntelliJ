@@ -20,7 +20,7 @@ public class Shipment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름
-    private Member writer;              // 작성자
+    private Partner writer;              // 작성자
 
     @OneToOne(fetch = FetchType.LAZY)
     private Returns returns;            // 관련된 Returns

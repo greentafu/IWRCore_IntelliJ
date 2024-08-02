@@ -17,6 +17,4 @@ public class MaterL {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long materLcode;
     private String Lname;
-
-
 }

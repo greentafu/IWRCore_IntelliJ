@@ -20,8 +20,9 @@ public class Material extends BaseEntity {
     private String color;
     private String uuid;
 
-    @Embedded
-    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름
+    private Member writer;              // 작성자
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="materScode")

@@ -14,6 +14,4 @@ public class PartL {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long partLcode;
     private String Lname;
-
-
 }

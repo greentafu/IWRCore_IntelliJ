@@ -13,7 +13,7 @@ public class Box {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boxCode;
-    private String boxname;
+    private String boxName;
 
 
 }

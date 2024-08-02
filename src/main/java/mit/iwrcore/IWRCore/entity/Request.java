@@ -20,7 +20,4 @@ public class Request extends BaseEntity {
     private String text;
     private boolean reqCheck;
     private String line;
-
-
-
 }

@@ -19,6 +19,4 @@ public class ProM{
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "manuLcode")
     private ProL proL;
-
-
 }

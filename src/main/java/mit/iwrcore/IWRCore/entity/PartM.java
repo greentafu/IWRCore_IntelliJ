@@ -19,6 +19,4 @@ public class PartM{
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "partLcode")
     private PartL partL;
-
-
 }
