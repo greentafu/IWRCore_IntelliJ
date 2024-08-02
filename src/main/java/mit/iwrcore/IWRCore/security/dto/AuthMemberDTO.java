@@ -14,6 +14,7 @@ import java.util.Collection;
 @Setter
 @ToString
 public class AuthMemberDTO extends User {
+    private long mno;
     private String id;
     private String name;
 

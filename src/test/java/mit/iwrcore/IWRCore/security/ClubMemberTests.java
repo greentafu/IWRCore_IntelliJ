@@ -21,24 +21,35 @@ public class ClubMemberTests {
 
     @Test
     public void insertDummies(){
-        //1-80까지는 USER만 지정
-        //81-90까지는 USER, MANAGER
-        //91-100까지는 USER, MANAGER, ADMIN
-        IntStream.rangeClosed(1, 100).forEach(i->{
-            Member clubMember= Member.builder()
-                    .name("사용자"+i)
-                    .password(passwordEncoder.encode("1111"))
-                    .build();
-            //default role
-//            clubMember.addMemberRole(MemberRole.USER);
-//            if(i>80){
-//                clubMember.addMemberRole(MemberRole.MANAGER);
-//            }
-//            if(i>90){
-//                clubMember.addMemberRole(MemberRole.ADMIN);
-//            }
-//            repository.save(clubMember);
-        });
+        Member member1=Member.builder()
+                .name("관리자")
+                .id("user1")
+                .password("1111")
+                .phonenumber("000-0000-0000")
+                .department("자재부서")
+                .build();
+        member1.changeMemberRole(MemberRole.MANAGER);
+        repository.save(member1);
+
+        Member member2=Member.builder()
+                .name("자재팀")
+                .id("user2")
+                .password("1111")
+                .phonenumber("000-0000-0000")
+                .department("자재부서")
+                .build();
+        member2.changeMemberRole(MemberRole.MATERIAL_TEAM);
+        repository.save(member2);
+
+        Member member3=Member.builder()
+                .name("자재팀")
+                .id("user3")
+                .password("1111")
+                .phonenumber("000-0000-0000")
+                .department("자재부서")
+                .build();
+        member3.changeMemberRole(MemberRole.DEV_PROD_TEAM);
+        repository.save(member3);
     }
 
 //    @Test

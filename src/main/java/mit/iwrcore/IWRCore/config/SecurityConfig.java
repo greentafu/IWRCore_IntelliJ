@@ -29,9 +29,14 @@ public class SecurityConfig {
                 .requestMatchers("/manager/**").permitAll()
                 .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated();
-        http.formLogin(formLogin->formLogin.loginPage("/login").permitAll());
+        http.formLogin(formLogin->
+                formLogin.loginPage("/login")
+                        .defaultSuccessUrl("/main")
+                        .failureUrl("/login")
+                        .permitAll());
         http.csrf(csrf->csrf.disable());
-        http.logout(logout->logout.permitAll());
+        http.logout(logout->
+                logout.permitAll());
         return http.build();
     }
 

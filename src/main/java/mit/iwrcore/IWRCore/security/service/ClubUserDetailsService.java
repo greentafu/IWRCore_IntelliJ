@@ -24,7 +24,7 @@ public class ClubUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException{
         log.info("------------------------------------------------------------");
-        log.info("ClubUserDetailsService loadUserByUsername "+id);
+        log.info("ClubUserDetailsService get ID: "+id);
 
         Optional<Member> result=MemberRepository.findByID(id);
 
@@ -33,8 +33,8 @@ public class ClubUserDetailsService implements UserDetailsService {
         }
         Member member=result.get();
 
-        log.info("---------------------------");
-        log.info(member);
+        log.info("------------------------------------------------------------");
+        log.info("ClubUserDetailsService get member: "+member);
 
         AuthMemberDTO authMember=new AuthMemberDTO(
                 member.getId(),
@@ -42,6 +42,7 @@ public class ClubUserDetailsService implements UserDetailsService {
                 member.getRoleSet().stream()
                         .map(role->new SimpleGrantedAuthority("ROLE_"+role.name())).collect(Collectors.toSet())
         );
+        authMember.setMno(member.getMno());
         authMember.setName(member.getName());
 
         return authMember;

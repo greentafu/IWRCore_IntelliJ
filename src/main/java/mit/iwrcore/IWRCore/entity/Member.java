@@ -1,9 +1,6 @@
 package mit.iwrcore.IWRCore.entity;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
@@ -17,6 +14,7 @@ import java.util.Set;
 @ToString
 public class Member extends BaseEntity{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mno;
     private String name;
     private String department;
@@ -28,7 +26,7 @@ public class Member extends BaseEntity{
     @Builder.Default
     private Set<MemberRole> roleSet=new HashSet<>();
 
-    public void addMemberRole(MemberRole memberRole){
+    public void changeMemberRole(MemberRole memberRole){
         roleSet.clear();
         roleSet.add(memberRole);
     }
