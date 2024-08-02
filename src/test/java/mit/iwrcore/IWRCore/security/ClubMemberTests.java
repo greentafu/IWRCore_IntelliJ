@@ -23,9 +23,8 @@ public class ClubMemberTests {
     public void insertDummies(){
         Member member1=Member.builder()
                 .name("관리자")
-                .id("user1")
-                .password("1111")
-                .phonenumber("000-0000-0000")
+                .password(passwordEncoder.encode("1111"))
+                .phonenumber("000-0000-1234")
                 .department("자재부서")
                 .build();
         member1.changeMemberRole(MemberRole.MANAGER);
@@ -33,29 +32,36 @@ public class ClubMemberTests {
 
         Member member2=Member.builder()
                 .name("자재팀")
-                .id("user2")
-                .password("1111")
-                .phonenumber("000-0000-0000")
+                .password(passwordEncoder.encode("1111"))
+                .phonenumber("000-0000-5678")
                 .department("자재부서")
                 .build();
         member2.changeMemberRole(MemberRole.MATERIAL_TEAM);
         repository.save(member2);
 
         Member member3=Member.builder()
-                .name("자재팀")
-                .id("user3")
-                .password("1111")
-                .phonenumber("000-0000-0000")
-                .department("자재부서")
+                .name("생산부서")
+                .password(passwordEncoder.encode("1111"))
+                .phonenumber("000-0000-9012")
+                .department("생산부서")
                 .build();
         member3.changeMemberRole(MemberRole.DEV_PROD_TEAM);
         repository.save(member3);
+
+        Member member4=Member.builder()
+                .name("개발부서")
+                .password(passwordEncoder.encode("1111"))
+                .phonenumber("000-0000-3456")
+                .department("개발부서")
+                .build();
+        member4.changeMemberRole(MemberRole.DEV_PROD_TEAM);
+        repository.save(member4);
     }
 
-//    @Test
-//    public void testRead(){
-//        Optional<Member> result=repository.findByEmail("user95@zerock.org", false);
-//        Member clubMember=result.get();
-//        System.out.println(clubMember);
-//    }
+    @Test
+    public void testRead(){
+        Optional<Member> result=repository.findByID("user1");
+        Member member=result.get();
+        System.out.println(member);
+    }
 }
