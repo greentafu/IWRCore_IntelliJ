@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html
-  lang="en" xmlns:th="http://www.thymeleaf.org"
+  lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/extras/spring-security"
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
@@ -198,11 +198,17 @@
                       <a class="dropdown-item" href="#">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
-                            <span class="fw-semibold d-block">이우식</span>
+                            <span class="fw-semibold d-block">
+                              <span sec:authentication="principal.name"></span>
+                            </span>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="d-block">자재부서</span>
-                            <small class="text-muted">관리자</small>
+                            <span class="d-block">
+                              <span sec:authentication="principal.department"></span>
+                            </span>
+                            <small class="text-muted">
+                              <span sec:authorize="hasRole('MANAGER')">관리자</span>
+                            </small>
                           </div>
                         </div>
                       </a>

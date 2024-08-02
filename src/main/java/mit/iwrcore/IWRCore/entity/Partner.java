@@ -12,13 +12,22 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @ToString
-public class Member extends BaseEntity{
+public class Partner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mno;
+    private Long pno;
     private String name;
-    private String department;
-    private String phonenumber;
+    private String registrationNumber;
+    private String location;
+    private String type;
+    private String sector;
+    private String ceo;
+    private String telNumber;
+    private String faxNumber;
+    private String email;
+    private String contacter;
+    private String contacterNumber;
+    private String contacterEmail;
     private String id;
     private String pw;
     private String password;
@@ -30,23 +39,13 @@ public class Member extends BaseEntity{
     @PostPersist
     public void generateId(){
         if(this.id==null){
-            String tempId=headId(department)+mno+"_"+phonenumber.substring(9);
-            this.id=tempId;
+            String temp="partner"+pno+"_"+registrationNumber.substring(7);
+            this.id=temp;
         }
     }
 
-    private String headId(String str){
-        String head="";
-        switch(str) {
-            case "자재부서": head="mate"; break;
-            case "개발부서": head="deve"; break;
-            case "생산부서": head="prod";
-        }
-        return head;
-    }
-
-    public void changeMemberRole(MemberRole memberRole){
+    public void setPartnerRole(MemberRole partnerRole){
         roleSet.clear();
-        roleSet.add(memberRole);
+        roleSet.add(partnerRole);
     }
 }

@@ -31,8 +31,8 @@ public class SecurityConfig {
                 .anyRequest().authenticated();
         http.formLogin(formLogin->
                 formLogin.loginPage("/login")
-                        .defaultSuccessUrl("/main")
-                        .failureUrl("/sample/all")
+                        .defaultSuccessUrl("/checkrole")
+                        .failureUrl("/login?error")
                         .permitAll());
         http.csrf(csrf->csrf.disable());
         http.logout(logout->

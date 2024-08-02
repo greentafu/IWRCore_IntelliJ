@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
-</html><!DOCTYPE html>
 
 <html
         lang="ko" xmlns:th="http://www.thymeleaf.org"
@@ -27,460 +17,458 @@
       <!--/Style-->
   </span>
 
-    <span id="content">
-    <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">자재 관리 /</span> 조달 계획 필요 자재</h4>
-
-                <!--추가-->
-              <div class="card mb-4">
-                <!--검색-->
-                <div class="card-body">
-                  <h5>조달계획 수립 필요 자재</h5>
-                  <div class="card border">
-                    <div class="table-responsive text-nowrap">
-                      <table class="table">
-                        <tr>
-                          <th class="bg-label-primary">제품</th>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">대분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">중분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">소분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <div class="col-md-9">
-                                <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                              </div>
-                              <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th class="bg-label-primary">자재</th>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">대분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">중분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">소분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <div class="col-md-9">
-                                <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                              </div>
-                              <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
+  <span id="content">
+  <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">자재 관리 /</span> 조달 계획 필요 자재</h4>
+      <!--추가-->
+      <div class="card mb-4">
+        <!--검색-->
+        <div class="card-body">
+          <h5>조달계획 수립 필요 자재</h5>
+          <div class="card border">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <th class="bg-label-primary">제품</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                  <!--/검색-->
-                <div class="table-responsive text-nowrap">
-                  <!-- Outline Dropdowns -->
-                  <div class="card-body">
-                    <div class="table-responsive text-nowrap">
-                      <table class="table table-bordered mb-4">
-                        <thead>
-                          <tr>
-                            <th>제품 이름</th>
-                            <th>자재번호</th>
-                            <th>자재명</th>
-                            <th>수량</th>
-                            <th>생산계획 예정일</th>
-                            <th>등록</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>전동 킥보드</td>
-                            <td>AR-9834</td>
-                            <td><strong>앞 브레이크</strong></td> <td>500</td>
-                            <td>2024-08-14 ~ 2024-09-15</td>
-                            <td>
-                              <a href="../jodal/jodal_ready">
-                                <button type="button" class="btn btn-primary">조달계획 등록</button>
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>전동 킥보드</td>
-                            <td>AW-0913</td>
-                            <td><strong>뒷 브레이크</strong></td>
-                            <td>200</td>
-                            <td>2024-08-11 ~ 2024-09-17</td>
-                            <td>
-                              <a href="../jodal/jodal_ready">
-                                <button type="button" class="btn btn-primary">조달계획 등록</button>
-                              </a>
-                            </td>
-                          </tr>
-
-
-
-                        </tbody>
-                      </table>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
                     </div>
-                    <nav aria-label="Page navigation">
-                      <ul class="pagination justify-content-center">
-                        <li class="page-item prev">
-                          <a class="page-link" href="javascript:void(0);"
-                          ><i class="tf-icon bx bx-chevrons-left"></i
-                          ></a>
-                        </li>
-                        <li class="page-item active">
-                          <a class="page-link" href="javascript:void(0);">1</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0);">2</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0);">3</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0);">4</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0);">5</a>
-                        </li>
-                        <li class="page-item next">
-                          <a class="page-link" href="javascript:void(0);">
-                            <i class="tf-icon bx bx-chevrons-right"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-                <!--/추가-->
-                <!-- Hoverable Table rows -->
-              <div class="card">
-                <!--검색-->
-                <div class="card-body">
-                  <h5>조달계획 수립 필요 자재</h5>
-                  <div class="card border">
-                    <div class="table-responsive text-nowrap">
-                      <table class="table">
-                        <tr>
-                          <th class="bg-label-primary">제품</th>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">대분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">중분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">소분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <div class="col-md-9">
-                                <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                              </div>
-                              <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <th class="bg-label-primary">자재</th>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">대분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">중분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <span class="col-md-3">소분류</span>
-                              <div class="col">
-                                <select class="form-select form-select-sm">
-                                  <option>전체보기</option>
-                                </select>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="row">
-                              <div class="col-md-9">
-                                <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                              </div>
-                              <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                  <!--/검색-->
-                <div class="table-responsive text-nowrap">
-                  <!-- Outline Dropdowns -->
-                  <div class="card-body">
-                    <script>
-                      function showConfirmation() {
-                        var result = confirm('취소 하시겠습니까?');
-                      }
-                    </script>
-
-                    <div class="table-responsive text-nowrap">
-                      <table class="table table-bordered mb-4">
-                        <thead>
-                          <tr>
-                            <th>제품 이름</th>
-                            <th>자재번호</th>
-                            <th>자재명</th>
-                            <th>수량</th>
-                            <th>조달 예정일</th>
-                            <th>
-                              <select class="form-select form-select-sm" style="width: fit-content;">
-                                <option>전체 진행상태</option>
-                                <option>진행예정</option>
-                                <option>진행중</option>
-                                <option>완료</option>
-                              </select>
-                            </th>
-                            <th>수정/취소</th>
-                            <th>
-                              <select class="form-select form-select-sm" style="width: fit-content;">
-                                <option>전체 계약상태</option>
-                                <option>계약 필요</option>
-                                <option>계약 완료</option>
-                              </select>
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>전동 킥보드</td>
-                            <td>
-                              AE-2341
-                            </td>
-                            <td><strong>후미등</strong></td> <td>500</td>
-                            <td>2024-08-14</td>
-                            <td>
-                              예정
-                            </td>
-                            <td>
-                              <button onclick="location.href='modify_jodal'" class="btn btn-primary">수정</button>
-                              <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
-                            </td>
-                            <td>
-                              <a href="../contract/new_contract">
-                                <button type="button" class="btn btn-primary">계약서 등록</button>
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>전동 킥보드</td>
-                            <td>
-                              OP-0734
-                            </td>
-                            <td><strong>모터</strong></td>
-                            <td>200</td>
-                            <td>2024-08-14</td>
-                            <td>
-                              예정
-                              </td>
-                            <td>
-                              <button onclick="location.href='modify_jodal'" class="btn btn-primary">수정</button>
-                              <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
-                            </td>
-                            <td>
-                              <a href="../contract/new_contract">
-                                <button type="button" class="btn btn-primary">계약서 등록</button>
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>전동 킥보드</td>
-                            <td>
-                              VB-2934
-                            </td>
-                            <td><strong>디스플레이</strong></td>
-                            <td>300</td>
-                            <td>2024-08-10</td>
-                            <td>
-                              진행중
-                              </td>
-                            <td>
-                              <button onclick="location.href='modify_jodal'" class="btn btn-primary">수정</button>
-                              <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
-                            </td>
-                            <td>
-                              <a href="../contract/download_contract">
-                                <button type="button" class="btn btn-secondary">계약서 보기</button>
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>전동 킥보드</td>
-                            <td>
-                              CF-0375
-                            </td>
-                            <td><strong>세이프티락</strong></td>
-                            <td>420</td>
-                            <td>2024-08-05</td>
-                            <td>
-                              진행중
-                              </td>
-                            <td>
-                              <button onclick="location.href='modify_jodal'" class="btn btn-primary">수정</button>
-                              <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
-                            </td>
-                            <td>
-                              <a href="../contract/download_contract">
-                                <button type="button" class="btn btn-secondary">계약서 보기</button>
-                              </a>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>전동 킥보드</td>
-                            <td>
-                              ED-1924
-                            </td>
-                            <td><strong>폴딩레버</strong></td>
-                            <td>220</td>
-                            <td>2024-08-04</td>
-                            <td>
-                              진행중
-                              </td>
-                            <td>
-                              <button onclick="location.href='modify_jodal'" class="btn btn-primary">수정</button>
-                              <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
-                            </td>
-                            <td>
-                              <a href="../contract/download_contract">
-                                <button type="button" class="btn btn-secondary">계약서 보기</button>
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
                     </div>
-                    <nav aria-label="Page navigation">
-                      <ul class="pagination justify-content-center">
-                        <li class="page-item prev">
-                          <a class="page-link" href="javascript:void(0);"
-                          ><i class="tf-icon bx bx-chevrons-left"></i
-                          ></a>
-                        </li>
-                        <li class="page-item active">
-                          <a class="page-link" href="javascript:void(0);">1</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0);">2</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0);">3</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0);">4</a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link" href="javascript:void(0);">5</a>
-                        </li>
-                        <li class="page-item next">
-                          <a class="page-link" href="javascript:void(0);">
-                            <i class="tf-icon bx bx-chevrons-right"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">자재</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
             </div>
-        <!--/ Content-->
-        <!--Script-->
+          </div>
+        </div>
+        <!--/검색-->
+        <div class="table-responsive text-nowrap">
+          <!-- Outline Dropdowns -->
+          <div class="card-body">
+            <div class="table-responsive text-nowrap">
+              <table class="table table-bordered mb-4">
+                <thead>
+                <tr>
+                  <th>제품 이름</th>
+                  <th>자재번호</th>
+                  <th>자재명</th>
+                  <th>수량</th>
+                  <th>생산계획 예정일</th>
+                  <th>등록</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>전동 킥보드</td>
+                  <td>AR-9834</td>
+                  <td><strong>앞 브레이크</strong></td> <td>500</td>
+                  <td>2024-08-14 ~ 2024-09-15</td>
+                  <td>
+                    <a href="../jodal/jodal_ready">
+                      <button type="button" class="btn btn-primary">조달계획 등록</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>전동 킥보드</td>
+                  <td>AW-0913</td>
+                  <td><strong>뒷 브레이크</strong></td>
+                  <td>200</td>
+                  <td>2024-08-11 ~ 2024-09-17</td>
+                  <td>
+                    <a href="../jodal/jodal_ready">
+                      <button type="button" class="btn btn-primary">조달계획 등록</button>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item prev">
+                  <a class="page-link" href="javascript:void(0);"
+                  ><i class="tf-icon bx bx-chevrons-left"></i
+                  ></a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item next">
+                  <a class="page-link" href="javascript:void(0);">
+                    <i class="tf-icon bx bx-chevrons-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!--/추가-->
+      <!-- Hoverable Table rows -->
+      <div class="card">
+        <!--검색-->
+        <div class="card-body">
+          <h5>조달계획 수립 필요 자재</h5>
+          <div class="card border">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <th class="bg-label-primary">제품</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">자재</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--/검색-->
+        <div class="table-responsive text-nowrap">
+          <!-- Outline Dropdowns -->
+          <div class="card-body">
+            <div class="table-responsive text-nowrap">
+              <table class="table table-bordered mb-4">
+                <thead>
+                <tr>
+                  <th>제품 이름</th>
+                  <th>자재번호</th>
+                  <th>자재명</th>
+                  <th>수량</th>
+                  <th>조달 예정일</th>
+                  <th>
+                    <select class="form-select form-select-sm" style="width: fit-content;">
+                      <option>전체 진행상태</option>
+                      <option>진행예정</option>
+                      <option>진행중</option>
+                      <option>완료</option>
+                    </select>
+                  </th>
+                  <th>수정/취소</th>
+                  <th>
+                    <select class="form-select form-select-sm" style="width: fit-content;">
+                      <option>전체 계약상태</option>
+                      <option>계약 필요</option>
+                      <option>계약 완료</option>
+                    </select>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>전동 킥보드</td>
+                  <td>
+                    AE-2341
+                  </td>
+                  <td><strong>후미등</strong></td> <td>500</td>
+                  <td>2024-08-14</td>
+                  <td>
+                    예정
+                  </td>
+                  <td>
+                    <button th:onclick="|location.href='@{/jodal/modify_jodal}'|" class="btn btn-primary">수정</button>
+                    <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
+                  </td>
+                  <td>
+                    <a th:href="@{/contract/new_contract}">
+                      <button type="button" class="btn btn-primary">계약서 등록</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>전동 킥보드</td>
+                  <td>
+                    OP-0734
+                  </td>
+                  <td><strong>모터</strong></td>
+                  <td>200</td>
+                  <td>2024-08-14</td>
+                  <td>
+                    예정
+                  </td>
+                  <td>
+                    <button th:onclick="|location.href='@{/jodal/modify_jodal}'|" class="btn btn-primary">수정</button>
+                    <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
+                  </td>
+                  <td>
+                    <a th:href="@{/contract/new_contract}">
+                      <button type="button" class="btn btn-primary">계약서 등록</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>전동 킥보드</td>
+                  <td>
+                    VB-2934
+                  </td>
+                  <td><strong>디스플레이</strong></td>
+                  <td>300</td>
+                  <td>2024-08-10</td>
+                  <td>
+                    진행중
+                  </td>
+                  <td>
+                    <button th:onclick="|location.href='@{/jodal/modify_jodal}'|" class="btn btn-primary">수정</button>
+                    <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
+                  </td>
+                  <td>
+                    <a th:href="@{/contract/download_contract}">
+                      <button type="button" class="btn btn-secondary">계약서 보기</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>전동 킥보드</td>
+                  <td>
+                    CF-0375
+                  </td>
+                  <td><strong>세이프티락</strong></td>
+                  <td>420</td>
+                  <td>2024-08-05</td>
+                  <td>
+                    진행중
+                  </td>
+                  <td>
+                    <button th:onclick="|location.href='@{/jodal/modify_jodal}'|" class="btn btn-primary">수정</button>
+                    <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
+                  </td>
+                  <td>
+                    <a th:href="@{/contract/download_contract}">
+                      <button type="button" class="btn btn-secondary">계약서 보기</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>전동 킥보드</td>
+                  <td>
+                    ED-1924
+                  </td>
+                  <td><strong>폴딩레버</strong></td>
+                  <td>220</td>
+                  <td>2024-08-04</td>
+                  <td>
+                    진행중
+                  </td>
+                  <td>
+                    <button th:onclick="|location.href='@{/jodal/modify_jodal}'|" class="btn btn-primary">수정</button>
+                    <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-secondary">계약서 보기</button>
+                    <button type="button" class="btn btn-secondary">계약서 보기</button>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item prev">
+                  <a class="page-link" href="javascript:void(0);"
+                  ><i class="tf-icon bx bx-chevrons-left"></i
+                  ></a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item next">
+                  <a class="page-link" href="javascript:void(0);">
+                    <i class="tf-icon bx bx-chevrons-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <!--Script-->
+    <!--Modal-->
+
+    <!--/Modal-->
+
+    <!--Script-->
+    <script>
+    function showConfirmation() {
+      var result = confirm('취소 하시겠습니까?');
+    }
+    </script>
+    <!--Script-->
   </span>
 
 </th:block>
