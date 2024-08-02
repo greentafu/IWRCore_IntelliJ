@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @ToString
 public class Request extends BaseEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long requstCode;
     private LocalDate eventDate;
     private String text;
