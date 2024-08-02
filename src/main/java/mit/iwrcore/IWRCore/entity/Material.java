@@ -1,6 +1,5 @@
 package mit.iwrcore.IWRCore.entity;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +20,7 @@ public class Material extends BaseEntity {
     private String uuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름
+    @JoinColumn(name = "writer")    // 외래 키 컬럼 이름
     private Member writer;              // 작성자
 
     @ManyToOne(fetch=FetchType.LAZY)
