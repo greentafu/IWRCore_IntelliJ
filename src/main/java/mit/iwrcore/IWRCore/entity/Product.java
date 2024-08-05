@@ -8,18 +8,19 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"manuScode", "member"})
+@ToString
 public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long manuCode;
+    private Long abc;
     private String name;
     private String color;
     private String text;
     private String uuid;
     private String supervisor;
     private String materImsi;
-    private boolean check;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;

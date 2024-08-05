@@ -1,6 +1,5 @@
 package mit.iwrcore.IWRCore.entity;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
 import lombok.*;
 

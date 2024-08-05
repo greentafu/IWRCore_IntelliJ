@@ -17,6 +17,6 @@ public class Request extends BaseEntity {
     private Long requstCode;
     private LocalDate eventDate;
     private String text;
-    private boolean reqCheck;
+    private Long reqCheck;
     private String line;
 }

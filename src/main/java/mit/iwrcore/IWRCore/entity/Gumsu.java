@@ -10,10 +10,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"writer", "order", "gumsuChasus"})
+@ToString(exclude = {"writer", "balju", "gumsuChasus"})
 public class Gumsu extends BaseEntity {
-
     @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gumsuNo;   // 검수 계획번호
     private Long make;      // 생산량
@@ -25,8 +25,8 @@ public class Gumsu extends BaseEntity {
     private Member writer;             // 작성자
 
     @OneToOne
-    @JoinColumn(name = "order_id")     // Order와의 1대1 관계 설정을 위한 외래 키 컬럼 이름
-    private Order order;               // 연관된 Order 엔티티
+    @JoinColumn(name = "balju_id")     // Order와의 1대1 관계 설정을 위한 외래 키 컬럼 이름
+    private Balju balju;               // 연관된 Order 엔티티
 
     @OneToMany(mappedBy = "gumsu")
     private List<GumsuChasu> gumsuChasus; // GumsuChasu 엔티티와의 1대다 관계
