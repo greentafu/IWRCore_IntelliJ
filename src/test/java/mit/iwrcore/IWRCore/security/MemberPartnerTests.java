@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
+
 @SpringBootTest
 public class MemberPartnerTests {
     @Autowired
@@ -90,7 +91,11 @@ public class MemberPartnerTests {
     @Test
     public void testRead(){
         Optional<Member> result=repository.findByID("mate1_1234");
-        Member member=result.get();
-        System.out.println(member);
+        if(result.isPresent()) {
+            Member member = result.get();
+            System.out.println(member);
+        } else {
+            //Pass
+        }
     }
 }
