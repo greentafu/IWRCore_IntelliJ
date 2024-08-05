@@ -11,8 +11,11 @@ import mit.iwrcore.IWRCore.repository.PartSCodeRepository;
 import mit.iwrcore.IWRCore.security.dto.PartLDTO;
 import mit.iwrcore.IWRCore.security.dto.PartMDTO;
 import mit.iwrcore.IWRCore.security.dto.PartSDTO;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,31 +65,57 @@ public class PartCodeServiceImpl implements PartCodeService{
 
     // 회사 분류 가져오기
     @Override
-    public PartL findPartL(Long lcode) {
-        return lCodeRepository.getReferenceById(lcode);
+    public PartLDTO findPartL(Long lcode) {
+        return partLTodto(lCodeRepository.getById(lcode));
     }
     @Override
-    public PartM findPartM(Long mcode) {
-        return mCodeRepository.getReferenceById(mcode);
+    public PartMDTO findPartM(Long mcode) {
+        return partMTOdto(mCodeRepository.getById(mcode));
     }
     @Override
-    public PartS findPartS(Long scode) {
-        return sCodeRepository.getReferenceById(scode);
+    public PartSDTO findPartS(Long scode) {
+        return partSTodto(sCodeRepository.getById(scode));
     }
+
     // 회사 분류 리스트 가져오기
     @Override
-    public List<PartL> findListPartL(PartM partM, PartS partS) {
-        return List.of();
+    public List<PartLDTO> findListPartL(PartMDTO partMDTO, PartSDTO partSDTO) {
+        List<PartLDTO> list=new ArrayList<>();
+        if(partSDTO!=null){
+            list.add(partLTodto(partSDTO.getPartM().getPartL()));
+            return list;
+        }else if(partMDTO!=null){
+            list.add(partLTodto(partMDTO.getPartL()));
+            return list;
+        }
+        lCodeRepository.findAll().stream().forEach(x->list.add(partLTodto(x)));
+        return list;
     }
-
     @Override
-    public List<PartM> findListPartM(PartL partL, PartS partS) {
-        return List.of();
+    public List<PartMDTO> findListPartM(PartLDTO partLDTO, PartSDTO partSDTO) {
+        List<PartMDTO> list=new ArrayList<>();
+        if(partSDTO!=null){
+            list.add(partMTOdto(partSDTO.getPartM()));
+            return list;
+        }else if(partLDTO!=null){
+            mCodeRepository.findAll().stream().filter(x->x.getPartL().getPartLcode()==partLDTO.getPartLcode()).forEach(x->list.add(partMTOdto(x)));
+            return list;
+        }
+        mCodeRepository.findAll().stream().forEach(x->list.add(partMTOdto(x)));
+        return list;
     }
-
     @Override
-    public List<PartS> findListPartS(PartL partL, PartS partS) {
-        return List.of();
+    public List<PartSDTO> findListPartS(PartLDTO partLDTO, PartMDTO partMDTO) {
+        List<PartSDTO> list=new ArrayList<>();
+        if(partMDTO!=null){
+            sCodeRepository.findAll().stream().filter(x->x.getPartM().getPartMcode()==partMDTO.getPartMcode()).forEach(x->list.add(partSTodto(x)));
+            return list;
+        }else if(partLDTO!=null){
+            sCodeRepository.findAll().stream().filter(x->x.getPartM().getPartL().getPartLcode()==partLDTO.getPartLcode()).forEach(x->list.add(partSTodto(x)));
+            return list;
+        }
+        sCodeRepository.findAll().stream().forEach(x->list.add(partSTodto(x)));
+        return list;
     }
 
 

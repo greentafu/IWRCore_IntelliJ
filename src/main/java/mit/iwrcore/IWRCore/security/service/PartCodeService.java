@@ -24,14 +24,14 @@ public interface PartCodeService {
 
 
     // 회사 분류 가져오기
-    PartL findPartL(Long lcode);
-    PartM findPartM(Long mcode);
-    PartS findPartS(Long scode);
+    PartLDTO findPartL(Long lcode);
+    PartMDTO findPartM(Long mcode);
+    PartSDTO findPartS(Long scode);
 
     // 회사 분류 리스트 가져오기
-    List<PartL> findListPartL(PartM partM, PartS partS);
-    List<PartM> findListPartM(PartL partL, PartS partS);
-    List<PartS> findListPartS(PartL partL, PartS partS);
+    List<PartLDTO> findListPartL(PartMDTO partMDTO, PartSDTO partSDTO);
+    List<PartMDTO> findListPartM(PartLDTO partLDTO, PartSDTO partSDTO);
+    List<PartSDTO> findListPartS(PartLDTO partLDTO, PartMDTO partMDTO);
 
 
 
