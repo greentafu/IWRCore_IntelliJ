@@ -1,6 +1,6 @@
-package mit.iwrcore.IWRCore.service;
+package mit.iwrcore.IWRCore.security.service;
 
-import mit.iwrcore.IWRCore.dto.ProLDTO;
+import mit.iwrcore.IWRCore.security.dto.ProLDTO;
 import mit.iwrcore.IWRCore.entity.ProL;
 
 public interface ProLService {

@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = "partLcode")
-public class PartM{
+public class PartM {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long partMcode;

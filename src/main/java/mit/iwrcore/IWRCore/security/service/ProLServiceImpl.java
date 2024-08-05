@@ -1,8 +1,8 @@
-package mit.iwrcore.IWRCore.service;
+package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.dto.ProLDTO;
+import mit.iwrcore.IWRCore.security.dto.ProLDTO;
 import mit.iwrcore.IWRCore.entity.ProL;
 import mit.iwrcore.IWRCore.repository.ProLRepository;
 import org.springframework.stereotype.Service;

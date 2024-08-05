@@ -9,7 +9,7 @@ import mit.iwrcore.IWRCore.security.dto.PartSDTO;
 
 import java.util.List;
 
-public interface PartCodeService {
+public interface  PartCodeService {
 
     // 회사 분류 삽입
     void insertPartL(PartLDTO dto);

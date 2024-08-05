@@ -1,7 +1,7 @@
-package mit.iwrcore.IWRCore.service;
+package mit.iwrcore.IWRCore.security.service;
 
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.dto.ProMDTO;
+import mit.iwrcore.IWRCore.security.dto.ProMDTO;
 import org.springframework.stereotype.Service;
 
 @Service
