@@ -8,7 +8,6 @@ import mit.iwrcore.IWRCore.entity.ProS;
 import mit.iwrcore.IWRCore.repository.ProLCodeRepository;
 import mit.iwrcore.IWRCore.repository.ProMCodeRepository;
 import mit.iwrcore.IWRCore.repository.ProSCodeRepository;
-import mit.iwrcore.IWRCore.security.dto.PartMDTO;
 import mit.iwrcore.IWRCore.security.dto.ProLDTO;
 import mit.iwrcore.IWRCore.security.dto.ProMDTO;
 import mit.iwrcore.IWRCore.security.dto.ProSDTO;
@@ -30,20 +29,20 @@ public class ProCodeServiceImpl implements ProCodeService{
     @Override
     public void insertProL(ProLDTO dto) {
         log.info("제품 대분류 삽입");
-        ProL proL=ProLdtoToEntity(dto);
-        lCodeRepository.save(ProL);
+        ProL proL=proLdtoToEntity(dto);
+        lCodeRepository.save(proL);
     }
     @Override
     public void insertProM(ProMDTO dto) {
         log.info("제품 중분류 삽입");
-        ProM ProM=ProMdtoToEntity(dto);
-        mCodeRepository.save(ProM);
+        ProM proM=proMdtoToEntity(dto);
+        mCodeRepository.save(proM);
     }
     @Override
     public void insertProS(ProSDTO dto) {
         log.info("제품 소분류 삽입");
-        ProS ProS=ProSdtoToEntity(dto);
-        sCodeRepository.save(ProS);
+        ProS proS=proSdtoToEntity(dto);
+        sCodeRepository.save(proS);
     }
 
     // 회사 분류 삭제
@@ -65,22 +64,23 @@ public class ProCodeServiceImpl implements ProCodeService{
     // 회사 분류 가져오기
     @Override
     public ProLDTO findProL(Long lcode) {
-        return ProLTodto(lCodeRepository.getById(lcode));
+        return proLTodto(lCodeRepository.getById(lcode));
     }
     @Override
     public ProMDTO findProM(Long mcode) {
-        return ProMTodto(mCodeRepository.getById(mcode));
+        return proMTodto(mCodeRepository.getById(mcode));
     }
     @Override
     public ProSDTO findProS(Long scode) {
-        return ProSTodto(sCodeRepository.getById(scode));
+        return proSTodto(sCodeRepository.getById(scode));
     }
 
     // 회사 분류 리스트 가져오기
+    @Override
     public List<ProLDTO> findListProL(ProMDTO proMDTO, ProSDTO proSDTO) {
         List<ProLDTO> list=new ArrayList<>();
         if(proSDTO!=null){
-            list.add(proLTodto(ProSDTO.getProtM().getProL()));
+            list.add(proLTodto(proMDTO.getProL().getProL()));
             return list;
         }else if(proMDTO !=null){
             list.add(proLTodto(proMDTO.getProL()));
@@ -91,15 +91,15 @@ public class ProCodeServiceImpl implements ProCodeService{
     }
     @Override
     public List<ProMDTO> findListProM(ProLDTO proLDTO, ProSDTO proSDTO) {
-        List<DTO> list=new ArrayList<>();
+        List<ProMDTO> list=new ArrayList<>();
         if(proSDTO!=null){
-            list.add(proMTOdto(proSDTO.getProM());
+            list.add(proMTodto(proSDTO.getProM()));
             return list;
         }else if(proLDTO!=null){
-            mCodeRepository.findAll().stream().filter(x->x.getProL().getProLcode()==proLDTO.getProLcode()).forEach(x->list.add(proMTOdto(x)));
+            mCodeRepository.findAll().stream().filter(x->x.getProL().getProLcode()==proLDTO.getProLcode()).forEach(x->list.add(proMTodto(x)));
             return list;
         }
-        mCodeRepository.findAll().stream().forEach(x->list.add(proMTOdto(x)));
+        mCodeRepository.findAll().stream().forEach(x->list.add(proMTodto(x)));
         return list;
     }
     @Override
@@ -114,6 +114,21 @@ public class ProCodeServiceImpl implements ProCodeService{
         }
         sCodeRepository.findAll().stream().forEach(x->list.add(proSTodto(x)));
         return list;
+    }
+
+    @Override
+    public ProS ProSdtoToEntity(ProSDTO sdto) {
+        return null;
+    }
+
+    @Override
+    public ProM ProMdtoToEntity(ProMDTO proM) {
+        return null;
+    }
+
+    @Override
+    public ProL ProLdtoToEntity(ProLDTO proL) {
+        return null;
     }
 
 

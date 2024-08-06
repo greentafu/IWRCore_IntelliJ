@@ -5,9 +5,9 @@ import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.PartL;
 import mit.iwrcore.IWRCore.entity.PartM;
 import mit.iwrcore.IWRCore.entity.PartS;
-import mit.iwrcore.IWRCore.repository.ProLCodeRepository;
-import mit.iwrcore.IWRCore.repository.ProMCodeRepository;
-import mit.iwrcore.IWRCore.repository.ProSCodeRepository;
+import mit.iwrcore.IWRCore.repository.PartLCodeRepository;
+import mit.iwrcore.IWRCore.repository.PartMCodeRepository;
+import mit.iwrcore.IWRCore.repository.PartSCodeRepository;
 import mit.iwrcore.IWRCore.security.dto.PartLDTO;
 import mit.iwrcore.IWRCore.security.dto.PartMDTO;
 import mit.iwrcore.IWRCore.security.dto.PartSDTO;
@@ -19,43 +19,43 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class PartCodeServiceImpl implements ProCodeService {
+public class PartCodeServiceImpl implements PartCodeService{
 
-    private final ProLCodeRepository lCodeRepository;
-    private final ProMCodeRepository mCodeRepository;
-    private final ProSCodeRepository sCodeRepository;
+    private final PartLCodeRepository lCodeRepository;
+    private final PartMCodeRepository mCodeRepository;
+    private final PartSCodeRepository sCodeRepository;
 
     // 회사 분류 삽입
     @Override
-    public void insertProL(PartLDTO dto) {
+    public void insertPartL(PartLDTO dto) {
         log.info("협력회사 대분류 삽입");
-        PartL partL= proLdtoToEntity(dto);
+        PartL partL=partLdtoToEntity(dto);
         lCodeRepository.save(partL);
     }
     @Override
     public void insertPartM(PartMDTO dto) {
         log.info("협력회사 중분류 삽입");
-        PartM partM= proMdtoToEntity(dto);
+        PartM partM=partMdtoToEntity(dto);
         mCodeRepository.save(partM);
     }
     @Override
     public void insertPartS(PartSDTO dto) {
         log.info("협력회사 소분류 삽입");
-        PartS partS= proSdtoToEntity(dto);
+        PartS partS=partSdtoToEntity(dto);
         sCodeRepository.save(partS);
     }
 
     // 회사 분류 삭제
     @Override
-    public void deleteProL(Long lcode) {
+    public void deletePartL(Long lcode) {
         lCodeRepository.deleteById(lcode);
     }
     @Override
-    public void deleteProM(Long mcode) {
+    public void deletePartM(Long mcode) {
         mCodeRepository.deleteById(mcode);
     }
     @Override
-    public void deleteProS(Long scode) {
+    public void deletePartS(Long scode) {
         sCodeRepository.deleteById(scode);
     }
 
@@ -63,21 +63,21 @@ public class PartCodeServiceImpl implements ProCodeService {
 
     // 회사 분류 가져오기
     @Override
-    public ProLDTO findProL(Long lcode) {
+    public PartLDTO findPartL(Long lcode) {
         return partLTodto(lCodeRepository.getById(lcode));
     }
     @Override
-    public ProMDTO findPartM(Long mcode) {
+    public PartMDTO findPartM(Long mcode) {
         return partMTOdto(mCodeRepository.getById(mcode));
     }
     @Override
-    public ProSDTO findProS(Long scode) {
+    public PartSDTO findPartS(Long scode) {
         return partSTodto(sCodeRepository.getById(scode));
     }
 
     // 회사 분류 리스트 가져오기
     @Override
-    public List<ProLDTO> findListProL(PartMDTO partMDTO, PartSDTO partSDTO) {
+    public List<PartLDTO> findListPartL(PartMDTO partMDTO, PartSDTO partSDTO) {
         List<PartLDTO> list=new ArrayList<>();
         if(partSDTO!=null){
             list.add(partLTodto(partSDTO.getPartM().getPartL()));
@@ -90,7 +90,7 @@ public class PartCodeServiceImpl implements ProCodeService {
         return list;
     }
     @Override
-    public List<ProMDTO> findListPartM(PartLDTO partLDTO, PartSDTO partSDTO) {
+    public List<PartMDTO> findListPartM(PartLDTO partLDTO, PartSDTO partSDTO) {
         List<PartMDTO> list=new ArrayList<>();
         if(partSDTO!=null){
             list.add(partMTOdto(partSDTO.getPartM()));

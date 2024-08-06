@@ -1,36 +1,19 @@
 package mit.iwrcore.IWRCore.security.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import lombok.extern.log4j.Log4j2;
+import mit.iwrcore.IWRCore.entity.ProL;
 
 @Builder
 @Data
+@Log4j2
+@Getter
+@Setter
+@ToString
 public class ProMDTO {
-    private Long manuMcode;
+    private Long proMcode;
     private String Mname;
+    private ProL proL;
 
-    public ProMDTO() {
-
-    }
-    public ProMDTO(Long manuMcode, String Mname) {
-        super();
-        this.manuMcode = manuMcode;
-        this.Mname = Mname;
-    }
-
-    public Long getcode() {
-        return manuMcode;
-    }
-
-    public void setcode(Long manuMcode) {
-        this.manuMcode = manuMcode;
-    }
-
-    public String getName() {
-        return Mname;
-    }
-
-    public void setName(String Mname) {
-        this.Mname = Mname;
-    }
+   
 }

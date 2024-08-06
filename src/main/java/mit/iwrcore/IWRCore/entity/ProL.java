@@ -9,10 +9,13 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString
-@Table(name="prol")
 public class ProL {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long manuLcode;
+    private Long proLcode;
     private String Lname;
+    @Setter
+    @Getter
+    private ProL proL;
+
 }

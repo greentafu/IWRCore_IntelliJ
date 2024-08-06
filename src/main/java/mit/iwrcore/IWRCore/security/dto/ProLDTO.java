@@ -1,24 +1,17 @@
 package mit.iwrcore.IWRCore.security.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
+@Getter
+@Setter
+@ToString
 @Builder
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ProLDTO {
-    private Long manuLcode;
+    private Long proLcode;
     private String Lname;
 
 
-    public Long getcode() {
-        return 0L;
-    }
 
-    public String getName() {
-        return "";
-    }
 }
