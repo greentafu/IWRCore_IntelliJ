@@ -8,7 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = "materMcode")
+@Setter
+@ToString(exclude = "materM")
 public class MaterS {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +18,7 @@ public class MaterS {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "materMcode")
-    private MaterL materL;
+    private MaterM materM;
 
 
 }

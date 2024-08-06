@@ -13,8 +13,6 @@ import lombok.*;
 public class ProL {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "manu_lcode")
-    private Long proLcode;
-    @Column(name = "lname")
+    private Long manuLcode;
     private String Lname;
 }

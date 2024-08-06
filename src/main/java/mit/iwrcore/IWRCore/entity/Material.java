@@ -17,7 +17,7 @@ public class Material extends BaseEntity {
     private String unit;
     private String standard;
     private String color;
-    private String uuid;
+    private String file;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer")    // 외래 키 컬럼 이름
