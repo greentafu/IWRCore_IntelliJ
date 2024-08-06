@@ -51,13 +51,13 @@ public interface ProCodeService {
 
     // entity를 dto로
     default ProLDTO proLTodto(ProL entity){
-        return ProLDTO.builder().proLcode(entity.getproLcode()).Lname(entity.getLname()).build();
+        return ProLDTO.builder().proLcode(entity.getProLcode()).Lname(entity.getLname()).build();
     }
     default ProMDTO proMTodto(ProM entity){
-        return ProMDTO.builder().proMcode(entity.getproMcode()).Mname(entity.getMname()).proL(entity.getProL()).build();
+        return ProMDTO.builder().proMcode(entity.getProMcode()).Mname(entity.getMname()).proL(entity.getProL()).build();
     }
     default ProSDTO proSTodto(ProS entity){
-        return ProSDTO.builder().proScode(entity.getproScode()).Sname(entity.getSname()).proM(entity.getProM()).build();
+        return ProSDTO.builder().proScode(entity.getProScode()).Sname(entity.getSname()).proM(entity.getProM()).build();
     }
 
     ProS ProSdtoToEntity(ProSDTO sdto);

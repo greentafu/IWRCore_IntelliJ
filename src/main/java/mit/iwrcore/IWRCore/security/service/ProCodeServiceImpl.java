@@ -80,7 +80,7 @@ public class ProCodeServiceImpl implements ProCodeService{
     public List<ProLDTO> findListProL(ProMDTO proMDTO, ProSDTO proSDTO) {
         List<ProLDTO> list=new ArrayList<>();
         if(proSDTO!=null){
-            list.add(proLTodto(proMDTO.getProL().getProL()));
+            list.add(proLTodto(proMDTO.getProL()));
             return list;
         }else if(proMDTO !=null){
             list.add(proLTodto(proMDTO.getProL()));
@@ -96,7 +96,7 @@ public class ProCodeServiceImpl implements ProCodeService{
             list.add(proMTodto(proSDTO.getProM()));
             return list;
         }else if(proLDTO!=null){
-            mCodeRepository.findAll().stream().filter(x->x.getProL().getproLcode()==proLDTO.getProLcode()).forEach(x->list.add(proMTodto(x)));
+            mCodeRepository.findAll().stream().filter(x->x.getProL().getProLcode()==proLDTO.getProLcode()).forEach(x->list.add(proMTodto(x)));
             return list;
         }
         mCodeRepository.findAll().stream().forEach(x->list.add(proMTodto(x)));
@@ -106,10 +106,10 @@ public class ProCodeServiceImpl implements ProCodeService{
     public List<ProSDTO> findListProS(ProLDTO proLDTO, ProMDTO proMDTO) {
         List<ProSDTO> list=new ArrayList<>();
         if(proMDTO!=null){
-            sCodeRepository.findAll().stream().filter(x->x.getProM().getproMcode()==proMDTO.getProMcode()).forEach(x->list.add(proSTodto(x)));
+            sCodeRepository.findAll().stream().filter(x->x.getProM().getProMcode()==proMDTO.getProMcode()).forEach(x->list.add(proSTodto(x)));
             return list;
         }else if(proLDTO!=null){
-            sCodeRepository.findAll().stream().filter(x->x.getProM().getProL().getproLcode()==proLDTO.getProLcode()).forEach(x->list.add(proSTodto(x)));
+            sCodeRepository.findAll().stream().filter(x->x.getProM().getProL().getProLcode()==proLDTO.getProLcode()).forEach(x->list.add(proSTodto(x)));
             return list;
         }
         sCodeRepository.findAll().stream().forEach(x->list.add(proSTodto(x)));
