@@ -12,10 +12,10 @@ import lombok.*;
 public class ProM{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long manuMcode;
+    private Long proMcode;
     private String Mname;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "manuLcode")
+    @JoinColumn(name = "proLcode")
     private ProL proL;
 }
