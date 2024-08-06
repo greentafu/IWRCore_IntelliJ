@@ -32,11 +32,10 @@
             <div class="card shadow-none" style="height: 750px">
               <div class="card-body mb-3" id="vertical-example" style="height: 550px;">
                 <table class="table table-hover text-center">
-                  <!--기계부품-->
-                  <tr>
-                    <td>기계부품</td>
-                    <td>프레임 및 관련 부품</td>
-                    <td>프레임</td>
+                  <tr th:each="partdto:${partCodeList.partSDTOs}">
+                    <td th:text="${partdto.partMDTO.partLDTO.Lname}"></td>
+                    <td th:text="${partdto.partMDTO.Mname}"></td>
+                    <td th:text="${partdto.Sname}"></td>
                     <td>
                       <button
                               class="btn btn-outline-primary btn-sm"
@@ -56,302 +55,6 @@
                       </button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>프레임 및 관련 부품</td>
-                    <td>핸들바 및 그립</td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyCompany"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>프레임 및 관련 부품</td>
-                    <td>서스펜션 및 충격흡수기</td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyCompany"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                              </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>브레이크 시스템</td>
-                    <td>브레이크 캘리퍼 및 패드</td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyCompany"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>브레이크 시스템</td>
-                    <td>브레이크 디스크 및 드럼</td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyCompany"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>브레이크 시스템</td>
-                    <td>브레이크 호스 및 파이프</td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyCompany"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>변속 시스템</td>
-                    <td>기어박스</td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyCompany"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>변속 시스템</td>
-                    <td>변속기 메커니즘</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>휠 및 관련 부품</td>
-                    <td>휠</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>휠 및 관련 부품</td>
-                    <td>휠 허브</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>휠 및 관련 부품</td>
-                    <td>타이어 어셈블리</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>페스너류</td>
-                    <td>볼트/나사/너트/와셔/</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                  <td>기계부품</td>
-                  <td>안전 및 조명장치</td>
-                  <td>조명장치</td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                    <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                  </td>
-                </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>안전 및 조명장치</td>
-                    <td>신호 및 경고장치</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>기계부품</td>
-                    <td>안전 및 조명장치</td>
-                    <td>안전장치</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                    <!--/기계부품-->
-                    <!--전기부품-->
-                  <tr>
-                    <td>전기부품</td>
-                    <td>전동 시스템 및 배터리</td>
-                    <td>모터</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>전기부품</td>
-                    <td>전동 시스템 및 배터리</td>
-                    <td>배터리 팩</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>전기부품</td>
-                    <td>전동 시스템 및 배터리</td>
-                    <td>컨트롤러</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>전기부품</td>
-                    <td>전동 시스템 및 배터리</td>
-                    <td>디스플레이</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>전기부품</td>
-                    <td>충전시스템</td>
-                    <td>충전 컨트롤러</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>전기부품</td>
-                    <td>충전시스템</td>
-                    <td>충전 포트 및 케이블</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>전기부품</td>
-                    <td>전기연결 및 케이블</td>
-                    <td>전선 및 케이블 어셈블리</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                    <!--/전기부품-->
-                    <!--화학제품-->
-                  <tr>
-                    <td>화학제품</td>
-                    <td>도장 및 코팅 재료</td>
-                    <td>도장용 액체 및 스프레이</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>화학제품</td>
-                    <td>도장 및 코팅 재료</td>
-                    <td>코팅 재료</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                    <!--/화학제품-->
                 </table>
               </div>
               <hr class="m-0">
@@ -359,12 +62,15 @@
                 <div class="row">
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="country">
+                      <select class="select2 form-select" id="selectPartL" onchange="updatePartCode('L')">
                         <option value="">선택</option>
-                        <option selected value="Australia">기계부품</option>
-                        <option value="Bangladesh">전기부품</option>
-                        <option value="Bangladesh">화학제품</option>
-                        <option value="Belarus">직접입력</option>
+                        <option
+                                th:each="partldto:${partCodeList.partLDTOs}"
+                                th:value="${partldto.partLcode}"
+                                th:text="${partldto.Lname}"
+                        >
+                        </option>
+                        <option value="directPartL">직접입력</option>
                       </select>
                     </div>
                   </div>
@@ -381,12 +87,25 @@
                   </div>
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="country">
+                      <select class="select2 form-select" id="selectPartM" onchange="updatePartCode('M')">
                         <option value="">선택</option>
-                        <option selected value="Australia">프레임 및 관련 부품</option>
-                        <option value="Bangladesh">브레이크 시스템</option>
-                        <option value="Belarus">변속 시스템</option>
-                        <option value="Belarus">직접입력</option>
+                        <option
+                                th:each="partmdto:${partCodeList.partMDTOs}"
+                                th:value="${partmdto.partMcode}"
+                                th:text="${partmdto.Mname}"
+                        >
+                        </option>
+                        <option value="directPartM">직접입력</option>
+                      </select>
+                      <select class="select2 form-select" id="selectPartS" onchange="updatePartCode('S')">
+                        <option value="">선택</option>
+                        <option
+                                th:each="partsdto:${partCodeList.partSDTOs}"
+                                th:value="${partsdto.partScode}"
+                                th:text="${partsdto.Sname}"
+                        >
+                        </option>
+                        <option value="directPartS">직접입력</option>
                       </select>
                     </div>
                   </div>
@@ -1498,9 +1217,65 @@
       <!--/ Modal(modifydelete)-->
       <!--/Modal-->
 
-      <!--Script-->
+    <!--Script-->
+    <script>
+      function updatePartCode(changedSelect){
+        var Lcode=$('#selectPartL').val();
+        var Mcode=$('#selectPartM').val();
+        var Scode=$('#selectPartS').val();
 
-      <!--Script-->
+        console.log(Lcode, Mcode, Scode);
+
+        if (changedSelect === 'L') {
+          Mcode=null;
+          Scode=null;
+        } else if (changedSelect === 'M') {
+          Scode=null;
+        }
+
+        $.ajax({
+          url:'/select/part',
+          method:'GET',
+          data:{lcode:Lcode, mcode:Mcode, scode:Scode},
+          success:function(data){
+
+            console.log(data);
+
+            $('#selectPartL').empty().append("<option value=''>선택</option>");
+            $('#selectPartM').empty().append('<option value="">선택</option>');
+            $('#selectPartS').empty().append('<option value="">선택</option>');
+
+            data.partLDTOs.forEach(function(partL) {
+              $('#selectPartL').append(
+                $('<option></option>')
+                        .attr('value', partL.partLcode)
+                        .text(partL.lname)
+                        .prop('selected', partL.partLcode == data.l)
+              );
+            });
+            data.partMDTOs.forEach(function(partM) {
+              $('#selectPartM').append(
+                $('<option></option>')
+                        .attr('value', partM.partMcode)
+                        .text(partM.mname)
+                        .prop('selected', partM.partMcode == data.m)
+              );
+            });
+            data.partSDTOs.forEach(function(partS) {
+              $('#selectPartS').append(
+                $('<option></option>')
+                        .attr('value', partS.partScode)
+                        .text(partS.sname)
+                        .prop('selected', partS.partScode == data.s)
+              );
+            });
+
+          }
+        });
+
+      }
+    </script>
+    <!--Script-->
   </span>
 
 </th:block>

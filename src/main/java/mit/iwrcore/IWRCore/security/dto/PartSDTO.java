@@ -15,5 +15,5 @@ import mit.iwrcore.IWRCore.entity.PartM;
 public class PartSDTO {
     private Long partScode;
     private String Sname;
-    private PartM partM;
+    private PartMDTO partMDTO;
 }

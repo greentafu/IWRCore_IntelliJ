@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
 import mit.iwrcore.IWRCore.entity.PartL;
 import mit.iwrcore.IWRCore.entity.PartM;
 import mit.iwrcore.IWRCore.entity.PartS;
@@ -79,35 +80,38 @@ public class PartCodeServiceImpl implements PartCodeService{
 
     // 회사 분류 리스트 가져오기
     @Override
-    public List<PartLDTO> findListPartL(PartMDTO partMDTO, PartSDTO partSDTO) {
+    public List<PartLDTO> findListPartL() {
         List<PartLDTO> list=new ArrayList<>();
-        if(partSDTO!=null){
-            list.add(partLTodto(partSDTO.getPartM().getPartL()));
-            return list;
-        }else if(partMDTO!=null){
-            list.add(partLTodto(partMDTO.getPartL()));
-            return list;
-        }
         lCodeRepository.findAll().stream().forEach(x->list.add(partLTodto(x)));
         return list;
     }
     @Override
-    public List<PartMDTO> findListPartM(PartLDTO partLDTO, PartSDTO partSDTO) {
+    public List<PartMDTO> findListPartM(PartLDTO partLDTO, PartMDTO partMDTO, PartSDTO partSDTO) {
         List<PartMDTO> list=new ArrayList<>();
         if(partSDTO!=null){
-            list.add(partMTOdto(partSDTO.getPartM()));
+            Long temp=partSDTO.getPartMDTO().getPartLDTO().getPartLcode();
+            mCodeRepository.findAll().stream().filter(x->x.getPartL().getPartLcode()==temp).forEach(x->list.add(partMTOdto(x)));
+            return list;
+        }else if(partMDTO!=null){
+            Long temp=partMDTO.getPartLDTO().getPartLcode();
+            mCodeRepository.findAll().stream().filter(x->x.getPartL().getPartLcode()==temp).forEach(x->list.add(partMTOdto(x)));
             return list;
         }else if(partLDTO!=null){
-            mCodeRepository.findAll().stream().filter(x->x.getPartL().getPartLcode()==partLDTO.getPartLcode()).forEach(x->list.add(partMTOdto(x)));
+            Long temp=partLDTO.getPartLcode();
+            mCodeRepository.findAll().stream().filter(x->x.getPartL().getPartLcode()==temp).forEach(x->list.add(partMTOdto(x)));
             return list;
         }
         mCodeRepository.findAll().stream().forEach(x->list.add(partMTOdto(x)));
         return list;
     }
     @Override
-    public List<PartSDTO> findListPartS(PartLDTO partLDTO, PartMDTO partMDTO) {
+    public List<PartSDTO> findListPartS(PartLDTO partLDTO, PartMDTO partMDTO, PartSDTO partSDTO) {
         List<PartSDTO> list=new ArrayList<>();
-        if(partMDTO!=null){
+        if(partSDTO!=null){
+            Long temp=partSDTO.getPartMDTO().getPartMcode();
+            sCodeRepository.findAll().stream().filter(x->x.getPartM().getPartMcode()==temp).forEach(x->list.add(partSTodto(x)));
+            return list;
+        }else if(partMDTO!=null){
             sCodeRepository.findAll().stream().filter(x->x.getPartM().getPartMcode()==partMDTO.getPartMcode()).forEach(x->list.add(partSTodto(x)));
             return list;
         }else if(partLDTO!=null){
@@ -115,6 +119,15 @@ public class PartCodeServiceImpl implements PartCodeService{
             return list;
         }
         sCodeRepository.findAll().stream().forEach(x->list.add(partSTodto(x)));
+        return list;
+    }
+    @Override
+    public PartCodeListDTO findListPartAll(PartLDTO partLDTO, PartMDTO partMDTO, PartSDTO partSDTO) {
+        PartCodeListDTO list=PartCodeListDTO.builder()
+                .partLDTOs(findListPartL())
+                .partMDTOs(findListPartM(partLDTO, partMDTO, partSDTO))
+                .partSDTOs(findListPartS(partLDTO, partMDTO, partSDTO))
+                .build();
         return list;
     }
 
