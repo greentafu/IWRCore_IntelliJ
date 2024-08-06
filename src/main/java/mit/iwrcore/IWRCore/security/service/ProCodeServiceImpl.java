@@ -80,7 +80,7 @@ public class ProCodeServiceImpl implements ProCodeService{
     public List<ProLDTO> findListProL(ProMDTO proMDTO, ProSDTO proSDTO) {
         List<ProLDTO> list=new ArrayList<>();
         if(proSDTO!=null){
-            list.add(proLTodto(proMDTO.getProL()));
+            list.add(proLTodto(proMDTO.getProL().getProL()));
             return list;
         }else if(proMDTO !=null){
             list.add(proLTodto(proMDTO.getProL()));
