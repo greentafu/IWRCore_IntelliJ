@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>자재 수정</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+    <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">자재 관리 /</span> 자재 수정</h4>
+
+                <!-- Hoverable Table rows -->
+              <div class="card">
+                <div class="table-responsive text-nowrap">
+
+                  <!-- Outline Dropdowns -->
+                  <div class="card-body">
+                    <h5>자재 정보</h5>
+                    <label for="organization" class="form-label">자재명</label>
+                    <input type="text" class="form-control">
+                    <label for="organization" class="form-label">첨부 파일</label>
+                    <div class="input-group mb-4">
+                      <input
+                              type="file"
+                              class="form-control"
+                              id="inputGroupFile04"
+                              aria-describedby="inputGroupFileAddon04"
+                              aria-label="Upload"
+                      />
+                      <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+                    </div>
+                    <div
+                            class="card shadow-none border border-secondary mb-3"
+                            style="min-height: 100px;">
+                    </div>
+                  </div>
+                  <hr class="m-0"/>
+                  <div class="card-body">
+                    <!-- Form controls -->
+                    <div class="row mb-3">
+                      <h5>세부 항목</h5>
+
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">대분류 : </label>
+                      <div class="col-md-3">
+                        <div class="row">
+                          <select id="selectCategory1" class="form-select col-form-label" style="width: fit-content;"
+                                  aria-label="Default select example" onchange="directCategory1(this.value)">
+                            <option selected>카테고리1</option>
+                            <option value="1">카테고리2</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="form-control col-md-2" id="writeCategory1"
+                                 name="selboxDirectMeasure" hidden>
+                        </div>
+                      </div>
+
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">중분류 : </label>
+                      <div class="col-md-3">
+                        <div class="row">
+                          <select id="selectCategory2" class="form-select col-form-label" style="width: fit-content;"
+                                  aria-label="Default select example" onchange="directCategory2(this.value)">
+                            <option selected>카테고리1</option>
+                            <option value="1">카테고리2</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="form-control col-md-10" id="writeCategory2"
+                                 name="selboxDirectMeasure" hidden>
+                        </div>
+                      </div>
+
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">소분류 : </label>
+                      <div class="col-md-3">
+                        <div class="row">
+                          <select id="selectCategory3" class="form-select col-form-label" style="width: fit-content;"
+                                  aria-label="Default select example" onchange="directCategory3(this.value)">
+                            <option selected>카테고리1</option>
+                            <option value="1">카테고리2</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="form-control col-md-10" id="writeCategory3"
+                                 name="selboxDirectMeasure" hidden>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="row mb-4">
+                      <label for="exampleFormControlInput1" class="col-form-label" style="width: 60px;">규격 : </label>
+                      <input
+                              type="email"
+                              id="exampleFormControlInput1"
+                              class="form-control col-md-10"
+                              style="width: 30%;"
+                      />
+                    </div>
+                    <div class="row mb-3">
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 60px;">단위 : </label>
+                      <div class="col-md-10">
+                        <div class="row mb-3">
+                          <select id="selectMeasure" class="col-form-label form-select" style="width: fit-content;"
+                                  aria-label="Default select example" onchange="directMeasure(this.value)">
+                            <option selected>mm</option>
+                            <option value="1">m</option>
+                            <option value="2">㎡</option>
+                            <option value="3">kg</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="col-md-10 form-control" style="width: 30%;" id="writeMeasure"
+                                 name="selboxDirectMeasure" hidden>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="exampleFormControlSelect1" class="col-form-label" style="width: 60px;">색상 : </label>
+                      <div class="col-md-10">
+                        <div class="row mb-3">
+                          <select id="selectColor" class="col-form-label form-select" style="width: fit-content;"
+                                  aria-label="Default select example" onchange="directColor(this.value)">
+                            <option selected>빨강</option>
+                            <option value="1">파랑</option>
+                            <option value="2">초록</option>
+                            <option value="3">검정</option>
+                            <option value="direct">직접입력</option>
+                          </select>&nbsp;
+                          <input type="text" class="col-md-10 form-control" style="width: 30%;" id="writeColor"
+                                 name="selboxDirectColor" hidden>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="exampleFormControlInput1" class="col-form-label" style="width: 90px;">창고위치 : </label>
+                      <div class="col-md-3">
+                        <select class="form-select col-md-3">
+                          <option>미정</option>
+                          <option>A창고</option>
+                          <option>B창고</option>
+                          <option>C창고</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <select class="form-select col-md-3">
+                          <option>미정</option>
+                          <option>a-1</option>
+                          <option>a-2</option>
+                          <option>a-3</option>
+                          <option>b-1</option>
+                          <option>b-2</option>
+                          <option>b-3</option>
+                          <option>c-1</option>
+                          <option>c-2</option>
+                          <option>c-3</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between w-100">
+                      <button type="button" class="btn btn-outline-secondary"
+                              onclick="location.href='../pageManufacture/list_material.html'">뒤로가기</button>
+                      <button type="button" class="btn btn-primary"
+                              onclick="location.href='../pageManufacture/list_material.html'">등록</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <!-- / Content -->
+        <!--Script-->
+
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>계약서 수정</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+     <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">계약서 /</span> 계약서 수정</h4>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-4">
+                  <!-- Account -->
+                  <div class="card-body">
+                    <label for="firstName" class="form-label">담당자</label>
+                      <input class="form-control mb-1" type="text" id="firstName" name="firstName"
+                             placeholder="홍길동" autofocus />
+                    <label for="organization" class="form-label">첨부 파일</label>
+                    <div class="input-group mb-3">
+                      <input
+                              type="file"
+                              class="form-control"
+                              id="inputGroupFile04"
+                              aria-describedby="inputGroupFileAddon04"
+                              aria-label="Upload"
+                      />
+                      <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+                    </div>
+                  </div>
+                  <hr class="m-0" />
+                  <div class="card-body ㅡ">
+                    <div class="text-nowrap table-responsive">
+                      <table class="table table-bordered mb-4">
+                        <tr>
+                          <th>자재번호</th>
+                          <th>자재명</th>
+                          <th>단가</th>
+                          <th>수량</th>
+                          <th>걸리는 일수</th>
+                          <th>체결일 </th>
+                        </tr>
+                        <tr>
+                          <td>QR-1234</td>
+                          <td>앞브레이크</td>
+                          <td>
+                            <input type="number" style="border: 0;" value="25000">
+                          </td>
+                          <td>
+                            <input type="number" style="border: 0;" value="100">
+                          </td>
+                          <td><input type="number" value="200">일</td>
+                          <td>
+                            <input type="date" class="form-control" style="width: 150px;">
+                          </td>
+                        </tr>
+
+                      </table>
+                    </div>
+
+                    <div class="d-flex justify-content-between w-100">
+                      <a th:href="@{/contract/list_contract}">
+                        <button type="reset" class="btn btn-outline-secondary">취소</button>
+                      </a>
+                      <a th:href="@{/contract/list_contract}">
+                      <button class="btn btn-primary">수정</button>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!--Modal-->
+
+        <!--/Modal-->
+        <!--Script-->
+
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

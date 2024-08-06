@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <style>
+      /* 모달 배경 스타일 */
+      .modal {
+          display: none; /* 기본적으로 숨김 */
+          position: fixed; /* 화면에 고정 */
+          z-index: 9999; /* 화면의 다른 요소들 위에 표시 */
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
+      }
+      
+      /* 모달 콘텐츠 스타일 */
+      .modal-content {
+          background-color: #fefefe;
+          margin: 15% auto; /* 화면 중앙에 위치, 상단 여백 조정 */
+          padding: 20px;
+          border: 1px solid #888;
+          width: auto; /* 콘텐츠에 맞게 너비 조정 */
+          max-width: 80%; /* 최대 너비 설정 */
+          max-height: 80%; /* 최대 높이 설정 */
+          overflow: auto; /* 콘텐츠가 많으면 스크롤 가능 */
+      }
+      
+      .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+      
+      
+        </style>
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="../assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../assets/js/config.js"></script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <!-- Layout container-->
+      <div class="layout-container">
+
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          
+          <div class="app-brand demo">
+            <a href="../pageLogin/index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <svg
+                  width="25"
+                  viewBox="0 0 25 42"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                <defs>
+                  <path
+                    d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z"
+                    id="path-1"
+                  ></path>
+                  <path
+                    d="M5.47320593,6.00457225 C4.05321814,8.216144 4.36334763,10.0722806 6.40359441,11.5729822 C8.61520715,12.571656 10.0999176,13.2171421 10.8577257,13.5094407 L15.5088241,14.433041 L18.6192054,7.984237 C15.5364148,3.11535317 13.9273018,0.573395879 13.7918663,0.358365126 C13.5790555,0.511491653 10.8061687,2.3935607 5.47320593,6.00457225 Z"
+                    id="path-3"
+                  ></path>
+                  <path
+                    d="M7.50063644,21.2294429 L12.3234468,23.3159332 C14.1688022,24.7579751 14.397098,26.4880487 13.008334,28.506154 C11.6195701,30.5242593 10.3099883,31.790241 9.07958868,32.3040991 C5.78142938,33.4346997 4.13234973,34 4.13234973,34 C4.13234973,34 2.75489982,33.0538207 2.37032616e-14,31.1614621 C-0.55822714,27.8186216 -0.55822714,26.0572515 -4.05231404e-15,25.8773518 C0.83734071,25.6075023 2.77988457,22.8248993 3.3049379,22.52991 C3.65497346,22.3332504 5.05353963,21.8997614 7.50063644,21.2294429 Z"
+                    id="path-4"
+                  ></path>
+                </defs>
+              </svg>
+            </span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">돌아가기</span>
+          </a>
+          </div> <!--class="app-brand demo" end-->
+
+          <div class="menu-inner-shadow"></div>
+
+          <ul class="menu-inner py-1">
+          
+            <!-- Layouts -->
+            <!-- 개발부서/생산부서 -->
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text"></span>개발부서/생산부서</span>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link open-modal" data-modal="modal1">
+                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <div data-i18n="Account">개발 부서</div>
+              </a>
+              <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <span class="close" data-modal="modal1">&times;</span>
+                    <p><strong>개발 부서</strong> 에서 신규 제품을 등록,수정,삭제하고 등록된 리스트를 볼수있는 페이지.등록한 제품 관련 자재를 등록할수 있다.제품 명을 클릭하여 제품 도면,요구 자재 목록,요구 자재 도면 을 상세히 볼수 있다. </p>
+                </div>
+            </div>
+            </li>
+            
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <div data-i18n="Authentications">생산부서</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+            
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal2">
+                    <div data-i18n="Basic">생산 계획</div>
+                  </a><div id="modal2" class="modal">
+                    <div class="modal-content">
+                      <span class="close" data-modal="modal2">&times;</span>
+                      <p><strong>생산 부서</strong> 에서 생산 계획을 등록,수정,삭제하고 생산 계획 리스트를 볼수있는 페이지.생산 계획을 등록하면서 생산 라인을 등록할 수있다.등록되어 있는 리스트의 제품명 을 클릭하여 제품 생산  계획 정보 를 볼수있다. </p>
+                  </div>
+              </div>
+                </li>
+                
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal3">
+                    <div data-i18n="Basic">출하 요청</div>
+                  </a><div id="modal3" class="modal">
+                    <div class="modal-content">
+                      <span class="close" data-modal="modal3">&times;</span>
+                      <p><strong>생산 부서</strong>에서 발주 담당자에게 제품에 대한 출하 요청을 등록,수정,삭제 수 있는 페이지.등록되어 있는 제품 명칭을 클릭하여 출하 요청서, 관련 자재 정보 를 볼수있다.</p>
+                  </div>
+              </div>
+                </li>
+              </ul>
+            </li>
+            <!--개발부서/생산부서 end-->
+            <!--제품관리-->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">제품 관리</span></li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-box"></i>
+                <div data-i18n="Authentications">제품 관리</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal4">
+                    <div data-i18n="Boxicons">제품 목록</div>
+                  </a>
+                  <div id="modal4" class="modal">
+                    <div class="modal-content">
+                        <span class="close" data-modal="modal4">&times;</span>
+                        <p>등록 되어 있는 제품 목록들을 수정,삭제,등록 할수 있는 페이지.등록되어 있는 제품 명 을 클릭하여 제품수량,희망날짜,라인 선택후 자재 출하요청을 할수있다. </p>
+                    </div>
+                </div>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal5">
+                    <div data-i18n="Basic">자재입력 필요 제품</div>
+                  </a>
+                  <div id="modal5" class="modal">
+                    <div class="modal-content">
+                        <span class="close" data-modal="modal5">&times;</span>
+                        <p>개발 부서에서 제품을 등록하며 관련 자재들을 등록하지 않았을때 제품에 관련한 자재를 등록할수 있는 페이지.자재 등록 을 누르면 기존 사용중인 자재와 신규자재를 추가할수가 있다.</p>
+                    </div>
+                </div>
+                </li>
+              </ul>
+            </li>
+            <!--제품관리 end-->
+            <!--자재관리-->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">자재 관리</span></li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
+                <div data-i18n="Authentications">자재 관리</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal6">
+                    <div data-i18n="Boxicons">자재 목록</div>
+                  </a>
+                  <div id="modal6" class="modal">
+                    <div class="modal-content">
+                        <span class="close" data-modal="modal6">&times;</span>
+                        <p>제품을 선택하여 등록되어 있는 자재들을 수정,삭제,등록 할수 있고 리스트를 볼수 있는 페이지.자재 명을 클릭하여 규격,단위,색상,창고 위치 등 상세 정보를 볼수있다.</p>
+                    </div>
+                </div>
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal7">
+                    <div data-i18n="Basic">조달계획 필요 자재</div>
+                  </a>
+                  <div id="modal7" class="modal">
+                    <div class="modal-content">
+                        <span class="close" data-modal="modal7">&times;</span>
+                        <p>생산 계획을 바탕으로 조달 계획을 수립,등록,수정,취소 할수 았고 수립필요 자재 리스트와 수립된 자재 리스트를 볼수있다.등록된 조달계획을 통하여 계약서를 등록할수 있다.</p>
+                    </div>
+                </div>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-calendar-check"></i>
+                <div data-i18n="Authentications">진척검수 관리</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal8">
+                    <div data-i18n="Boxicons">진척검수 목록</div>
+                  </a>
+                  <div id="modal8" class="modal">
+                    <div class="modal-content">
+                        <span class="close" data-modal="modal8">&times;</span>
+                        <p>자재에 관한 진척 검수 목록을 수정,취소 할수있고 리스트를 볼수가 있다.리스트를 통하여 현재 진척도를 볼수가 있다.</p>
+                    </div>
+                </div>
+
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal9">
+                    <div data-i18n="Basic">진척검수 필요 발주</div>
+                  </a>
+                  <div id="modal9" class="modal">
+                    <div class="modal-content">
+                        <span class="close" data-modal="modal9">&times;</span>
+                        <p>진척검수가 필요한 발주 자재 리스트를 확인할수 있다.진척 검수일 등록을 누르면 발주한 그 회사가 취급하는 자재들을 볼수 있다.</p>
+                    </div>
+                </div>
+
+
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-package"></i>
+                <div data-i18n="Authentications">입고/출하 관리</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal10">
+                    <div data-i18n="Boxicons">입고/반품</div>
+                  </a>
+                  <div id="modal10" class="modal">
+                    <div class="modal-content">
+                        <span class="close" data-modal="modal10">&times;</span>
+                        <p>협력업체에서 보내준 자재들을 수령하여 반품,입고, 추가요청을 할수가 있다.수령일자를 통하여 배송중인 자재들을 확인할수가 있다.</p>
+                    </div>
+                </div>
+
+                </li>
+                <li class="menu-item">
+                  <a href="#" class="menu-link open-modal" data-modal="modal11">
+                    <div data-i18n="Basic">출하</div>
+                  </a>
+                  <div id="modal11" class="modal">
+                    <div class="modal-content">
+                        <span class="close" data-modal="modal11">&times;</span>
+                        <p>생산부서 에서 제품 출하를 요청시에 완료 버튼으로 출하시킬수가 있다.</p>
+                    </div>
+                </div>
+
+
+                </li>
+              </ul>
+            </li>
+            <!--자재관리 end-->
+            <!--재고관리-->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">재고 관리</span></li>
+            <li class="menu-item">
+              <a href="#" class="menu-link open-modal" data-modal="modal12">
+                <i class="menu-icon tf-icons bx bx-cube"></i>
+                <div data-i18n="Boxicons">재고 수량</div>
+              </a>
+              <div id="modal12" class="modal">
+                <div class="modal-content">
+                    <span class="close" data-modal="modal12">&times;</span>
+                    <p>등록되어 있는 자재들에 대한 상세 내용을 볼수 있는 페이지.발주 버튼을 눌러 필요한 자재를 발주시킬수가 있다.</p>
+                </div>
+            </div>
+
+
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link open-modal" data-modal="modal13">
+                <i class="menu-icon tf-icons bx bx-cube"></i>
+                <div data-i18n="Boxicons">재고 금액</div>
+              </a>
+              <div id="modal13" class="modal">
+                <div class="modal-content">
+                    <span class="close" data-modal="modal13">&times;</span>
+                     <p>등록되어 있는 자재들에 대한 자재금액들을 볼수 있는 페이지.자재명을 클릭하여 그전 계약에 관한 내용들을 볼수가 있다.</p>
+                </div>
+            </div>
+
+
+            </li>
+            <!--재고관리 end-->
+            <!--서류관리-->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">서류 관리</span></li>
+            <li class="menu-item">
+              <a href="#" class="menu-link open-modal" data-modal="modal14">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Boxicons">계약서</div>
+              </a>
+              <div id="modal14" class="modal">
+                <div class="modal-content">
+                    <span class="close" data-modal="modal14">&times;</span>
+                     <p>조달계획을 등록하여 계약서 작성이 필요한 조달계획내역들을 볼수 있는 페이지.작성된 계약서들을 볼수가있고 다운로드,등록,수정,삭제 할수가 있다.</p>
+                </div>
+            </div>
+
+            </li>
+            <li class="menu-item">
+            
+ <a href="#" class="menu-link open-modal" data-modal="modal15">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Boxicons">발주서</div>
+              </a>
+              <div id="modal15" class="modal">
+                <div class="modal-content">
+                    <span class="close" data-modal="modal15">&times;</span>
+                     <p>발주가 가능한 계약 목록을 볼수가 있고 발주서를 발주하고 수정,삭제,등록 할수가 있다.</p>
+                </div>
+            </div>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link open-modal" data-modal="modal16">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Boxicons">거래명세서</div>
+              </a>
+              <div id="modal16" class="modal">
+                <div class="modal-content">
+                    <span class="close" data-modal="modal16">&times;</span>
+                     <p>입고가 완료처리되어 거래명세서 발행이 가능한 목록을 볼수가 있다.거래명세서를 발행 할수가 있고,다운로드,수정,삭제할수가 있다.</p>
+                </div>
+            </div>
+
+            </li>
+            <!--서류관리 end-->
+            <!--협력회사 관리-->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">협력회사 관리</span></li>
+            <li class="menu-item">
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link open-modal" data-modal="modal17">
+                <i class="menu-icon tf-icons bx bx-buildings"></i>
+                <div data-i18n="Boxicons">협력회사 관리</div>
+              </a>
+              <div id="modal17" class="modal">
+                <div class="modal-content">
+                    <span class="close" data-modal="modal17">&times;</span>
+                     <p>협력회사들의 리스트를 볼수가 있다.수정은 불가능하다.</p>
+                </div>
+            </div>
+
+            </li>
+            <!--협력회사 관리 end-->
+            <!--시스템-->
+            <li class="menu-header small text-uppercase">
+              <div data-i18n="Support">시스템</div>
+            </li>
+            <li class="menu-item">
+              <a
+                href="../pageLogin/service.html"
+                class="menu-link"
+              >
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Documentation">서비스 센터</div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout page -->
+        <div class="layout-page">
+
+          <!-- Navbar -->
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+
+              <!-- Search -->
+              <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none"
+                    placeholder="Search..."
+                    aria-label="Search..."
+                  />
+                </div>
+              </div>
+              <!-- /Search -->
+
+              
+                <!-- User -->
+               
+                <!--/ User -->
+              </ul>
+            </div>
+          </nav>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="row">
+            
+                <!-- First column -->
+                <div class="col-lg-3 mb-4">
+                  <!-- Card 1 -->
+                  <div class="card h-100">
+                    <div class="card-body text-center">
+                      <div class="card-title d-flex align-items-start justify-content-between">
+                        <div class="dropdown">
+                          <!-- Dropdown content here -->
+                        </div>
+                      </div>
+                      <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                      <h3 class="card-title text-nowrap mb-1">
+                        <a href="javascript:void(0);" class="open-modal" data-modal="modal18">신규 제품 자재</a>
+                        <div id="modal18" class="modal">
+                          <div class="modal-content">
+                              <span class="close" data-modal="modal18">&times;</span>
+                               <p>개발부서 에서 새롭게 등록한 제품(제품에 대한 자재등록이 안되어있는)목록을 볼수가 있고 자재등록을 할수있는 페이지로 이동할수 있다.
+                                자재등록을 완료하지 않을경우 사라지지 않는다. 
+                               </p>
+                          </div>
+                      </div>
+                      
+                      </h3>
+                      <span class="fw-semibold d-block mb-1">등록 필요</span>
+                      <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 2</small>
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Second column -->
+                <div class="col-lg-3 mb-4">
+                  <!-- Card 2 -->
+                  <div class="card h-100">
+                    <div class="card-body text-center">
+                      <div class="card-title d-flex align-items-start justify-content-between">
+                        <div class="dropdown">
+                          <!-- Dropdown content here -->
+                        </div>
+                      </div>
+                      <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                      <h3 class="card-title text-nowrap mb-1">
+                        <a href="javascript:void(0);" class="open-modal" data-modal="modal19">신규 조달 계획</a>
+                        <div id="modal19" class="modal">
+                          <div class="modal-content">
+                              <span class="close" data-modal="modal19">&times;</span>
+                              <p>생산부서 에서 새롭게 등록한 신규 생산계획(조달 계획을 입력하지 않은)목록을 볼수가 있고 조달계획을 등록,수정,취소 할수있는 페이지로 이동할수 있다.
+                                조달계획을 등록하지 않을경우 사라지지 않는다.
+                              </p>
+                          </div>
+                      </div>
+                      </h3>
+                      <span class="fw-semibold d-block mb-1">등록 필요</span>
+                      <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 2</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Fourth column -->
+                <div class="col-lg-3 mb-4">
+                  <!-- Card 4 -->
+                  <div class="card h-100">
+                    <div class="card-body text-center">
+                      <div class="card-title d-flex align-items-start justify-content-between">
+                        <div class="dropdown">
+                            <!-- Dropdown content here -->
+                        </div>
+                      </div>
+                      <i class="bx bx-buildings"></i>
+                      <h3 class="card-title text-nowrap mb-1">
+                        <a href="javascript:void(0);" class="open-modal" data-modal="modal20">신규 입고</a>
+                        <div id="modal20" class="modal">
+                          <div class="modal-content">
+                              <span class="close" data-modal="modal20">&times;</span>
+                              <p>협력회사에서 출하완료한 자재들을 확인할수있고(수령일자에 '배송중'이라고 뜬다.)반품,입고 버튼을 사용할수가 있으며 '요청'버튼을 사용해 협력회사의 담당자에게 연결할수가 있다.
+                              </p>
+                          </div>
+                      </div>
+                      </h3>
+                      <span class="fw-semibold d-block mb-1">확인 필요</span>
+                      <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 3</small>
+                    </div>
+                  </div>
+                </div>
+            
+                <!-- Third column -->
+                <div class="col-lg-3 mb-4">
+                  <!-- Card 3 -->
+                  <div class="card h-100">
+                    <div class="card-body text-center">
+                      <div class="card-title d-flex align-items-start justify-content-between">
+                        <div class="dropdown">
+                          <!-- Dropdown content here -->
+                        </div>
+                      </div>
+                      <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                      <h3 class="card-title text-nowrap mb-1">
+                        <a href="javascript:void(0);" class="open-modal" data-modal="modal21">신규 출하</a>
+                        <div id="modal21" class="modal">
+                          <div class="modal-content">
+                              <span class="close" data-modal="modal21">&times;</span>
+                              <p>생산부서 에서 출하를 원하는 제품과 수량을 보낼경우 확인을하여 '완료'버튼으로 처리할수가 있다. 완료를 할경우 '완료'버튼의 색이 어두워진다.
+                              </p>
+                          </div>
+                      </div>
+                      </h3>
+                      <span class="fw-semibold d-block mb-1">확인 필요</span>
+                      <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 3</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- first row end -->
+            
+              <!-- Total Revenue -->
+              <div class="row justify-content-center">
+            
+                <!-- Existing Card -->
+           
+                <!-- Card 5 -->
+                <div class="col-lg-12 col-md-6 mb-4">
+                  <!-- Card 6 -->
+                  <div class="card" style="height: 446px;">
+                    <div class="card-body">
+                      <div><strong>입고 관리</strong></div>
+                      <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle mb-4" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          제품 선택
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                          <a class="dropdown-item" href="javascript:void(0);">리모콘</a>
+                          <a class="dropdown-item" href="javascript:void(0);">전동 킥보드</a>
+                          <a class="dropdown-item" href="javascript:void(0);">모니터</a>
+                        </div>
+                      </div>
+                      <div class="table-responsive text-nowrap">
+                        <table class="table table-bordered mb-2">
+                          <thead>
+                            <tr>
+                              <th>
+                                배송 상태
+                              </th>
+                              <th>자재명</th>
+                              <th>협력 업체</th>
+                              <th>협력 업체에서 보낸 수량</th>
+                              <th>확인</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table-border-bottom-0">
+                            <tr>
+                              <td><span style="color:green;">배송 중</span></td>
+                              <td>폴리카보네이트</td>
+                              <td>AAA</td>
+                              <td>300</td>
+                              <td> <button class="btn btn-primary open-modal" data-modal="modal22">수령</button>
+                                <div id="modal22" class="modal">
+                                  <div class="modal-content">
+                                      <span class="close" data-modal="modal22">&times;</span>
+                                      <p>협력업체에서 보낸 배송중,배송완료된 자재들을 한눈에 볼수가 있고 '수령'버튼으로 수령확인 상태 로 만들어 메인화면에서 사라진다.</p>
+                                  </div>
+                              </div></td>
+                            
+                            </tr>
+                            <tr>
+                              <td><span style="color:green;">배송 중</span></td>
+                              <td>핸들바</td>
+                              <td>BBB</td>
+                              <td>350</td>
+                              <td><button class="btn btn-primary open-modal" data-modal="modal22">수령</button></td>
+                            </tr>
+                            <tr>
+                              <td><span style="color:green;">배송 중</span></td>
+                              <td> 라이트 배터리</td>
+                              <td>CCC</td>
+                              <td>200</td>
+                            
+                                <td><button class="btn btn-primary open-modal" data-modal="modal22">수령</button></td>
+                              
+                            </tr>
+                            <tr>
+                              <td><span style="color:green;">배송 중</span></td>
+                              <td>전동 배터리</td>
+                              <td>DDD</td>
+                              <td>180</td>
+                         
+                    
+                                <td><button class="btn btn-primary open-modal" data-modal="modal22">수령</button></td>
+                          
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div> 
+
+                      <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                          <li class="page-item prev">
+                            <a class="page-link" href="javascript:void(0);"
+                              ><i class="tf-icon bx bx-chevrons-left"></i
+                            ></a>
+                          </li>
+                          <li class="page-item active">
+                            <a class="page-link" href="javascript:void(0);">1</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="javascript:void(0);">2</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="javascript:void(0);">3</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="javascript:void(0);">4</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="javascript:void(0);">5</a>
+                          </li>
+                          <li class="page-item next">
+                            <a class="page-link" href="javascript:void(0);"
+                              ><i class="tf-icon bx bx-chevrons-right"></i
+                            ></a>
+                          </li>
+                        </ul>
+                      </nav>
+
+                    </div> 
+                    <!-- Add navigation links here -->
+                  </div>  
+                </div>
+                <!--/Card-->
+                  
+                <div class="col-lg-12 col-md-6 mb-4">
+                  <!-- Card 6 -->
+                  <div class="card" style="height: 446px;">
+                    <div class="card-body">
+                      <div><strong>긴급,추가 납품 지시</strong></div>
+                      <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle mb-4" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          ALL
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                          <a class="dropdown-item" href="javascript:void(0);">리모콘</a>
+                          <a class="dropdown-item" href="javascript:void(0);">전동 킥보드</a>
+                          <a class="dropdown-item" href="javascript:void(0);">모니터</a>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary dropdown-toggle mb-4" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          ALL
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                          <a class="dropdown-item" href="javascript:void(0);">AAA</a>
+                          <a class="dropdown-item" href="javascript:void(0);">BBB</a>
+                          <a class="dropdown-item" href="javascript:void(0);">CCC</a>
+                        </div>
+                      </div>
+                      <div class="table-responsive text-nowrap">
+                        <table class="table table-bordered mb-2">
+                          <thead> 
+                            <tr>                    
+                              <th>회사</th>
+                              <th>제품</th>
+                              <th>자재</th>
+                              <th>협력 회사 보유 수량</th>
+                              <th>현재 재고 수량</th>
+                              <th>검수 수량</th>
+                              <th>검수일</th>
+                              <th>요청</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                              AAA
+                              </td>
+                              <td>전동 킥보드</td>
+                              <td><strong>앞 브레이크</strong></td>
+                              <td>300</td>
+                              <td>150</td><td>100</td>                              <td>2024-08-14</td>
+                              
+                              <td>
+                                <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalCenter"
+                              >
+                                요청
+                              </button><div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="modalCenterTitle">입고처리</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="row">
+                                        <div class="col mb-3 text-center">
+                                        
+                                          [긴급]추가 납품지시 가능 수량 : 380개
+                                        </div>
+                                      </div>
+                                      <div class="row g-2">
+                                        <div class="col mb-0">
+                                          <label for="emailWithTitle" class="form-label">담당자</label>
+                                          <input
+                                            type="text"
+                                            id="emailWithTitle"
+                                            class="form-control"
+                                            placeholder="실명 입력"
+                                          /> <label for="dobWithTitle" class="form-label">납품 받을 날짜 입력</label>
+                                          <input
+                                            type="date"
+                                            id="dobWithTitle"
+                                            class="form-control"
+                                          />
+                                          
+                                        </div>
+                                        <div class="col mb-0">
+                                          <label for="dobWithTitle" class="form-label">납품지시 수량 입력</label>
+                                          <input
+                                            type="number"
+                                            id="dobWithTitle"
+                                            class="form-control"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                        취소
+                                      </button>
+                                      <button type="button" class="btn btn-primary">납품 지시</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                              AAA
+                              </td>
+                              <td>전동 킥보드</td>
+                              <td><strong>뒷 브레이크</strong></td>
+                              <td>350</td>
+                              <td>150</td><td>100</td>
+                              <td>2024-08-11</td>
+                              
+                            
+                              <td>
+                                <button class="btn btn-primary open-modal" data-modal="modal23">
+                                요청
+                              </button> <div id="modal23" class="modal">
+                                <div class="modal-content">
+                                    <span class="close" data-modal="modal23">&times;</span>
+                                    <p>협력업체 에서 생산후 출하를 하지않은 자재재고를 확인할수있고 '요청'버튼을 통하여 긴급 추가 납품을 지시할수 있다.</p>
+                                </div>
+                            </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                              AAA
+                              </td>
+                              <td>전동 킥보드</td>
+                              <td><strong>배터리</strong></td>
+                              <td>100</td>
+                              <td>80</td>
+                              <td>50</td>
+
+                              <td>2024-08-10</td>
+                            
+                              <td>
+                                <button class="btn btn-primary open-modal" data-modal="modal23">
+                                요청
+                              </button>
+                              
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                              BBB
+                              </td>
+                              <td>전동 킥보드</td>
+                              <td><strong>앞 타이어</strong></td>
+                              <td>380</td>
+                              <td>300</td>
+                              <td>100</td>
+                              <td>2024-08-05</td>
+                              
+                              <td>
+                                <button class="btn btn-primary open-modal" data-modal="modal23">
+                                요청
+                              </button>
+                              
+                              </td>
+                            </tr> 
+                          </tbody>
+                        </table>
+                      </div>
+                      <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                          <li class="page-item prev">
+                            <a class="page-link" href="javascript:void(0);"
+                              ><i class="tf-icon bx bx-chevrons-left"></i
+                            ></a>
+                          </li>
+                          <li class="page-item active">
+                            <a class="page-link" href="javascript:void(0);">1</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="javascript:void(0);">2</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="javascript:void(0);">3</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="javascript:void(0);">4</a>
+                          </li>
+                          <li class="page-item">
+                            <a class="page-link" href="javascript:void(0);">5</a>
+                          </li>
+                          <li class="page-item next">
+                            <a class="page-link" href="javascript:void(0);"
+                              ><i class="tf-icon bx bx-chevrons-right"></i
+                            ></a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div> 
+                
+                
+                
+                
+                
+                <div class="buy-now">
+              <a href="javascript:void(0);" class="btn btn-danger btn-buy-now open-modal" data-modal="contactModal">문의 하기</a>
+              
+              
+          </div><div id="contactModal" class="modal">
+    <div class="modal-content">
+        <span class="close" data-modal="contactModal">&times;</span>
+        <h2>문의하기</h2>
+        <form id="contactForm">
+            <label for="company">회사:</label>
+            <input type="text" id="company" name="company" required>
+            <label for="email">이메일:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">내용:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            <button type="submit">보내기</button>
+        </form>
+    </div>
+</div>
+  
+                <!-- New Card -->
+           
+                <!--/Card-->
+            
+
+
+      
+<script>
+  // 모달을 여는 함수
+  function openModal(modalId) {
+      document.getElementById(modalId).style.display = "block";
+  }
+
+  // 모달을 닫는 함수
+  function closeModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+  }
+
+  // 모든 모달을 열기 위한 링크 클릭 이벤트 설정
+  document.querySelectorAll('.open-modal').forEach(link => {
+      link.addEventListener('click', function(event) {
+          event.preventDefault(); // 기본 링크 동작 방지
+          const modalId = this.getAttribute('data-modal');
+          openModal(modalId);
+      });
+  });
+
+  // 모든 모달을 닫기 위한 닫기 버튼 클릭 이벤트 설정
+  document.querySelectorAll('.close').forEach(span => {
+      span.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-modal');
+          closeModal(modalId);
+      });
+  });
+
+  // 모달 바깥 클릭 시 닫기 기능
+  window.addEventListener('click', function(event) {
+      if (event.target.classList.contains('modal')) {
+          closeModal(event.target.id);
+      }
+  });
+</script>
+
+            </div>
+            <!--/ Content-->
+          </div>
+          <!--/ Content wrapper-->
+        </div>
+        <!--/ Layout page-->
+      <!-- / Layout container -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../assets/js/dashboards-analytics.js"></script>
+    <script src="../assets/js/extended-ui-perfect-scrollbar.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

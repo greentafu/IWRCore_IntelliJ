@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>협력회사 상세보기</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">협력회사 관리 /</span> 협력회사 상세화면</h4>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <!-- Account -->
+            <hr class="my-0" />
+            <div class="card-body">
+              <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label for="firstName" class="form-label">협력회사번호</label>
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            value="60841"
+                            readonly
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+              <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label for="firstName" class="form-label">상호</label>
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            value="(주)HAN생활공업"
+                            readonly
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">사업자 등록번호</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="000-00-00000"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">대표</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="김대표"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">사업장 소재지</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="경기도 화성시 납양읍 활초리 26-1길"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">업태</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="제조업"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">종목</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="금속사출부품"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">전화번호</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="000-000-0000"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">팩스번호</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="000-000-0000"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">메일주소</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="asd1234@mail.com"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+              <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                  <div class="mb-3 col-md-4">
+                    <label class="form-label" for="phoneNumber">대분류</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="기계부품"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-4">
+                    <label class="form-label" for="phoneNumber">중분류</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="프레임 및 관련부품"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-4">
+                    <label class="form-label" for="phoneNumber">소분류</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              placeholder="프레임"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+              <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">담당자 이름</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="김담당"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">담당자 전화번호</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="000-000-0000"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">담당자 이메일</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="ljj@mail.com"
+                              readonly
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <hr class="m-0" />
+            <div class="card-body">
+              <div class="row">
+                <!-- Vertical Scrollbar -->
+                <div class="col-md-6 col-sm-12">
+                  <div class="card shadow-none border border-secondary mb-3" style="height: 300px">
+                    <h5 class="card-header">계약서 목록</h5>
+                    <div class="card-body" id="vertical-example">
+                      <table class="table">
+                        <tr>
+                          <th>날짜</th>
+                          <th>서류명</th>
+                          <th>자재명</th>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/download_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                      </table>
+                      <div class="mt-3 text-end">
+                        <a th:href="@{/contract/list_contract}">더보기</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Horizontal Scrollbar -->
+                <div class="col-md-6 col-sm-12">
+                  <div class="card shadow-none border border-secondary mb-3" style="height: 300px">
+                    <h5 class="card-header">거래명세서 목록</h5>
+                    <div class="card-body" id="vertical-example2">
+                      <table class="table">
+                        <tr>
+                          <th>날짜</th>
+                          <th>서류명</th>
+                          <th>자재명</th>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">0240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/order/download_order}">20240306거래명세서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                      </table>
+                      <div class="mt-3 text-end">
+                        <a th:href="@{/order/list_order}">더보기</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Horizontal Scrollbar -->
+              </div>
+              <div class="mt-2">
+                <a th:href="@{/adminpartner/list_partner}">
+                  <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+                </a>
+              </div>
+            </div>
+            <!-- /Account -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Modal-->
+
+    <!--/Modal-->
+    <!--Script-->
+
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>

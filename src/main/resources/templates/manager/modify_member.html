@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/manlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>직원정보 수정</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">직원 계정 /</span> 직원 정보 수정</h4>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <!-- Account -->
+            <hr class="my-0" />
+            <div class="card-body">
+              <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="mb-3 col-md-6">
+                  <label for="firstName" class="form-label">직원번호</label>
+                  <input
+                          class="form-control"
+                          type="text"
+                          id="firstName"
+                          name="firstName"
+                          value="01058"
+                          autofocus
+                  />
+                </div>
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label for="firstName" class="form-label">성명</label>
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            value="김사원"
+                            autofocus
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="phoneNumber">전화번호</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                              type="text"
+                              id="phoneNumber"
+                              name="phoneNumber"
+                              class="form-control"
+                              value="000-0000-0000"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label" for="country">소속부서</label>
+                    <select id="country" class="select2 form-select">
+                      <option value="">선택</option>
+                      <option value="Australia">자재부서</option>
+                      <option value="Bangladesh">개발부서</option>
+                      <option value="Belarus" selected>생산부서</option>
+                      <option value="Belarus">기타</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="language" class="form-label">접근권한</label>
+                    <select id="language" class="select2 form-select">
+                      <option value="">선택</option>
+                      <option value="en">관리자</option>
+                      <option value="fr">생산/개발사원</option>
+                      <option value="de">자재사원</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="organization" class="form-label">아이디</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="organization"
+                            name="organization"
+                            value="axrd09985"
+                    />
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label for="organization" class="form-label">비밀번호</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="organization"
+                            name="organization"
+                            value="ge#fy58d3!"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+              <select class="form-select mb-3" style="width: fit-content;">
+                <optgroup label="서류">
+                  <option>계약서</option>
+                  <option>발주서</option>
+                  <option>거래명세서</option>
+                </optgroup>
+                <optgroup label="제품/자재">
+                  <option>제품</option>
+                  <option>자재</option>
+                </optgroup>
+                <optgroup label="계획">
+                  <option>생산계획</option>
+                  <option>조달계획</option>
+                  <option>검수계획</option>
+                </optgroup>
+                <optgroup label="입고/반품/출하">
+                  <option>입고</option>
+                  <option>반품</option>
+                  <option>출하</option>
+                </optgroup>
+                <optgroup label="기타">
+                  <option>긴급납품</option>
+                </optgroup>
+              </select>
+              <div class="row">
+                <!-- Vertical Scrollbar -->
+                <div class="col-md-12">
+                  <div class="card shadow-none border border-secondary mb-3" style="height: 600px">
+                    <h5 class="card-header">계약서 목록</h5>
+                    <div class="card-body" id="vertical-example">
+                      <table class="table">
+                        <tr>
+                          <th>날짜</th>
+                          <th>서류명</th>
+                          <th>자재명</th>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                        <tr>
+                          <td>2024.03.06</td>
+                          <td><a th:href="@{/contract/list_contract}">20240306계약서</a></td>
+                          <td>뒷브레이크</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between w-100">
+                <div class="mt-2">
+                  <button type="submit" class="btn btn-primary me-2">수정</button>
+                  <a th:href="@{/manager/list_member}">
+                    <button type="reset" class="btn btn-outline-secondary">취소</button>
+                  </a>
+                </div>
+                <div>
+                  <a data-bs-toggle="modal" href="#modalToggle">
+                    <button type="button" class="btn btn-primary me-2">삭제</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- /Account -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal-->
+    <div
+            class="modal fade"
+            id="modalToggle"
+            aria-labelledby="modalToggleLabel"
+            tabindex="-1"
+            style="display: none"
+            aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
+            <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            생산부서 사원 김사원(01058)의 아이디를 삭제합니다.<br/>삭제시 복구가 불가능합니다.</div>
+          <div class="modal-footer">
+            <a th:href="@{/manager/list_member}">
+              <button
+                      class="btn btn-primary"
+                      data-bs-target="#modalToggle2"
+                      data-bs-toggle="modal"
+                      data-bs-dismiss="modal"
+              >
+                삭제
+              </button>
+            </a>
+            <button
+                    class="btn btn-primary"
+                    data-bs-target="#modalToggle2"
+                    data-bs-toggle="modal"
+                    data-bs-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/Modal-->
+
+    <!--Script-->
+
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>

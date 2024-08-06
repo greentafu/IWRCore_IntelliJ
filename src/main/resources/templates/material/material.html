@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>자재 상세 보기</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+    <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">자재 관리 /</span> 자재 상세 보기</h4>
+
+                <!-- Hoverable Table rows -->
+              <div class="card">
+                <div class="table-responsive text-nowrap">
+
+                  <!-- Outline Dropdowns -->
+                  <div class="card-body">
+                    <label for="organization" class="form-label">자재명</label>
+                    <input type="text" class="form-control" value="앞바퀴" readonly>
+                    <label for="organization" class="form-label">첨부 파일</label>
+                    <div
+                            class="card shadow-none border border-secondary mb-3"
+                            style="min-height: 100px;">
+                    </div>
+                  </div>
+                  <hr class="m-0"/>
+                  <div class="card-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>자재번호</th>
+                          <th>자재명</th>
+                          <th>카테고리</th>
+                          <th>규격</th>
+                          <th>단위</th>
+                          <th>색상</th>
+                          <th>창고위치</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>KM-6081</td>
+                          <td>핸들바</td>
+                          <td>카테고리2</td>
+                          <td>15cm?</td>
+                          <td>개</td>
+                          <td>검정</td>
+                          <td>A창고 c-2</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <p></p>
+                      <!--뒤로가기,등록 버튼 세트-->
+                    <div class="d-flex justify-content-between w-100">
+                      <a th:href="@{/material/list_material}">
+                        <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+                      </a>
+                      <a th:href="@{/material/list_material}">
+                        <button class="btn btn-primary">수정</button>
+                      </a>
+                        <!--/-->
+                  </div>
+                </div>
+              </div>
+            </div>
+                <!-- / Content -->
+                <!--Script-->
+
+                <!--Script-->
+  </span>
+
+</th:block>
+</html>

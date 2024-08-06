@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>카테고리</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-4 container-p-y">
+      <div class="row">
+        <div class="col-md-6 order-0 mb-4" style="height: 750px;">
+          <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between pb-0 mb-3">
+              <div class="card-title mb-0">
+                <h5 class="m-0 me-2">협력회사 카테고리</h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="card shadow-none" style="height: 750px">
+              <div class="card-body mb-3" id="vertical-example" style="height: 550px;">
+                <table class="table table-hover text-center">
+                  <tr th:each="dto:${partSCode}">
+                    <td>[[${dto.partM.partL.Lname}]]</td>
+                    <td>[[${dto.partM.Mname}]]</td>
+                    <td>[[${dto.Sname}]]</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Order Statistics -->
+        <!-- Expense Overview -->
+        <div class="col-md-6 order-1 mb-4">
+          <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between pb-0 mb-3">
+              <div class="card-title mb-0">
+                <h5 class="m-0 me-2">제품 카테고리 관리</h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="card shadow-none" style="height: 750px">
+              <div class="card-body mb-3" id="vertical-example2" style="height: 550px;">
+                <table class="table table-hover text-center">
+                  <tr>
+                    <td>자전거</td>
+                    <td>전기자전거</td>
+                    <td>전기자전거</td>
+                  </tr>
+                  <tr>
+                    <td>자전거</td>
+                    <td>일반자전거</td>
+                    <td>도로자전거</td>
+                  </tr>
+                  <tr>
+                    <td>자전거</td>
+                    <td>일반자전거</td>
+                    <td>산악자전거</td>
+                  </tr>
+                  <tr>
+                    <td>킥보드</td>
+                    <td>전기킥보드</td>
+                    <td>전기킥보드</td>
+                  </tr>
+                  <tr>
+                    <td>킥보드</td>
+                    <td>일반킥보드</td>
+                    <td>성인용킥보드</td>
+                  </tr>
+                  <tr>
+                    <td>킥보드</td>
+                    <td>일반킥보드</td>
+                    <td>아동용킥보드</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Expense Overview -->
+      </div>
+      <div class="row">
+        <!-- Transactions -->
+        <div class=" order-2 mb-4">
+          <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between pb-0 mb-3">
+              <div class="card-title mb-0">
+                <h5 class="m-0 me-2">자재 카테고리 관리</h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="card shadow-none" style="height: 750px">
+              <div class="card-body mb-3" id="vertical-example3" style="height: 550px;">
+                <table class="table table-hover text-center">
+                  <!--프레임 및 서스펜션-->
+                  <tr>
+                    <td>프레임</td>
+                    <td>프레임</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <!--/프레임-->
+                  <!--서스펜션-->
+                  <tr>
+                    <td>서스펜션시스템</td>
+                    <td>서스펜션 유닛</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>서스펜션시스템</td>
+                    <td>서스펜션 부품</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>서스펜션시스템</td>
+                    <td>서스펜션 액세서리</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <!--/서스펜션-->
+                  <!-- 브레이크 시스템-->
+                  <tr>
+                    <td>브레이크 시스템</td>
+                    <td>브레이크레버</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>브레이크 시스템</td>
+                    <td>디스크브레이크</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>브레이크 시스템</td>
+                    <td>비비</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>브레이크시스템</td>
+                    <td>디스크 브레이크 패드</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>브레이크시스템</td>
+                    <td>V 브레이크 캘리퍼</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>브레이크시스템</td>
+                    <td>브레이크 와이어</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <!--/브레이크 시스템-->
+                  <!--안장 및 시트포스트-->
+                  <tr>
+                    <td>안장 및 시트포스트</td>
+                    <td>안장</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <tr>
+                    <td>안장 및 시트포스트</td>
+                    <td>시트포스트</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <!--/안장 및 시트포스트-->
+                  <!--핸들링 부품-->
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>슬라이딩 슬리브</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>핸들바</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>퀵릴리즈클림프</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>T바</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>스티어링 튜브</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>핸들링 부품</td>
+                    <td>핸들그립</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <!--/핸들링 부품-->
+                  <!--전자부품-->
+                  <tr>
+                    <td>전자 부품</td>
+                    <td>디스플레이</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <!--/전자부품-->
+                  <!--타이어-->
+                  <tr>
+                    <td>타이어</td>
+                    <td>타이어(킥보드)</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>타이어</td>
+                    <td>타이어(자전거)</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>타이어</td>
+                    <td>림</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>타이어</td>
+                    <td>스포크</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <!--/타이어-->
+                  <!--전원관련 부품-->
+                  <tr>
+                    <td>전원 관련 부품</td>
+                    <td>충전소켓</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <tr>
+                    <td>전원 관련 부품</td>
+                    <td>배터리</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <tr>
+                    <td>전원 관련 부품</td>
+                    <td>충전기</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <tr>
+                    <td>전원 관련 부품</td>
+                    <td>충전기박스</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <!--/전원관련 부품-->
+                  <!--기어 및 변속시스템-->
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>기어</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>기어 레버 및 쉬프터</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>기어 케이블</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>변속기</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>변속기 레버 및 쉬프터</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>변속 케이블</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>드레일러</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>허브</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기어 및 변속시스템</td>
+                    <td>스프라켓</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <!--/기어 및 변속 시스템-->
+                  <!--크랭크, 체인-->
+                  <tr>
+                    <td>크랭크, 체인</td>
+                    <td>크랭크</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>크랭크, 체인</td>
+                    <td>체인링</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>크랭크, 체인</td>
+                    <td>체인</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <!--/크랭크, 체인-->
+                  <!--전기(전동)시스템-->
+                  <tr>
+                    <td>전동 시스템</td>
+                    <td>모터</td>
+                    <td>최종제품</td>
+                  </tr>
+                  <tr>
+                    <td>전동 시스템</td>
+                    <td>컨트롤러</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <!--/전기(전동)시스템-->
+                  <!--연결장치-->
+                  <tr>
+                    <td>연결장치</td>
+                    <td>스템</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>연결장치</td>
+                    <td>페스너류</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <!--/연결장치-->
+                  <!--기타부속품-->
+                  <tr>
+                    <td>기타부속품</td>
+                    <td>조명 및 신호 장치</td>
+                    <td>하부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기타부속품</td>
+                    <td>그립테이프</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기타 부속품</td>
+                    <td>폴딩레버</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기타부속품</td>
+                    <td>세이프티락</td>
+                    <td>상부제작</td>
+                  </tr>
+                  <tr>
+                    <td>기타 부속품</td>
+                    <td>킥스탠드</td>
+                    <td>최종제작</td>
+                  </tr>
+                  <!--/기타부속품-->
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Transactions -->
+      </div>
+    </div>
+
+    <!--Modal-->
+
+    <!--/Modal-->
+    <!--Script-->
+
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>

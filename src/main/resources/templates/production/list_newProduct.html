@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>제품관리/ 자재 검토 필요 제품</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+    <!-- Content -->
+             <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">제품 관리 /</span> 자재 검토 필요 제품</h4>
+
+               <!-- Hoverable Table rows -->
+              <div class="card">
+                <!--검색-->
+                <div class="card-body">
+                  <div class="card border">
+                    <div class="table-responsive text-nowrap">
+                      <table class="table">
+                        <tr>
+                          <th class="bg-label-primary">제품</th>
+                          <td>
+                            <div class="row">
+                              <span class="col-md-3">대분류</span>
+                              <div class="col">
+                                <select class="form-select form-select-sm">
+                                  <option>전체보기</option>
+                                </select>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="row">
+                              <span class="col-md-3">중분류</span>
+                              <div class="col">
+                                <select class="form-select form-select-sm">
+                                  <option>전체보기</option>
+                                </select>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="row">
+                              <span class="col-md-3">소분류</span>
+                              <div class="col">
+                                <select class="form-select form-select-sm">
+                                  <option>전체보기</option>
+                                </select>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="row">
+                              <div class="col-md-9">
+                                <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                              </div>
+                              <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--/검색-->
+                <div class="table-responsive text-nowrap">
+                  <!-- Outline Dropdowns -->
+                  <div class="card-body">
+                    <table class="table table-bordered mb-4">
+                      <thead>
+                        <tr>
+                          <th>등록일자</th>
+                          <th>제품번호</th>
+                          <th>제품명</th>
+                          <th>색상</th>
+                          <th>비고</th>
+                          <th>검토 및 확인</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-border-bottom-0">
+                        <tr>
+                          <td>2024-07-16</td>
+                          <td>
+                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>ZK-103</strong>
+                          </td>
+                          <td><a th:href="@{/development/detail_dev}"> 전동 킥보드</a></td>
+                          <td>블랙</td>
+                          <td>색상 수정</td>
+                          <td>
+                            <a th:href="@{/production/check_manufacture}">
+                              <button class="btn btn-primary">제품 검토</button>
+                            </a>
+                          </td>
+                        </tr> <tr>
+                          <td>2024-07-10</td>
+                          <td>
+                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>LM-402</strong>
+                          </td>
+                          <td><a href="../pageDev/list_dev_jaje_detail.html">리모콘</a></td>
+                          <td>화이트</td>
+                          <td>수량 수정</td>
+                          <td>
+                            <a th:href="@{/production/check_manufacture}">
+                              <button class="btn btn-primary">제품 검토</button>
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <nav aria-label="Page navigation">
+                      <ul class="pagination justify-content-center">
+                        <li class="page-item prev">
+                          <a class="page-link" href="javascript:void(0);"
+                          ><i class="tf-icon bx bx-chevrons-left"></i
+                          ></a>
+                        </li>
+                        <li class="page-item active">
+                          <a class="page-link" href="javascript:void(0);">1</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="javascript:void(0);">2</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="javascript:void(0);">3</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="javascript:void(0);">4</a>
+                        </li>
+                        <li class="page-item">
+                          <a class="page-link" href="javascript:void(0);">5</a>
+                        </li>
+                        <li class="page-item next">
+                          <a class="page-link" href="javascript:void(0);"
+                          ><i class="tf-icon bx bx-chevrons-right"></i
+                          ></a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+      <!-- / Content -->
+        <!--Script-->
+
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

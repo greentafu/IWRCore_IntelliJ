@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>타이틀</title>
+    <!--Style-->
+    <style>
+      .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgb(0,0,0);
+          background-color: rgba(0,0,0,0.4);
+          padding-top: 60px;
+      }
+      .modal-content {
+          background-color: #fefefe;
+          margin: 5% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%;
+      }
+      .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
+      .button-container {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 20px;
+      }
+    </style>
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <div class="row">
+        <!-- First column -->
+        <div class="col-lg-3 mb-4">
+          <!-- Card 1 -->
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="dropdown">
+                  <!-- Dropdown content here -->
+                </div>
+              </div>
+              <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+              <h3 class="card-title text-nowrap mb-1">
+                <a th:href="@{/production/list_newProduct}">신규 제품 자재</a>
+              </h3>
+              <span class="fw-semibold d-block mb-1">확인 필요</span>
+              <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 2</small>
+            </div>
+          </div>
+        </div>
+        <!-- Second column -->
+        <div class="col-lg-3 mb-4">
+          <!-- Card 2 -->
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="dropdown">
+                  <!-- Dropdown content here -->
+                </div>
+              </div>
+              <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+              <h3 class="card-title text-nowrap mb-1">
+                <a th:href="@{/jodal/jodal_ready}">신규 조달 계획</a>
+              </h3>
+              <span class="fw-semibold d-block mb-1">등록 필요</span>
+              <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 2</small>
+            </div>
+          </div>
+        </div>
+        <!-- Fourth column -->
+        <div class="col-lg-3 mb-4">
+          <!-- Card 4 -->
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="dropdown">
+                  <!-- Dropdown content here -->
+                </div>
+              </div>
+              <i class="bx bx-buildings"></i>
+              <h3 class="card-title text-nowrap mb-1">
+                <a th:href="@{/goodshandling/list_received}">신규 입고</a>
+              </h3>
+              <span class="fw-semibold d-block mb-1">확인 필요</span>
+              <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 3</small>
+            </div>
+          </div>
+        </div>
+        <!-- Third column -->
+        <div class="col-lg-3 mb-4">
+          <!-- Card 3 -->
+          <div class="card h-100">
+            <div class="card-body text-center">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="dropdown">
+                  <!-- Dropdown content here -->
+                </div>
+              </div>
+              <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+              <h3 class="card-title text-nowrap mb-1">
+                <a th:href="@{/goodshandling/list_request}">신규 출하</a>
+              </h3>
+              <span class="fw-semibold d-block mb-1">확인 필요</span>
+              <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 3</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- first row end -->
+      <!-- Total Revenue -->
+      <div class="row justify-content-center">
+        <!-- Existing Card -->
+        <!-- Card 5 -->
+        <div class="col-lg-12 col-md-6 mb-4">
+          <!-- Card 6 -->
+          <div class="card" style="height: 446px;">
+            <div class="card-body">
+              <div><strong>입고 관리</strong></div>
+              <div class="dropdown">
+                <button class="btn btn-sm btn-outline-primary dropdown-toggle mb-4" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  제품 선택
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                  <a class="dropdown-item" href="javascript:void(0);">리모콘</a>
+                  <a class="dropdown-item" href="javascript:void(0);">전동 킥보드</a>
+                  <a class="dropdown-item" href="javascript:void(0);">모니터</a>
+                </div>
+              </div>
+              <div class="table-responsive text-nowrap" style="height: 300px;">
+                <table class="table table-bordered mb-2">
+                  <thead>
+                    <tr>
+                      <th>
+                        <div class="d-flex">
+                          <div class="btn-group">
+                            <button
+                                    type="button"
+                                    class="btn btn-outline-primary dropdown-toggle btn-sm"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                            >
+                              배송 상태
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="javascript:void(0);">배송 중</a></li>
+                              <li><a class="dropdown-item" href="javascript:void(0);">배송 전</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </th>
+                      <th>자재명</th>
+                      <th>협력 업체</th>
+                      <th>협력 업체에서 보낸 수량</th>
+                      <th>확인</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-border-bottom-0">
+                    <tr>
+                      <td><span style="color:green;">배송 중</span></td>
+                      <td>폴리카보네이트</td>
+                      <td>AAA</td>
+                      <td>300</td>
+                      <td><button class="btn btn-primary">수령</button></td>
+                    </tr>
+                    <tr>
+                      <td><span style="color:green;">배송 중</span></td>
+                      <td>핸들바</td>
+                      <td>BBB</td>
+                      <td>350</td>
+                      <td><button class="btn btn-primary">수령</button></td>
+                    </tr>
+                    <tr>
+                      <td><span style="color:green;">배송 중</span></td>
+                      <td>라이트 배터리</td>
+                      <td>CCC</td>
+                      <td>200</td>
+                      <td><button class="btn btn-primary">수령</button></td>
+                    </tr>
+                    <tr>
+                      <td><span style="color:green;">배송 중</span></td>
+                      <td>전동 배터리</td>
+                      <td>DDD</td>
+                      <td>180</td>
+                      <td><button class="btn btn-primary">수령</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item prev">
+                    <a class="page-link" href="javascript:void(0);"
+                    ><i class="tf-icon bx bx-chevrons-left"></i
+                    ></a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="javascript:void(0);">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">4</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">5</a>
+                  </li>
+                  <li class="page-item next">
+                    <a class="page-link" href="javascript:void(0);"
+                    ><i class="tf-icon bx bx-chevrons-right"></i
+                    ></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <!-- Add navigation links here -->
+          </div>
+        </div>
+        <!--/Card-->
+        <div class="col-lg-12 col-md-6 mb-4">
+          <!-- Card 6 -->
+          <div class="card" style="height: 446px;">
+            <div class="card-body">
+              <div><strong>납품 지시</strong></div>
+              <div class="dropdown">
+                <button class="btn btn-sm btn-outline-primary dropdown-toggle mb-4" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ALL
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                  <a class="dropdown-item" href="javascript:void(0);">리모콘</a>
+                  <a class="dropdown-item" href="javascript:void(0);">전동 킥보드</a>
+                  <a class="dropdown-item" href="javascript:void(0);">모니터</a>
+                </div>
+                <button class="btn btn-sm btn-outline-primary dropdown-toggle mb-4" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  ALL
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                  <a class="dropdown-item" href="javascript:void(0);">AAA</a>
+                  <a class="dropdown-item" href="javascript:void(0);">BBB</a>
+                  <a class="dropdown-item" href="javascript:void(0);">CCC</a>
+                </div>
+              </div>
+              <div class="table-responsive text-nowrap" style="height: 300px;">
+                <table class="table table-bordered mb-2">
+                  <thead>
+                  <tr>
+                    <th>회사</th>
+                    <th>제품</th>
+                    <th>자재</th>
+                    <th>협력 회사 보유 수량</th>
+                    <th>검수 수량</th>
+                    <th>재고 수량</th>
+                    <th>부족수량</th>
+                    <th>검수일</th>
+                    <th>요청</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                      AAA
+                    </td>
+                    <td>전동 킥보드</td>
+                    <td><strong>앞 브레이크</strong></td>
+                    <td>300</td>
+                    <td>150</td><td>100</td>
+                    <td>50</td> <td>2024-08-14</td>
+                    <td>
+                      <button
+                              type="button"
+                              class="btn btn-primary"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalCenter"
+                      >
+                        요청
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      AAA
+                    </td>
+                    <td>전동 킥보드</td>
+                    <td><strong>뒷 브레이크</strong></td>
+                    <td>350</td>
+                    <td>150</td><td>100</td><td>50</td>
+                    <td>2024-08-11</td>
+                    <td>
+                      <button
+                              type="button"
+                              class="btn btn-primary"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalCenter"
+                      >
+                        요청
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item prev">
+                    <a class="page-link" href="javascript:void(0);"
+                    ><i class="tf-icon bx bx-chevrons-left"></i
+                    ></a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="javascript:void(0);">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">4</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">5</a>
+                  </li>
+                  <li class="page-item next">
+                    <a class="page-link" href="javascript:void(0);"
+                    ><i class="tf-icon bx bx-chevrons-right"></i
+                    ></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <!-- New Card -->
+        <!--/Card-->
+      </div>
+    </div>
+
+    <!--Modal-->
+    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCenterTitle">입고처리</h5>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col mb-3 text-center">
+                [긴급]추가 납품지시 가능 수량 : 380개
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col mb-0">
+                <label for="emailWithTitle" class="form-label">담당자</label>
+                <input
+                        type="text"
+                        id="emailWithTitle"
+                        class="form-control"
+                        placeholder="실명 입력"
+                /> <label for="dobWithTitle" class="form-label">납품 받을 날짜 입력</label>
+                <input
+                        type="date"
+                        id="dobWithTitle"
+                        class="form-control"
+                />
+              </div>
+              <div class="col mb-0">
+                <label for="dobWithTitle" class="form-label">납품지시 수량 입력</label>
+                <input
+                        type="number"
+                        id="dobWithTitle"
+                        class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              취소
+            </button>
+            <button type="button" class="btn btn-primary">납품 지시</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--/Modal-->
+
+    <!--Script-->
+    <script>
+      function showOptions() {
+        document.getElementById("myModal").style.display = "block";
+      }
+      function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+      }
+      function callContact() {
+        window.location.href = 'tel:123-456-7890'; // 전화 번호를 실제 담당자 번호로 변경하세요
+      }
+      function emailContact() {
+        window.location.href = 'mailto:contact@example.com'; // 이메일 주소를 실제 담당자 이메일로 변경하세요
+      }
+      window.onclick = function(event) {
+        var modal = document.getElementById("myModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>

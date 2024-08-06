@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html
+        lang="ko" xmlns:th="http://www.thymeleaf.org"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>제품 상세 보기</title>
+      <!--Style-->
+
+      <!--/Style-->
+  </span>
+
+    <span id="content">
+     <!-- Content -->
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">제품 관리 /</span> 제품 상세 보기</h4>
+
+                <!-- Hoverable Table rows -->
+              <div class="card">
+                <div class="table-responsive text-nowrap">
+
+                  <!-- Outline Dropdowns -->
+                  <div class="card-body">
+                    <h5>KM-6081 전기킥보드(RED)</h5>
+                    <img th:src="@{/production/image.png}" width="100%">
+                  </div>
+                  <hr class="m-0"/>
+                  <div class="card-body">
+                    <h5><strong>자재 출하 요청</strong></h5>
+                    <div class="row mb-3">
+                      <div class="col-sm-2">
+                        <button
+                                type="button"
+                                class="btn btn-outline-primary dropdown-toggle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        >
+                          라인 선택
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="javascript:void(0);">A 라인</a></li>
+                          <li><a class="dropdown-item" href="javascript:void(0);">B 라인</a></li>
+                          <li><a class="dropdown-item" href="javascript:void(0);">C 라인</a></li>
+                          <li><a class="dropdown-item" href="javascript:void(0);">D 라인</a></li>
+                        </ul>
+                      </div>
+                      <label class="col-sm-1 col-form-label" for="basic-default-email">제품수량 :</label>
+                      <div class="col-sm-1" style="width: 150px;">
+                        <div class="input-group input-group-merge">
+                          <input
+                                  type="number"
+                                  id="basic-default-email"
+                                  class="form-control"
+                          />
+                          <span class="input-group-text" id="basic-default-email2">개</span>
+                        </div>
+                      </div>
+                      <label class="col-sm-1 col-form-label" for="basic-default-email">희망일자 :</label>
+                      <div class="col-sm-1" style="width: 150px;">
+                        <input
+                                type="date"
+                                id="basic-default-email"
+                                class="form-control"
+                        />
+                      </div>
+                    </div>
+
+                    <table class="table table-bordered mb-4">
+                      <thead>
+                        <tr>
+                          <th>자재번호</th>
+                          <th>자재명</th>
+                          <th>제품 1개당 소요량</th>
+                          <th style="width: 100px;">현재 자재 수량</th>
+                          <th style="width: 100px;">출하 요청 수량</th>
+                          <th>희망 출하 일자</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>핸들바</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>T바</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>디스플레이</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>앞타이어</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>뒤타이어</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>배터리</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>모터</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>후미등</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>킥스탠드</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>컨트롤러</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>슬라이딩 슬리브</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>앞브레이크</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>뒷브레이크</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                        <tr>
+                          <td>RA-6020</td>
+                          <td>스티어링 튜브</td>
+                          <td>1</td>
+                          <td>200</td>
+                          <td><input type="number" style="border: 0; width: 100%;"></td>
+                          <td><input type="date" style="border: 0;"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between w-100">
+                      <a th:href="@{/production/list_manufacture}">
+                        <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+                      </a>
+                      <button class="btn btn-primary">출하 요청</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <!-- / Content -->
+        <!--Script-->
+
+        <!--Script-->
+  </span>
+
+</th:block>
+</html>

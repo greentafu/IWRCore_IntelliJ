@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>출하 요청 목록</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">입고/출하 관리 /</span> 출하 요청 목록</h4>
+      <div class="card">
+        <!--검색-->
+        <div class="card-body">
+          <div class="card border">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <th class="bg-label-primary">제품</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--/검색-->
+        <div class="card-body">
+          <div class="table-responsive text-nowrap">
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th>등록 일자</th>
+                  <th>제품 번호</th>
+                  <th>제품 명칭</th>
+                  <th>수량</th>
+                  <th>출하 희망 날짜</th>
+                  <th>비고</th>
+                  <th>
+                    <select class="form-select form-select-sm" style="width: fit-content;">
+                      <option>전체 출하상태</option>
+                      <option>출하대기</option>
+                      <option>출하완료</option>
+                    </select>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2024-07-22</td>
+                  <td><strong>ZK-103</strong></td>
+                  <td><a th:href="@{/goodshandling/view_request}">전동킥보드 모델 X</a></td>
+                  <td> 300</td>
+                  <td>2024-11-25</td>
+                  <td>킥보드-X[3차]</td>
+                  <td>
+                    <button class="btn btn-primary">미완료</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-22</td>
+                  <td><strong>SG-412</strong></td>
+                  <td><a th:href="@{/goodshandling/view_request}">선풍기</a></td>
+                  <td>1000</td>
+                  <td>2024-08-13</td>
+                  <td></td>
+                  <th>
+                    <button class="btn btn-primary">미완료</button>
+                  </th>
+                </tr>
+                <tr>
+                  <td>2024-07-22</td>
+                  <td><strong>LM-402</strong></td>
+                  <td><a th:href="@{/goodshandling/view_request}">리모콘</a></td>
+                  <td>1300</td>
+                  <td>2024-08-15</td>
+                  <td></td>
+                  <th>
+                    <button class="btn btn-primary">미완료</button>
+                  </th>
+                </tr>
+                <tr>
+                  <td>2024-07-15</td>
+                  <td><strong>ZK-103</strong></td>
+                  <td><a th:href="@{/goodshandling/view_request}">전동킥보드 모델 X</a></td>
+                  <td>500</td>
+                  <td>2024-10-20</td>
+                  <td>킥보드-X[2차]</td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">완료</button>
+                      </a>
+                    </li>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td><strong>ZK-103</strong></td>
+                  <td><a th:href="@{/goodshandling/view_request}">전동킥보드 모델 X</a></td>
+                  <td> 400</td>
+                  <td>2024-09-11</td>
+                  <td>킥보드-X[1차]</td>
+                  <td>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">완료</button>
+                      </a>
+                    </li>
+                  </td>
+                </tr><tr>
+                  <td>2024-07-11</td>
+                  <td><strong>MT-202</strong></td>
+                  <td><a th:href="@{/goodshandling/view_request}">모니터</a></td>
+                  <td>2400</td>
+                  <td>2024-08-12</td>
+                  <td>우선 생산</td>
+                  <th>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">완료</button>
+                      </a>
+                    </li>
+                  </th>
+                </tr>
+                <tr>
+                  <td>2024-07-04</td>
+                  <td><strong>AA-523</strong></td>
+                  <td><a th:href="@{/goodshandling/view_request}">AAA</a></td>
+                  <td>1800</td>
+                  <td>2024-07-28</td>
+                  <td></td>
+                  <th>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">완료</button>
+                      </a>
+                    </li>
+                  </th>
+                </tr>
+                <tr>
+                  <td>2024-06-27</td>
+                  <td><strong>BB-521</strong></td>
+                  <td><a th:href="@{/goodshandling/view_request}">BBB</a></td>
+                  <td>1500</td>
+                  <td>2024-07-15</td>
+                  <td></td>
+                  <th>
+                    <li class="menu-item">
+                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
+                        <button  class="btn btn-secondary">완료</button>
+                      </a>
+                    </li>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item prev">
+                  <a class="page-link" href="javascript:void(0);"
+                  ><i class="tf-icon bx bx-chevrons-left"></i
+                  ></a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item next">
+                  <a class="page-link" href="javascript:void(0);"
+                  ><i class="tf-icon bx bx-chevrons-right"></i
+                  ></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Modal-->
+
+    <!--/Modal-->
+
+    <!--Script-->
+
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>

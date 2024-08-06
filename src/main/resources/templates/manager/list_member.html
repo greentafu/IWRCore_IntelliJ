@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/manlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>직원 목록</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">직원 계정 /</span> 직원 목록</h4>
+      <!-- Hoverable Table rows -->
+      <div class="card">
+        <div class="table-responsive text-nowrap">
+          <!-- Outline Dropdowns -->
+          <div class="card-body">
+            <div class="demo-inline-spacing">
+              <div class="btn-group">
+                <button
+                        type="button"
+                        class="btn btn-outline-primary dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                >
+                  소속부서
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="javascript:void(0);">자재부서</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">개발부서</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">생산부서</a></li>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <button
+                        type="button"
+                        class="btn btn-outline-primary dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                >
+                  접근권한
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="javascript:void(0);">관리자</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">팀장</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">생산/개발사원</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">자재사원</a></li>
+                </ul>&nbsp;&nbsp;
+                <form class="d-flex" onsubmit="return false">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                  <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <table class="table table-hover mb-4">
+            <thead>
+              <tr>
+                <th>직원번호</th>
+                <th>성명</th>
+                <th>소속부서</th>
+                <th>접근권한</th>
+                <th>전화번호</th>
+                <th>수정/삭제</th>
+              </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01058</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>김사원</strong></a></td>
+                <td>생산부서</td>
+                <td>생산/개발사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01059</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>송사원</strong></a></td>
+                <td>생산부서</td>
+                <td>생산/개발사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01060</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>이과장</strong></a></td>
+                <td>자재부서</td>
+                <td>관리자</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01061</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>홍대리</strong></a></td>
+                <td>개발부서</td>
+                <td>생산/개발사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01062</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>조사원</strong></a></td>
+                <td>자재부서</td>
+                <td>자재사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01063</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>박대리</strong></a></td>
+                <td>자재부서</td>
+                <td>자재사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01064</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>장사원</strong></a></td>
+                <td>생산부서</td>
+                <td>생산/개발사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01065</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>육과장</strong></a></td>
+                <td>생산부서</td>
+                <td>관리자</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01066</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>이대리</strong></a></td>
+                <td>생산부서</td>
+                <td>생산/개발사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01067</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>고사원</strong></a></td>
+                <td>개발부서</td>
+                <td>생산/개발사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01068</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>진사원</strong></a></td>
+                <td>생산부서</td>
+                <td>생산/개발사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01069</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>김대리</strong></a></td>
+                <td>생산부서</td>
+                <td>생산/개발사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01070</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>최사원</strong></a></td>
+                <td>자재부서</td>
+                <td>자재사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01071</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>윤사원</strong></a></td>
+                <td>자재부서</td>
+                <td>자재사원</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 01072</td>
+                <td><a th:href="@{/manager/modify_member}"><strong>정과장</strong></a></td>
+                <td>생산부서</td>
+                <td>관리자</td>
+                <td>000-0000-0000</td>
+                <td>
+                  <div class="dropdown">
+                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                      <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" th:href="@{/manager/modify_member}"
+                      ><i class="bx bx-edit-alt me-1"></i> 수정</a
+                      >
+                      <a data-bs-toggle="modal" href="#modalToggle" class="dropdown-item"><i class="bx bx-trash me-1"></i> 삭제</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              <li class="page-item prev">
+                <a class="page-link" href="javascript:void(0);"
+                ><i class="tf-icon bx bx-chevrons-left"></i
+                ></a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">2</a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="javascript:void(0);">3</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">4</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0);">5</a>
+              </li>
+              <li class="page-item next">
+                <a class="page-link" href="javascript:void(0);"
+                ><i class="tf-icon bx bx-chevrons-right"></i
+                ></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!--Modal-->
+    <div
+            class="modal fade"
+            id="modalToggle"
+            aria-labelledby="modalToggleLabel"
+            tabindex="-1"
+            style="display: none"
+            aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
+            <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            생산부서 사원 홍길동(01058)의 아이디를 삭제합니다.<br/>삭제시 복구가 불가능합니다.
+          </div>
+          <div class="modal-footer">
+            <button
+                    class="btn btn-primary"
+                    data-bs-target="#modalToggle2"
+                    data-bs-toggle="modal"
+                    data-bs-dismiss="modal"
+            >
+              삭제
+            </button>
+            <button
+                    class="btn btn-primary"
+                    data-bs-target="#modalToggle2"
+                    data-bs-toggle="modal"
+                    data-bs-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/Modal-->
+
+    <!--Script-->
+
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+
+<html
+  lang="ko" xmlns:th="http://www.thymeleaf.org"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+<th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
+
+  <span id="head">
+    <title>거래명세서 목록</title>
+    <!--Style-->
+
+    <!--/Style-->
+  </span>
+
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">거래명세서 /</span> 거래명세서 목록</h4>
+      <!--추가-->
+      <!-- Card -->
+      <div class="card mb-4">
+        <!--검색-->
+        <div class="card-body">
+          <h5>거래명세서 발행 가능한 입고 완료 목록</h5>
+          <div class="card border">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <th class="bg-label-primary">협력회사</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">제품</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">자재</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--/검색-->
+        <div class="card-body">
+          <div class="table-responsive text-nowrap">
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th>입고일</th>
+                  <th>자재 번호</th>
+                  <th>자재명</th>
+                  <th>입고수량</th>
+                  <th>업체</th>
+                  <th>거래명세서 발행</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AT-152	</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">앞 타이어	</a></td>
+                  <td>380</td>
+                  <td>BBB</td>
+                  <td>
+                    <a th:href="@{/invoice/add_invoice}">
+                      <button type="button" class="btn btn-primary">거래명세서 발행</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>DT-569</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">뒷 타이어	</a></td>
+                  <td>420</td>
+                  <td>BBB</td>
+                  <td>
+                    <a th:href="@{/invoice/add_invoice}">
+                      <button type="button" class="btn btn-primary">거래명세서 발행</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>KT-632</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">컨트롤러	</a></td>
+                  <td>300</td>
+                  <td>BBB</td>
+                  <td>
+                    <a th:href="@{/invoice/add_invoice}">
+                      <button type="button" class="btn btn-primary">거래명세서 발행</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>SS-149</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">슬라이-슬리브</a></td>
+                  <td>200</td>
+                  <td>CCC</td>
+                  <td>
+                    <a th:href="@{/invoice/add_invoice}">
+                      <button type="button" class="btn btn-primary">거래명세서 발행</button>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2024-07-11</td>
+                  <td>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>ST-694</strong>
+                  </td>
+                  <td><a th:href="@{/goodshandling/view_received}">스티어링 튜브	</a></td>
+                  <td>410</td>
+                  <td>CCC</td>
+                  <td>
+                    <a th:href="@{/invoice/add_invoice}">
+                      <button type="button" class="btn btn-primary">거래명세서 발행</button>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item prev">
+                  <a class="page-link" href="javascript:void(0);"
+                  ><i class="tf-icon bx bx-chevrons-left"></i
+                  ></a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item next">
+                  <a class="page-link" href="javascript:void(0);"
+                  ><i class="tf-icon bx bx-chevrons-right"></i
+                  ></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!--/ Card -->
+      <!--/추가-->
+      <!-- Hoverable Table rows -->
+      <div class="card">
+        <!--검색-->
+        <div class="card-body">
+          <h5>거래명세서 발행 완료 목록</h5>
+          <div class="card border">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <th class="bg-label-primary">협력회사</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">제품</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">자재</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm">
+                          <option>전체보기</option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!--/검색-->
+        <div class="table-responsive text-nowrap">
+          <!-- Outline Dropdowns -->
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>협력업체명</th>
+                  <th>거래명세서 파일명</th>
+                  <th>발행일</th>
+                  <th>다운로드</th>
+                  <th>수정/삭제</th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <tr>
+                  <td>35</td>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
+                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
+                  <td>2024-06-09</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/invoice/modify_invoice}">
+                      <button class="btn btn-primary">수정</button>
+                    </a>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>34</td>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
+                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
+                  <td>2024-06-03</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/invoice/modify_invoice}">
+                      <button class="btn btn-primary">수정</button>
+                    </a>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>33</td>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
+                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
+                  <td>2024-06-03</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/invoice/modify_invoice}">
+                      <button class="btn btn-primary">수정</button>
+                    </a>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>32</td>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
+                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
+                  <td>2024-05-25</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/invoice/modify_invoice}">
+                      <button class="btn btn-primary">수정</button>
+                    </a>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>31</td>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
+                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
+                  <td>2024-05-23</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/invoice/modify_invoice}">
+                      <button class="btn btn-primary">수정</button>
+                    </a>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>30</td>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
+                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
+                  <td>2024-05-22</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/invoice/modify_invoice}">
+                      <button class="btn btn-primary">수정</button>
+                    </a>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>29</td>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
+                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
+                  <td>2024-04-27</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/invoice/modify_invoice}">
+                      <button class="btn btn-primary">수정</button>
+                    </a>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>28</td>
+                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
+                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
+                  <td>2024-04-26</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-secondary">수정</button>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Modal Backdrop -->
+            <div class="mt-3 text-end mb-4">
+              <a th:href="@{/invoice/add_invoice}">
+                <button type="button" class="btn btn-primary">거래명세서 발행</button>
+              </a>
+            </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item prev">
+                  <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                </li>
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item next">
+                  <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!--/ Bootstrap modals -->
+    </div>
+
+    <!--Modal-->
+
+    <!--/Modal-->
+    <!--Script-->
+
+    <!--Script-->
+  </span>
+
+</th:block>
+</html>
