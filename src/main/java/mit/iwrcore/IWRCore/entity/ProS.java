@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 //@ToString(exclude = "manuMcode")
-public class ProS{
+public class  ProS{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long manuScode;
