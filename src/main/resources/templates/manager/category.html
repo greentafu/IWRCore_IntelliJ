@@ -32,32 +32,38 @@
             <div class="card shadow-none" style="height: 750px">
               <div class="card-body mb-3" id="vertical-example" style="height: 550px;">
                 <table class="table table-hover text-center">
-                  <tr th:each="partdto:${partCodeList.partSDTOs}">
-                    <td th:text="${partdto.partMDTO.partLDTO.Lname}"></td>
-                    <td th:text="${partdto.partMDTO.Mname}"></td>
-                    <td th:text="${partdto.Sname}"></td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyCompany"
-                              data-bs-toggle="modal"
-                              data-scode="${partdto.partScode}"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              th:data-dto="${partdto}"
-                              type="button"
-                              onclick="setDelete(this)"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
+                  <tbody id="tablePart">
+                    <tr th:each="partdto:${partCodeList.partSDTOs}">
+                      <td th:text="${partdto.partMDTO.partLDTO.Lname}"></td>
+                      <td th:text="${partdto.partMDTO.Mname}"></td>
+                      <td th:text="${partdto.Sname}"></td>
+                      <td>
+                        <button
+                                class="btn btn-outline-primary btn-sm"
+                                data-bs-target="#modalModifyCompany"
+                                data-bs-toggle="modal"
+                                data-scode="${partdto.partScode}"
+                                type="button"
+                        >
+                          수정
+                        </button>
+                        <button
+                                class="btn btn-outline-primary btn-sm"
+                                data-bs-target="#modalDelete"
+                                data-bs-toggle="modal"
+                                th:data-Lname="${partdto.partMDTO.partLDTO.Lname}"
+                                th:data-Mname="${partdto.partMDTO.Mname}"
+                                th:data-Sname="${partdto.Sname}"
+                                th:data-Scode="${partdto.partScode}"
+                                data-btn="Part"
+                                type="button"
+                                onclick="setDeleteCategory(this)"
+                        >
+                          삭제
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <hr class="m-0">
@@ -155,29 +161,37 @@
             <div class="card shadow-none" style="height: 750px">
               <div class="card-body mb-3" id="vertical-example2" style="height: 550px;">
                 <table class="table table-hover text-center">
-                  <tr th:each="prodto:${proCodeList.proSDTOs}">
-                    <td th:text="${prodto.proMDTO.proLDTO.Lname}"></td>
-                    <td th:text="${prodto.proMDTO.Mname}"></td>
-                    <td th:text="${prodto.Sname}"></td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyProduct"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
+                  <tbody id="tablePro">
+                    <tr th:each="prodto:${proCodeList.proSDTOs}">
+                      <td th:text="${prodto.proMDTO.proLDTO.Lname}"></td>
+                      <td th:text="${prodto.proMDTO.Mname}"></td>
+                      <td th:text="${prodto.Sname}"></td>
+                      <td>
+                        <button
+                                class="btn btn-outline-primary btn-sm"
+                                data-bs-target="#modalModifyProduct"
+                                data-bs-toggle="modal"
+                                type="button"
+                        >
+                          수정
+                        </button>
+                        <button
+                                class="btn btn-outline-primary btn-sm"
+                                data-bs-target="#modalDelete"
+                                data-bs-toggle="modal"
+                                th:data-Lname="${prodto.proMDTO.proLDTO.Lname}"
+                                th:data-Mname="${prodto.proMDTO.Mname}"
+                                th:data-Sname="${prodto.Sname}"
+                                th:data-Scode="${prodto.proScode}"
+                                data-btn="Pro"
+                                type="button"
+                                onclick="setDeleteCategory(this)"
+                        >
+                          삭제
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <hr class="m-0">
@@ -276,29 +290,37 @@
             <div class="card shadow-none" style="height: 750px">
               <div class="card-body mb-3" id="vertical-example3" style="height: 550px;">
                 <table class="table table-hover text-center">
-                  <tr th:each="materdto:${materCodeList.materSDTOs}">
-                    <td th:text="${materdto.materMDTO.materLDTO.lname}"></td>
-                    <td th:text="${materdto.materMDTO.Mname}"></td>
-                    <td th:text="${materdto.Sname}"></td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyMaterial"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
+                  <tbody id="tableMater">
+                    <tr th:each="materdto:${materCodeList.materSDTOs}">
+                      <td th:text="${materdto.materMDTO.materLDTO.lname}"></td>
+                      <td th:text="${materdto.materMDTO.Mname}"></td>
+                      <td th:text="${materdto.Sname}"></td>
+                      <td>
+                        <button
+                                class="btn btn-outline-primary btn-sm"
+                                data-bs-target="#modalModifyMaterial"
+                                data-bs-toggle="modal"
+                                type="button"
+                        >
+                          수정
+                        </button>
+                        <button
+                                class="btn btn-outline-primary btn-sm"
+                                data-bs-target="#modalDelete"
+                                data-bs-toggle="modal"
+                                th:data-Lname="${materdto.materMDTO.materLDTO.lname}"
+                                th:data-Mname="${materdto.materMDTO.Mname}"
+                                th:data-Sname="${materdto.Sname}"
+                                th:data-Scode="${materdto.materScode}"
+                                data-btn="Mater"
+                                type="button"
+                                onclick="setDeleteCategory(this)"
+                        >
+                          삭제
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
               <hr class="m-0">
@@ -683,14 +705,12 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-body">
-              <h5 class="modal-title" id="modalScrollableTitle">카테고리 삭제</h5>
+              <h5 class="modal-title">카테고리 삭제</h5>
             </div>
             <hr class="m-0">
-            <div class="modal-body text-center" id="modalDeleteText">
-              [대분류]-[중분류]-[소분류]를 삭제하시겠습니까?
-            </div>
+            <div class="modal-body text-center" id="modalDeleteText"></div>
             <div class="modal-footer">
-              <button class="btn btn-primary" data-bs-dismiss="modal" type="button">
+              <button class="btn btn-primary" data-bs-dismiss="modal" type="button" id="modalDeleteBtn" onclick="deleteCategory(this)">
                 삭제
               </button>
               <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
@@ -704,19 +724,7 @@
       <!--/Modal-->
 
     <!--Script-->
-    <script>
-      function setDelete(button){
-        const data=button.getAttribute('data-dto');
-        document.getElementById('modalDeleteText').textContent=data;
-      }
-
-
-
-
-
-
-
-    </script>
+    <script src="../assets/js/category-crud.js"></script>
     <!--Script-->
   </span>
 
