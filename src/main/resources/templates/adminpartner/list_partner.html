@@ -32,8 +32,14 @@
                     <div class="row">
                       <span class="col-md-3">대분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm">
-                          <option>전체보기</option>
+                        <select class="form-select form-select-sm" id="selectPartL" onchange="updatePartCode('L')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="partldto:${partCodeList.partLDTOs}"
+                                  th:value="${partldto.partLcode}"
+                                  th:text="${partldto.Lname}"
+                          >
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -42,8 +48,14 @@
                     <div class="row">
                       <span class="col-md-3">중분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm">
-                          <option>전체보기</option>
+                        <select class="form-select form-select-sm" id="selectPartM" onchange="updatePartCode('M')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="partmdto:${partCodeList.partMDTOs}"
+                                  th:value="${partmdto.partMcode}"
+                                  th:text="${partmdto.Mname}"
+                          >
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -52,8 +64,14 @@
                     <div class="row">
                       <span class="col-md-3">소분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm">
-                          <option>전체보기</option>
+                        <select class="form-select form-select-sm" id="selectPartS" onchange="updatePartCode('S')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="partsdto:${partCodeList.partSDTOs}"
+                                  th:value="${partsdto.partScode}"
+                                  th:text="${partsdto.Sname}"
+                          >
+                          </option>
                         </select>
                       </div>
                     </div>

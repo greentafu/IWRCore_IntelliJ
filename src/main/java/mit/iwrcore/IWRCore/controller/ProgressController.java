@@ -39,7 +39,10 @@ public class ProgressController {
 
     }
     @GetMapping("/requiring_progress")
-    public void requiring_progress(){
-
+    public void requiring_progress(Model model){
+        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
+        model.addAttribute("partCodeList", lists);
+        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
+        model.addAttribute("materCodeList", lists2);
     }
 }
