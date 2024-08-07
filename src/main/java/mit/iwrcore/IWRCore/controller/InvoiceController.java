@@ -1,9 +1,9 @@
 package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.dto.MaterCodeListDTO;
-import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
-import mit.iwrcore.IWRCore.dto.ProCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.MaterService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import mit.iwrcore.IWRCore.security.service.ProCodeService;

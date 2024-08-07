@@ -1,6 +1,6 @@
 package mit.iwrcore.IWRCore.security.service;
 
-import mit.iwrcore.IWRCore.dto.ProCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.entity.ProL;
 import mit.iwrcore.IWRCore.entity.ProM;
 import mit.iwrcore.IWRCore.entity.ProS;

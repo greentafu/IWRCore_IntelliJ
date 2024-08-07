@@ -1,11 +1,8 @@
-package mit.iwrcore.IWRCore.dto;
+package mit.iwrcore.IWRCore.security.dto.MaterDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterLDTO;
-import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterMDTO;
-import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;
 
 import java.util.List;
 

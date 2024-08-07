@@ -2,9 +2,9 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.dto.MaterCodeListDTO;
-import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
-import mit.iwrcore.IWRCore.dto.ProCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterLDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterMDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;

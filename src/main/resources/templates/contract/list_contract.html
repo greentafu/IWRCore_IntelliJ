@@ -283,130 +283,184 @@
                 <div class="card border">
                   <div class="table-responsive text-nowrap">
                     <table class="table">
-                      <tr>
-                        <th class="bg-label-primary">협력회사</th>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">대분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">중분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">소분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <div class="col-md-9">
-                              <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                            </div>
-                            <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="bg-label-primary">제품</th>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">대분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">중분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">소분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <div class="col-md-9">
-                              <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                            </div>
-                            <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th class="bg-label-primary">자재</th>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">대분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">중분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <span class="col-md-3">소분류</span>
-                            <div class="col">
-                              <select class="form-select form-select-sm">
-                                <option>전체보기</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="row">
-                            <div class="col-md-9">
-                              <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                            </div>
-                            <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                          </div>
-                        </td>
-                      </tr>
-                    </table>
+                <tr>
+                  <th class="bg-label-primary">협력회사</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectPartL2" onchange="updatePartCode2('L')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="partldto:${partCodeList.partLDTOs}"
+                                  th:value="${partldto.partLcode}"
+                                  th:text="${partldto.Lname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectPartM2" onchange="updatePartCode2('M')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="partmdto:${partCodeList.partMDTOs}"
+                                  th:value="${partmdto.partMcode}"
+                                  th:text="${partmdto.Mname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectPartS2" onchange="updatePartCode2('S')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="partsdto:${partCodeList.partSDTOs}"
+                                  th:value="${partsdto.partScode}"
+                                  th:text="${partsdto.Sname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">제품</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectProL2" onchange="updateProCode2('L')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="proldto:${proCodeList.proLDTOs}"
+                                  th:value="${proldto.proLcode}"
+                                  th:text="${proldto.Lname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectProM2" onchange="updateProCode2('M')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="promdto:${proCodeList.proMDTOs}"
+                                  th:value="${promdto.proMcode}"
+                                  th:text="${promdto.Mname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectProS2" onchange="updateProCode2('S')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="prosdto:${proCodeList.proSDTOs}"
+                                  th:value="${prosdto.proScode}"
+                                  th:text="${prosdto.Sname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">자재</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectMaterL2" onchange="updateMaterCode2('L')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="materldto:${materCodeList.materLDTOs}"
+                                  th:value="${materldto.materLcode}"
+                                  th:text="${materldto.lname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectMaterM2" onchange="updateMaterCode2('M')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="matermdto:${materCodeList.materMDTOs}"
+                                  th:value="${matermdto.materMcode}"
+                                  th:text="${matermdto.Mname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectMaterS2" onchange="updateMaterCode2('S')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="matersdto:${materCodeList.materSDTOs}"
+                                  th:value="${matersdto.materScode}"
+                                  th:text="${matersdto.Sname}"
+                          >
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
                   </div>
                 </div>
               </div>

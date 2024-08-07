@@ -1,11 +1,8 @@
-package mit.iwrcore.IWRCore.dto;
+package mit.iwrcore.IWRCore.security.dto.PartDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import mit.iwrcore.IWRCore.security.dto.PartDTO.PartLDTO;
-import mit.iwrcore.IWRCore.security.dto.PartDTO.PartMDTO;
-import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
 
 import java.util.List;
 

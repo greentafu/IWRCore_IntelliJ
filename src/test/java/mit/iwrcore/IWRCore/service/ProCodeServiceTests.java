@@ -1,6 +1,6 @@
 package mit.iwrcore.IWRCore.service;
 
-import mit.iwrcore.IWRCore.dto.ProCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.entity.ProL;
 import mit.iwrcore.IWRCore.entity.ProM;
 import mit.iwrcore.IWRCore.entity.ProS;
@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @SpringBootTest
 public class ProCodeServiceTests {

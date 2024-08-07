@@ -1,7 +1,7 @@
 package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

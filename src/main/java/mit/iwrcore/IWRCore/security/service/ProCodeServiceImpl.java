@@ -2,7 +2,7 @@ package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.dto.ProCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.entity.ProL;
 import mit.iwrcore.IWRCore.entity.ProM;
 import mit.iwrcore.IWRCore.entity.ProS;

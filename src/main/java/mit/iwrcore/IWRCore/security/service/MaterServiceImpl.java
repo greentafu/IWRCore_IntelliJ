@@ -2,7 +2,7 @@ package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.dto.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
 import mit.iwrcore.IWRCore.entity.MaterL;
 import mit.iwrcore.IWRCore.entity.MaterM;
 import mit.iwrcore.IWRCore.entity.MaterS;
