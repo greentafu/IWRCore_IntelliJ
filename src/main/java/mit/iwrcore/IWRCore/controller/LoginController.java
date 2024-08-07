@@ -1,9 +1,12 @@
 package mit.iwrcore.IWRCore.controller;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthPartnerDTO;
+import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @Log4j2
+@RequiredArgsConstructor
 public class LoginController {
+
+    private final PartCodeService partCodeService;
+
     @GetMapping("/login")
     public void login(){
 
@@ -31,7 +38,8 @@ public class LoginController {
 
     }
     @GetMapping("/category")
-    public void category(){
-
+    public void category(Model model){
+        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
+        model.addAttribute("partCodeList", lists);
     }
 }
