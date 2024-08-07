@@ -2,15 +2,16 @@ package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import mit.iwrcore.IWRCore.dto.ProCodeListDTO;
 import mit.iwrcore.IWRCore.entity.ProL;
 import mit.iwrcore.IWRCore.entity.ProM;
 import mit.iwrcore.IWRCore.entity.ProS;
 import mit.iwrcore.IWRCore.repository.ProLCodeRepository;
 import mit.iwrcore.IWRCore.repository.ProMCodeRepository;
 import mit.iwrcore.IWRCore.repository.ProSCodeRepository;
-import mit.iwrcore.IWRCore.security.dto.ProLDTO;
-import mit.iwrcore.IWRCore.security.dto.ProMDTO;
-import mit.iwrcore.IWRCore.security.dto.ProSDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProLDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProMDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -77,42 +78,56 @@ public class ProCodeServiceImpl implements ProCodeService{
 
     // 회사 분류 리스트 가져오기
     @Override
-    public List<ProLDTO> findListProL(ProMDTO proMDTO, ProSDTO proSDTO) {
+    public List<ProLDTO> findListProL() {
         List<ProLDTO> list=new ArrayList<>();
-        if(proSDTO!=null){
-            list.add(proLTodto(proSDTO.getProM().getProL()));
-            return list;
-        }else if(proMDTO !=null){
-            list.add(proLTodto(proSDTO.getProM().getProL()));
-            return list;
-        }
         lCodeRepository.findAll().stream().forEach(x->list.add(proLTodto(x)));
         return list;
     }
     @Override
-    public List<ProMDTO> findListProM(ProLDTO proLDTO, ProSDTO proSDTO) {
+    public List<ProMDTO> findListProM(ProLDTO proLDTO, ProMDTO proMDTO, ProSDTO proSDTO) {
         List<ProMDTO> list=new ArrayList<>();
         if(proSDTO!=null){
-            list.add(proMTodto(proSDTO.getProM()));
+            Long temp=proSDTO.getProMDTO().getProLDTO().getProLcode();
+            mCodeRepository.findAll().stream().filter(x->x.getProL().getProLcode()==temp).forEach(x->list.add(proMTodto(x)));
+            return list;
+        }else if(proMDTO!=null){
+            Long temp=proMDTO.getProLDTO().getProLcode();
+            mCodeRepository.findAll().stream().filter(x->x.getProL().getProLcode()==temp).forEach(x->list.add(proMTodto(x)));
             return list;
         }else if(proLDTO!=null){
-            mCodeRepository.findAll().stream().filter(x->x.getProL().getProLcode()==proLDTO.getProLcode()).forEach(x->list.add(proMTodto(x)));
+            Long temp=proLDTO.getProLcode();
+            mCodeRepository.findAll().stream().filter(x->x.getProL().getProLcode()==temp).forEach(x->list.add(proMTodto(x)));
             return list;
         }
         mCodeRepository.findAll().stream().forEach(x->list.add(proMTodto(x)));
         return list;
     }
     @Override
-    public List<ProSDTO> findListProS(ProLDTO proLDTO, ProMDTO proMDTO) {
+    public List<ProSDTO> findListProS(ProLDTO proLDTO, ProMDTO proMDTO, ProSDTO proSDTO) {
         List<ProSDTO> list=new ArrayList<>();
-        if(proMDTO!=null){
-            sCodeRepository.findAll().stream().filter(x->x.getProM().getProMcode()==proMDTO.getProMcode()).forEach(x->list.add(proSTodto(x)));
+        if(proSDTO!=null){
+            Long temp=proSDTO.getProMDTO().getProMcode();
+            sCodeRepository.findAll().stream().filter(x->x.getProM().getProMcode()==temp).forEach(x->list.add(proSTodto(x)));
+            return list;
+        }else if(proMDTO!=null){
+            Long temp=proMDTO.getProMcode();
+            sCodeRepository.findAll().stream().filter(x->x.getProM().getProMcode()==temp).forEach(x->list.add(proSTodto(x)));
             return list;
         }else if(proLDTO!=null){
+            Long temp=proLDTO.getProLcode();
             sCodeRepository.findAll().stream().filter(x->x.getProM().getProL().getProLcode()==proLDTO.getProLcode()).forEach(x->list.add(proSTodto(x)));
             return list;
         }
         sCodeRepository.findAll().stream().forEach(x->list.add(proSTodto(x)));
+        return list;
+    }
+    @Override
+    public ProCodeListDTO findListProAll(ProLDTO proLDTO, ProMDTO proMDTO, ProSDTO proSDTO) {
+        ProCodeListDTO list=ProCodeListDTO.builder()
+                .proLDTOs(findListProL())
+                .proMDTOs(findListProM(proLDTO, proMDTO, proSDTO))
+                .proSDTOs(findListProS(proLDTO, proMDTO, proSDTO))
+                .build();
         return list;
     }
 

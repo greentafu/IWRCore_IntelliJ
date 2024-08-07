@@ -155,10 +155,10 @@
             <div class="card shadow-none" style="height: 750px">
               <div class="card-body mb-3" id="vertical-example2" style="height: 550px;">
                 <table class="table table-hover text-center">
-                  <tr>
-                    <td>자전거</td>
-                    <td>전기자전거</td>
-                    <td>전기자전거</td>
+                  <tr th:each="prodto:${proCodeList.proSDTOs}">
+                    <td th:text="${prodto.proMDTO.proLDTO.Lname}"></td>
+                    <td th:text="${prodto.proMDTO.Mname}"></td>
+                    <td th:text="${prodto.Sname}"></td>
                     <td>
                       <button
                               class="btn btn-outline-primary btn-sm"
@@ -176,79 +176,6 @@
                       >
                         삭제
                       </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>자전거</td>
-                    <td>일반자전거</td>
-                    <td>도로자전거</td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyProduct"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>자전거</td>
-                    <td>일반자전거</td>
-                    <td>산악자전거</td>
-                    <td>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalModifyProduct"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        수정
-                      </button>
-                      <button
-                              class="btn btn-outline-primary btn-sm"
-                              data-bs-target="#modalDelete"
-                              data-bs-toggle="modal"
-                              type="button"
-                      >
-                        삭제
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>킥보드</td>
-                    <td>전기킥보드</td>
-                    <td>전기킥보드</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>킥보드</td>
-                    <td>일반킥보드</td>
-                    <td>성인용킥보드</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>킥보드</td>
-                    <td>일반킥보드</td>
-                    <td>아동용킥보드</td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary" type="button">수정</button>
-                      <button class="btn btn-sm btn-outline-primary" type="button">삭제</button>
                     </td>
                   </tr>
                 </table>

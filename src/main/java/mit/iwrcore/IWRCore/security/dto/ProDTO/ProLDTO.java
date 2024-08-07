@@ -1,4 +1,4 @@
-package mit.iwrcore.IWRCore.security.dto;
+package mit.iwrcore.IWRCore.security.dto.ProDTO;
 
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
@@ -11,7 +11,4 @@ import lombok.extern.log4j.Log4j2;
 public class ProLDTO {
     private Long proLcode;
     private String Lname;
-
-
-
 }
