@@ -73,7 +73,7 @@
                                 th:text="${partldto.Lname}"
                         >
                         </option>
-                        <option value="directPartL">직접입력</option>
+                        <option value="">직접입력</option>
                       </select>
                     </div>
                   </div>
@@ -98,7 +98,7 @@
                                 th:text="${partmdto.Mname}"
                         >
                         </option>
-                        <option value="directPartM">직접입력</option>
+                        <option value="">직접입력</option>
                       </select>
                       <select class="select2 form-select" id="selectPartS" onchange="updatePartCode('S')">
                         <option value="">선택</option>
@@ -108,7 +108,7 @@
                                 th:text="${partsdto.Sname}"
                         >
                         </option>
-                        <option value="directPartS">직접입력</option>
+                        <option value="">직접입력</option>
                       </select>
                     </div>
                   </div>
@@ -185,11 +185,15 @@
                 <div class="row">
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="country">
+                      <select class="select2 form-select" id="selectProL" onchange="updateProCode('L')">
                         <option value="">선택</option>
-                        <option selected value="Australia">자전거</option>
-                        <option value="Bangladesh">킥보드</option>
-                        <option value="Belarus">직접입력</option>
+                        <option
+                                th:each="proldto:${proCodeList.proLDTOs}"
+                                th:value="${proldto.proLcode}"
+                                th:text="${proldto.Lname}"
+                        >
+                        </option>
+                        <option value="">직접입력</option>
                       </select>
                     </div>
                   </div>
@@ -206,13 +210,25 @@
                   </div>
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="country">
+                      <select class="select2 form-select" id="selectProM" onchange="updateProCode('M')">
                         <option value="">선택</option>
-                        <option selected value="Australia">전기자전거</option>
-                        <option value="Bangladesh">일반자전거</option>
-                        <option value="Belarus">전기킥보드</option>
-                                <option value="Belarus">일반킥보드</option>
-                        <option value="Belarus">직접입력</option>
+                        <option
+                                th:each="promdto:${proCodeList.proMDTOs}"
+                                th:value="${promdto.proMcode}"
+                                th:text="${promdto.Mname}"
+                        >
+                        </option>
+                        <option value="">직접입력</option>
+                      </select>
+                      <select class="select2 form-select" id="selectProS" onchange="updateProCode('S')">
+                        <option value="">선택</option>
+                        <option
+                                th:each="prosdto:${proCodeList.proSDTOs}"
+                                th:value="${prosdto.proScode}"
+                                th:text="${prosdto.Sname}"
+                        >
+                        </option>
+                        <option value="">직접입력</option>
                       </select>
                     </div>
                           </div>
@@ -298,7 +314,7 @@
                                 th:text="${materldto.lname}"
                         >
                         </option>
-                        <option value="directPartL">직접입력</option>
+                        <option value="">직접입력</option>
                       </select>
                     </div>
                   </div>
@@ -323,7 +339,7 @@
                                 th:text="${matermdto.Mname}"
                         >
                         </option>
-                        <option value="directPartL">직접입력</option>
+                        <option value="L">직접입력</option>
                       </select>
                       <select class="select2 form-select" id="selectMaterS" onchange="updateMaterCode('S')">
                         <option value="">선택</option>
@@ -333,7 +349,7 @@
                                 th:text="${matersdto.Sname}"
                         >
                         </option>
-                        <option value="directPartL">직접입력</option>
+                        <option value="">직접입력</option>
                       </select>
                     </div>
                   </div>
@@ -693,6 +709,13 @@
         const data=button.getAttribute('data-dto');
         document.getElementById('modalDeleteText').textContent=data;
       }
+
+
+
+
+
+
+
     </script>
     <!--Script-->
   </span>

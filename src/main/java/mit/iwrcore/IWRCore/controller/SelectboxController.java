@@ -4,14 +4,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.dto.MaterCodeListDTO;
 import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
+import mit.iwrcore.IWRCore.dto.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterLDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterMDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartLDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartMDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProLDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProMDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 import mit.iwrcore.IWRCore.security.service.MaterService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
+import mit.iwrcore.IWRCore.security.service.ProCodeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +30,7 @@ public class SelectboxController {
 
     private final PartCodeService partCodeService;
     private final MaterService materService;
+    private final ProCodeService proCodeService;
 
     @GetMapping("/part")
     public PartCodeListDTO selectpart(
@@ -72,6 +78,35 @@ public class SelectboxController {
             list.setS(scode);
         }else if(mcode!=null){
             list.setL(materService.findMaterM(mcode).getMaterLDTO().getMaterLcode());
+            list.setM(mcode);
+            list.setS(null);
+        }else if(lcode!=null){
+            list.setL(lcode);
+            list.setM(null);
+            list.setS(null);
+        }
+
+        log.info("####################"+list);
+        return list;
+    }
+
+    @GetMapping("/pro")
+    public ProCodeListDTO selectpro(
+            @RequestParam(required = false) Long lcode,
+            @RequestParam(required = false) Long mcode,
+            @RequestParam(required = false) Long scode){
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@"+lcode+"/"+mcode+"/"+scode);
+        ProLDTO ldto=(lcode!=null)?proCodeService.findProL(lcode):null;
+        ProMDTO mdto=(mcode!=null)?proCodeService.findProM(mcode):null;
+        ProSDTO sdto=(scode!=null)?proCodeService.findProS(scode):null;
+        ProCodeListDTO list=proCodeService.findListProAll(ldto, mdto, sdto);
+
+        if(scode!=null){
+            list.setL(proCodeService.findProS(scode).getProMDTO().getProLDTO().getProLcode());
+            list.setM(proCodeService.findProS(scode).getProMDTO().getProMcode());
+            list.setS(scode);
+        }else if(mcode!=null){
+            list.setL(proCodeService.findProM(mcode).getProLDTO().getProLcode());
             list.setM(mcode);
             list.setS(null);
         }else if(lcode!=null){
