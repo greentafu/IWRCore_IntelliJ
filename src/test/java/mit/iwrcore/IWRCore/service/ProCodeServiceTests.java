@@ -16,6 +16,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @SpringBootTest
 public class ProCodeServiceTests {
     @Autowired
@@ -69,6 +71,7 @@ public class ProCodeServiceTests {
     }
 
     // Scode만 선택
+    // Scode만 선택
     @Test
     @Transactional
     @Commit
@@ -77,7 +80,19 @@ public class ProCodeServiceTests {
         ProMDTO mdto=ProMDTO.builder().proMcode(3L).Mname("브레이크 시스템").proL(proCodeService.proLdtoToEntity(proCodeService.findProL(14L))).build();
 //        ProSDTO sdto= ProSDTO.builder().proScode(2L).Sname("프레임이다").proM(proCodeService.proMdtoToEntity(proCodeService.findProM(1L))).build();
         ProSDTO sdto = null;
-        proCodeService.findListProL(mdto, sdto).forEach(System.out::println);
+        try {
+            List<ProLDTO> result = proCodeService.findListProL(mdto, sdto);
+            if (result.isEmpty()) {
+                System.out.println("대분류 또는 중분류를 선택해주세요");
+            } else {
+                result.forEach(System.out::println);
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            // 일반적인 예외 처리
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
     }
 
     @Test

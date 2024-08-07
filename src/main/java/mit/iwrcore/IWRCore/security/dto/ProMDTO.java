@@ -14,6 +14,4 @@ public class ProMDTO {
     private Long proMcode;
     private String Mname;
     private ProL proL;
-
-   
 }
