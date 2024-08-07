@@ -3,6 +3,8 @@ package mit.iwrcore.IWRCore.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Builder
 @AllArgsConstructor
@@ -30,4 +32,7 @@ public class Material extends BaseEntity {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="boxCode")
     private Box box;
+
+    @ManyToMany(mappedBy = "materials")
+    private List<Product> products;
 }

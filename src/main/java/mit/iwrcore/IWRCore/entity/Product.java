@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @ToString
+@Setter
 @Table(name="product")
 public class Product extends BaseEntity{
     @Id
@@ -28,10 +29,9 @@ public class Product extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    //다대다는 JOinTable 해줘야함.
-    @Setter
+    //다대다는 JOinTable 해줘야함
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="product_material",
+    @JoinTable(name="Structure",
             joinColumns = @JoinColumn(name="manu_code"),
             inverseJoinColumns = @JoinColumn(name="mater_code"))
     private List<Material> materials;

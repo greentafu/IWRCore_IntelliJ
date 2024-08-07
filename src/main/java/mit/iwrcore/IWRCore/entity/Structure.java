@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString
+@Setter
 public class Structure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
