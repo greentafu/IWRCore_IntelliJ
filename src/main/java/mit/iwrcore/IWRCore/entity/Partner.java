@@ -2,6 +2,8 @@ package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import mit.iwrcore.IWRCore.security.dto.PartSDTO;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,6 +33,10 @@ public class Partner {
     private String id;  // ID
     private String pw;  // 비밀번호
     private String password;  // 비밀번호
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "partScode")
+    private PartS partS;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default

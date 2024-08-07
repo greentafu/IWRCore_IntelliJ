@@ -31,10 +31,10 @@
             <div class="card shadow-none" style="height: 750px">
               <div class="card-body mb-3" id="vertical-example" style="height: 550px;">
                 <table class="table table-hover text-center">
-                  <tr th:each="dto:${partSCode}">
-                    <td>[[${dto.partM.partL.Lname}]]</td>
-                    <td>[[${dto.partM.Mname}]]</td>
-                    <td>[[${dto.Sname}]]</td>
+                  <tr th:each="partdto:${partCodeList.partSDTOs}">
+                    <td th:text="${partdto.partMDTO.partLDTO.Lname}"></td>
+                    <td th:text="${partdto.partMDTO.Mname}"></td>
+                    <td th:text="${partdto.Sname}"></td>
                   </tr>
                 </table>
               </div>

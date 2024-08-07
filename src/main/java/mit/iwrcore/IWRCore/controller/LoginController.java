@@ -3,7 +3,7 @@ package mit.iwrcore.IWRCore.controller;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.dto.PartCodeDTO;
+import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthPartnerDTO;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
@@ -38,9 +38,8 @@ public class LoginController {
 
     }
     @GetMapping("/category")
-    public void category(Model model, PartCodeDTO partCodeDTO){
-        model.addAttribute("partLCode", partCodeService.findListPartL(partCodeDTO.getMdto(), partCodeDTO.getSdto()));
-        model.addAttribute("partMCode", partCodeService.findListPartM(partCodeDTO.getLdto(), partCodeDTO.getSdto()));
-        model.addAttribute("partSCode", partCodeService.findListPartS(partCodeDTO.getLdto(), partCodeDTO.getMdto()));
+    public void category(Model model){
+        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
+        model.addAttribute("partCodeList", lists);
     }
 }

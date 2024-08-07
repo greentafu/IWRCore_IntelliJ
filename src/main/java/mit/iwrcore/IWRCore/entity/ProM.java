@@ -8,14 +8,17 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Table(name="prom")
 //@ToString(exclude = "manuLcode")
 public class ProM{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long manuMcode;
+    @Column(name = "manu_mcode")
+    private Long proMcode;
+    @Column(name = "mname")
     private String Mname;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "manuLcode")
+    @JoinColumn(name ="manu_lcode")
     private ProL proL;
 }
