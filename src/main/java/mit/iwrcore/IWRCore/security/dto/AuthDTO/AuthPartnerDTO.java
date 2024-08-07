@@ -1,4 +1,4 @@
-package mit.iwrcore.IWRCore.security.dto;
+package mit.iwrcore.IWRCore.security.dto.AuthDTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,13 +13,12 @@ import java.util.Collection;
 @Getter
 @Setter
 @ToString
-public class AuthMemberDTO extends User {
-    private long mno;
+public class AuthPartnerDTO extends User {
+    private long pno;
     private String id;
     private String name;
-    private String department;
 
-    public AuthMemberDTO(
+    public AuthPartnerDTO(
             String username,
             String password,
             Collection<? extends GrantedAuthority> authorities){

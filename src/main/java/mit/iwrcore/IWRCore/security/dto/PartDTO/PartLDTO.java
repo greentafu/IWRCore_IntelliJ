@@ -1,4 +1,4 @@
-package mit.iwrcore.IWRCore.security.dto;
+package mit.iwrcore.IWRCore.security.dto.PartDTO;
 
 import lombok.Builder;
 import lombok.Getter;

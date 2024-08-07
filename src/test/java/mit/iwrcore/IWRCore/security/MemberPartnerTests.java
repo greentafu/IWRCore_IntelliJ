@@ -5,10 +5,13 @@ import mit.iwrcore.IWRCore.entity.MemberRole;
 import mit.iwrcore.IWRCore.entity.Partner;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.repository.PartnerRepository;
+import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Commit;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -19,6 +22,9 @@ public class MemberPartnerTests {
     private MemberRepository repository;
     @Autowired
     private PartnerRepository partnerRepository;
+
+    @Autowired
+    private PartCodeService partCodeService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -67,6 +73,8 @@ public class MemberPartnerTests {
     }
 
     @Test
+    @Transactional
+    @Commit
     public void insertPartner(){
         Partner partner1=Partner.builder()
                 .name("협력회사1")
@@ -81,11 +89,32 @@ public class MemberPartnerTests {
                 .contacter("담당자1")
                 .contacterNumber("000-1111-1111")
                 .contacterEmail("contacter1@mail.com")
+                .partS(partCodeService.partSdtoToEntity(partCodeService.findPartS(1L)))
                 .pw("1111")
                 .password(passwordEncoder.encode("1111"))
                 .build();
         partner1.setPartnerRole(MemberRole.PARTNER);
         partnerRepository.save(partner1);
+
+        Partner partner2=Partner.builder()
+                .name("협력회사2")
+                .registrationNumber("123-45-67890")
+                .location("경기도 망포시")
+                .type("제조업")
+                .sector("금속사출부품")
+                .ceo("대표자1")
+                .telNumber("000-0000-0003")
+                .faxNumber("000-0000-0002")
+                .email("partner1@mail.com")
+                .contacter("담당자2")
+                .contacterNumber("000-2222-2222")
+                .contacterEmail("contacter2@mail.com")
+                .partS(partCodeService.partSdtoToEntity(partCodeService.findPartS(2L)))
+                .pw("1111")
+                .password(passwordEncoder.encode("1111"))
+                .build();
+        partner2.setPartnerRole(MemberRole.PARTNER);
+        partnerRepository.save(partner2);
     }
 
     @Test

@@ -2,7 +2,6 @@ package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import mit.iwrcore.IWRCore.security.dto.PartSDTO;
 
 import java.util.HashSet;
 import java.util.List;

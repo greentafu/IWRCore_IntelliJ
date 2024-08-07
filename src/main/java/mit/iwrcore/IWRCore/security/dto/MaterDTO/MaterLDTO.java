@@ -10,7 +10,5 @@ import lombok.extern.log4j.Log4j2;
 @Builder
 public class MaterLDTO {
     private Long materLcode;
-
     private String lname;
-
 }

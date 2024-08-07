@@ -15,6 +15,5 @@ import mit.iwrcore.IWRCore.entity.MaterL;
 public class MaterMDTO {
     private Long materMcode;
     private String Mname;
-
-    private MaterL materL;
+    private MaterLDTO materLDTO;
 }

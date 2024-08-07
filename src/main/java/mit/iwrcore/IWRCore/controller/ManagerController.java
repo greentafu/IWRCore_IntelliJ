@@ -1,7 +1,9 @@
 package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
+import mit.iwrcore.IWRCore.dto.MaterCodeListDTO;
 import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
+import mit.iwrcore.IWRCore.security.service.MaterService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ManagerController {
 
     private final PartCodeService partCodeService;
+    private final MaterService materService;
 
     @GetMapping("/list_member")
     public void list_member(){
@@ -42,6 +45,8 @@ public class ManagerController {
     public void category(Model model){
         PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
         model.addAttribute("partCodeList", lists);
+        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
+        model.addAttribute("materCodeList", lists2);
     }
 
 }

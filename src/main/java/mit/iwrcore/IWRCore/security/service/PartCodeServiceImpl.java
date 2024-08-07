@@ -9,12 +9,10 @@ import mit.iwrcore.IWRCore.entity.PartS;
 import mit.iwrcore.IWRCore.repository.PartLCodeRepository;
 import mit.iwrcore.IWRCore.repository.PartMCodeRepository;
 import mit.iwrcore.IWRCore.repository.PartSCodeRepository;
-import mit.iwrcore.IWRCore.security.dto.PartLDTO;
-import mit.iwrcore.IWRCore.security.dto.PartMDTO;
-import mit.iwrcore.IWRCore.security.dto.PartSDTO;
-import org.springframework.security.core.parameters.P;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartLDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartMDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;

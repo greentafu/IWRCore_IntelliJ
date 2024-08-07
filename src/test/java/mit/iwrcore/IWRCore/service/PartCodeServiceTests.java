@@ -7,9 +7,9 @@ import mit.iwrcore.IWRCore.entity.PartS;
 import mit.iwrcore.IWRCore.repository.PartLCodeRepository;
 import mit.iwrcore.IWRCore.repository.PartMCodeRepository;
 import mit.iwrcore.IWRCore.repository.PartSCodeRepository;
-import mit.iwrcore.IWRCore.security.dto.PartLDTO;
-import mit.iwrcore.IWRCore.security.dto.PartMDTO;
-import mit.iwrcore.IWRCore.security.dto.PartSDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartLDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartMDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +33,15 @@ public class PartCodeServiceTests {
     @Test
     public void insertPartLCodeTest(){
         PartLDTO ldto=PartLDTO.builder()
-                .Lname("전기부품")
+                .Lname("기계부품")
                 .build();
         PartL partL=partCodeService.partLdtoToEntity(ldto);
         lCodeRepository.save(partL);
+        PartLDTO ldto2=PartLDTO.builder()
+                .Lname("전기부품")
+                .build();
+        PartL partL2=partCodeService.partLdtoToEntity(ldto2);
+        lCodeRepository.save(partL2);
     }
     // Mcode 삽입
     @Test
@@ -44,11 +49,23 @@ public class PartCodeServiceTests {
     @Commit
     public void insertPartMCodeTest(){
         PartMDTO mdto= PartMDTO.builder()
-                .Mname("충전 시스템")
-                .partLDTO(partCodeService.findPartL(2L))
+                .Mname("프레임 시스템")
+                .partLDTO(partCodeService.findPartL(1L))
                 .build();
         PartM partM=partCodeService.partMdtoToEntity(mdto);
         mCodeRepository.save(partM);
+        PartMDTO mdto1= PartMDTO.builder()
+                .Mname("브레이크 시스템")
+                .partLDTO(partCodeService.findPartL(1L))
+                .build();
+        PartM partM1=partCodeService.partMdtoToEntity(mdto1);
+        mCodeRepository.save(partM1);
+        PartMDTO mdto2= PartMDTO.builder()
+                .Mname("충전 시스템")
+                .partLDTO(partCodeService.findPartL(2L))
+                .build();
+        PartM partM2=partCodeService.partMdtoToEntity(mdto2);
+        mCodeRepository.save(partM2);
     }
     // Scode 삽입
     @Test
@@ -56,11 +73,29 @@ public class PartCodeServiceTests {
     @Commit
     public void updatePartSCodeTes11t(){
         PartSDTO sdto= PartSDTO.builder()
-                .Sname("충전기 코드")
-                .partMDTO(partCodeService.findPartM(3L))
+                .Sname("프레임")
+                .partMDTO(partCodeService.findPartM(1L))
                 .build();
         PartS partS=partCodeService.partSdtoToEntity(sdto);
         sCodeRepository.save(partS);
+        PartSDTO sdto1= PartSDTO.builder()
+                .Sname("브레이크패드")
+                .partMDTO(partCodeService.findPartM(2L))
+                .build();
+        PartS partS1=partCodeService.partSdtoToEntity(sdto1);
+        sCodeRepository.save(partS1);
+        PartSDTO sdto2= PartSDTO.builder()
+                .Sname("충전기")
+                .partMDTO(partCodeService.findPartM(3L))
+                .build();
+        PartS partS2=partCodeService.partSdtoToEntity(sdto2);
+        sCodeRepository.save(partS2);
+        PartSDTO sdto3= PartSDTO.builder()
+                .Sname("충전기 코드")
+                .partMDTO(partCodeService.findPartM(3L))
+                .build();
+        PartS partS3=partCodeService.partSdtoToEntity(sdto3);
+        sCodeRepository.save(partS3);
     }
 
     // Scode 업데이트

@@ -4,9 +4,9 @@ import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
 import mit.iwrcore.IWRCore.entity.PartL;
 import mit.iwrcore.IWRCore.entity.PartM;
 import mit.iwrcore.IWRCore.entity.PartS;
-import mit.iwrcore.IWRCore.security.dto.PartLDTO;
-import mit.iwrcore.IWRCore.security.dto.PartMDTO;
-import mit.iwrcore.IWRCore.security.dto.PartSDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartLDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartMDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
 
 import java.util.List;
 
