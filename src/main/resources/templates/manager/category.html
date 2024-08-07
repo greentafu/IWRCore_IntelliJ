@@ -72,7 +72,7 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectPartL" onchange="updatePartCode('L')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="partldto:${partCodeList.partLDTOs}"
                                 th:value="${partldto.partLcode}"
@@ -97,7 +97,7 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectPartM" onchange="updatePartCode('M')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="partmdto:${partCodeList.partMDTOs}"
                                 th:value="${partmdto.partMcode}"
@@ -107,7 +107,7 @@
                         <option value="">직접입력</option>
                       </select>
                       <select class="select2 form-select" id="selectPartS" onchange="updatePartCode('S')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="partsdto:${partCodeList.partSDTOs}"
                                 th:value="${partsdto.partScode}"
@@ -200,7 +200,7 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectProL" onchange="updateProCode('L')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="proldto:${proCodeList.proLDTOs}"
                                 th:value="${proldto.proLcode}"
@@ -225,7 +225,7 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectProM" onchange="updateProCode('M')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="promdto:${proCodeList.proMDTOs}"
                                 th:value="${promdto.proMcode}"
@@ -235,7 +235,7 @@
                         <option value="">직접입력</option>
                       </select>
                       <select class="select2 form-select" id="selectProS" onchange="updateProCode('S')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="prosdto:${proCodeList.proSDTOs}"
                                 th:value="${prosdto.proScode}"
@@ -329,7 +329,7 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectMaterL" onchange="updateMaterCode('L')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="materldto:${materCodeList.materLDTOs}"
                                 th:value="${materldto.materLcode}"
@@ -354,7 +354,7 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectMaterM" onchange="updateMaterCode('M')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="matermdto:${materCodeList.materMDTOs}"
                                 th:value="${matermdto.materMcode}"
@@ -364,7 +364,7 @@
                         <option value="L">직접입력</option>
                       </select>
                       <select class="select2 form-select" id="selectMaterS" onchange="updateMaterCode('S')">
-                        <option value="">선택</option>
+                        <option value="">전체보기</option>
                         <option
                                 th:each="matersdto:${materCodeList.materSDTOs}"
                                 th:value="${matersdto.materScode}"

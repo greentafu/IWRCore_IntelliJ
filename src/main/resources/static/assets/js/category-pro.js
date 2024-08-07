@@ -20,9 +20,9 @@ function updateProCode(changedSelect){
 
             console.log(data);
 
-            $('#selectProL').empty().append("<option value=''>선택</option>");
-            $('#selectProM').empty().append('<option value="">선택</option>');
-            $('#selectProS').empty().append('<option value="">선택</option>');
+            $('#selectProL').empty().append("<option value=''>전체보기</option>");
+            $('#selectProM').empty().append('<option value="">전체보기</option>');
+            $('#selectProS').empty().append('<option value="">전체보기</option>');
 
             data.proLDTOs.forEach(function(proL) {
                 $('#selectProL').append(

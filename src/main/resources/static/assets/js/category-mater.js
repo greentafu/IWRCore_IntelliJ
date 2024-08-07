@@ -20,9 +20,9 @@ function updateMaterCode(changedSelect){
 
             console.log(data);
 
-            $('#selectMaterL').empty().append("<option value=''>선택</option>");
-            $('#selectMaterM').empty().append('<option value="">선택</option>');
-            $('#selectMaterS').empty().append('<option value="">선택</option>');
+            $('#selectMaterL').empty().append("<option value=''>전체보기</option>");
+            $('#selectMaterM').empty().append('<option value="">전체보기</option>');
+            $('#selectMaterS').empty().append('<option value="">전체보기</option>');
 
             data.materLDTOs.forEach(function(materL) {
                 $('#selectMaterL').append(

@@ -40,9 +40,9 @@ function refreshPart(){
         method:'GET',
         success:function(data){
             $('#tablePart').empty();
-            $('#selectPartL').empty().append("<option value=''>선택</option>");
-            $('#selectPartM').empty().append('<option value="">선택</option>');
-            $('#selectPartS').empty().append('<option value="">선택</option>');
+            $('#selectPartL').empty().append("<option value=''>전체보기</option>");
+            $('#selectPartM').empty().append('<option value="">전체보기</option>');
+            $('#selectPartS').empty().append('<option value="">전체보기</option>');
 
             data.partLDTOs.forEach(function(partL) {
                 $('#selectPartL').append(
