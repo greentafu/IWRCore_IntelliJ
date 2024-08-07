@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.dto.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
 import mit.iwrcore.IWRCore.dto.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.MaterService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
@@ -28,6 +29,8 @@ public class ContractController {
     }
     @GetMapping("/list_contract")
     public void list_contract(Model model){
+        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
+        model.addAttribute("partCodeList", lists);
         MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
         model.addAttribute("materCodeList", lists2);
         ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
