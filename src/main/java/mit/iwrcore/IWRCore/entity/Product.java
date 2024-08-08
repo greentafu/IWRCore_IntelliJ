@@ -29,13 +29,6 @@ public class Product extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    //다대다는 JOinTable 해줘야함
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="Structure",
-            joinColumns = @JoinColumn(name="manu_code"),
-            inverseJoinColumns = @JoinColumn(name="mater_code"))
-    private List<Material> materials;
-
     @Setter
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="manu_scode")

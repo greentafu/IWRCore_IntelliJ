@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @ToString
+@Setter
 public class Material extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +34,5 @@ public class Material extends BaseEntity {
     @JoinColumn(name="boxCode")
     private Box box;
 
-    @ManyToMany(mappedBy = "materials")
-    private List<Product> products;
+
 }

@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface StructureRepository extends JpaRepository<Structure,Long> {
     // 제품 ID로 구조 목록을 조회
-    List<Structure> findByProductId(Long productId);
+    List<Structure> findByProduct_ManuCode(Long manuCode);
 
-    // 제품 ID로 구조를 삭제
-    void deleteByProductId(Long productId);
 }

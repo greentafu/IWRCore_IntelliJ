@@ -1,11 +1,12 @@
 package mit.iwrcore.IWRCore.security.dto;
 
-import jakarta.persistence.Id;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+import mit.iwrcore.IWRCore.entity.Material;
 
 @Log4j2
 @Getter
@@ -14,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
 @Builder
 public class StructureDTO {
     private Long sno;           // 교차 테이블 ID
-    private Long materialId;   // 자재 ID
-    private Long productId;    // 제품 ID
+    private MaterialDTO materialDTO;   // 자재 ID
+    private ProductDTO productDTO;    // 제품 ID
     private Long quantity;     // 수량
 }

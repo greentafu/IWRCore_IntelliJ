@@ -51,11 +51,7 @@ public class ProductServiceImpl implements ProductService {
             product.setProS(proS);
         }
 
-        if (productDTO.getMaterial() != null) {
-            Material material = materialRepository.findById(productDTO.getMaterial().getMaterCode())
-                    .orElseThrow(() -> new RuntimeException("Material not found"));
-            product.setMaterials(Collections.singletonList(material)); // 단일 Material을 리스트로 설정
-        }
+
 
         Product savedProduct = productRepository.save(product);
         return productEntityToDto(savedProduct);  // 엔티티를 DTO로 변환

@@ -8,13 +8,20 @@ import mit.iwrcore.IWRCore.repository.ProductRepository;
 import mit.iwrcore.IWRCore.security.dto.StructureDTO;
 
 import java.util.List;
-
 public interface StructureService {
-    Structure save(Structure structure);
+
+
+
+    void save(StructureDTO dto);
     Structure update(Structure structure);
     void deleteById(Long id);
-    List<StructureDTO> findByProductId(Long productId);
-    void deleteByProductId(Long productId);
+    List<StructureDTO> findByProduct_ManuCode(Long manuCode);
+
+
+
+
+
+
 
     default Structure dtoToEntity(StructureDTO dto, MaterialRepository materialRepository, ProductRepository productRepository) {
         if (dto == null) {

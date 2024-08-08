@@ -1,5 +1,6 @@
 package mit.iwrcore.IWRCore.service;
 
+import jakarta.transaction.Transactional;
 import mit.iwrcore.IWRCore.entity.Material;
 import mit.iwrcore.IWRCore.entity.Product;
 import mit.iwrcore.IWRCore.entity.Structure;
@@ -7,11 +8,16 @@ import mit.iwrcore.IWRCore.repository.MaterialRepository;
 import mit.iwrcore.IWRCore.repository.ProductRepository;
 import mit.iwrcore.IWRCore.repository.StructureRepository;
 import mit.iwrcore.IWRCore.security.dto.StructureDTO;
+import mit.iwrcore.IWRCore.security.service.MaterService;
+import mit.iwrcore.IWRCore.security.service.MaterialService;
+import mit.iwrcore.IWRCore.security.service.ProductService;
 import mit.iwrcore.IWRCore.security.service.StructureServiceImpl;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 import java.util.List;
 
@@ -19,6 +25,10 @@ import java.util.List;
 public class StructureServiceTests {
     @Autowired
     private StructureServiceImpl structureService;
+    @Autowired
+    private  MaterialService materialService;
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private StructureRepository structureRepository;
@@ -33,76 +43,54 @@ public class StructureServiceTests {
     private static Product product;
     private static Structure structure;
 
-    @BeforeAll
-    static void setUpClass(@Autowired MaterialRepository materialRepository,
-                           @Autowired ProductRepository productRepository,
-                           @Autowired StructureRepository structureRepository) {
-        // 테스트 데이터베이스에 객체를 한 번만 생성하고 저장
-        material = materialRepository.save(Material.builder()
-                .name("Material1")
-                .unit("Unit1")
-                .standard("Standard1")
-                .color("Color1")
-                .file("File1")
-                .build());
 
-        product = productRepository.save(Product.builder()
-                .name("Product1")
-                .color("Color1")
-                .text("Text1")
-                .uuid("UUID1")
-                .supervisor("Supervisor1")
-                .mater_imsi("IMSI1")
-                .mater_check("Check1")
-                .build());
-
-        structure = structureRepository.save(Structure.builder()
-                .sno(1L)
-                .material(material)
-                .product(product)
-                .quantity(10)
-                .build());
-    }
 
     @Test
-    void testSave() {
-        // 테스트를 위한 새로운 구조체 생성
-        Structure newStructure = Structure.builder()
-                .sno(2L)
-                .material(material)
-                .product(product)
-                .quantity(15)
-                .build();
-
-        Structure savedStructure = structureService.save(newStructure);
-        System.out.println("Saved Structure: " + savedStructure);
+    @Transactional
+    @Commit
+    public void test(){
+        Structure structure1=Structure.builder()
+                .material(materialService.materEntity(materialService.findM(1L)))
+                .product(productService.productDtoToEntity(productService.getProductById(1L)))
+                .quantity(100).build();
+        structureRepository.save(structure1);
     }
-
     @Test
-    void testUpdate() {
-        // 구조체를 업데이트
-        structure.setQuantity(20);
-        Structure updatedStructure = structureService.update(structure);
-        System.out.println("Updated Structure: " + updatedStructure);
+    @Transactional
+    @Commit
+    public void setUp() {
+        // Set up material
+        material = new Material();
+        material.setName("Steel");
+        material.setUnit("kg");
+        material.setStandard("ISO");
+        material.setColor("Gray");
+        material.setFile("steel.jpg");
+        materialRepository.save(material);
+
+        // Set up product
+        product = new Product();
+        product.setName("Widget");
+        product.setColor("Blue");
+        product.setText("A blue widget");
+        product.setUuid("1234-5678-9012");
+        product.setSupervisor("John Doe");
+        productRepository.save(product);
+
+         Set up structure
+        Material material1=materialService.materEntity(materialService.findM(1L));
+        System.out.println("@@@@@@@@@@@@@@@"+material1);
+        Product product1=productService.productDtoToEntity(productService.getProductById(1L));
+        System.out.println("###################"+product1);
+        Material material1=Material.builder().materCode(1L).build();
+        Product product1=Product.builder().manuCode(1L).build();
+
+        Structure structure = Structure.builder()
+                .material(material1)
+                .product(product1)
+                .quantity(100).build();
+        structureRepository.save(structure);
     }
 
-    @Test
-    void testDeleteById() {
-        structureService.deleteById(structure.getSno());
-        Structure deletedStructure = structureRepository.findById(structure.getSno()).orElse(null);
-        System.out.println("Deleted Structure: " + deletedStructure);
-    }
 
-    @Test
-    void testDeleteByProductId() {
-        structureService.deleteByProductId(product.getManuCode());
-        List<Structure> remainingStructures = structureRepository.findByProductId(product.getManuCode());
-        System.out.println("Remaining Structures for Product ID " + product.getManuCode() + ": " + remainingStructures);
-    }
-
-    @Test
-    void testFindByProductId() {
-        List<StructureDTO> result = structureService.findByProductId(product.getManuCode());
-        System.out.println("Structures for Product ID " + product.getManuCode() + ": " + result);
-    }
 }
