@@ -24,30 +24,12 @@ public class StructureServiceImpl implements StructureService {
          private final MaterialService materialService;
          private final ProductService productService;
 
+
     @Override
     public void save(StructureDTO dto) {
-        structureRepository.save(structureDtoToEntity(dto));
+        Structure structure = dtoToEntity(dto); // DTO를 엔티티로 변환
+        structureRepository.save(structure);    // 엔티티를 저장
     }
-
-    StructureDTO structureTodto(Structure entity){
-        return StructureDTO.builder()
-                .sno(entity.getSno())
-                .materialDTO(materialService.materTodto(entity.getMaterial()))
-                .productDTO(productService.productEntityToDto(entity.getProduct()))
-                .quantity(entity.getQuantity())
-                .build();
-    }
-
-
-    Structure structureDtoToEntity(StructureDTO dto){
-        return Structure.builder()
-                .sno(dto.getSno())
-                .material(materialService.materEntity(dto.getMaterialDTO()))
-                .product(productService.productDtoToEntity(dto.getProductDTO()))
-                .quantity(dto.getQuantity())
-                .build();
-    }
-
 
     @Override
     public Structure update(Structure structure) {
@@ -69,7 +51,7 @@ public class StructureServiceImpl implements StructureService {
     @Override
     public List<StructureDTO> findByProduct_ManuCode(Long manuCode) {
         return structureRepository.findByProduct_ManuCode(manuCode).stream()
-                .map(this::entityToDto)  // 인터페이스에서 제공하는 기본 메서드 사용
+                .map(this::entityToDTO)  // 엔티티를 DTO로 변환
                 .collect(Collectors.toList());
     }
 }
