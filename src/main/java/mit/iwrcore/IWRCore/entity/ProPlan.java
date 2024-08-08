@@ -27,6 +27,10 @@ public class ProPlan extends BaseEntity {
     @JoinColumn(name = "writer_id")  // 외래 키 컬럼 이름
     private Member writer;           // 작성자
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;      // Product 엔티티와의 관계
+
     @OneToMany(mappedBy = "proPlan")
     private List<JodalPlan> jodalPlans; // 연관된 JodalPlan 목록
 }

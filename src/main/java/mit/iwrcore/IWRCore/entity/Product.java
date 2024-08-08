@@ -36,4 +36,10 @@ public class Product extends BaseEntity{
     @JoinColumn(name="proScode")
     private ProS proS;
 
+    @OneToMany(mappedBy = "product")
+    private List<ProPlan> proPlans; // 연관된 ProPlan 목록
+
+    @OneToMany(mappedBy = "product")
+    private List<Plan> plans; // 연관된 Plan 목록
+
 }
