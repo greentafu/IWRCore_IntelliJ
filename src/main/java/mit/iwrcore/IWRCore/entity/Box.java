@@ -17,6 +17,6 @@ public class Box {
     private Long boxCode;
     private String boxName;
 
-    @OneToMany(mappedBy = "materCode")
+    @OneToMany(mappedBy = "box")
     private List<Material> material;
 }

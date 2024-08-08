@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.Box;
+import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +25,7 @@ public class MaterialDTO {
     private String file;        //파일
     private LocalDateTime date;        //등록일자
 
-    private Box box;
+    private BoxDTO boxDTO;
+    private MaterSDTO materSDTO;
 
 }

@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @ToString
+@Setter
 @Table(name="product")
 public class Product extends BaseEntity{
     @Id
