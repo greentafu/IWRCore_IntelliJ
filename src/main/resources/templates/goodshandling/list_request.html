@@ -32,8 +32,14 @@
                     <div class="row">
                       <span class="col-md-3">대분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm">
-                          <option>전체보기</option>
+                        <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="proldto:${proCodeList.proLDTOs}"
+                                  th:value="${proldto.proLcode}"
+                                  th:text="${proldto.Lname}"
+                          >
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -42,8 +48,14 @@
                     <div class="row">
                       <span class="col-md-3">중분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm">
-                          <option>전체보기</option>
+                        <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="promdto:${proCodeList.proMDTOs}"
+                                  th:value="${promdto.proMcode}"
+                                  th:text="${promdto.Mname}"
+                          >
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -52,8 +64,14 @@
                     <div class="row">
                       <span class="col-md-3">소분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm">
-                          <option>전체보기</option>
+                        <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')">
+                          <option value="">전체보기</option>
+                          <option
+                                  th:each="prosdto:${proCodeList.proSDTOs}"
+                                  th:value="${prosdto.proScode}"
+                                  th:text="${prosdto.Sname}"
+                          >
+                          </option>
                         </select>
                       </div>
                     </div>

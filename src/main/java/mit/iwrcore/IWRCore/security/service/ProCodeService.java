@@ -1,11 +1,12 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.entity.ProL;
 import mit.iwrcore.IWRCore.entity.ProM;
 import mit.iwrcore.IWRCore.entity.ProS;
-import mit.iwrcore.IWRCore.security.dto.ProLDTO;
-import mit.iwrcore.IWRCore.security.dto.ProMDTO;
-import mit.iwrcore.IWRCore.security.dto.ProSDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProLDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProMDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 
 import java.util.List;
 
@@ -29,10 +30,10 @@ public interface ProCodeService {
     ProSDTO findProS(Long scode);
 
     // 회사 분류 리스트 가져오기
-    List<ProLDTO> findListProL(ProMDTO proMDTO, ProSDTO proSDTO);
-    List<ProMDTO> findListProM(ProLDTO proLDTO, ProSDTO proSDTO);
-    List<ProSDTO> findListProS(ProLDTO proLDTO, ProMDTO proMDTO);
-
+    List<ProLDTO> findListProL();
+    List<ProMDTO> findListProM(ProLDTO proLDTO, ProMDTO proMDTO, ProSDTO proSDTO);
+    List<ProSDTO> findListProS(ProLDTO proLDTO, ProMDTO proMDTO, ProSDTO proSDTO);
+    ProCodeListDTO findListProAll(ProLDTO proLDTO, ProMDTO proMDTO, ProSDTO proSDTO);
 
 
 
@@ -43,10 +44,10 @@ public interface ProCodeService {
         return ProL.builder().proLcode(dto.getProLcode()).Lname(dto.getLname()).build();
     }
     default ProM proMdtoToEntity(ProMDTO dto){
-        return ProM.builder().proMcode(dto.getProMcode()).Mname(dto.getMname()).proL(dto.getProL()).build();
+        return ProM.builder().proMcode(dto.getProMcode()).Mname(dto.getMname()).proL(proLdtoToEntity(dto.getProLDTO())).build();
     }
     default ProS proSdtoToEntity(ProSDTO dto){
-        return ProS.builder().proScode(dto.getProScode()).Sname(dto.getSname()).proM(dto.getProM()).build();
+        return ProS.builder().proScode(dto.getProScode()).Sname(dto.getSname()).proM(proMdtoToEntity(dto.getProMDTO())).build();
     }
 
     // entity를 dto로
@@ -56,9 +57,9 @@ public interface ProCodeService {
     default ProMDTO
 
     proMTodto(ProM entity){
-        return ProMDTO.builder().proMcode(entity.getProMcode()).Mname(entity.getMname()).proL(entity.getProL()).build();
+        return ProMDTO.builder().proMcode(entity.getProMcode()).Mname(entity.getMname()).proLDTO(proLTodto(entity.getProL())).build();
     }
     default ProSDTO proSTodto(ProS entity){
-        return ProSDTO.builder().proScode(entity.getProScode()).Sname(entity.getSname()).proM(entity.getProM()).build();
+        return ProSDTO.builder().proScode(entity.getProScode()).Sname(entity.getSname()).proMDTO(proMTodto(entity.getProM())).build();
     }
 }

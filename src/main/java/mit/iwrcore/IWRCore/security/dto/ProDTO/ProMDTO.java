@@ -1,8 +1,7 @@
-package mit.iwrcore.IWRCore.security.dto;
+package mit.iwrcore.IWRCore.security.dto.ProDTO;
 
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.entity.ProL;
 
 @Builder
 @Data
@@ -13,5 +12,5 @@ import mit.iwrcore.IWRCore.entity.ProL;
 public class ProMDTO {
     private Long proMcode;
     private String Mname;
-    private ProL proL;
+    private ProLDTO proLDTO;
 }

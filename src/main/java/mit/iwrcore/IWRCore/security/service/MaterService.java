@@ -1,6 +1,6 @@
 package mit.iwrcore.IWRCore.security.service;
 
-import mit.iwrcore.IWRCore.dto.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
 import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterLDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterMDTO;

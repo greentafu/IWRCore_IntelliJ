@@ -2,12 +2,14 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.dto.MaterCodeListDTO;
-import mit.iwrcore.IWRCore.dto.PartCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthPartnerDTO;
 import mit.iwrcore.IWRCore.security.service.MaterService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
+import mit.iwrcore.IWRCore.security.service.ProCodeService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ public class LoginController {
 
     private final PartCodeService partCodeService;
     private final MaterService materService;
+    private final ProCodeService proCodeService;
 
     @GetMapping("/login")
     public void login(){
@@ -41,5 +44,7 @@ public class LoginController {
         model.addAttribute("partCodeList", lists);
         MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
         model.addAttribute("materCodeList", lists2);
+        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
+        model.addAttribute("proCodeList", list3);
     }
 }

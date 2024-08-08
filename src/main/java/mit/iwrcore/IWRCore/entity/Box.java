@@ -10,12 +10,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = {"material"})
 public class Box {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boxCode;
     private String boxName;
 
-
+    @OneToMany(mappedBy = "material")
+    private List<Material> material;
 }
