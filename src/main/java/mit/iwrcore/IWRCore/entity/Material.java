@@ -3,6 +3,9 @@ package mit.iwrcore.IWRCore.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Builder
 @AllArgsConstructor
@@ -30,4 +33,7 @@ public class Material extends BaseEntity {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="boxCode")
     private Box box;
+
+    @OneToMany(mappedBy = "material", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Structure> structures=new HashSet<>();
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import lombok.*;
 import mit.iwrcore.IWRCore.entity.Material;
 import mit.iwrcore.IWRCore.entity.ProS;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 
 import java.util.List;
 
@@ -21,10 +22,9 @@ public class ProductDTO {
     private String text;
     private String uuid;
     private String supervisor;
-    private String mater_imsi;
-    private String mater_check;
+    private Long mater_imsi;
+    private Long mater_check;
     //외래키설정
-    private ProS proS;
-    private Material material;
-
+    private ProSDTO proSDTO;
+    private MemberDTO memberDTO;
 }
