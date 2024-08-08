@@ -9,15 +9,18 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString
+@Setter
 public class Structure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long sno;
+    private Long sno;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mater_code") // 외래 키 컬럼 이름
     private Material material;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manu_code") // 외래 키 컬럼 이름
     private Product product;
 
     private long quantity;

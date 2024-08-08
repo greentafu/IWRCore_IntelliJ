@@ -1,19 +1,24 @@
 package mit.iwrcore.IWRCore.service;
 
+import jakarta.transaction.Transactional;
 import mit.iwrcore.IWRCore.entity.Product;
 import mit.iwrcore.IWRCore.security.dto.ProductDTO;
 import mit.iwrcore.IWRCore.repository.ProductRepository;
 import mit.iwrcore.IWRCore.security.service.ProductServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class ProductServiceTests {
@@ -28,7 +33,6 @@ public class ProductServiceTests {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-
     @Test
     @Commit
     public void testAddProduct() {
@@ -39,7 +43,7 @@ public class ProductServiceTests {
                 .color("Red")
 
                 .text("Sample Text")
-                .uuid("sample-uuid")
+                       .uuid("sample-uuid")
                 .supervisor("John Doe")
                 .mater_imsi("12345")
                 .mater_check("Checked")
@@ -115,6 +119,7 @@ public class ProductServiceTests {
     }
 
 
+
     @Test
     public void testDeleteProduct() {
         // Given
@@ -137,23 +142,5 @@ public class ProductServiceTests {
         assertFalse(productRepository.findById(1L).isPresent(), "Product should be deleted");
     }
 
-    @Test
-    @Transactional
-    @Commit
-    public void allTest(){
-        List<ProductDTO> list =productService.getAllProducts();
-        list.forEach(productDTO -> {
-            System.out.println("ProductDTO details:");
-            System.out.println("ManuCode: " + productDTO.getManuCode());
-            System.out.println("Name: " + productDTO.getName());
-            System.out.println("Color: " + productDTO.getColor());
-            System.out.println("Text: " + productDTO.getText());
-            System.out.println("UUID: " + productDTO.getUuid());
-            System.out.println("Supervisor: " + productDTO.getSupervisor());
-            System.out.println("Mater_IMSI: " + productDTO.getMater_imsi());
-            System.out.println("Mater_Check: " + productDTO.getMater_check());
-            System.out.println("-------------");
-        });
 
-    }
 }

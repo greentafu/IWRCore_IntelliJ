@@ -1,4 +1,4 @@
-package mit.iwrcore.IWRCore.security.dto.MaterDTO;
+package mit.iwrcore.IWRCore.security.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -11,8 +11,5 @@ import lombok.extern.log4j.Log4j2;
 @Setter
 @ToString
 @Builder
-public class MaterMDTO {
-    private Long materMcode;
-    private String Mname;
-    private MaterLDTO materLDTO;
+public class PartnerDTO {
 }
