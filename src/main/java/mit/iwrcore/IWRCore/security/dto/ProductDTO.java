@@ -4,9 +4,11 @@ import jakarta.persistence.Entity;
 import lombok.*;
 import mit.iwrcore.IWRCore.entity.Material;
 import mit.iwrcore.IWRCore.entity.ProS;
+import mit.iwrcore.IWRCore.entity.Structure;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 
 import java.util.List;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -14,7 +16,6 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
-
 public class ProductDTO {
     private Long manuCode;
     private String name;
