@@ -2,21 +2,19 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Member;
 import mit.iwrcore.IWRCore.security.dto.MemberDTO;
-
-
-import java.util.List;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 
 public interface MemberService {
 
     Member findMemberEntity(Long mno, String id);
     MemberDTO findMemberDto(Long mno, String id);
 
-    List<MemberDTO> findMemberList();
+    PageResultDTO<MemberDTO, Member> findMemberList(PageRequestDTO requestDTO);
 
     Integer insertMember(MemberDTO dto);
 
     void deleteMember(Long mno);
-
 
     default Member memberdtoToEntity(MemberDTO dto){
         return Member.builder()
