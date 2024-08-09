@@ -8,6 +8,7 @@ import mit.iwrcore.IWRCore.entity.Material;
 import mit.iwrcore.IWRCore.repository.BoxRepository;
 import mit.iwrcore.IWRCore.repository.Mater.MaterSRepository;
 import mit.iwrcore.IWRCore.repository.MaterialRepository;
+import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.security.dto.BoxDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
@@ -22,36 +23,16 @@ import java.util.stream.Collectors;
 @Log4j2
 @RequiredArgsConstructor
 public class MaterialServiceImpl implements MaterialService {
-    private final MaterSRepository materSRepository;
     private final MaterialRepository materialRepository;
-    private final BoxRepository boxRepository;
-
+    private final MemberService memberService;
+    private final MaterService materService;
+    private final BoxService boxService;
 
     @Override
     public void insertj(MaterialDTO dto) {
         log.info("Inserting material");
-        Material material = materEntity(dto);
+        Material material =materdtoToEntity(dto);
         materialRepository.save(material);
-    }
-    @Override
-    public void insertbox(BoxDTO dto) {
-        log.info("Inserting box");
-        Box box = boxEntity(dto);
-        boxRepository.save(box);
-    }
-    @Override
-    public void insertsmater(MaterSDTO dto) {
-        log.info("Inserting materS");
-        MaterS materS = matersEntity(dto);
-        materSRepository.save(materS);
-    }
-
-
-
-    @Override
-    public void deleteJa(Long materCode) {
-        log.info("Deleting material with code: {}", materCode);
-        materialRepository.deleteById(materCode);
     }
 
     @Override
@@ -63,30 +44,58 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public List<MaterialDTO> BfindList(BoxDTO boxDTO) {
-        log.info("Finding materials for box: {}", boxDTO);
-        if (boxDTO != null) {
-            return materialRepository.findAll().stream()
-                    .filter(material -> material.getBox() != null &&
-                            material.getBox().getBoxCode().equals(boxDTO.getBoxcode()))
-                    .map(this::materTodto)
-                    .collect(Collectors.toList());
-        }
-        return Collections.emptyList();
+    public List<Material> findMaterialAll(){
+        return materialRepository.materialList();
+    }
+    @Override
+    public List<Material> findMaterialPart(Long boxcode, Long materscode){
+        return materialRepository.materialListPart(boxcode, materscode);
+    }
+    @Override
+    public void deleteJa(Long materCode) {
+        log.info("Deleting material with code: {}", materCode);
+        materialRepository.deleteById(materCode);
     }
 
-    @Override
-    public List<MaterialDTO> MfindList(MaterSDTO materSDTO) {
-        log.info("Finding materials for materS: {}", materSDTO);
-        if (materSDTO != null) {
-            return materialRepository.findAll().stream()
-                    .filter(material -> material.getMaterS() != null &&
-                            material.getMaterS().getMaterScode().equals(materSDTO.getMaterScode()))
-                    .map(this::materTodto)
-                    .collect(Collectors.toList());
-        }
-        return Collections.emptyList();
+    // dto를 entity로
+    public Material materdtoToEntity(MaterialDTO dto){
+        Material entity=Material.builder()
+                .materCode(dto.getMaterCode())
+                .name(dto.getName())
+                .unit(dto.getUnit())
+                .standard(dto.getStandard())
+                .color(dto.getColor())
+                .file(dto.getFile())
+                .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
+                .materS(materService.materSdtoToEntity(dto.getMaterSDTO()))
+                .box(boxService.boxdtoToEntity(dto.getBoxDTO()))
+                .build();
+        return entity;
     }
+    // entity를 dto로
+    public MaterialDTO materTodto(Material entity){
+        MaterialDTO dto=MaterialDTO.builder()
+                .materCode(entity.getMaterCode())
+                .name(entity.getName())
+                .unit(entity.getUnit())
+                .standard(entity.getStandard())
+                .color(entity.getColor())
+                .file(entity.getFile())
+                .date(entity.getRegDate())
+                .memberDTO(memberService.memberTodto(entity.getWriter()))
+                .materSDTO(materService.materSTodto(entity.getMaterS()))
+                .boxDTO(boxService.boxTodto(entity.getBox()))
+                .build();
+        return dto;
+    }
+
+//    @Override
+//    public void insertsmater(MaterSDTO dto) {
+//        log.info("Inserting materS");
+//        MaterS materS = matersEntity(dto);
+//        materSRepository.save(materS);
+//    }
+
 }
 
 

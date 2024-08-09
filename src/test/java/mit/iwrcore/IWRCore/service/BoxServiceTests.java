@@ -1,5 +1,6 @@
 package mit.iwrcore.IWRCore.service;
 
+import jakarta.transaction.Transactional;
 import mit.iwrcore.IWRCore.entity.Box;
 import mit.iwrcore.IWRCore.repository.BoxRepository;
 import mit.iwrcore.IWRCore.security.dto.BoxDTO;
@@ -7,6 +8,7 @@ import mit.iwrcore.IWRCore.security.service.BoxServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class BoxServiceTests {
 
     @Autowired
     private BoxRepository boxRepository;
+
     @Test
     public void testList() {
         // 테스트 데이터를 데이터베이스에 저장
@@ -26,6 +29,13 @@ public class BoxServiceTests {
         boxRepository.save(box1);
         boxRepository.save(box2);
         boxRepository.save(box3);
-
     }
+
+    @Test
+    @Transactional
+    @Commit
+    public void listbox(){
+        boxService.list().forEach(System.out::println);
+    }
+
 }
