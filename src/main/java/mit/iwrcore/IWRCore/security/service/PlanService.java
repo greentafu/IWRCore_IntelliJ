@@ -12,7 +12,7 @@ public interface PlanService {
     void save(PlanDTO dto);
     Plan update(Plan plan);
     void deleteById(Long id);
-    List<PlanDTO> findByProductNo(Long proplanNo);
+    List<PlanDTO> findByProductId(Long productId);
 
 
 }
