@@ -13,17 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ProTeamController {
 
-    private final ProCodeService proCodeService;
-
     @GetMapping("list_pro")
-    public void list_pro(Model model){
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_pro(){
     }
     @GetMapping("list_request")
-    public void list_request(Model model){
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_request(){
     }
     @GetMapping("input_pro")
     public void input_pro(){

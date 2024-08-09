@@ -17,19 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class InvoiceController {
 
-    private final PartCodeService partCodeService;
-    private final MaterService materService;
-    private final ProCodeService proCodeService;
-
     @GetMapping("/list_invoice")
-    public void list_invoice(Model model){
-        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
-        model.addAttribute("partCodeList", lists);
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
-
+    public void list_invoice(){
     }
     @GetMapping("/add_invoice")
     public void add_invoice(){

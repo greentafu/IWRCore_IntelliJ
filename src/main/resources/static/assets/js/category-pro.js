@@ -1,5 +1,10 @@
-// 초기값1
 $(document).ready(function(){
+    initPro1();
+    initPro2();
+});
+
+// 초기값1
+function initPro1(){
     $.ajax({
         url:'/select/getPro',
         method:'GET',
@@ -35,9 +40,9 @@ $(document).ready(function(){
         }
     });
 
-});
+}
 // 초기값2
-$(document).ready(function(){
+function initPro2(){
     $.ajax({
         url:'/select/getPro',
         method:'GET',
@@ -73,7 +78,7 @@ $(document).ready(function(){
         }
     });
 
-});
+}
 
 // 선택1
 function updateProCode(changedSelect){

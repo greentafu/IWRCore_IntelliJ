@@ -19,18 +19,10 @@ public class JagoController {
     private final ProCodeService proCodeService;
 
     @GetMapping("/list_stock")
-    public void list_stock(Model model){
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_stock(){
     }
     @GetMapping("/list_stockM")
-    public void list_stockM(Model model){
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_stockM(){
     }
     @GetMapping("/stock")
     public void stock(){

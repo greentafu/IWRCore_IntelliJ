@@ -1,5 +1,10 @@
-// 초기값1
 $(document).ready(function(){
+    initMater1();
+    initMater2();
+});
+
+// 초기값1
+function initMater1(){
     $.ajax({
         url:'/select/getMater',
         method:'GET',
@@ -35,9 +40,9 @@ $(document).ready(function(){
         }
     });
 
-});
+}
 // 초기값2
-$(document).ready(function(){
+function initMater2(){
     $.ajax({
         url:'/select/getMater',
         method:'GET',
@@ -73,7 +78,7 @@ $(document).ready(function(){
         }
     });
 
-});
+}
 
 // 선택1
 function updateMaterCode(changedSelect){

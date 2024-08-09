@@ -1,5 +1,11 @@
-// 초기값1
 $(document).ready(function(){
+    initPart1();
+    initPart2();
+});
+
+
+// 초기값1
+function initPart1(){
     $.ajax({
         url:'/select/getPart',
         method:'GET',
@@ -32,9 +38,9 @@ $(document).ready(function(){
         }
     });
 
-});
+}
 // 초기값2
-$(document).ready(function(){
+function initPart2(){
     $.ajax({
         url:'/select/getPart',
         method:'GET',
@@ -68,7 +74,7 @@ $(document).ready(function(){
         }
     });
 
-});
+}
 
 // 선택1
 function updatePartCode(changedSelect){

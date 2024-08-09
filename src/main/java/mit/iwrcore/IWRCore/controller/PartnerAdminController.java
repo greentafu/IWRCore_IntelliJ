@@ -13,12 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class PartnerAdminController {
 
-    private final PartCodeService partCodeService;
-
     @GetMapping("/list_partner")
-    public void list_partner(Model model){
-        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
-        model.addAttribute("partCodeList", lists);
+    public void list_partner(){
     }
     @GetMapping("/view_partner")
     public void view_partner(){

@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ContractController {
 
-    private final PartCodeService partCodeService;
-    private final MaterService materService;
-    private final ProCodeService proCodeService;
-
     @GetMapping("/new_contract")
     public void new_contract(){
     }
@@ -28,13 +24,7 @@ public class ContractController {
     public void download_contract(){
     }
     @GetMapping("/list_contract")
-    public void list_contract(Model model){
-        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
-        model.addAttribute("partCodeList", lists);
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_contract(){
     }
     @GetMapping("/modify_contract")
     public void modify_contract(){

@@ -644,6 +644,32 @@
 
     <!--Script-->
     <script src="../assets/js/category-crud.js"></script>
+      <script>
+        function savePartCode(){
+          const selectBoxes=document.querySelectorAll('select');
+          selectBoxes.forEach(sel=>{
+            localStorage.setItem(sel.id, sel.value);
+          });
+        }
+        function loadPartCode(){
+          const selectBoxes=document.querySelectorAll('select');
+          selectBoxes.forEach(sel=>{
+            const saved=localStorage.getItem(sel.id);
+            if(saved!=null){
+              sel.value=saved;
+            }
+          });
+        }
+        initPart1().then(()=>{
+          loadPartCode();
+        });
+
+
+        document.querySelectorAll('select').forEach(sel=>{
+          sel.addEventListner('change', savePartCode);
+        });
+
+      </script>
     <!--Script-->
   </span>
 
