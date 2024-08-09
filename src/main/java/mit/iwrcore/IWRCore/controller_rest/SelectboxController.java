@@ -1,4 +1,4 @@
-package mit.iwrcore.IWRCore.controller;
+package mit.iwrcore.IWRCore.controller_rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

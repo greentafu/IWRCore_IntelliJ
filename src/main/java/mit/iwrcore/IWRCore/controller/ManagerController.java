@@ -2,11 +2,16 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.MaterService;
+import mit.iwrcore.IWRCore.security.service.MemberService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import mit.iwrcore.IWRCore.security.service.ProCodeService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +25,11 @@ public class ManagerController {
     private final PartCodeService partCodeService;
     private final MaterService materService;
     private final ProCodeService proCodeService;
+    private final MemberService memberService;
 
     @GetMapping("/list_member")
-    public void list_member(){
+    public void list_member(PageRequestDTO pageRequestDTO, Model model){
+        model.addAttribute("member_list", memberService.findMemberList(pageRequestDTO));
     }
     @GetMapping("/add_member")
     public void add_member(){
