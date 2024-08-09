@@ -5,10 +5,7 @@ import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
-import mit.iwrcore.IWRCore.security.service.MaterService;
-import mit.iwrcore.IWRCore.security.service.MemberService;
-import mit.iwrcore.IWRCore.security.service.PartCodeService;
-import mit.iwrcore.IWRCore.security.service.ProCodeService;
+import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,6 +23,7 @@ public class ManagerController {
     private final MaterService materService;
     private final ProCodeService proCodeService;
     private final MemberService memberService;
+    private final PartnerService partnerService;
 
     @GetMapping("/list_member")
     public void list_member(PageRequestDTO pageRequestDTO, Model model){
@@ -40,8 +38,8 @@ public class ManagerController {
 
     }
     @GetMapping("/list_partner")
-    public void list_partner(){
-
+    public void list_partner(PageRequestDTO pageRequestDTO, Model model){
+        model.addAttribute("partner_list",partnerService.findPartnerList(pageRequestDTO));
     }
     @GetMapping("/add_partner")
     public void add_partner(){
