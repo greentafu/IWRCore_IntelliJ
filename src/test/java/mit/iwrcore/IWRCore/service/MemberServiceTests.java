@@ -1,11 +1,17 @@
 package mit.iwrcore.IWRCore.service;
 
+import mit.iwrcore.IWRCore.entity.Member;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.security.dto.MemberDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +41,14 @@ public class MemberServiceTests {
     @Transactional
     @Commit
     public void memberList(){
-        memberService.findMemberList().forEach(System.out::println);
+        PageRequestDTO pageRequestDTO=PageRequestDTO.builder().page(1).size(2).build();
+        PageResultDTO<MemberDTO, Member> resultDTO=memberService.findMemberList(pageRequestDTO);
+//        for(MemberDTO m:resultDTO.getDtoList()) System.out.println(m);
+        System.out.println("#####"+resultDTO.isPrev()+"/"+resultDTO.isNext()+"/"+resultDTO.getTotalPage());
+        System.out.println("=====================");
+        resultDTO.getDtoList().forEach(System.out::println);
+        System.out.println("=================");
+        resultDTO.getPageList().forEach(System.out::println);
     }
     // 직원 추가
     @Test
@@ -57,6 +70,6 @@ public class MemberServiceTests {
     @Transactional
     @Commit
     public void deleteMember(){
-
+        memberService.deleteMember(44L);
     }
 }

@@ -17,59 +17,41 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StructureServiceImpl implements StructureService {
 
-//         private final StructureRepository structureRepository;
-//         private final ProductRepository productRepository;
-//         private final MaterialRepository materialRepository;
-//
-//         private final MaterialService materialService;
-//         private final ProductService productService;
-//
-//    @Override
-//    public void save(StructureDTO dto) {
-//        structureRepository.save(structureDtoToEntity(dto));
-//    }
-//
-//    StructureDTO structureTodto(Structure entity){
-//        return StructureDTO.builder()
-//                .sno(entity.getSno())
-//                .materialDTO(materialService.materTodto(entity.getMaterial()))
-//                .productDTO(productService.productEntityToDto(entity.getProduct()))
-//                .quantity(entity.getQuantity())
-//                .build();
-//    }
-//
-//
-//    Structure structureDtoToEntity(StructureDTO dto){
-//        return Structure.builder()
-//                .sno(dto.getSno())
-//                .material(materialService.materEntity(dto.getMaterialDTO()))
-//                .product(productService.productDtoToEntity(dto.getProductDTO()))
-//                .quantity(dto.getQuantity())
-//                .build();
-//    }
-//
-//
-//    @Override
-//    public Structure update(Structure structure) {
-//        if (structure.getSno() == null || !structureRepository.existsById(structure.getSno())) {
-//            throw new IllegalArgumentException("Structure with id " + structure.getSno() + " not found.");
-//        }
-//        return structureRepository.save(structure);
-//    }
-//
-//    @Override
-//    public void deleteById(Long id) {
-//        if (structureRepository.existsById(id)) {
-//            structureRepository.deleteById(id);
-//        } else {
-//            throw new IllegalArgumentException("Structure with id " + id + " not found.");
-//        }
-//    }
-//
-//    @Override
-//    public List<StructureDTO> findByProduct_ManuCode(Long manuCode) {
-//        return structureRepository.findByProduct_ManuCode(manuCode).stream()
-//                .map(this::entityToDto)  // 인터페이스에서 제공하는 기본 메서드 사용
-//                .collect(Collectors.toList());
-//    }
+         private final StructureRepository structureRepository;
+         private final ProductRepository productRepository;
+         private final MaterialRepository materialRepository;
+
+         private final MaterialService materialService;
+         private final ProductService productService;
+
+
+    @Override
+    public void save(StructureDTO dto) {
+        Structure structure = dtoToEntity(dto); // DTO를 엔티티로 변환
+        structureRepository.save(structure);    // 엔티티를 저장
+    }
+
+    @Override
+    public Structure update(Structure structure) {
+        if (structure.getSno() == null || !structureRepository.existsById(structure.getSno())) {
+            throw new IllegalArgumentException("Structure with id " + structure.getSno() + " not found.");
+        }
+        return structureRepository.save(structure);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if (structureRepository.existsById(id)) {
+            structureRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Structure with id " + id + " not found.");
+        }
+    }
+
+    @Override
+    public List<StructureDTO> findByProduct_ManuCode(Long manuCode) {
+        return structureRepository.findByProduct_ManuCode(manuCode).stream()
+                .map(this::entityToDTO)  // 엔티티를 DTO로 변환
+                .collect(Collectors.toList());
+    }
 }

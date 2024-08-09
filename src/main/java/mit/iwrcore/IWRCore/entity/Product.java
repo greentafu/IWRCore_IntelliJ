@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @ToString
 @Setter
-@Table(name="product")
+@Table
 public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,5 +35,12 @@ public class Product extends BaseEntity{
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="proScode")
     private ProS proS;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProPlan> proPlans; // 연관된 ProPlan 목록
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plan_id") // 추가된 필드: Plan과의 ManyToOne 관계
+    private Plan plan;  // Product가 속하는 Plan
 
 }

@@ -115,6 +115,26 @@ public class MemberPartnerTests {
                 .build();
         partner2.setPartnerRole(MemberRole.PARTNER);
         partnerRepository.save(partner2);
+
+        Partner partner3=Partner.builder()
+                .name("협력회사3")
+                .registrationNumber("123-45-67890")
+                .location("경기도 화성시")
+                .type("제조업")
+                .sector("금속사출부품")
+                .ceo("대표자13")
+                .telNumber("000-0000-0003")
+                .faxNumber("000-0000-0002")
+                .email("partner1@mail.com")
+                .contacter("담당자3")
+                .contacterNumber("000-3333-3333")
+                .contacterEmail("contacter3@mail.com")
+                .partS(partCodeService.partSdtoToEntity(partCodeService.findPartS(3L)))
+                .pw("1111")
+                .password(passwordEncoder.encode("1111"))
+                .build();
+        partner3.setPartnerRole(MemberRole.PARTNER);
+        partnerRepository.save(partner3);
     }
 
     @Test
