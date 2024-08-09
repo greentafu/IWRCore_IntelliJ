@@ -12,6 +12,7 @@ import mit.iwrcore.IWRCore.security.dto.ProductDTO;
 import mit.iwrcore.IWRCore.security.dto.StructureDTO;
 import mit.iwrcore.IWRCore.security.service.MaterialService;
 import mit.iwrcore.IWRCore.security.service.ProductService;
+import mit.iwrcore.IWRCore.security.service.ProductServiceImpl;
 import mit.iwrcore.IWRCore.security.service.StructureServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class StructureServiceTests {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ProductServiceImpl productServicei;
 
     private static Material material;
     private static Product product;
@@ -50,7 +53,7 @@ public class StructureServiceTests {
     public void test(){
         Structure structure1=Structure.builder()
                 .material(materialService.materEntity(materialService.findM(1L)))
-                .product(productService.productDtoToEntity(productService.getProductById(1L)))
+                .product(productServicei.productDtoToEntity(productService.getProductById(1L)))
                 .quantity(100).build();
         structureRepository.save(structure1);
     }

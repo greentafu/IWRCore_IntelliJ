@@ -1,5 +1,8 @@
 package mit.iwrcore.IWRCore.service;
 
+import jakarta.transaction.Transactional;
+import mit.iwrcore.IWRCore.entity.ProPlan;
+import mit.iwrcore.IWRCore.entity.Product;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.repository.ProductRepository;
 import mit.iwrcore.IWRCore.repository.ProplanRepository;
@@ -10,37 +13,128 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
 public class ProplanServiceTests {
 
     @Autowired
-    private ProplanRepository proplanRepository; // 실제 ProplanRepository 빈 주입
+    private ProplanServiceImpl proplanService;
 
     @Autowired
-    private ProductRepository productRepository; // 실제 ProductRepository 빈 주입
+    private ProplanRepository proPlanRepository;
 
     @Autowired
-    private MemberRepository memberRepository; // 실제 MemberRepository 빈 주입
+    private ProductRepository productRepository;
 
     @Autowired
-    private ProplanServiceImpl proplanService; // 실제 ProplanServiceImpl 빈 주입
+    private MemberRepository memberRepository;
 
     @Test
     public void testSave() {
-        // 테스트에 사용할 DTO 객체 생성
-        ProplanDTO dto = new ProplanDTO();
-        dto.setProplanNo(1L);
-        dto.setPronum(100L);
-        dto.setFilename("file.txt");
-        dto.setStartDate(LocalDateTime.now());
-        dto.setEndDate(LocalDateTime.now().plusDays(1));
-        dto.setLine("Line1");
-        dto.setDetails("Details");
-        dto.setProductId(1L); // 실제 Product ID 설정
-        dto.setWriterId(1L); // 실제 Member ID 설정
+        // Given
+        Product product = new Product();
+        product.setManuCode(100L);
+        productRepository.save(product);
 
-        // DTO를 Entity로 변환하여 저장
+        ProplanDTO dto = ProplanDTO.builder()
+                .proplanNo(1L)
+                .pronum(10L)
+                .filename("file.txt")
+                .startDate(LocalDateTime.now().plusDays(2))
+                .endDate(LocalDateTime.now().plusDays(4))
+                .line("A")
+                .details("Details")
+                .productId(100L)
+                .build();
+
+        // When
         proplanService.save(dto);
+    }
+    @Test
+    public void testUpdate() {
+        // Given
+        Product product = new Product();
+        product.setManuCode(1L);
+        productRepository.save(product);
+
+        ProPlan proPlan = new ProPlan();
+        proPlan.setProplanNo(1L);
+        proPlan.setProduct(product);
+        proPlanRepository.save(proPlan);
+
+        ProplanDTO dto = ProplanDTO.builder()
+                .proplanNo(1L)
+                .pronum(20L)
+                .filename("updated_file.txt")
+                .startDate(LocalDateTime.now())
+                .endDate(LocalDateTime.now().plusDays(2))
+                .line("B")
+                .details("Updated Details")
+                .productId(100L)
+                .build();
+
+        // When
+        proplanService.update(dto);
+
+        // Data updated in the database
+        // Verify manually in the database
+    }
+    @Test
+    public void testDeleteById() {
+        // Given
+        Product product = new Product();
+        product.setManuCode(1L);
+        productRepository.save(product);
+
+        ProPlan proPlan = new ProPlan();
+        proPlan.setProplanNo(1L);
+        proPlan.setProduct(product);
+        proPlanRepository.save(proPlan);
+
+        // When
+        proplanService.deleteById(1L);
+
+        // Data deleted from the database
+        // Verify manually in the database
+    }
+    @Test
+    public void testFindById() {
+        // Given
+        Product product = new Product();
+        product.setManuCode(1L);
+        productRepository.save(product);
+
+        ProPlan proPlan = new ProPlan();
+        proPlan.setProplanNo(1L);
+        proPlan.setProduct(product);
+        proPlanRepository.save(proPlan);
+
+        // When
+        ProplanDTO result = proplanService.findById(1L);
+
+        // Data retrieved from the database
+        // Verify manually in the database
+        System.out.println("Result from findById: " + result);
+
+    }
+    @Test
+    public void testFindByPlanId() {
+        // Given
+        Product product = new Product();
+        product.setManuCode(1L);
+        productRepository.save(product);
+
+        ProPlan proPlan = new ProPlan();
+        proPlan.setProplanNo(1L);
+        proPlan.setProduct(product);
+        proPlanRepository.save(proPlan);
+
+        // When
+        List<ProplanDTO> results = proplanService.findByPlanId(1L);
+        System.out.println("Results from findByPlanId: " + results);
+
+        // Data retrieved from the database
+        // Verify manually in the database
     }
 }

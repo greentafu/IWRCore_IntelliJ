@@ -10,7 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"writer", "jodalPlans"})
+@Setter
+@ToString(exclude = {"writer"})
 public class ProPlan extends BaseEntity {
 
     @Id
@@ -31,6 +32,5 @@ public class ProPlan extends BaseEntity {
     @JoinColumn(name = "product_id")
     private Product product;      // Product 엔티티와의 관계
 
-    @OneToMany(mappedBy = "proPlan")
-    private List<JodalPlan> jodalPlans; // 연관된 JodalPlan 목록
+
 }

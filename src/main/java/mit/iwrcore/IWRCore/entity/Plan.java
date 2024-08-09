@@ -1,11 +1,9 @@
 package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,13 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Plan extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long plancode;  // 기본 키
 
     @OneToMany(mappedBy = "plan")
-    private List<Product> products;  // 연관된 Product 목록
+    private List<Product> products = new ArrayList<>(); // Plan이 소유하는 Product 목록
 
     private Long quantity;  // 수량
     private String line;    // 라인

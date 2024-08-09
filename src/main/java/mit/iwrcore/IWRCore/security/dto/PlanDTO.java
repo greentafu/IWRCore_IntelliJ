@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Log4j2
 @Getter
@@ -14,13 +15,9 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 public class PlanDTO {
-    private Long proplanNo;       // 생산계획 번호
-    private Long pronum;         // 수량
-    private String filename;     // 파일
-    private LocalDateTime startDate;  // 시작일
-    private LocalDateTime endDate;    // 마감일
-    private String line;         // 라인
-    private String details;      // 상세내용
-    private Long writerId;       // 작성자 ID
+    private Long plancode;
+    private List<Long> productIds;  // 연관된 Product의 ID 목록
+    private Long quantity;
+    private String line;
 
 }

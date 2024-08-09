@@ -6,11 +6,12 @@ import mit.iwrcore.IWRCore.repository.ProductRepository;
 import mit.iwrcore.IWRCore.repository.ProplanRepository;
 import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class ProplanServiceImpl implements ProplanService{
     private final ProplanRepository proPlanRepository;
     private final ProductRepository productRepository;
