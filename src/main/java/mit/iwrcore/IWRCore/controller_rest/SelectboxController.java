@@ -32,6 +32,19 @@ public class SelectboxController {
     private final MaterService materService;
     private final ProCodeService proCodeService;
 
+    @GetMapping("/getPart")
+    public PartCodeListDTO getPart(){
+        return partCodeService.findListPartAll(null, null, null);
+    }
+    @GetMapping("/getPro")
+    public ProCodeListDTO getPro(){
+        return proCodeService.findListProAll(null, null, null);
+    }
+    @GetMapping("/getMater")
+    public MaterCodeListDTO getMater(){
+        return materService.findListMaterAll(null, null, null);
+    }
+
     @GetMapping("/part")
     public PartCodeListDTO selectpart(
             @RequestParam(required = false) Long lcode,

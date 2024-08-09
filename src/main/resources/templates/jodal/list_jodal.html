@@ -35,15 +35,7 @@
                     <div class="row">
                       <span class="col-md-3">대분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="proldto:${proCodeList.proLDTOs}"
-                                  th:value="${proldto.proLcode}"
-                                  th:text="${proldto.Lname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
                       </div>
                     </div>
                   </td>
@@ -51,15 +43,7 @@
                     <div class="row">
                       <span class="col-md-3">중분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="promdto:${proCodeList.proMDTOs}"
-                                  th:value="${promdto.proMcode}"
-                                  th:text="${promdto.Mname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
                       </div>
                     </div>
                   </td>
@@ -67,15 +51,7 @@
                     <div class="row">
                       <span class="col-md-3">소분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="prosdto:${proCodeList.proSDTOs}"
-                                  th:value="${prosdto.proScode}"
-                                  th:text="${prosdto.Sname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
                       </div>
                     </div>
                   </td>
@@ -94,15 +70,7 @@
                     <div class="row">
                       <span class="col-md-3">대분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterL" onchange="updateMaterCode('L')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="materldto:${materCodeList.materLDTOs}"
-                                  th:value="${materldto.materLcode}"
-                                  th:text="${materldto.lname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectMaterL" onchange="updateMaterCode('L')"></select>
                       </div>
                     </div>
                   </td>
@@ -110,15 +78,7 @@
                     <div class="row">
                       <span class="col-md-3">중분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterM" onchange="updateMaterCode('M')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="matermdto:${materCodeList.materMDTOs}"
-                                  th:value="${matermdto.materMcode}"
-                                  th:text="${matermdto.Mname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectMaterM" onchange="updateMaterCode('M')"></select>
                       </div>
                     </div>
                   </td>
@@ -126,15 +86,7 @@
                     <div class="row">
                       <span class="col-md-3">소분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterS" onchange="updateMaterCode('S')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="matersdto:${materCodeList.materSDTOs}"
-                                  th:value="${matersdto.materScode}"
-                                  th:text="${matersdto.Sname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectMaterS" onchange="updateMaterCode('S')"></select>
                       </div>
                     </div>
                   </td>
@@ -241,15 +193,7 @@
                     <div class="row">
                       <span class="col-md-3">대분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProL2" onchange="updateProCode2('L')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="proldto:${proCodeList.proLDTOs}"
-                                  th:value="${proldto.proLcode}"
-                                  th:text="${proldto.Lname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectProL2" onchange="updateProCode2('L')"></select>
                       </div>
                     </div>
                   </td>
@@ -257,15 +201,7 @@
                     <div class="row">
                       <span class="col-md-3">중분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProM2" onchange="updateProCode2('M')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="promdto:${proCodeList.proMDTOs}"
-                                  th:value="${promdto.proMcode}"
-                                  th:text="${promdto.Mname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectProM2" onchange="updateProCode2('M')"></select>
                       </div>
                     </div>
                   </td>
@@ -273,15 +209,7 @@
                     <div class="row">
                       <span class="col-md-3">소분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProS2" onchange="updateProCode2('S')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="prosdto:${proCodeList.proSDTOs}"
-                                  th:value="${prosdto.proScode}"
-                                  th:text="${prosdto.Sname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectProS2" onchange="updateProCode2('S')"></select>
                       </div>
                     </div>
                   </td>
@@ -300,15 +228,7 @@
                     <div class="row">
                       <span class="col-md-3">대분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterL2" onchange="updateMaterCode2('L')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="materldto:${materCodeList.materLDTOs}"
-                                  th:value="${materldto.materLcode}"
-                                  th:text="${materldto.lname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectMaterL2" onchange="updateMaterCode2('L')"></select>
                       </div>
                     </div>
                   </td>
@@ -316,15 +236,7 @@
                     <div class="row">
                       <span class="col-md-3">중분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterM2" onchange="updateMaterCode2('M')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="matermdto:${materCodeList.materMDTOs}"
-                                  th:value="${matermdto.materMcode}"
-                                  th:text="${matermdto.Mname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectMaterM2" onchange="updateMaterCode2('M')"></select>
                       </div>
                     </div>
                   </td>
@@ -332,15 +244,7 @@
                     <div class="row">
                       <span class="col-md-3">소분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterS2" onchange="updateMaterCode2('S')">
-                          <option value="">전체보기</option>
-                          <option
-                                  th:each="matersdto:${materCodeList.materSDTOs}"
-                                  th:value="${matersdto.materScode}"
-                                  th:text="${matersdto.Sname}"
-                          >
-                          </option>
-                        </select>
+                        <select class="form-select form-select-sm" id="selectMaterS2" onchange="updateMaterCode2('S')"></select>
                       </div>
                     </div>
                   </td>
