@@ -36,5 +36,6 @@ public class Material extends BaseEntity {
     private Box box;
 
     @OneToMany(mappedBy = "material", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private Set<Structure> structures=new HashSet<>();
 }

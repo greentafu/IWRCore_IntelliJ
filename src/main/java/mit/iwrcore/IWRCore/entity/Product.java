@@ -39,8 +39,7 @@ public class Product extends BaseEntity{
     @OneToMany(mappedBy = "product")
     private List<ProPlan> proPlans; // 연관된 ProPlan 목록
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "plan_id") // 추가된 필드: Plan과의 ManyToOne 관계
-    private Plan plan;  // Product가 속하는 Plan
+    @OneToMany(mappedBy = "product")
+    private List<Plan> plans; // 연관된 Plan 목록
 
 }
