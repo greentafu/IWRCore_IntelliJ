@@ -16,16 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class JodalController {
 
-    private final PartCodeService partCodeService;
-    private final MaterService materService;
-    private final ProCodeService proCodeService;
-
     @GetMapping("/list_jodal")
-    public void list_jodal(Model model){
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_jodal(){
     }
     @GetMapping("/jodal_ready")
     public void jodal_ready(){

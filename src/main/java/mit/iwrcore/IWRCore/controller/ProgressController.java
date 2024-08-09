@@ -17,18 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ProgressController {
 
-    private final PartCodeService partCodeService;
-    private final MaterService materService;
-    private final ProCodeService proCodeService;
-
     @GetMapping("/list_progress")
-    public void list_progress(Model model){
-        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
-        model.addAttribute("partCodeList", lists);
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_progress(){
     }
     @GetMapping("/add_progress")
     public void add_progress(){
@@ -39,10 +29,6 @@ public class ProgressController {
 
     }
     @GetMapping("/requiring_progress")
-    public void requiring_progress(Model model){
-        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
-        model.addAttribute("partCodeList", lists);
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
+    public void requiring_progress(){
     }
 }

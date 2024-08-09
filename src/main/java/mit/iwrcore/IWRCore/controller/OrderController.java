@@ -17,22 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final PartCodeService partCodeService;
-    private final MaterService materService;
-    private final ProCodeService proCodeService;
-
     @GetMapping("/download_order")
     public void download_order(){
 
     }
     @GetMapping("/list_order")
-    public void list_order(Model model){
-        PartCodeListDTO lists=partCodeService.findListPartAll(null, null,null);
-        model.addAttribute("partCodeList", lists);
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_order(){
     }
     @GetMapping("/modify_order2")
     public void modify_order2(){

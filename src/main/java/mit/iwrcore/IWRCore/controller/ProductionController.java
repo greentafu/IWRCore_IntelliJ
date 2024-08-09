@@ -15,14 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ProductionController {
 
-    private final PartCodeService partCodeService;
-    private final MaterService materService;
-    private final ProCodeService proCodeService;
-
     @GetMapping("/list_manufacture")
-    public void list_manufacture(Model model) {
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_manufacture() {
     }
 
     @GetMapping("/new_manufacture")
@@ -38,9 +32,7 @@ public class ProductionController {
     }
 
     @GetMapping("/list_newProduct")
-    public void list_newProduct(Model model) {
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_newProduct() {
     }
     @GetMapping("/check_manufacture")
     public void check_manufacture() {

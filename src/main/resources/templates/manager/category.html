@@ -71,16 +71,7 @@
                 <div class="row">
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="selectPartL" onchange="updatePartCode('L')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="partldto:${partCodeList.partLDTOs}"
-                                th:value="${partldto.partLcode}"
-                                th:text="${partldto.Lname}"
-                        >
-                        </option>
-                        <option value="">직접입력</option>
-                      </select>
+                      <select class="select2 form-select" id="selectPartL" onchange="updatePartCode('L')"></select>
                     </div>
                   </div>
                   <div class="col-md-6 mb-1">
@@ -96,26 +87,8 @@
                   </div>
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="selectPartM" onchange="updatePartCode('M')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="partmdto:${partCodeList.partMDTOs}"
-                                th:value="${partmdto.partMcode}"
-                                th:text="${partmdto.Mname}"
-                        >
-                        </option>
-                        <option value="">직접입력</option>
-                      </select>
-                      <select class="select2 form-select" id="selectPartS" onchange="updatePartCode('S')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="partsdto:${partCodeList.partSDTOs}"
-                                th:value="${partsdto.partScode}"
-                                th:text="${partsdto.Sname}"
-                        >
-                        </option>
-                        <option value="">직접입력</option>
-                      </select>
+                      <select class="select2 form-select" id="selectPartM" onchange="updatePartCode('M')"></select>
+                      <select class="select2 form-select" id="selectPartS" onchange="updatePartCode('S')"></select>
                     </div>
                   </div>
                   <div class="col-md-6 mb-1">
@@ -199,16 +172,7 @@
                 <div class="row">
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="selectProL" onchange="updateProCode('L')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="proldto:${proCodeList.proLDTOs}"
-                                th:value="${proldto.proLcode}"
-                                th:text="${proldto.Lname}"
-                        >
-                        </option>
-                        <option value="">직접입력</option>
-                      </select>
+                      <select class="select2 form-select" id="selectProL" onchange="updateProCode('L')"></select>
                     </div>
                   </div>
                   <div class="col-md-6 mb-1">
@@ -224,26 +188,8 @@
                   </div>
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="selectProM" onchange="updateProCode('M')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="promdto:${proCodeList.proMDTOs}"
-                                th:value="${promdto.proMcode}"
-                                th:text="${promdto.Mname}"
-                        >
-                        </option>
-                        <option value="">직접입력</option>
-                      </select>
-                      <select class="select2 form-select" id="selectProS" onchange="updateProCode('S')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="prosdto:${proCodeList.proSDTOs}"
-                                th:value="${prosdto.proScode}"
-                                th:text="${prosdto.Sname}"
-                        >
-                        </option>
-                        <option value="">직접입력</option>
-                      </select>
+                      <select class="select2 form-select" id="selectProM" onchange="updateProCode('M')"></select>
+                      <select class="select2 form-select" id="selectProS" onchange="updateProCode('S')"></select>
                     </div>
                           </div>
                   <div class="col-md-6 mb-1">
@@ -328,16 +274,7 @@
                 <div class="row">
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="selectMaterL" onchange="updateMaterCode('L')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="materldto:${materCodeList.materLDTOs}"
-                                th:value="${materldto.materLcode}"
-                                th:text="${materldto.lname}"
-                        >
-                        </option>
-                        <option value="">직접입력</option>
-                      </select>
+                      <select class="select2 form-select" id="selectMaterL" onchange="updateMaterCode('L')"></select>
                     </div>
                   </div>
                   <div class="col-md-6 mb-1">
@@ -353,26 +290,8 @@
                   </div>
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
-                      <select class="select2 form-select" id="selectMaterM" onchange="updateMaterCode('M')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="matermdto:${materCodeList.materMDTOs}"
-                                th:value="${matermdto.materMcode}"
-                                th:text="${matermdto.Mname}"
-                        >
-                        </option>
-                        <option value="L">직접입력</option>
-                      </select>
-                      <select class="select2 form-select" id="selectMaterS" onchange="updateMaterCode('S')">
-                        <option value="">전체보기</option>
-                        <option
-                                th:each="matersdto:${materCodeList.materSDTOs}"
-                                th:value="${matersdto.materScode}"
-                                th:text="${matersdto.Sname}"
-                        >
-                        </option>
-                        <option value="">직접입력</option>
-                      </select>
+                      <select class="select2 form-select" id="selectMaterM" onchange="updateMaterCode('M')"></select>
+                      <select class="select2 form-select" id="selectMaterS" onchange="updateMaterCode('S')"></select>
                     </div>
                   </div>
                   <div class="col-md-6 mb-1">
@@ -725,6 +644,32 @@
 
     <!--Script-->
     <script src="../assets/js/category-crud.js"></script>
+      <script>
+        function savePartCode(){
+          const selectBoxes=document.querySelectorAll('select');
+          selectBoxes.forEach(sel=>{
+            localStorage.setItem(sel.id, sel.value);
+          });
+        }
+        function loadPartCode(){
+          const selectBoxes=document.querySelectorAll('select');
+          selectBoxes.forEach(sel=>{
+            const saved=localStorage.getItem(sel.id);
+            if(saved!=null){
+              sel.value=saved;
+            }
+          });
+        }
+        initPart1().then(()=>{
+          loadPartCode();
+        });
+
+
+        document.querySelectorAll('select').forEach(sel=>{
+          sel.addEventListner('change', savePartCode);
+        });
+
+      </script>
     <!--Script-->
   </span>
 

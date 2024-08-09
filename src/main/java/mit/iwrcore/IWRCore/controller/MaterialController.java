@@ -16,16 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MaterialController {
 
-    private final PartCodeService partCodeService;
-    private final MaterService materService;
-    private final ProCodeService proCodeService;
-
     @GetMapping("/list_material")
-    public void list_material(Model model){
-        MaterCodeListDTO lists2=materService.findListMaterAll(null, null, null);
-        model.addAttribute("materCodeList", lists2);
-        ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
-        model.addAttribute("proCodeList", list3);
+    public void list_material(){
     }
     @GetMapping("/material")
     public void material(){
