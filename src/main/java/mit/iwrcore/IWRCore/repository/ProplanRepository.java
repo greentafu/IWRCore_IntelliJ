@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProplanRepository extends JpaRepository<ProPlan, Long> {
-    @Query("SELECT pp FROM ProPlan pp WHERE pp.product.plan.id = :planId")
-    List<ProPlan> findByPlanId(Long planId);
+    List<ProPlan> findByProplanNo(Long proplanNo);
 }

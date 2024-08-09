@@ -52,7 +52,7 @@ public class ProplanServiceImpl implements ProplanService{
 
     @Override
     public List<ProplanDTO> findByPlanId(Long planId) {
-        List<ProPlan> proPlans = proPlanRepository.findByPlanId(planId);
+        List<ProPlan> proPlans = proPlanRepository.findByProplanNo(planId);
         return proPlans.stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());

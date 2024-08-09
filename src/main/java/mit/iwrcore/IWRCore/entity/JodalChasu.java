@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString(exclude = {"writer", "jodalPlan"})
 public class JodalChasu extends BaseEntity {
     @Id

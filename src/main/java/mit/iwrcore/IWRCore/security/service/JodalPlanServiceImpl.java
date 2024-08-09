@@ -69,7 +69,7 @@ public class JodalPlanServiceImpl implements JodalPlanService {
                 .joNo(entity.getJoNo())
                 .details(entity.getDetails())
                 .planDate(entity.getPlanDate())
-                .writerId(entity.getWriter() != null ? Long.valueOf(entity.getWriter().getId()) : null)
+                .writerId(entity.getWriter() != null ? entity.getWriter().getId() : null)
                 .contractId(entity.getContract() != null ? entity.getContract().getConNo() : null)
                 .jodalChasuIds(entity.getJodalChasus().stream()
                         .map(chasu -> chasu.getJoNum()) // getJoNum() 메서드가 존재하는지 확인

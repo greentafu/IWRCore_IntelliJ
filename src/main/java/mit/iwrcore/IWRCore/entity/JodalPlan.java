@@ -16,7 +16,6 @@ public class JodalPlan extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long joNo;       // 조달계획 번호
-    private String details; // 세부사항
     private LocalDateTime planDate;  // 계획일자
 
     @ManyToOne(fetch = FetchType.LAZY)
