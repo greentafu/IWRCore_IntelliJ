@@ -15,6 +15,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Commit;
 
 import java.util.List;
@@ -88,7 +90,9 @@ public class ProductServiceTests {
     @Transactional
     @Commit
     public void testList(){
-        productService.getAllProducts().forEach(System.out::println);
+        Pageable pageable= PageRequest.of(0,2);
+        productRepository.findAllProduct(pageable).forEach(System.out::println);
+//        productService.getAllProducts().forEach(System.out::println);
     }
 
     @Test

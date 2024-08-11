@@ -16,7 +16,7 @@ import java.util.List;
 @Builder
 public class PlanDTO {
     private Long plancode;
-    private List<Long> productIds;  // 연관된 Product의 ID 목록
+    private ProductDTO productDTO;  // 연관된 Product의 ID 목록
     private Long quantity;
     private String line;
 

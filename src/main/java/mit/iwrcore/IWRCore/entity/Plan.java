@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString(exclude = "product")
 public class Plan extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,6 @@ public class Plan extends BaseEntity{
 
     private Long quantity;  // 수량
     private String line;    // 라인
-
 
 }
 

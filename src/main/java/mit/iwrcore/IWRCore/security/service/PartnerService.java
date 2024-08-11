@@ -14,4 +14,7 @@ public interface PartnerService {
     Integer insertPartner(PartnerDTO dto);
 
     void deletePartner(Long pno);
+
+    PartnerDTO partnerTodto(Partner entity);
+    Partner partnerDtoToEntity(PartnerDTO dto);
 }

@@ -11,7 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = {"writer", "materS", "box"})
 @Setter
 public class Material extends BaseEntity {
     @Id

@@ -14,6 +14,8 @@ import mit.iwrcore.IWRCore.security.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Commit;
 
 import java.util.List;
@@ -77,6 +79,13 @@ public class MaterialServiceTests {
                 .boxDTO(box)
                 .build();
         materialRepository.save(materialServiceImpl.materdtoToEntity(materialDTO2));
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void list(){
+        Pageable pageable= PageRequest.of(0,2);
+        materialRepository.materialList(pageable).forEach(System.out::println);
     }
     @Test
     @Transactional

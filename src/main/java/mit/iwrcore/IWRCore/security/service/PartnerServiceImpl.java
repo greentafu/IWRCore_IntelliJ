@@ -64,6 +64,7 @@ public class PartnerServiceImpl implements PartnerService{
 
 
     // entity를 dto로
+    @Override
     public PartnerDTO partnerTodto(Partner entity){
         PartnerDTO dto=PartnerDTO.builder()
                 .pno(entity.getPno())
@@ -88,7 +89,8 @@ public class PartnerServiceImpl implements PartnerService{
         return dto;
     }
     // dto를 entity로
-    private Partner partnerDtoToEntity(PartnerDTO dto){
+    @Override
+    public Partner partnerDtoToEntity(PartnerDTO dto){
         Partner entity=Partner.builder()
                 .pno(dto.getPno())
                 .name(dto.getName())

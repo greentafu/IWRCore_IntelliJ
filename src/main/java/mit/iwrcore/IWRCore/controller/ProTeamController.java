@@ -1,8 +1,10 @@
 package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.ProCodeService;
+import mit.iwrcore.IWRCore.security.service.ProplanService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class ProTeamController {
 
+    private final ProplanService proplanService;
+
     @GetMapping("list_pro")
-    public void list_pro(){
+    public void list_pro(PageRequestDTO pageRequestDTO, Model model){
+        model.addAttribute("proplan_list", proplanService.proplanList(pageRequestDTO));
     }
     @GetMapping("list_request")
     public void list_request(){

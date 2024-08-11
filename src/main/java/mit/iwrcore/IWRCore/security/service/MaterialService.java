@@ -10,6 +10,8 @@ import mit.iwrcore.IWRCore.security.dto.BoxDTO;
 
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProductDTO;
 
 import java.util.List;
@@ -21,12 +23,13 @@ public interface MaterialService {
     // 자재 찾기
     MaterialDTO findM (Long matercode);
     // 자재 리스트
-    List<Material> findMaterialAll(); //모든 리스트
+    PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO); //모든 리스트
     List<Material> findMaterialPart(Long boxcode, Long materscode); //일부분(창고별, 자재소분류별)
     // 자재 삭제
     void deleteJa(Long materCode);
 
-
+    Material materdtoToEntity(MaterialDTO dto);
+    MaterialDTO materTodto(Material entity);
 //    //소분류 삽입
 //    void insertsmater(MaterSDTO materSDTO);
 
