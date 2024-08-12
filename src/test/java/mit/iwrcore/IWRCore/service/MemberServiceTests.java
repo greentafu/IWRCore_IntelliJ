@@ -9,9 +9,6 @@ import mit.iwrcore.IWRCore.security.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,5 +68,22 @@ public class MemberServiceTests {
     @Commit
     public void deleteMember(){
         memberService.deleteMember(44L);
+    }
+    // 직원 검색
+    @Test
+    @Transactional
+    @Commit
+    public void searchMember(){
+        PageRequestDTO pageRequestDTO=PageRequestDTO.builder()
+                .page(1)
+                .size(2)
+                .department(0)
+                .role(0)
+                .memberSearch("관리")
+                .build();
+        PageResultDTO<MemberDTO, Member> resultDTO=memberService.findMemberList(pageRequestDTO);
+        for(MemberDTO memberDTO:resultDTO.getDtoList()){
+            System.out.println(memberDTO);
+        }
     }
 }

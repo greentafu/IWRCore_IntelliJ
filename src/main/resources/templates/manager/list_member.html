@@ -26,41 +26,40 @@
           <!-- Outline Dropdowns -->
           <div class="card-body">
             <div class="demo-inline-spacing">
-              <div class="btn-group">
-                <button
-                        type="button"
-                        class="btn btn-outline-primary dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                  소속부서
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="javascript:void(0);">자재부서</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">개발부서</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">생산부서</a></li>
-                </ul>
-              </div>
-              <div class="btn-group">
-                <button
-                        type="button"
-                        class="btn btn-outline-primary dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                  접근권한
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="javascript:void(0);">관리자</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">팀장</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">생산/개발사원</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">자재사원</a></li>
-                </ul>&nbsp;&nbsp;
-                <form class="d-flex" onsubmit="return false">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                  <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
-              </div>
+              <form th:action="@{/manager/list_member}" method="get">
+                <div class="row">
+                  <div class="mb-3 col-md-2">
+                    <select class="select form-select" name="department" id="department">
+                      <option value="" th:selected="${member_list.department}==null">전체보기</option>
+                      <option value="0" th:selected="${member_list.department}==0">자재부서</option>
+                      <option value="1" th:selected="${member_list.department}==1">개발부서</option>
+                      <option value="2" th:selected="${member_list.department}==2">생산부서</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 col-md-2">
+                    <select class="select form-select" name="role" id="role">
+                      <option value="" th:selected="${member_list.role}==null">전체보기</option>
+                      <option value="0" th:selected="${member_list.role}==0">관리자</option>
+                      <option value="1" th:selected="${member_list.role}==1">자재부서</option>
+                      <option value="2" th:selected="${member_list.role}==2">생산/개발부서</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <input
+                            class="form-control me-2 col-md-5"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                            name="memberSearch"
+                            id="memberSearch"
+                            th:value="${member_list.memberSearch!=null? member_list.memberSearch : ''}"
+                    />
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
           <table class="table table-hover mb-4">
@@ -106,17 +105,25 @@
             <ul class="pagination justify-content-center">
               <th:block th:if="${member_list.prev}">
                 <li class="page-item prev">
-                  <a class="page-link" th:href="@{/manager/list_member(page=${member_list.start}-1)}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                  <a class="page-link"
+                     th:href="@{/manager/list_member(page=${member_list.start}-1, department=${member_list.department}, role=${member_list.role}, memberSearch=${member_list.memberSearch})})}">
+                    <i class="tf-icon bx bx-chevrons-left"></i>
+                  </a>
                 </li>
               </th:block>
               <th:block th:each="pagenum:${member_list.pageList}">
                 <li class="page-item " th:classappend="${member_list.page}==${pagenum}? active">
-                  <a class="page-link" th:href="@{/manager/list_member(page=${pagenum})}">[[${pagenum}]]</a>
+                  <a class="page-link"
+                     th:href="@{/manager/list_member(page=${pagenum}, department=${member_list.department}, role=${member_list.role}, memberSearch=${member_list.memberSearch})}">[[${pagenum}]]
+                  </a>
                 </li>
               </th:block>
               <th:block th:if="${member_list.next}">
                 <li class="page-item next">
-                  <a class="page-link" th:href="@{/manager/list_member(page=${member_list.end}+1)}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                  <a class="page-link"
+                     th:href="@{/manager/list_member(page=${member_list.end}+1, department=${member_list.department}, role=${member_list.role}, memberSearch=${member_list.memberSearch})})}">
+                    <i class="tf-icon bx bx-chevrons-right"></i>
+                  </a>
                 </li>
               </th:block>
             </ul>
