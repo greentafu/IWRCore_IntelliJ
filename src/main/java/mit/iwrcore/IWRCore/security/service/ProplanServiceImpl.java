@@ -1,42 +1,43 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.ProPlan;
+import mit.iwrcore.IWRCore.entity.Product;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.repository.ProductRepository;
 import mit.iwrcore.IWRCore.repository.ProplanRepository;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.ProductDTO;
 import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 @Service
+@RequiredArgsConstructor
 public class ProplanServiceImpl implements ProplanService{
     private final ProplanRepository proPlanRepository;
-    private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
 
-    @Autowired
-    public ProplanServiceImpl(ProplanRepository proPlanRepository,
-                              ProductRepository productRepository,
-                              MemberRepository memberRepository) {
-        this.proPlanRepository = proPlanRepository;
-        this.productRepository = productRepository;
-        this.memberRepository = memberRepository;
-    }
+    private final ProductService productService;
+    private final MemberService memberService;
 
     @Override
     public void save(ProplanDTO dto) {
-        ProPlan proPlan = dtoToEntity(dto, productRepository, memberRepository);
+        ProPlan proPlan = dtoToEntity(dto);
         proPlanRepository.save(proPlan);
     }
 
     @Override
-    public ProplanDTO update(ProplanDTO dto) {
-        ProPlan proPlan = dtoToEntity(dto, productRepository, memberRepository);
-        ProPlan updatedProPlan = proPlanRepository.save(proPlan);
-        return entityToDTO(updatedProPlan);
+    public void update(ProplanDTO dto) {
+        ProPlan proPlan = dtoToEntity(dto);
+        proPlanRepository.save(proPlan);
     }
 
     @Override
@@ -51,16 +52,24 @@ public class ProplanServiceImpl implements ProplanService{
     }
 
     @Override
-    public List<ProplanDTO> findByPlanId(Long planId) {
-        List<ProPlan> proPlans = proPlanRepository.findByPlanId(planId);
-        return proPlans.stream()
-                .map(this::entityToDTO)
-                .collect(Collectors.toList());
+    public PageResultDTO<ProplanDTO, ProPlan> proplanList(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("proplanNo").descending());
+        Page<ProPlan> entityPage=proPlanRepository.findAll(pageable);
+        Function<ProPlan, ProplanDTO> fn=(entity->entityToDTO(entity));
+        return new PageResultDTO<>(entityPage, fn);
     }
 
+//    @Override
+//    public List<ProplanDTO> findByPlanId(Long planId) {
+//        List<ProPlan> proPlans = proPlanRepository.findByProplanNo(planId);
+//        return proPlans.stream()
+//                .map(this::entityToDTO)
+//                .collect(Collectors.toList());
+//    }
+
     @Override
-    public ProPlan dtoToEntity(ProplanDTO dto, ProductRepository productRepository, MemberRepository memberRepository) {
-        return ProPlan.builder()
+    public ProPlan dtoToEntity(ProplanDTO dto) {
+        ProPlan entity=ProPlan.builder()
                 .proplanNo(dto.getProplanNo())
                 .pronum(dto.getPronum())
                 .filename(dto.getFilename())
@@ -68,13 +77,15 @@ public class ProplanServiceImpl implements ProplanService{
                 .endDate(dto.getEndDate())
                 .line(dto.getLine())
                 .details(dto.getDetails())
-                .product(productRepository.findById(dto.getProductId()).orElse(null))
+                .product(productService.productDtoToEntity(dto.getProductDTO()))
+                .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
                 .build();
+        return entity;
     }
 
     @Override
     public ProplanDTO entityToDTO(ProPlan entity) {
-        return ProplanDTO.builder()
+        ProplanDTO dto=ProplanDTO.builder()
                 .proplanNo(entity.getProplanNo())
                 .pronum(entity.getPronum())
                 .filename(entity.getFilename())
@@ -82,8 +93,10 @@ public class ProplanServiceImpl implements ProplanService{
                 .endDate(entity.getEndDate())
                 .line(entity.getLine())
                 .details(entity.getDetails())
-                .productId(entity.getProduct() != null ? entity.getProduct().getManuCode() : null)
+                .productDTO(productService.productEntityToDto(entity.getProduct()))
+                .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .build();
+        return dto;
     }
 }
 

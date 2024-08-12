@@ -1,0 +1,10 @@
+1. build.gradle에 
+implementation 'org.mariadb.jdbc:mariadb-java-client:10.11.0' 의존성 추가하함
+2.application.properties에서 
+mariadb.jdbc.driver의 url,name,password가 올바른지 확인함.
+3. 데이터 베이스 조회만을 위한 Repository 인터페이스 생성.
+
+4. Service 클래스 생성. 비즈니스 로직을 처리하기 위함
+5. Controller 클래스 생성. 웹 애플리케이션의 경우, REST API를 통해 Service를 호출할 수 잇도록 함.
+6. 실행을 위한 TEST 클래스 생성
+7. html에서 다운로드 버튼과 이어주기 

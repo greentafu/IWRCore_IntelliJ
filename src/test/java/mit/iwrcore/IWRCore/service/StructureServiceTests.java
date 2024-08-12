@@ -10,10 +10,7 @@ import mit.iwrcore.IWRCore.repository.StructureRepository;
 import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.ProductDTO;
 import mit.iwrcore.IWRCore.security.dto.StructureDTO;
-import mit.iwrcore.IWRCore.security.service.MaterialService;
-import mit.iwrcore.IWRCore.security.service.ProductService;
-import mit.iwrcore.IWRCore.security.service.ProductServiceImpl;
-import mit.iwrcore.IWRCore.security.service.StructureServiceImpl;
+import mit.iwrcore.IWRCore.security.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +37,8 @@ public class StructureServiceTests {
     private ProductRepository productRepository;
     @Autowired
     private ProductServiceImpl productServicei;
+    @Autowired
+    private MaterialServiceImpl materialServiceImpl;
 
     private static Material material;
     private static Product product;
@@ -52,10 +51,32 @@ public class StructureServiceTests {
     @Commit
     public void test(){
         Structure structure1=Structure.builder()
-                .material(materialService.materEntity(materialService.findM(1L)))
-                .product(productServicei.productDtoToEntity(productService.getProductById(1L)))
-                .quantity(100).build();
+                .material(materialServiceImpl.materdtoToEntity(materialService.findM(1L)))
+                .product(productServicei.productDtoToEntity(productService.getProductById(3L)))
+                .quantity(70).build();
         structureRepository.save(structure1);
+        Structure structure2=Structure.builder()
+                .material(materialServiceImpl.materdtoToEntity(materialService.findM(2L)))
+                .product(productServicei.productDtoToEntity(productService.getProductById(3L)))
+                .quantity(60).build();
+        structureRepository.save(structure2);
+        Structure structure4=Structure.builder()
+                .material(materialServiceImpl.materdtoToEntity(materialService.findM(3L)))
+                .product(productServicei.productDtoToEntity(productService.getProductById(3L)))
+                .quantity(80).build();
+        structureRepository.save(structure4);
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test1(){
+        StructureDTO structureDTO=StructureDTO.builder()
+                .productDTO(productService.getProductById(3L))
+                .materialDTO(materialService.findM(3L))
+                .quantity(10L)
+                .build();
+        structureService.save(structureDTO);
+//        structureService.update(structureDTO);
     }
 
     @Transactional
@@ -79,30 +100,30 @@ public class StructureServiceTests {
         // Log or manual verification
         System.out.println("Saved Structure: " + structureRepository.findById(dto.getSno()));
     }
-
-    @Test
-    @Transactional
-    @Commit
-    void testUpdate() {
-        // Given
-        Structure existingStructure = structureRepository.findById(1L).orElse(null);
-
-        if (existingStructure != null) {
-            existingStructure.setQuantity(20L);
-
-            // When
-            structureService.update(existingStructure);
-
-            // Log or manual verification
-            System.out.println("Updated Structure: " + structureRepository.findById(existingStructure.getSno()));
-        }
-    }
+//
+//    @Test
+//    @Transactional
+//    @Commit
+//    void testUpdate() {
+//        // Given
+//        Structure existingStructure = structureRepository.findById(1L).orElse(null);
+//
+//        if (existingStructure != null) {
+//            existingStructure.setQuantity(20L);
+//
+//            // When
+//            structureService.update(existingStructure);
+//
+//            // Log or manual verification
+//            System.out.println("Updated Structure: " + structureRepository.findById(existingStructure.getSno()));
+//        }
+//    }
     @Transactional
     @Commit
     @Test
     void testDeleteById() {
         // Given
-        Long id = 1L;
+        Long id = 4L;
         Structure structure = structureRepository.findById(id).orElse(null);
 
         if (structure != null) {
@@ -113,25 +134,32 @@ public class StructureServiceTests {
             System.out.println("Remaining Structures Count: " + structureRepository.count());
         }
     }
-
     @Test
-    void testFindByProduct_ManuCode() {
-        // Given
-        Long manuCode = 1L;
-        Structure structure = Structure.builder()
-                .sno(2L)
-                .material(materialRepository.findById(1L).orElse(null))
-                .product(productRepository.findById(manuCode).orElse(null))
-                .quantity(10L)
-                .build();
-        structureRepository.save(structure);
-
-        // When
-        List<StructureDTO> result = structureService.findByProduct_ManuCode(manuCode);
-
-        // Log or manual verification
-        System.out.println("Found Structures: " + result);
+    @org.springframework.transaction.annotation.Transactional
+    @Commit
+    public void test3(){
+        structureRepository.findByProduct_ManuCode(1L).forEach(System.out::println);
     }
+
+
+//    @Test
+//    void testFindByProduct_ManuCode() {
+//        // Given
+//        Long manuCode = 1L;
+//        Structure structure = Structure.builder()
+//                .sno(2L)
+//                .material(materialRepository.findById(1L).orElse(null))
+//                .product(productRepository.findById(manuCode).orElse(null))
+//                .quantity(10L)
+//                .build();
+//        structureRepository.save(structure);
+//
+//        // When
+//        List<StructureDTO> result = structureService.findByProduct_ManuCode(manuCode);
+//
+//        // Log or manual verification
+//        System.out.println("Found Structures: " + result);
+//    }
 }
 
 

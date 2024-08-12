@@ -1,11 +1,13 @@
 package mit.iwrcore.IWRCore.security.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Setter
+@Getter
 @Builder
 public class ContractDTO {
     private Long conNo;
@@ -16,4 +18,5 @@ public class ContractDTO {
     private String filename;
     private String who;
     private Long writerId;
+    private Long partnerId;
 }

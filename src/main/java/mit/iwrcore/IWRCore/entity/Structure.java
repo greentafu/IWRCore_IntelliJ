@@ -2,25 +2,27 @@ package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
 @Setter
+@ToString(exclude = {"material", "product"})
 public class Structure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sno;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mater_code") // 외래 키 컬럼 이름
+    @JoinColumn(name = "materCode") // 외래 키 컬럼 이름
     private Material material;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "manu_code") // 외래 키 컬럼 이름
+    @JoinColumn(name = "manuCode") // 외래 키 컬럼 이름
     private Product product;
 
     private long quantity;

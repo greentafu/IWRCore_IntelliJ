@@ -2,8 +2,10 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.MaterService;
+import mit.iwrcore.IWRCore.security.service.MaterialService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import mit.iwrcore.IWRCore.security.service.ProCodeService;
 import org.springframework.stereotype.Controller;
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MaterialController {
 
+    private final MaterialService materialService;
+
     @GetMapping("/list_material")
-    public void list_material(){
+    public void list_material(PageRequestDTO pageRequestDTO, Model model){
+        model.addAttribute("material_list", materialService.findMaterialAll(pageRequestDTO));
     }
     @GetMapping("/material")
     public void material(){

@@ -11,9 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"writer"})
+@ToString(exclude = {"writer", "product"})
 public class ProPlan extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long proplanNo;       // 생산계획 번호

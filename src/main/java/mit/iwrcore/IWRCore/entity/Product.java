@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = {"member", "proS"})
 @Setter
 @Table
 public class Product extends BaseEntity{

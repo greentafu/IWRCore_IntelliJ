@@ -1,24 +1,24 @@
 package mit.iwrcore.IWRCore.service;
 
-import jakarta.transaction.Transactional;
 
-import mit.iwrcore.IWRCore.entity.Contract;
-import mit.iwrcore.IWRCore.entity.JodalChasu;
-import mit.iwrcore.IWRCore.entity.JodalPlan;
-import mit.iwrcore.IWRCore.entity.ProPlan;
-import mit.iwrcore.IWRCore.repository.ContractRepository;
-import mit.iwrcore.IWRCore.repository.JodalChasuRepository;
-import mit.iwrcore.IWRCore.repository.JodalPlanRepository;
-import mit.iwrcore.IWRCore.repository.ProplanRepository;
+import jakarta.transaction.Transactional;
+import mit.iwrcore.IWRCore.entity.*;
+import mit.iwrcore.IWRCore.repository.*;
 import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
 import mit.iwrcore.IWRCore.security.service.JodalPlanServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
+import mit.iwrcore.IWRCore.security.service.MemberService;
+import mit.iwrcore.IWRCore.security.service.ProductService;
+import mit.iwrcore.IWRCore.security.service.ProplanService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 @SpringBootTest
@@ -36,30 +36,28 @@ public class JodalPlanServiceTests {
     private JodalChasuRepository jodalChasuRepository;
 
     @Autowired
-    private ProplanRepository proPlanRepository;
+    private ProplanService proplanService;
+
+    @Autowired
+    private MemberService memberService; // MemberRepository 추가
+
 
     @Test
-    void testSave() {
-        // 데이터베이스에 필요한 테스트 데이터를 추가합니다.
-        Contract contract = contractRepository.save(new Contract());
-        JodalChasu jodalChasu = jodalChasuRepository.save(new JodalChasu());
-        ProPlan proPlan = proPlanRepository.save(new ProPlan());
-
-        JodalPlanDTO jodalPlanDTO = JodalPlanDTO.builder()
-                .joNo(null) // 신규 저장 시 ID는 null이어야 함
-                .details("Test details")
+    @Transactional
+    @Commit
+    void insertJplan(){
+        JodalPlanDTO dto=JodalPlanDTO.builder()
                 .planDate(LocalDateTime.now())
-                .writerId(1L) // 테스트용 작성자 ID
-                .contractId(contract.getConNo())
-                .jodalChasuIds(Collections.singletonList(jodalChasu.getJoNum()))
-                .proPlanId(proPlan.getProplanNo())
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .proplanDTO(proplanService.findById(1L))
                 .build();
-
-        jodalPlanService.save(jodalPlanDTO);
-
-        // 저장된 계획을 데이터베이스에서 조회
-        JodalPlan savedPlan = jodalPlanRepository.findById(jodalPlanDTO.getJoNo()).orElse(null);
-        System.out.println("Saved JodalPlan: " + savedPlan);
+        jodalPlanService.save(dto);
+        JodalPlanDTO dto1=JodalPlanDTO.builder()
+                .planDate(LocalDateTime.now())
+                .memberDTO(memberService.findMemberDto(2L, null))
+                .proplanDTO(proplanService.findById(2L))
+                .build();
+        jodalPlanService.save(dto1);
     }
 
-    }
+}

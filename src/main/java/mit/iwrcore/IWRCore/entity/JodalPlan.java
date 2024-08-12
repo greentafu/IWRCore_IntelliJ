@@ -10,13 +10,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"writer", "contract", "jodalChasus", "proPlan"})
+@ToString(exclude = {"writer", "proPlan"})
 public class JodalPlan extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long joNo;       // 조달계획 번호
-    private String details; // 세부사항
     private LocalDateTime planDate;  // 계획일자
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,7 +23,6 @@ public class JodalPlan extends BaseEntity {
     private Member writer;            // 작성자
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contract_id")  // 외래 키 컬럼 이름
     private Contract contract;          // 연관된 Contract 엔티티
 
     @OneToMany(mappedBy = "jodalPlan", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -21,6 +21,8 @@ public class PlanServiceImpl implements PlanService{
     private final PlanRepository planRepository;
     private final ProductRepository productRepository;
 
+    private final ProductServiceImpl productServiceImpl;
+
     @Override
     public void save(PlanDTO dto) {
         Plan plan = dtoToEntity(dto);
@@ -28,12 +30,12 @@ public class PlanServiceImpl implements PlanService{
     }
 
     @Override
-    public Plan update(Plan plan) {
+    public void update(PlanDTO planDTO) {
         // Ensure the plan exists before updating
-        if (!planRepository.existsById(plan.getPlancode())) {
-            throw new IllegalArgumentException("Plan not found with id: " + plan.getPlancode());
+        if (!planRepository.existsById(planDTO.getPlancode())) {
+            throw new IllegalArgumentException("Plan not found with id: " + planDTO.getPlancode());
         }
-        return planRepository.save(plan);
+        planRepository.save(dtoToEntity(planDTO));
     }
 
     @Override
@@ -43,36 +45,52 @@ public class PlanServiceImpl implements PlanService{
 
     @Override
     public List<PlanDTO> findByProductId(Long productId) {
-        List<Plan> plans = planRepository.findByProducts_ManuCode(productId);
+        List<Plan> plans = planRepository.findByProduct_ManuCode(productId);
         return plans.stream()
                 .map(this::entityToDTO)
                 .collect(Collectors.toList());
     }
 
-    private Plan dtoToEntity(PlanDTO dto) {
+    @Override
+    public Plan dtoToEntity(PlanDTO dto) {
         // Fetch the products associated with the IDs from the DTO
-        List<Product> products = dto.getProductIds().stream()
-                .map(id -> productRepository.findById(id).orElse(null))
-                .collect(Collectors.toList());
-
-
-        Product product = products.isEmpty() ? null : products.get(0);
-
-        return Plan.builder()
+        Plan entity=Plan.builder()
                 .plancode(dto.getPlancode())
-                .product(product)
-                .quantity(dto.getQuantity())
                 .line(dto.getLine())
+                .product(productServiceImpl.productDtoToEntity(dto.getProductDTO()))
+                .quantity(dto.getQuantity())
                 .build();
+        return entity;
+
+//        List<Product> products = dto.getProductIds().stream()
+//                .map(id -> productRepository.findById(id).orElse(null))
+//                .collect(Collectors.toList());
+//
+//        Product product = products.isEmpty() ? null : products.get(0);
+//
+//        return Plan.builder()
+//                .plancode(dto.getPlancode())
+//                .product(product)
+//                .quantity(dto.getQuantity())
+//                .line(dto.getLine())
+//                .build();
     }
 
-    private PlanDTO entityToDTO(Plan entity) {
-        return PlanDTO.builder()
+    @Override
+    public PlanDTO entityToDTO(Plan entity) {
+        PlanDTO dto=PlanDTO.builder()
                 .plancode(entity.getPlancode())
-                .quantity(entity.getQuantity())
                 .line(entity.getLine())
-                .productIds(entity.getProduct() != null ?
-                        List.of(entity.getProduct().getManuCode()) : List.of())
+                .productDTO(productServiceImpl.productEntityToDto(entity.getProduct()))
+                .quantity(entity.getQuantity())
                 .build();
+        return dto;
+//        return PlanDTO.builder()
+//                .plancode(entity.getPlancode())
+//                .quantity(entity.getQuantity())
+//                .line(entity.getLine())
+//                .productIds(entity.getProduct() != null ?
+//                        List.of(entity.getProduct().getManuCode()) : List.of())
+//                .build();
     }
 }

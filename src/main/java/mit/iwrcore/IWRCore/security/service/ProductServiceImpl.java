@@ -5,15 +5,22 @@ import mit.iwrcore.IWRCore.entity.ProS;
 import mit.iwrcore.IWRCore.entity.Product;
 import mit.iwrcore.IWRCore.repository.MaterialRepository;
 import mit.iwrcore.IWRCore.repository.ProSCodeRepository;
+import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProductDTO;
 import mit.iwrcore.IWRCore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,10 +44,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getAllProducts() {
-        List<ProductDTO> list=new ArrayList<>();
-        productRepository.findAllProduct().stream().forEach(x->list.add(productEntityToDto(x)));
-        return list;
+    public PageResultDTO<ProductDTO, Product> getAllProducts(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("manuCode").descending());
+        Page<Product> entityPage=productRepository.findAll(pageable);
+        Function<Product, ProductDTO> fn=(entity->productEntityToDto(entity));
+        return new PageResultDTO<>(entityPage, fn);
     }
 
     @Override
@@ -69,6 +77,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     // DTO를 엔티티로 변환
+    @Override
     public Product productDtoToEntity(ProductDTO dto) {
         if (dto == null) {
             return null;
@@ -88,6 +97,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     // 엔티티를 DTO로 변환
+    @Override
     public ProductDTO productEntityToDto(Product entity) {
         if (entity == null) {
             return null;

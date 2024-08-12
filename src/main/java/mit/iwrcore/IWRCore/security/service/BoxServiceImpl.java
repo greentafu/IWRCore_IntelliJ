@@ -14,14 +14,13 @@ import java.util.stream.Collectors;
 
 @Log4j2
 @Service
+@RequiredArgsConstructor
 public class BoxServiceImpl implements BoxService {
     private final BoxRepository boxRepository;
 
-
-    @Autowired
-    public BoxServiceImpl(BoxRepository boxRepository) {
-        this.boxRepository = boxRepository;
-    }
+//    public BoxServiceImpl(BoxRepository boxRepository) {
+//        this.boxRepository = boxRepository;
+//    }
 
     @Override
     public List<BoxDTO> list() {

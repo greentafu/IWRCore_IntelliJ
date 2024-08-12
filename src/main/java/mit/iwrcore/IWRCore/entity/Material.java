@@ -11,7 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = {"writer", "materS", "box"})
 @Setter
 public class Material extends BaseEntity {
     @Id
@@ -31,11 +31,12 @@ public class Material extends BaseEntity {
     @JoinColumn(name="materScode")
     private MaterS materS;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="boxCode")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "box_code") // 외래 키 설정
     private Box box;
 
-    @OneToMany(mappedBy = "material", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "material")
     @Builder.Default
     private Set<Structure> structures=new HashSet<>();
 }

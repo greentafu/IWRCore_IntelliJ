@@ -10,9 +10,10 @@ import java.util.List;
 public interface PlanService {
 
     void save(PlanDTO dto);
-    Plan update(Plan plan);
+    void update(PlanDTO planDTO);
     void deleteById(Long id);
     List<PlanDTO> findByProductId(Long productId);
 
-
+    Plan dtoToEntity(PlanDTO dto);
+    PlanDTO entityToDTO(Plan entity);
 }

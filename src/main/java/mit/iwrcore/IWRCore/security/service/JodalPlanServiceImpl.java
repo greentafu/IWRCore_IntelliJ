@@ -20,10 +20,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JodalPlanServiceImpl implements JodalPlanService {
     private final JodalPlanRepository jodalPlanRepository;
-    private final ContractRepository contractRepository;
-    private final JodalChasuRepository jodalChasuRepository;
-    private final ProplanRepository proPlanRepository;
 
+    private final MemberService memberService;
+    private final ProplanService proplanService;
 
     @Override
     public void save(JodalPlanDTO dto) {
@@ -46,35 +45,25 @@ public class JodalPlanServiceImpl implements JodalPlanService {
     public JodalPlanDTO findById(Long id) {
         Optional<JodalPlan> jodalPlan = jodalPlanRepository.findById(id);
         return jodalPlan.map(this::entityToDTO).orElse(null);
-
-
     }
 
-    private JodalPlan dtoToEntity(JodalPlanDTO dto) {
+    @Override
+    public JodalPlan dtoToEntity(JodalPlanDTO dto) {
         return JodalPlan.builder()
                 .joNo(dto.getJoNo())
-                .details(dto.getDetails())
                 .planDate(dto.getPlanDate())
-                .writer(Member.builder().id(String.valueOf(dto.getWriterId())).build())
-                .contract(contractRepository.findById(dto.getContractId()).orElse(null))
-                .jodalChasus(dto.getJodalChasuIds().stream()
-                        .map(id -> jodalChasuRepository.findById(id).orElse(null))
-                        .collect(Collectors.toList()))
-                .proPlan(proPlanRepository.findById(dto.getProPlanId()).orElse(null))
+                .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
+                .proPlan(proplanService.dtoToEntity(dto.getProplanDTO()))
                 .build();
     }
 
-    private JodalPlanDTO entityToDTO(JodalPlan entity) {
+    @Override
+    public JodalPlanDTO entityToDTO(JodalPlan entity) {
         return JodalPlanDTO.builder()
                 .joNo(entity.getJoNo())
-                .details(entity.getDetails())
                 .planDate(entity.getPlanDate())
-                .writerId(entity.getWriter() != null ? Long.valueOf(entity.getWriter().getId()) : null)
-                .contractId(entity.getContract() != null ? entity.getContract().getConNo() : null)
-                .jodalChasuIds(entity.getJodalChasus().stream()
-                        .map(chasu -> chasu.getJoNum()) // getJoNum() 메서드가 존재하는지 확인
-                        .collect(Collectors.toList()))
-                .proPlanId(entity.getProPlan() != null ? entity.getProPlan().getProplanNo() : null) // getId() 메서드가 존재하는지 확인
+                .memberDTO(memberService.memberTodto(entity.getWriter()))
+                .proplanDTO(proplanService.entityToDTO(entity.getProPlan()))
                 .build();
         }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProplanDTO {
@@ -16,9 +17,11 @@ public class ProplanDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String line;
-    private Long productId;
+//    private Long productId;
     private String details;
-    private Long writerId;  // 작성자 ID
+    private ProductDTO productDTO;
+    private MemberDTO memberDTO;
+//    private Long writerId;  // 작성자 ID
     //private List<Long> jodalPlanIds; // 연관된 JodalPlan ID 목록
 
 }
