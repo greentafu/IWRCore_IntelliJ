@@ -21,7 +21,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">재고 목록 /</span> 재고 금액</h4>
 
-      <!-- Hoverable Table rows -->
+        <!-- Hoverable Table rows -->
               <div class="card">
                 <!--검색-->
                 <div class="card-body">
@@ -34,7 +34,8 @@
                     <div class="row">
                       <span class="col-md-3">대분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
+                        <select class="form-select form-select-sm" id="selectProL"
+                                onchange="updateProCode('L')"></select>
                       </div>
                     </div>
                   </td>
@@ -42,7 +43,8 @@
                     <div class="row">
                       <span class="col-md-3">중분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
+                        <select class="form-select form-select-sm" id="selectProM"
+                                onchange="updateProCode('M')"></select>
                       </div>
                     </div>
                   </td>
@@ -50,7 +52,8 @@
                     <div class="row">
                       <span class="col-md-3">소분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
+                        <select class="form-select form-select-sm" id="selectProS"
+                                onchange="updateProCode('S')"></select>
                       </div>
                     </div>
                   </td>
@@ -59,7 +62,8 @@
                       <div class="col-md-9">
                         <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
                       </div>
-                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary"
+                              style="width: 70px;">검색</button>
                     </div>
                   </td>
                 </tr>
@@ -69,7 +73,8 @@
                     <div class="row">
                       <span class="col-md-3">대분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterL" onchange="updateMaterCode('L')"></select>
+                        <select class="form-select form-select-sm" id="selectMaterL"
+                                onchange="updateMaterCode('L')"></select>
                       </div>
                     </div>
                   </td>
@@ -77,7 +82,8 @@
                     <div class="row">
                       <span class="col-md-3">중분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterM" onchange="updateMaterCode('M')"></select>
+                        <select class="form-select form-select-sm" id="selectMaterM"
+                                onchange="updateMaterCode('M')"></select>
                       </div>
                     </div>
                   </td>
@@ -85,7 +91,8 @@
                     <div class="row">
                       <span class="col-md-3">소분류</span>
                       <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterS" onchange="updateMaterCode('S')"></select>
+                        <select class="form-select form-select-sm" id="selectMaterS"
+                                onchange="updateMaterCode('S')"></select>
                       </div>
                     </div>
                   </td>
@@ -94,7 +101,8 @@
                       <div class="col-md-9">
                         <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
                       </div>
-                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary"
+                              style="width: 70px;">검색</button>
                     </div>
                   </td>
                 </tr>
@@ -102,7 +110,7 @@
                     </div>
                   </div>
                 </div>
-                <!--/검색-->
+                  <!--/검색-->
                 <div class="table-responsive text-nowrap">
 
                   <!-- Outline Dropdowns -->
@@ -119,7 +127,7 @@
                         다운로드
                       </button>
                     </div>
-                    <!--다운로드-->
+                      <!--다운로드-->
                     <table class="table table-bordered mb-4">
                       <thead>
                         <tr>
@@ -286,7 +294,7 @@
                   </div>
                 </div>
               </div>
-      <!--/ Hoverable Table rows -->
+        <!--/ Hoverable Table rows -->
             </div>
 
 
@@ -298,13 +306,17 @@
                     현재 화면(제품:자전거 / 자재:핸들링 부품-핸들바)의 정보 다운
                   </div>
                   <div class="modal-body">
-                    <div class="text-center">
+                    <div class="d-flex justify-content-center">
+                      <form th:action="@{/export}" method="post" class="me-2">
                       <button type="button" class="btn btn-outline-primary">
                         예
                       </button>
+                      </form>
+                      <form th:action="@{/export}" method="post">
                       <button type="button" class="btn btn-outline-primary">
                         아니오(전체 다운로드)
-                      </button>
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -312,7 +324,7 @@
             </div>
 
 
-      <!--Modal-->
+        <!--Modal-->
 
         <!--/Modal-->
         <!--Script-->
