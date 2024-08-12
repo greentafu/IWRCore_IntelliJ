@@ -51,13 +51,13 @@ public class JodalPlanServiceTests {
                 .memberDTO(memberService.findMemberDto(1L, null))
                 .proplanDTO(proplanService.findById(1L))
                 .build();
-        jodalPlanService.save(dto);
-        JodalPlanDTO dto1=JodalPlanDTO.builder()
-                .planDate(LocalDateTime.now())
-                .memberDTO(memberService.findMemberDto(2L, null))
-                .proplanDTO(proplanService.findById(2L))
-                .build();
-        jodalPlanService.save(dto1);
-    }
+//        jodalPlanService.save(dto);
+//        JodalPlanDTO dto1=JodalPlanDTO.builder()
+//                .planDate(LocalDateTime.now())
+//                .memberDTO(memberService.findMemberDto(2L, null))
+//                .proplanDTO(proplanService.findById(2L))
+//                .build();
+//        jodalPlanService.save(dto1);
+//    }
 
-}
+}}

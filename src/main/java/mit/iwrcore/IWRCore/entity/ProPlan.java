@@ -20,7 +20,9 @@ public class ProPlan extends BaseEntity {
     private String filename;     // 파일
     private LocalDateTime startDate;  // 시작일
     private LocalDateTime endDate;    // 마감일
+
     private String line;         // 라인
+
     private String details;      // 상세내용
 
     @ManyToOne(fetch = FetchType.LAZY)

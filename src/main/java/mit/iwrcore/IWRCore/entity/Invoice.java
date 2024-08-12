@@ -9,8 +9,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Getter
-@ToString(exclude = {"writer", "shipments"})
+@ToString(exclude = {"writer"})
 public class Invoice extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,4 @@ public class Invoice extends BaseEntity {
     @JoinColumn(name = "writer_id")        // 외래 키 컬럼 이름
     private Member writer;                  // 작성자
 
-    @OneToMany(mappedBy = "invoice")       // mappedBy를 통해 양방향 관계 설정
-    private List<Shipment> shipments;       // 이 Invoice와 연관된 Shipment 목록
 }

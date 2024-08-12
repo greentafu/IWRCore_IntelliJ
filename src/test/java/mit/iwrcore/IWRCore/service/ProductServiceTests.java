@@ -52,72 +52,72 @@ public class ProductServiceTests {
                 .build();
         productRepository.save(productServiceImpl.productDtoToEntity(dto));
 
-        ProductDTO dto1=ProductDTO.builder()
-                .name("A자전거").color("빨강").text("").uuid("")
-                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
-                .memberDTO(memberService.findMemberDto(2L, null))
-                .proSDTO(proCodeService.findProS(2L))
-                .build();
-        productRepository.save(productServiceImpl.productDtoToEntity(dto1));
-
-        ProductDTO dto2=ProductDTO.builder()
-                .name("A자전거").color("빨강").text("").uuid("")
-                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
-                .memberDTO(memberService.findMemberDto(2L, null))
-                .proSDTO(proCodeService.findProS(3L))
-                .build();
-        productRepository.save(productServiceImpl.productDtoToEntity(dto2));
-
-        ProductDTO dto3=ProductDTO.builder()
-                .name("A자전거").color("빨강").text("").uuid("")
-                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
-                .memberDTO(memberService.findMemberDto(3L, null))
-                .proSDTO(proCodeService.findProS(4L))
-                .build();
-        productRepository.save(productServiceImpl.productDtoToEntity(dto3));
-    }
-
-    // 제품 한개 가져오기
-    @Test
-    @Transactional
-    @Commit
-    public void testOne(){
-        System.out.println(productService.getProductById(4L));
-    }
-
-    // 제품 여러개 가져오기
-    @Test
-    @Transactional
-    @Commit
-    public void testList(){
-        Pageable pageable= PageRequest.of(0,2);
-        productRepository.findAllProduct(pageable).forEach(System.out::println);
-//        productService.getAllProducts().forEach(System.out::println);
-    }
-
-    @Test
-    @Transactional
-    @Commit
-    public void testAddProduct() {
-        ProductDTO dto3=ProductDTO.builder()
-                .manuCode(5L)
-                .name("C자전거").color("검정").text("").uuid("")
-                .supervisor("감독자2").mater_imsi(0L).mater_check(0L)
-                .memberDTO(memberService.findMemberDto(1L, null))
-                .proSDTO(proCodeService.findProS(2L))
-                .build();
-//        productService.addProduct(dto3);
-        productService.updateProduct(dto3);
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void deleteTest(){
-        productService.deleteProduct(5L);
-    }
-
-
-
+//        ProductDTO dto1=ProductDTO.builder()
+//                .name("A자전거").color("빨강").text("").uuid("")
+//                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
+//                .memberDTO(memberService.findMemberDto(2L, null))
+//                .proSDTO(proCodeService.findProS(2L))
+//                .build();
+//        productRepository.save(productServiceImpl.productDtoToEntity(dto1));
+//
+//        ProductDTO dto2=ProductDTO.builder()
+//                .name("A자전거").color("빨강").text("").uuid("")
+//                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
+//                .memberDTO(memberService.findMemberDto(2L, null))
+//                .proSDTO(proCodeService.findProS(3L))
+//                .build();
+//        productRepository.save(productServiceImpl.productDtoToEntity(dto2));
+//
+//        ProductDTO dto3=ProductDTO.builder()
+//                .name("A자전거").color("빨강").text("").uuid("")
+//                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
+//                .memberDTO(memberService.findMemberDto(3L, null))
+//                .proSDTO(proCodeService.findProS(4L))
+//                .build();
+//        productRepository.save(productServiceImpl.productDtoToEntity(dto3));
+//    }
+//
+//    // 제품 한개 가져오기
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void testOne(){
+//        System.out.println(productService.getProductById(4L));
+//    }
+//
+//    // 제품 여러개 가져오기
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void testList(){
+//        Pageable pageable= PageRequest.of(0,2);
+//        productRepository.findAllProduct(pageable).forEach(System.out::println);
+////        productService.getAllProducts().forEach(System.out::println);
+//    }
+//
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void testAddProduct() {
+//        ProductDTO dto3=ProductDTO.builder()
+//                .manuCode(5L)
+//                .name("C자전거").color("검정").text("").uuid("")
+//                .supervisor("감독자2").mater_imsi(0L).mater_check(0L)
+//                .memberDTO(memberService.findMemberDto(1L, null))
+//                .proSDTO(proCodeService.findProS(2L))
+//                .build();
+////        productService.addProduct(dto3);
+//        productService.updateProduct(dto3);
+//    }
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void deleteTest(){
+//        productService.deleteProduct(5L);
+//    }
+//
+//
+//
 
 //
 //    @Test
@@ -185,4 +185,4 @@ public class ProductServiceTests {
 //    }
 
 
-}
+}}

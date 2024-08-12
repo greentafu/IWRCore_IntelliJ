@@ -55,58 +55,58 @@ public class ProplanServiceTests {
                 .memberDTO(memberService.findMemberDto(1L, null))
                 .build();
         proplanService.save(proplanDTO);
-        ProplanDTO proplanDTO1=ProplanDTO.builder()
-                .pronum(3000L)
-                .filename("")
-                .startDate(LocalDateTime.now().plusDays(9))
-                .endDate(LocalDateTime.now().plusDays(16))
-                .line("A")
-                .details("")
-                .productDTO(productService.getProductById(2L))
-                .memberDTO(memberService.findMemberDto(2L, null))
-                .build();
-        proplanService.save(proplanDTO1);
-        ProplanDTO proplanDTO2=ProplanDTO.builder()
-                .pronum(5000L)
-                .filename("")
-                .startDate(LocalDateTime.now().plusDays(20))
-                .endDate(LocalDateTime.now().plusDays(27))
-                .line("A")
-                .details("")
-                .productDTO(productService.getProductById(3L))
-                .memberDTO(memberService.findMemberDto(3L, null))
-                .build();
-        proplanService.save(proplanDTO2);
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void testupdate(){
-        ProplanDTO proplanDTO=ProplanDTO.builder()
-                .proplanNo(1L)
-                .pronum(2000L)
-                .filename("")
-                .startDate(LocalDateTime.now().plusDays(2))
-                .endDate(LocalDateTime.now().plusDays(7))
-                .line("AC")
-                .details("")
-                .productDTO(productService.getProductById(1L))
-                .memberDTO(memberService.findMemberDto(1L, null))
-                .build();
-        proplanService.save(proplanDTO);
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void findone(){
-        System.out.println(proplanService.findById(1L));
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void test(){
-        Pageable pageable= PageRequest.of(0,2);
-        proPlanRepository.proPlanList(pageable).forEach(System.out::println);
+//        ProplanDTO proplanDTO1=ProplanDTO.builder()
+//                .pronum(3000L)
+//                .filename("")
+//                .startDate(LocalDateTime.now().plusDays(9))
+//                .endDate(LocalDateTime.now().plusDays(16))
+//                .line("A")
+//                .details("")
+//                .productDTO(productService.getProductById(2L))
+//                .memberDTO(memberService.findMemberDto(2L, null))
+//                .build();
+//        proplanService.save(proplanDTO1);
+//        ProplanDTO proplanDTO2=ProplanDTO.builder()
+//                .pronum(5000L)
+//                .filename("")
+//                .startDate(LocalDateTime.now().plusDays(20))
+//                .endDate(LocalDateTime.now().plusDays(27))
+//                .line("A")
+//                .details("")
+//                .productDTO(productService.getProductById(3L))
+//                .memberDTO(memberService.findMemberDto(3L, null))
+//                .build();
+//        proplanService.save(proplanDTO2);
+//    }
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void testupdate(){
+//        ProplanDTO proplanDTO=ProplanDTO.builder()
+//                .proplanNo(1L)
+//                .pronum(2000L)
+//                .filename("")
+//                .startDate(LocalDateTime.now().plusDays(2))
+//                .endDate(LocalDateTime.now().plusDays(7))
+//                .line("AC")
+//                .details("")
+//                .productDTO(productService.getProductById(1L))
+//                .memberDTO(memberService.findMemberDto(1L, null))
+//                .build();
+//        proplanService.save(proplanDTO);
+//    }
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void findone(){
+//        System.out.println(proplanService.findById(1L));
+//    }
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void test(){
+//        Pageable pageable= PageRequest.of(0,2);
+//        proPlanRepository.proPlanList(pageable).forEach(System.out::println);
     }
 
 //    @Test

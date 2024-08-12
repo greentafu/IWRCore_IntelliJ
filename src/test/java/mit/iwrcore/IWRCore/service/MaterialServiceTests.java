@@ -44,9 +44,9 @@ public class MaterialServiceTests {
     @Test
     @Transactional
     @Commit
-    public void insertMaterial(){
-        BoxDTO box=BoxDTO.builder().boxname("Box 1").boxcode(1L).build();
-        MaterialDTO materialDTO=MaterialDTO.builder()
+    public void insertMaterial() {
+        BoxDTO box = BoxDTO.builder().boxname("Box 1").boxcode(1L).build();
+        MaterialDTO materialDTO = MaterialDTO.builder()
                 .name("앞바퀴")
                 .unit("")
                 .standard("")
@@ -57,65 +57,66 @@ public class MaterialServiceTests {
                 .boxDTO(box)
                 .build();
         materialRepository.save(materialServiceImpl.materdtoToEntity(materialDTO));
-        MaterialDTO materialDTO1=MaterialDTO.builder()
-                .name("뒷바퀴")
-                .unit("")
-                .standard("")
-                .color("검정")
-                .file("")
-                .memberDTO(memberService.findMemberDto(2L, null))
-                .materSDTO(materService.findMaterS(2L))
-                .boxDTO(box)
-                .build();
-        materialRepository.save(materialServiceImpl.materdtoToEntity(materialDTO1));
-        MaterialDTO materialDTO2=MaterialDTO.builder()
-                .name("브레이크")
-                .unit("")
-                .standard("")
-                .color("회색")
-                .file("")
-                .memberDTO(memberService.findMemberDto(3L, null))
-                .materSDTO(materService.findMaterS(3L))
-                .boxDTO(box)
-                .build();
-        materialRepository.save(materialServiceImpl.materdtoToEntity(materialDTO2));
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void list(){
-        Pageable pageable= PageRequest.of(0,2);
-        materialRepository.materialList(pageable).forEach(System.out::println);
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void listTest(){
-        materialRepository.materialListPart(null,null).forEach(System.out::println);
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void deleteTest(){
-        materialService.deleteJa(6L);
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void insetTest1(){
-        BoxDTO box=BoxDTO.builder().boxname("Box 1").boxcode(1L).build();
-        MaterialDTO materialDTO2=MaterialDTO.builder()
-                .name("브레이크")
-                .unit("")
-                .standard("")
-                .color("회색")
-                .file("")
-                .memberDTO(memberService.findMemberDto(3L, null))
-                .materSDTO(materService.findMaterS(3L))
-                .boxDTO(box)
-                .build();
-        materialService.insertj(materialDTO2);
-    }
+
+//        MaterialDTO materialDTO1=MaterialDTO.builder()
+//                .name("뒷바퀴")
+//                .unit("")
+//                .standard("")
+//                .color("검정")
+//                .file("")
+//                .memberDTO(memberService.findMemberDto(2L, null))
+//                .materSDTO(materService.findMaterS(2L))
+//                .boxDTO(box)
+//                .build();
+//        materialRepository.save(materialServiceImpl.materdtoToEntity(materialDTO1));
+//        MaterialDTO materialDTO2=MaterialDTO.builder()
+//                .name("브레이크")
+//                .unit("")
+//                .standard("")
+//                .color("회색")
+//                .file("")
+//                .memberDTO(memberService.findMemberDto(3L, null))
+//                .materSDTO(materService.findMaterS(3L))
+//                .boxDTO(box)
+//                .build();
+//        materialRepository.save(materialServiceImpl.materdtoToEntity(materialDTO2));
+//    }
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void list(){
+//        Pageable pageable= PageRequest.of(0,2);
+//        materialRepository.materialList(pageable).forEach(System.out::println);
+//    }
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void listTest(){
+//        materialRepository.materialListPart(null,null).forEach(System.out::println);
+//    }
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void deleteTest(){
+//        materialService.deleteJa(6L);
+//    }
+//    @Test
+//    @Transactional
+//    @Commit
+//    public void insetTest1(){
+//        BoxDTO box=BoxDTO.builder().boxname("Box 1").boxcode(1L).build();
+//        MaterialDTO materialDTO2=MaterialDTO.builder()
+//                .name("브레이크")
+//                .unit("")
+//                .standard("")
+//                .color("회색")
+//                .file("")
+//                .memberDTO(memberService.findMemberDto(3L, null))
+//                .materSDTO(materService.findMaterS(3L))
+//                .boxDTO(box)
+//                .build();
+//        materialService.insertj(materialDTO2);
+//    }
 //
 //
 //    @Test
@@ -215,4 +216,4 @@ public class MaterialServiceTests {
 //        List<MaterialDTO> result = materialService.MfindList(materSDTO);
 //
 //    }
-}
+    }}

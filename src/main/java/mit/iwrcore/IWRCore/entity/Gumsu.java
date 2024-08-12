@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Setter
 @Getter
 @ToString(exclude = {"writer", "balju", "gumsuChasus"})
 public class Gumsu extends BaseEntity {

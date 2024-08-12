@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString
 public class Request extends BaseEntity {
     @Id
@@ -19,4 +20,18 @@ public class Request extends BaseEntity {
     private String text;
     private Long reqCheck;
     private String line;
+
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "proplan_no")
+    private ProPlan proPlan;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "materCode")
+    private Material material;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer")    // 외래 키 컬럼 이름
+    private Member writer;              // 작성자
 }
