@@ -1,13 +1,18 @@
 package mit.iwrcore.IWRCore.service;
 
 
+import jakarta.transaction.Transactional;
 import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.*;
 import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
 import mit.iwrcore.IWRCore.security.service.JodalPlanServiceImpl;
+import mit.iwrcore.IWRCore.security.service.MemberService;
+import mit.iwrcore.IWRCore.security.service.ProductService;
+import mit.iwrcore.IWRCore.security.service.ProplanService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -31,15 +36,28 @@ public class JodalPlanServiceTests {
     private JodalChasuRepository jodalChasuRepository;
 
     @Autowired
-    private ProplanRepository proPlanRepository;
+    private ProplanService proplanService;
 
     @Autowired
-    private MemberRepository memberRepository; // MemberRepository 추가
+    private MemberService memberService; // MemberRepository 추가
 
 
     @Test
+    @Transactional
+    @Commit
     void insertJplan(){
-
+        JodalPlanDTO dto=JodalPlanDTO.builder()
+                .planDate(LocalDateTime.now())
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .proplanDTO(proplanService.findById(1L))
+                .build();
+        jodalPlanService.save(dto);
+        JodalPlanDTO dto1=JodalPlanDTO.builder()
+                .planDate(LocalDateTime.now())
+                .memberDTO(memberService.findMemberDto(2L, null))
+                .proplanDTO(proplanService.findById(2L))
+                .build();
+        jodalPlanService.save(dto1);
     }
 
 }

@@ -16,54 +16,54 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class JodalChasuServiceImpl implements JodalChasuService{
-    private final JodalChasuRepository jodalChasuRepository;
-    private final JodalPlanRepository jodalPlanRepository;
-    @Override
-    public void save(JodalChasuDTO dto) {
-        JodalChasu jodalChasu = dtoToEntity(dto);
-        jodalChasuRepository.save(jodalChasu);
-    }
-
-    @Override
-    public JodalChasuDTO update(JodalChasuDTO dto) {
-        JodalChasu jodalChasu = dtoToEntity(dto);
-        JodalChasu updatedJodalChasu = jodalChasuRepository.save(jodalChasu);
-        return entityToDTO(updatedJodalChasu);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        jodalChasuRepository.deleteById(id);
-    }
-
-    @Override
-    public JodalChasuDTO findById(Long id) {
-        Optional<JodalChasu> jodalChasu = jodalChasuRepository.findById(id);
-        return jodalChasu.map(this::entityToDTO).orElse(null);
-    }
-
-    @Override
-    public List<JodalChasuDTO> findByJodalPlanId(Long jodalPlanId) {
-        List<JodalChasu> jodalChasus = jodalChasuRepository.findByJodalPlan_JoNo(jodalPlanId);
-        return jodalChasus.stream()
-                .map(this::entityToDTO)
-                .collect(Collectors.toList());
-    }
-
-    private JodalChasu dtoToEntity(JodalChasuDTO dto) {
-        return JodalChasu.builder()
-                .joNum(dto.getJoNum())
-                .joDate(dto.getJoDate())
-                .jodalPlan(jodalPlanRepository.findById(dto.getJodalPlanId()).orElse(null))
-                .build();
-    }
-
-    private JodalChasuDTO entityToDTO(JodalChasu entity) {
-        return JodalChasuDTO.builder()
-                .joNum(entity.getJoNum())
-                .joDate(entity.getJoDate())
-                .jodalPlanId(entity.getJodalPlan() != null ? entity.getJodalPlan().getJoNo() : null)
-                .build();
-    }
+//    private final JodalChasuRepository jodalChasuRepository;
+//    private final JodalPlanRepository jodalPlanRepository;
+//    @Override
+//    public void save(JodalChasuDTO dto) {
+//        JodalChasu jodalChasu = dtoToEntity(dto);
+//        jodalChasuRepository.save(jodalChasu);
+//    }
+//
+//    @Override
+//    public JodalChasuDTO update(JodalChasuDTO dto) {
+//        JodalChasu jodalChasu = dtoToEntity(dto);
+//        JodalChasu updatedJodalChasu = jodalChasuRepository.save(jodalChasu);
+//        return entityToDTO(updatedJodalChasu);
+//    }
+//
+//    @Override
+//    public void deleteById(Long id) {
+//        jodalChasuRepository.deleteById(id);
+//    }
+//
+//    @Override
+//    public JodalChasuDTO findById(Long id) {
+//        Optional<JodalChasu> jodalChasu = jodalChasuRepository.findById(id);
+//        return jodalChasu.map(this::entityToDTO).orElse(null);
+//    }
+//
+//    @Override
+//    public List<JodalChasuDTO> findByJodalPlanId(Long jodalPlanId) {
+//        List<JodalChasu> jodalChasus = jodalChasuRepository.findByJodalPlan_JoNo(jodalPlanId);
+//        return jodalChasus.stream()
+//                .map(this::entityToDTO)
+//                .collect(Collectors.toList());
+//    }
+//
+//    private JodalChasu dtoToEntity(JodalChasuDTO dto) {
+//        return JodalChasu.builder()
+//                .joNum(dto.getJoNum())
+//                .joDate(dto.getJoDate())
+//                .jodalPlan(jodalPlanRepository.findById(dto.getJodalPlanId()).orElse(null))
+//                .build();
+//    }
+//
+//    private JodalChasuDTO entityToDTO(JodalChasu entity) {
+//        return JodalChasuDTO.builder()
+//                .joNum(entity.getJoNum())
+//                .joDate(entity.getJoDate())
+//                .jodalPlanId(entity.getJodalPlan() != null ? entity.getJodalPlan().getJoNo() : null)
+//                .build();
+//    }
 }
 

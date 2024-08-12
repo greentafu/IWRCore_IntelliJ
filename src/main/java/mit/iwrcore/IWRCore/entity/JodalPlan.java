@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"writer", "contract", "jodalChasus", "proPlan"})
+@ToString(exclude = {"writer", "proPlan"})
 public class JodalPlan extends BaseEntity {
 
     @Id
@@ -23,7 +23,6 @@ public class JodalPlan extends BaseEntity {
     private Member writer;            // 작성자
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contract_id")  // 외래 키 컬럼 이름
     private Contract contract;          // 연관된 Contract 엔티티
 
     @OneToMany(mappedBy = "jodalPlan", cascade = CascadeType.ALL, orphanRemoval = true)

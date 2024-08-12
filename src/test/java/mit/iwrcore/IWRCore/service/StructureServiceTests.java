@@ -51,10 +51,20 @@ public class StructureServiceTests {
     @Commit
     public void test(){
         Structure structure1=Structure.builder()
-                .material(materialServiceImpl.materdtoToEntity(materialService.findM(3L)))
-                .product(productServicei.productDtoToEntity(productService.getProductById(1L)))
-                .quantity(60).build();
+                .material(materialServiceImpl.materdtoToEntity(materialService.findM(1L)))
+                .product(productServicei.productDtoToEntity(productService.getProductById(3L)))
+                .quantity(70).build();
         structureRepository.save(structure1);
+        Structure structure2=Structure.builder()
+                .material(materialServiceImpl.materdtoToEntity(materialService.findM(2L)))
+                .product(productServicei.productDtoToEntity(productService.getProductById(3L)))
+                .quantity(60).build();
+        structureRepository.save(structure2);
+        Structure structure4=Structure.builder()
+                .material(materialServiceImpl.materdtoToEntity(materialService.findM(3L)))
+                .product(productServicei.productDtoToEntity(productService.getProductById(3L)))
+                .quantity(80).build();
+        structureRepository.save(structure4);
     }
     @Test
     @Transactional
