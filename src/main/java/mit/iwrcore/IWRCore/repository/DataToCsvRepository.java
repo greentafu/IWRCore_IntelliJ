@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface DataToCsvRepository  extends CrudRepository<ProL,Long> {
-    List<ProL> findAll();
+   // List<ProL> findAll();
 }

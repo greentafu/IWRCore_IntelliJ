@@ -36,3 +36,4 @@ public class Contract extends BaseEntity {
 //    @OneToMany(mappedBy = "contract")  // Order 엔티티와의 1대다 관계
 //    private List<Balju> baljus;        // 이 Contract와 연관된 Order 목록
 }
+
