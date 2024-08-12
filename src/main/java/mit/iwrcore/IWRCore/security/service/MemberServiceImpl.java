@@ -1,8 +1,12 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.Member;
+import mit.iwrcore.IWRCore.entity.MemberRole;
+import mit.iwrcore.IWRCore.entity.QMember;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
@@ -38,9 +42,18 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public PageResultDTO<MemberDTO, Member> findMemberList(PageRequestDTO requestDTO) {
         Pageable pageable=requestDTO.getPageable(Sort.by("mno").descending());
-        Page<Member> entityPage=memberRepository.findAll(pageable);
+
+        BooleanBuilder booleanBuilder=getSearch(requestDTO);
+
+        Page<Member> entityPage=memberRepository.findAll(booleanBuilder ,pageable);
         Function<Member, MemberDTO> fn=(entity->memberTodto(entity));
-        return new PageResultDTO<>(entityPage, fn);
+
+        PageResultDTO pageResultDTO=new PageResultDTO<>(entityPage, fn);
+        pageResultDTO.setDepartment(requestDTO.getDepartment());
+        pageResultDTO.setRole(requestDTO.getRole());
+        pageResultDTO.setMemberSearch(requestDTO.getMemberSearch());
+
+        return pageResultDTO;
     }
     // 직원 삽입(아이디 중복의 경우 0, 성공시 1)
     @Override
@@ -59,5 +72,46 @@ public class MemberServiceImpl implements MemberService{
     public void deleteMember(Long mno) {
         Member member=findMemberEntity(mno, "");
         memberRepository.delete(member);
+    }
+
+    // 검색조건
+    private BooleanBuilder getSearch(PageRequestDTO requestDTO){
+        Integer department=requestDTO.getDepartment();
+        Integer role= requestDTO.getRole();
+        String memberSearch= requestDTO.getMemberSearch();
+
+        BooleanBuilder booleanBuilder=new BooleanBuilder();
+        QMember qMember=QMember.member;
+        BooleanExpression expression=qMember.mno.gt(0L); // mno>0
+
+        booleanBuilder.and(expression);
+
+        if(department==null && role==null && memberSearch==null){
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder1=new BooleanBuilder();
+        if(department!=null){
+            switch (department){
+                case 0: conditionBuilder1.and(qMember.department.contains("자재부서")); break;
+                case 1: conditionBuilder1.and(qMember.department.contains("개발부서")); break;
+                case 2: conditionBuilder1.and(qMember.department.contains("생산부서"));
+            }
+        }
+        BooleanBuilder conditionBuilder2=new BooleanBuilder();
+        if(role!=null){
+            switch (role){
+                case 0: conditionBuilder2.and(qMember.roleSet.contains(MemberRole.valueOf("MANAGER"))); break;
+                case 1: conditionBuilder2.and(qMember.roleSet.contains(MemberRole.valueOf("MATERIAL_TEAM"))); break;
+                case 2: conditionBuilder2.and(qMember.roleSet.contains(MemberRole.valueOf("DEV_PROD_TEAM")));
+            }
+        }
+        BooleanBuilder conditionBuilder3=new BooleanBuilder();
+        if(memberSearch!=null){
+            conditionBuilder3.or(qMember.name.contains(memberSearch)).or(qMember.phonenumber.contains(memberSearch));
+        }
+
+        booleanBuilder.and(conditionBuilder1).and(conditionBuilder2).and(conditionBuilder3);
+        return booleanBuilder;
     }
 }

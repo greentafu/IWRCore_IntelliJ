@@ -23,4 +23,18 @@ public class PageRequestDTO {
         return PageRequest.of(page-1, size, sort);
     }
 
+    // 관리자_회원검색
+    private Integer department;
+    private Integer role;
+    private String memberSearch;
+    // 협력회사검색
+    private Long partL;
+    private Long partM;
+    private Long partS;
+    private String partnerSearch;
+    // 자재검색
+    private Long materL;
+    private Long materM;
+    private Long materS;
+    private String materialSearch;
 }

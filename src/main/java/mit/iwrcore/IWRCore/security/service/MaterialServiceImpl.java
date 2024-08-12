@@ -1,11 +1,10 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.entity.Box;
-import mit.iwrcore.IWRCore.entity.MaterS;
-import mit.iwrcore.IWRCore.entity.Material;
-import mit.iwrcore.IWRCore.entity.Member;
+import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.BoxRepository;
 import mit.iwrcore.IWRCore.repository.Mater.MaterSRepository;
 import mit.iwrcore.IWRCore.repository.MaterialRepository;
@@ -16,6 +15,7 @@ import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -54,9 +54,19 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO){
         Pageable pageable=requestDTO.getPageable(Sort.by("materCode").descending());
-        Page<Material> entityPage=materialRepository.findAll(pageable);
+
+        BooleanBuilder booleanBuilder=getSearch(requestDTO);
+
+        Page<Material> entityPage=materialRepository.findAll(booleanBuilder, pageable);
         Function<Material, MaterialDTO> fn=(entity->materTodto(entity));
-        return new PageResultDTO<>(entityPage, fn);
+
+        PageResultDTO pageResultDTO=new PageResultDTO<>(entityPage, fn);
+        pageResultDTO.setMaterL(requestDTO.getMaterL());
+        pageResultDTO.setMaterM(requestDTO.getMaterM());
+        pageResultDTO.setMaterS(requestDTO.getMaterS());
+        pageResultDTO.setMaterialSearch(requestDTO.getMaterialSearch());
+
+        return pageResultDTO;
     }
     @Override
     public List<Material> findMaterialPart(Long boxcode, Long materscode){
@@ -102,12 +112,45 @@ public class MaterialServiceImpl implements MaterialService {
         return dto;
     }
 
-//    @Override
-//    public void insertsmater(MaterSDTO dto) {
-//        log.info("Inserting materS");
-//        MaterS materS = matersEntity(dto);
-//        materSRepository.save(materS);
-//    }
+    // 검색조건
+    private BooleanBuilder getSearch(PageRequestDTO requestDTO){
+        Long materL=requestDTO.getMaterL();
+        Long materM=requestDTO.getMaterM();
+        Long materS= requestDTO.getMaterS();
+        String materSearch= requestDTO.getMaterialSearch();
+
+        BooleanBuilder booleanBuilder=new BooleanBuilder();
+        QMaterial qMaterial=QMaterial.material;
+        BooleanExpression expression=qMaterial.materCode.gt(0L); // materCode>0
+
+        booleanBuilder.and(expression);
+
+        if(materL==null && materM==null && materS==null && materSearch==null){
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder1=new BooleanBuilder();
+        if(materS!=null){
+            MaterS ms=materService.materSdtoToEntity(materService.findMaterS(materS));
+            conditionBuilder1.and(qMaterial.materS.eq(ms));
+        }else if(materM!=null){
+            List<MaterSDTO> sdtoList=materService.findListMaterS(null, materService.findMaterM(materM), null);
+            List<MaterS> sList=sdtoList.stream().map(x->materService.materSdtoToEntity(x)).collect(Collectors.toList());
+            conditionBuilder1.and(qMaterial.materS.in(sList));
+        }else if(materL!=null){
+            List<MaterSDTO> sdtoList=materService.findListMaterS(materService.findMaterL(materL), null, null);
+            List<MaterS> sList=sdtoList.stream().map(x->materService.materSdtoToEntity(x)).collect(Collectors.toList());
+            conditionBuilder1.and(qMaterial.materS.in(sList));
+        }
+
+        BooleanBuilder conditionBuilder2=new BooleanBuilder();
+        if(materSearch!=null){
+            conditionBuilder2.and(qMaterial.name.contains(materSearch));
+        }
+
+        booleanBuilder.and(conditionBuilder1).and(conditionBuilder2);
+        return booleanBuilder;
+    }
 
 }
 

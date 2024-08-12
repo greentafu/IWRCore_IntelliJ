@@ -1,18 +1,23 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.entity.Partner;
+import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.PartnerRepository;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
 import mit.iwrcore.IWRCore.security.dto.PartnerDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -37,9 +42,19 @@ public class PartnerServiceImpl implements PartnerService{
     @Override
     public PageResultDTO<PartnerDTO, Partner> findPartnerList(PageRequestDTO pageRequestDTO) {
         Pageable pageable=pageRequestDTO.getPageable(Sort.by("pno").descending());
-        Page<Partner> partnerList=partnerRepository.findAll(pageable);
+
+        BooleanBuilder booleanBuilder=getSearch(pageRequestDTO);
+
+        Page<Partner> partnerList=partnerRepository.findAll(booleanBuilder, pageable);
         Function<Partner, PartnerDTO> fn=(entity->partnerTodto(entity));
-        return new PageResultDTO<>(partnerList, fn);
+
+        PageResultDTO pageResultDTO=new PageResultDTO<>(partnerList, fn);
+        pageResultDTO.setPartL(pageRequestDTO.getPartL());
+        pageResultDTO.setPartM(pageRequestDTO.getPartM());
+        pageResultDTO.setPartS(pageRequestDTO.getPartS());
+        pageResultDTO.setPartnerSearch(pageRequestDTO.getPartnerSearch());
+
+        return pageResultDTO;
     }
 
     // 새로운 회사 계정 생성시 사업자등록번호 중복은 1, 아이디 중복은 2, 성공시에는 0
@@ -112,5 +127,50 @@ public class PartnerServiceImpl implements PartnerService{
                 .partS(partCodeService.partSdtoToEntity(dto.getPartSDTO()))
                 .build();
         return entity;
+    }
+
+    // 검색조건
+    private BooleanBuilder getSearch(PageRequestDTO requestDTO){
+        Long partL=requestDTO.getPartL();
+        Long partM=requestDTO.getPartM();
+        Long partS= requestDTO.getPartS();
+        String partnerSearch= requestDTO.getPartnerSearch();
+
+        BooleanBuilder booleanBuilder=new BooleanBuilder();
+        QPartner qPartner=QPartner.partner;
+        BooleanExpression expression=qPartner.pno.gt(0L); // pno>0
+
+        booleanBuilder.and(expression);
+
+        if(partL==null && partM==null && partS==null && partnerSearch==null){
+            return booleanBuilder;
+        }
+
+        BooleanBuilder conditionBuilder1=new BooleanBuilder();
+        if(partS!=null){
+            PartS ps=partCodeService.partSdtoToEntity(partCodeService.findPartS(partS));
+            conditionBuilder1.and(qPartner.partS.eq(ps));
+        }else if(partM!=null){
+            List<PartSDTO> sdtoList=partCodeService.findListPartS(null, partCodeService.findPartM(partM),null);
+            List<PartS> sList=sdtoList.stream().map(x->partCodeService.partSdtoToEntity(x)).collect(Collectors.toList());
+            conditionBuilder1.and(qPartner.partS.in(sList));
+        }else if(partL!=null){
+            List<PartSDTO> sdtoList=partCodeService.findListPartS(partCodeService.findPartL(partL), null,null);
+            List<PartS> sList=sdtoList.stream().map(x->partCodeService.partSdtoToEntity(x)).collect(Collectors.toList());
+            conditionBuilder1.and(qPartner.partS.in(sList));
+        }
+
+        BooleanBuilder conditionBuilder2=new BooleanBuilder();
+        if(partnerSearch!=null){
+            conditionBuilder2
+                    .or(qPartner.name.contains(partnerSearch))
+                    .or(qPartner.registrationNumber.contains(partnerSearch))
+                    .or(qPartner.type.contains(partnerSearch))
+                    .or(qPartner.sector.contains(partnerSearch))
+                    .or(qPartner.telNumber.contains(partnerSearch));
+        }
+
+        booleanBuilder.and(conditionBuilder1).and(conditionBuilder2);
+        return booleanBuilder;
     }
 }

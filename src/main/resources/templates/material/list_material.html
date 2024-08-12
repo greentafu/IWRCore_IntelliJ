@@ -26,78 +26,89 @@
         <div class="card-body">
           <div class="card border">
             <div class="table-responsive text-nowrap">
-              <table class="table">
-                <tr>
-                  <th class="bg-label-primary">제품</th>
-                  <td>
-                    <div class="row">
-                      <span class="col-md-3">대분류</span>
-                      <div class="col">
-                        <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
+              <form th:action="@{/material/list_material}" method="get">
+                <table class="table">
+                  <tr>
+                    <th class="bg-label-primary">제품</th>
+                    <td>
+                      <div class="row">
+                        <span class="col-md-3">대분류</span>
+                        <div class="col">
+                          <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <span class="col-md-3">중분류</span>
-                      <div class="col">
-                        <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
+                    </td>
+                    <td>
+                      <div class="row">
+                        <span class="col-md-3">중분류</span>
+                        <div class="col">
+                          <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <span class="col-md-3">소분류</span>
-                      <div class="col">
-                        <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
+                    </td>
+                    <td>
+                      <div class="row">
+                        <span class="col-md-3">소분류</span>
+                        <div class="col">
+                          <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <div class="col-md-9">
-                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                    </td>
+                    <td>
+                      <div class="row">
+                        <div class="col-md-9">
+                          <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                        </div>
+                        <button type="submit" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
                       </div>
-                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th class="bg-label-primary">자재</th>
-                  <td>
-                    <div class="row">
-                      <span class="col-md-3">대분류</span>
-                      <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterL" onchange="updateMaterCode('L')"></select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="bg-label-primary">자재</th>
+                    <td>
+                      <div class="row">
+                        <span class="col-md-3">대분류</span>
+                        <div class="col">
+                          <div id="preMaterL" th:text="${material_list.materL}" style="display: none;"></div>
+                          <select class="form-select form-select-sm" name="materL" id="selectMaterL" onchange="updateMaterCode('L')"></select>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <span class="col-md-3">중분류</span>
-                      <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterM" onchange="updateMaterCode('M')"></select>
+                    </td>
+                    <td>
+                      <div class="row">
+                        <span class="col-md-3">중분류</span>
+                        <div class="col">
+                          <div id="preMaterM" th:text="${material_list.materM}" style="display: none;"></div>
+                          <select class="form-select form-select-sm" name="materM" id="selectMaterM" onchange="updateMaterCode('M')"></select>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <span class="col-md-3">소분류</span>
-                      <div class="col">
-                        <select class="form-select form-select-sm" id="selectMaterS" onchange="updateMaterCode('S')"></select>
+                    </td>
+                    <td>
+                      <div class="row">
+                        <span class="col-md-3">소분류</span>
+                        <div class="col">
+                          <div id="preMaterS" th:text="${material_list.materS}" style="display: none;"></div>
+                          <select class="form-select form-select-sm" name="materS" id="selectMaterS" onchange="updateMaterCode('S')"></select>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <div class="col-md-9">
-                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                    </td>
+                    <td>
+                      <div class="row">
+                        <div class="col-md-9">
+                          <input
+                                  type="text"
+                                  class="form-control"
+                                  style="height: 32px; font-size: 12px;"
+                                  name="materialSearch"
+                                  th:value="${material_list.materialSearch!=null? material_list.materialSearch : ''}"
+                          >
+                        </div>
+                        <button type="submit" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
                       </div>
-                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+                    </td>
+                  </tr>
+                </table>
+              </form>
             </div>
           </div>
         </div>
@@ -154,17 +165,20 @@
               <ul class="pagination justify-content-center">
                 <th:block th:if="${material_list.prev}">
                   <li class="page-item prev">
-                    <a class="page-link" th:href="@{/material/list_material(page=${material_list.start}-1)}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    <a class="page-link"
+                       th:href="@{/material/list_material(page=${material_list.start}-1)}"><i class="tf-icon bx bx-chevrons-left"></i></a>
                   </li>
                 </th:block>
                 <th:block th:each="pagenum:${material_list.pageList}">
                   <li class="page-item " th:classappend="${material_list.page}==${pagenum}? active">
-                    <a class="page-link" th:href="@{/material/list_material(page=${pagenum})}">[[${pagenum}]]</a>
+                    <a class="page-link"
+                       th:href="@{/material/list_material(page=${pagenum}, materL=${material_list.materL}, materM=${material_list.materM}, materS=${material_list.materS}, materialSearch=${material_list.materialSearch})}">[[${pagenum}]]</a>
                   </li>
                 </th:block>
                 <th:block th:if="${material_list.next}">
                   <li class="page-item next">
-                    <a class="page-link" th:href="@{/material/list_material(page=${material_list.end}+1)}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                    <a class="page-link"
+                       th:href="@{/material/list_material(page=${material_list.end}+1)}"><i class="tf-icon bx bx-chevrons-right"></i></a>
                   </li>
                 </th:block>
               </ul>

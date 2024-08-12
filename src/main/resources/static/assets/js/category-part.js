@@ -1,5 +1,22 @@
 $(document).ready(function(){
-    initPart1();
+    var Lcode = $('#prePartL').text();
+    var Mcode = $('#prePartM').text();
+    var Scode = $('#prePartS').text();
+
+    Lcode=(Lcode==="")?null:Lcode;
+    Mcode=(Mcode==="")?null:Mcode;
+    Scode=(Scode==="")?null:Scode;
+
+    console.log(Lcode+"/"+Mcode+"/"+Scode);
+
+    if(Lcode===null && Mcode===null && Scode===null){
+        console.log("비었다")
+        initPart1();
+    }
+    else{
+        console.log("채웠다")
+        searchPartCode(Lcode, Mcode, Scode);
+    }
     initPart2();
 });
 
@@ -177,6 +194,56 @@ function updatePartCode2(changedSelect){
             });
             data.partSDTOs.forEach(function(partS) {
                 $('#selectPartS2').append(
+                    $('<option></option>')
+                        .attr('value', partS.partScode)
+                        .text(partS.sname)
+                        .prop('selected', partS.partScode == data.s)
+                );
+            });
+
+        }
+    });
+
+}
+
+// 초기화면1(검색)
+function searchPartCode(partL1, partM1, partS1){
+    var Lcode=partL1;
+    var Mcode=partM1;
+    var Scode=partS1;
+
+    console.log(Lcode, Mcode, Scode);
+
+    $.ajax({
+        url:'/select/part',
+        method:'GET',
+        data:{lcode:Lcode, mcode:Mcode, scode:Scode},
+        success:function(data){
+
+            console.log(data);
+
+            $('#selectPartL').empty().append("<option value=''>전체보기</option>");
+            $('#selectPartM').empty().append('<option value="">전체보기</option>');
+            $('#selectPartS').empty().append('<option value="">전체보기</option>');
+
+            data.partLDTOs.forEach(function(partL) {
+                $('#selectPartL').append(
+                    $('<option></option>')
+                        .attr('value', partL.partLcode)
+                        .text(partL.lname)
+                        .prop('selected', partL.partLcode == data.l)
+                );
+            });
+            data.partMDTOs.forEach(function(partM) {
+                $('#selectPartM').append(
+                    $('<option></option>')
+                        .attr('value', partM.partMcode)
+                        .text(partM.mname)
+                        .prop('selected', partM.partMcode == data.m)
+                );
+            });
+            data.partSDTOs.forEach(function(partS) {
+                $('#selectPartS').append(
                     $('<option></option>')
                         .attr('value', partS.partScode)
                         .text(partS.sname)

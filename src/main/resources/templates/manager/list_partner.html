@@ -25,57 +25,36 @@
           <!-- Outline Dropdowns -->
           <div class="card-body">
             <div class="demo-inline-spacing">
-              <div class="btn-group">
-                <button
-                        type="button"
-                        class="btn btn-outline-primary dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                  대분류
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="javascript:void(0);">기계부품</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">전기부품</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">화학제품</a></li>
-                </ul>
-              </div>
-              <div class="btn-group">
-                <button
-                        type="button"
-                        class="btn btn-outline-primary dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                  중분류
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="javascript:void(0);">프레임 및 관련 부품</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">브레이크 시스템</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">변속시스템</a></li>
-                </ul>
-              </div>
-              <div class="btn-group">
-                <button
-                        type="button"
-                        class="btn btn-outline-primary dropdown-toggle"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                  소분류
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="javascript:void(0);">프레임</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">핸들바 및 그립</a></li>
-                  <li><a class="dropdown-item" href="javascript:void(0);">서스펜션 및 충격흡수기</a></li>
-                </ul>
-              </div>
-              <div class="btn-group">
-                <form class="d-flex" onsubmit="return false">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                  <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
-              </div>
+              <form th:action="@{/manager/list_partner}" method="get">
+                <div class="row">
+                  <div class="mb-3 col-md-2">
+                    <div id="prePartL" th:text="${partner_list.partL}" style="display: none;"></div>
+                    <select class="select form-select" name="partL" id="selectPartL" onchange="updatePartCode('L')"></select>
+                  </div>
+                  <div class="mb-3 col-md-2">
+                    <div id="prePartM" th:text="${partner_list.partM}" style="display: none;"></div>
+                    <select class="select form-select" name="partM" id="selectPartM" onchange="updatePartCode('M')"></select>
+                  </div>
+                  <div class="mb-3 col-md-2">
+                    <div id="prePartS" th:text="${partner_list.partS}" style="display: none;"></div>
+                    <select class="select form-select" name="partS" id="selectPartS" onchange="updatePartCode('S')"></select>
+                  </div>
+                  <div class="col-md-3">
+                    <input
+                            class="form-control me-2 col-md-5"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                            name="partnerSearch"
+                            id="partnerSearch"
+                            th:value="${partner_list.partnerSearch!=null? partner_list.partnerSearch : ''}"
+                    />
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
           <table class="table table-hover mb-4">
@@ -121,17 +100,26 @@
             <ul class="pagination justify-content-center">
               <th:block th:if="${partner_list.prev}">
                 <li class="page-item prev">
-                  <a class="page-link" th:href="@{/manager/list_partner(page=${partner_list.start}-1)}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                  <a class="page-link"
+                     th:href="@{/manager/list_partner(page=${partner_list.start}-1, partL=${partner_list.partL}, partM=${partner_list.partM}, partS=${partner_list.partS}, partnerSearch=${partner_list.partnerSearch})}">
+                    <i class="tf-icon bx bx-chevrons-left"></i>
+                  </a>
                 </li>
               </th:block>
               <th:block th:each="pagenum:${partner_list.pageList}">
                 <li class="page-item " th:classappend="${partner_list.page}==${pagenum}? active">
-                  <a class="page-link" th:href="@{/manager/list_partner(page=${pagenum})}">[[${pagenum}]]</a>
+                  <a class="page-link"
+                     th:href="@{/manager/list_partner(page=${pagenum}, partL=${partner_list.partL}, partM=${partner_list.partM}, partS=${partner_list.partS}, partnerSearch=${partner_list.partnerSearch})}"
+                  >[[${pagenum}]]
+                  </a>
                 </li>
               </th:block>
               <th:block th:if="${partner_list.next}">
                 <li class="page-item next">
-                  <a class="page-link" th:href="@{/manager/list_partner(page=${partner_list.end}+1)}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                  <a class="page-link"
+                     th:href="@{/manager/list_partner(page=${partner_list.end}+1, partL=${partner_list.partL}, partM=${partner_list.partM}, partS=${partner_list.partS}, partnerSearch=${partner_list.partnerSearch})}">
+                    <i class="tf-icon bx bx-chevrons-right"></i>
+                  </a>
                 </li>
               </th:block>
             </ul>
