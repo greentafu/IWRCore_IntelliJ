@@ -68,6 +68,7 @@ public class MaterialServiceImpl implements MaterialService {
 
         return pageResultDTO;
     }
+
     @Override
     public List<Material> findMaterialPart(Long boxcode, Long materscode){
         return materialRepository.materialListPart(boxcode, materscode);
@@ -104,7 +105,6 @@ public class MaterialServiceImpl implements MaterialService {
                 .standard(entity.getStandard())
                 .color(entity.getColor())
                 .file(entity.getFile())
-                .date(entity.getRegDate())
                 .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .materSDTO(materService.materSTodto(entity.getMaterS()))
                 .boxDTO(boxService.boxTodto(entity.getBox()))

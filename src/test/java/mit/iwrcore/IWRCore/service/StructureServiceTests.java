@@ -134,13 +134,6 @@ public class StructureServiceTests {
             System.out.println("Remaining Structures Count: " + structureRepository.count());
         }
     }
-    @Test
-    @org.springframework.transaction.annotation.Transactional
-    @Commit
-    public void test3(){
-        structureRepository.findByProduct_ManuCode(1L).forEach(System.out::println);
-    }
-
 
 //    @Test
 //    void testFindByProduct_ManuCode() {

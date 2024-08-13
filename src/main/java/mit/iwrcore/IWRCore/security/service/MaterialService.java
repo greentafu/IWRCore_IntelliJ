@@ -24,13 +24,13 @@ public interface MaterialService {
     MaterialDTO findM (Long matercode);
     // 자재 리스트
     PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO); //모든 리스트
+
     List<Material> findMaterialPart(Long boxcode, Long materscode); //일부분(창고별, 자재소분류별)
+
     // 자재 삭제
     void deleteJa(Long materCode);
 
     Material materdtoToEntity(MaterialDTO dto);
     MaterialDTO materTodto(Material entity);
-//    //소분류 삽입
-//    void insertsmater(MaterSDTO materSDTO);
 
 }

@@ -2,26 +2,31 @@ package mit.iwrcore.IWRCore.security.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.Product;
 import mit.iwrcore.IWRCore.entity.Structure;
 import mit.iwrcore.IWRCore.repository.MaterialRepository;
 import mit.iwrcore.IWRCore.repository.ProductRepository;
 import mit.iwrcore.IWRCore.repository.StructureRepository;
 import mit.iwrcore.IWRCore.security.dto.StructureDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Log4j2
 public class StructureServiceImpl implements StructureService {
-
+    @Autowired
     private final StructureRepository structureRepository;
-
-    private final ProductServiceImpl productServiceImpl;
-    private final MaterialServiceImpl materialServiceImpl;
+    @Autowired
+    private final ProductService productService;
+    @Autowired
+    private final MaterialService materialService;
 
     @Override
     public void save(StructureDTO dto) {
@@ -49,9 +54,9 @@ public class StructureServiceImpl implements StructureService {
 
     @Override
     public List<StructureDTO> findByProduct_ManuCode(Long manuCode) {
-        return structureRepository.findByProduct_ManuCode(manuCode).stream()
-                .map(this::structureTodto)  // 엔티티를 DTO로 변환
-                .collect(Collectors.toList());
+        List<StructureDTO> dtoList=new ArrayList<>();
+        structureRepository.findByProduct_ManuCode(manuCode).forEach(x->dtoList.add(structureTodto(x)));
+        return dtoList;
     }
 
     // dto를 entity로
@@ -59,20 +64,20 @@ public class StructureServiceImpl implements StructureService {
     public Structure structureDtoToEntity(StructureDTO dto){
         Structure entity=Structure.builder()
                 .sno(dto.getSno())
-                .product(productServiceImpl.productDtoToEntity(dto.getProductDTO()))
-                .material(materialServiceImpl.materdtoToEntity(dto.getMaterialDTO()))
+                .material(materialService.materdtoToEntity(dto.getMaterialDTO()))
+                .product(productService.productDtoToEntity(dto.getProductDTO()))
                 .quantity(dto.getQuantity())
                 .build();
         return entity;
     }
     // entity를 dto로
     @Override
-    public StructureDTO structureTodto(Structure structure){
+    public StructureDTO structureTodto(Structure entity){
         StructureDTO dto=StructureDTO.builder()
-                .sno(structure.getSno())
-                .productDTO(productServiceImpl.productEntityToDto(structure.getProduct()))
-                .materialDTO(materialServiceImpl.materTodto(structure.getMaterial()))
-                .quantity(structure.getQuantity())
+                .sno(entity.getSno())
+                .productDTO(productService.productEntityToDto(entity.getProduct()))
+                .materialDTO(materialService.materTodto(entity.getMaterial()))
+                .quantity(entity.getQuantity())
                 .build();
         return dto;
     }
