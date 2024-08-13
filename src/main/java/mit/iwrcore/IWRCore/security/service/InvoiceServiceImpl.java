@@ -49,8 +49,8 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public Optional<InvoiceDTO> getInvoiceById(Long id) {
-        return invoiceRepository.findById(id).map(this::convertToDTO);
+    public InvoiceDTO getInvoiceById(Long id) {
+        return convertToDTO(invoiceRepository.findById(id).get());
     }
 
     @Override

@@ -49,8 +49,8 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     }
 
     @Override
-    public Optional<GumsuChasuDTO> getGumsuChasuById(Long id) {
-        return gumsuChasuRepository.findById(id).map(this::convertToDTO);
+    public GumsuChasuDTO getGumsuChasuById(Long id) {
+        return convertToDTO(gumsuChasuRepository.findById(id).get());
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface InvoiceService {
     // 기타 CRUD 메서드
     InvoiceDTO createInvoice(InvoiceDTO invoiceDTO);
 
-    Optional<InvoiceDTO> getInvoiceById(Long id);
+    InvoiceDTO getInvoiceById(Long id);
 
     InvoiceDTO updateInvoice(Long id, InvoiceDTO invoiceDTO);
 

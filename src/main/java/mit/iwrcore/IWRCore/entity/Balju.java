@@ -33,7 +33,7 @@ public class Balju extends BaseEntity {
     @OneToOne(mappedBy = "balju")
     private Gumsu gumsu;  // 이 Order와 연관된 Gumsu
 
-    @OneToMany(mappedBy = "balju")
+    @OneToMany
     private List<Emergency> emergencies; // 이 Order와 연관된 Emergency 목록
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"writer", "invoice", "returns", "balju"})
+@ToString(exclude = {"writer", "invoice", "balju"})
 public class Shipment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,10 @@ public class Shipment extends BaseEntity {
     @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름
     private Member writer;              // 작성자
 
-
     private Long returns;            // 관련된 Returns
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invoice_id")   // 외래 키 컬럼 이름
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "invoice_id", nullable = true)   // 외래 키 컬럼 이름
     private Invoice invoice;            // 관련된 Invoice
 
     @ManyToOne(fetch = FetchType.LAZY)

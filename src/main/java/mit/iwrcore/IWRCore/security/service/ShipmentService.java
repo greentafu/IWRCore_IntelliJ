@@ -16,11 +16,13 @@ public interface ShipmentService {
     // 기타 CRUD 메서드
     ShipmentDTO createShipment(ShipmentDTO shipmentDTO);
 
-    Optional<ShipmentDTO> getShipmentById(Long id);
+    ShipmentDTO getShipmentById(Long id);
 
     ShipmentDTO updateShipment(Long id, ShipmentDTO shipmentDTO);
 
     void deleteShipment(Long id);
 
     List<ShipmentDTO> getAllShipments();
+    ShipmentDTO createShipmentWithoutInvoice();
+    ShipmentDTO linkShipmentToInvoice(Long shipmentId, Long invoiceId);
 }
