@@ -75,7 +75,7 @@ public class ProductServiceTests {
 //                .proSDTO(proCodeService.findProS(4L))
 //                .build();
 //        productRepository.save(productServiceImpl.productDtoToEntity(dto3));
-//    }
+    }
 //
 //    // 제품 한개 가져오기
 //    @Test
@@ -115,9 +115,15 @@ public class ProductServiceTests {
 //    public void deleteTest(){
 //        productService.deleteProduct(5L);
 //    }
-//
-//
-//
+    @Test
+    @Transactional
+    @Commit
+    public void test23(){
+        Pageable pageable=PageRequest.of(0,2);
+//           productRepository.findNonPlanProduct(pageable).forEach(System.out::println);
+        productRepository.findNonCheckProduct(pageable).forEach(System.out::println);
+    }
+
 
 //
 //    @Test
@@ -185,4 +191,4 @@ public class ProductServiceTests {
 //    }
 
 
-}}
+}

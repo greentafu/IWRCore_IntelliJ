@@ -16,6 +16,13 @@ public interface ProductService {
 
     //제품 목록을 불러오는 메서드.
     PageResultDTO<ProductDTO, Product> getAllProducts(PageRequestDTO requestDTO);
+    // 생산계획이 없는 제품 목록
+    PageResultDTO<ProductDTO, Product> getNonPlanProducts(PageRequestDTO requestDTO);
+    // 임시저장 했으나 최종확인은 하지 않은 제품 리스트
+    PageResultDTO<ProductDTO, Product> getNonCheckProducts(PageRequestDTO requestDTO);
+    // 최종확인한 제품 리스트
+    PageResultDTO<ProductDTO, Product> getCheckProducts(PageRequestDTO requestDTO);
+
     //제품을 추가하는 메서드.
     void addProduct(ProductDTO productDTO);
     //제품을 업데이트하는 메서드.
