@@ -86,7 +86,7 @@
                 <tr th:each="list:${product_list.dtoList}">
                   <td>--</td>
                   <td>[[${list.manuCode}]]</td>
-                  <td><strong><a th:href="@{/development/detail_dev(manuCode=${list.manuCode})}"> [[${list.name}]]</a></strong></td>
+                  <td>[[${list.name}]]</td>
                   <td>[[${list.color}]]</td>
                   <td>
                     <a th:href="@{/production/check_manufacture(manuCode=${list.manuCode})}">
@@ -100,17 +100,23 @@
               <ul class="pagination justify-content-center">
                 <th:block th:if="${product_list.prev}">
                   <li class="page-item prev">
-                    <a class="page-link" th:href="@{/production/list_newProduct(page=${product_list.start}-1)}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    <a class="page-link" th:href="@{/production/list_newProduct(page=${product_list.start}-1)}">
+                      <i class="tf-icon bx bx-chevrons-left"></i>
+                    </a>
                   </li>
                 </th:block>
                 <th:block th:each="pagenum:${product_list.pageList}">
                   <li class="page-item " th:classappend="${product_list.page}==${pagenum}? active">
-                    <a class="page-link" th:href="@{/production/list_newProduct(page=${pagenum})}">[[${pagenum}]]</a>
+                    <a class="page-link" th:href="@{/production/list_newProduct(page=${pagenum})}">
+                      [[${pagenum}]]
+                    </a>
                   </li>
                 </th:block>
                 <th:block th:if="${product_list.next}">
                   <li class="page-item next">
-                    <a class="page-link" th:href="@{/production/list_newProduct(page=${product_list.end}+1)}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                    <a class="page-link" th:href="@{/production/list_newProduct(page=${product_list.end}+1)}">
+                      <i class="tf-icon bx bx-chevrons-right"></i>
+                    </a>
                   </li>
                 </th:block>
               </ul>
