@@ -60,8 +60,8 @@ public class BaljuServiceImpl implements BaljuService {
     }
 
     @Override
-    public Optional<BaljuDTO> getBaljuById(Long id) {
-        return baljuRepository.findById(id).map(this::convertToDTO);
+    public BaljuDTO getBaljuById(Long id) {
+        return convertToDTO(baljuRepository.findById(id).get());
     }
 
     @Override

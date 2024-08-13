@@ -18,7 +18,7 @@ public interface BaljuService {
     BaljuDTO createBalju(BaljuDTO baljuDTO);
 
     // ID로 BaljuDTO 조회
-    Optional<BaljuDTO> getBaljuById(Long id);
+    BaljuDTO getBaljuById(Long id);
 
     // 기존 BaljuDTO 수정
     BaljuDTO updateBalju(Long id, BaljuDTO baljuDTO);

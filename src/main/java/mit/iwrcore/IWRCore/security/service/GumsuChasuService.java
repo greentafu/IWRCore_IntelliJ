@@ -16,7 +16,7 @@ public interface GumsuChasuService {
     // 기타 CRUD 메서드
     GumsuChasuDTO createGumsuChasu(GumsuChasuDTO gumsuChasuDTO);
 
-    Optional<GumsuChasuDTO> getGumsuChasuById(Long id);
+    GumsuChasuDTO getGumsuChasuById(Long id);
 
     GumsuChasuDTO updateGumsuChasu(Long id, GumsuChasuDTO gumsuChasuDTO);
 
