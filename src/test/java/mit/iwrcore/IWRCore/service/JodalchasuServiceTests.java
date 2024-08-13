@@ -42,4 +42,37 @@ public class JodalchasuServiceTests {
                 .build();
         jodalChasuService.createJodalChasu(jodalChasuDTO);
     }
+
+    @Test
+    @Transactional
+    @Commit
+    public void test123(){
+        JodalChasuDTO jodalChasuDTO=JodalChasuDTO.builder()
+                .jodalPlanDTO(jodalPlanService.findById(1L))
+                .joDate(LocalDateTime.now().plusDays(7L))
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .joNum(700L)
+                .build();
+        jodalChasuService.createJodalChasu(jodalChasuDTO);
+        JodalChasuDTO jodalChasuDTO1=JodalChasuDTO.builder()
+                .jodalPlanDTO(jodalPlanService.findById(1L))
+                .joDate(LocalDateTime.now().plusDays(7L))
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .joNum(650L)
+                .build();
+        jodalChasuService.createJodalChasu(jodalChasuDTO1);
+        JodalChasuDTO jodalChasuDTO2=JodalChasuDTO.builder()
+                .jodalPlanDTO(jodalPlanService.findById(1L))
+                .joDate(LocalDateTime.now().plusDays(7L))
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .joNum(650L)
+                .build();
+        jodalChasuService.createJodalChasu(jodalChasuDTO2);
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test11(){
+        System.out.println(jodalChasuService.getJodalChasuById(1L));
+    }
 }

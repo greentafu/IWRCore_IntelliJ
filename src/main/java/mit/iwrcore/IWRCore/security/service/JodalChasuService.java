@@ -13,9 +13,9 @@ public interface JodalChasuService {
 
     JodalChasuDTO createJodalChasu(JodalChasuDTO dto);
 
-    Optional<JodalChasuDTO> getJodalChasuById(Long id);
+    JodalChasuDTO getJodalChasuById(Long id);
 
-    JodalChasuDTO updateJodalChasu(Long id, JodalChasuDTO dto);
+    JodalChasuDTO updateJodalChasu(JodalChasuDTO dto);
 
     void deleteJodalChasu(Long id);
 

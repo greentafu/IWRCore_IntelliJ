@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class GumsuChasuDTO {
+    private Long gcnum;
     private Long gumsuNum;
     private LocalDateTime gumsu1;
 

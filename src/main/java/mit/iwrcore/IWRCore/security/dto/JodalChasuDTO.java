@@ -8,10 +8,9 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class JodalChasuDTO {
+    private Long jcnum;
     private Long joNum;
     private LocalDateTime joDate;
-
-
     private MemberDTO memberDTO;
     private JodalPlanDTO jodalPlanDTO;
 }

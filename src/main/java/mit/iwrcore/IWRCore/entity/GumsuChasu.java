@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 @Setter
 @ToString(exclude = {"writer", "gumsu"})
 public class GumsuChasu extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long gcnum;
 
     private Long gumsuNum;      // 검수량
     private LocalDateTime gumsu1; // 검수일
