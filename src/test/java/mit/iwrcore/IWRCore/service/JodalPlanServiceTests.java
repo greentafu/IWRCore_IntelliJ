@@ -5,10 +5,7 @@ import jakarta.transaction.Transactional;
 import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.*;
 import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
-import mit.iwrcore.IWRCore.security.service.JodalPlanServiceImpl;
-import mit.iwrcore.IWRCore.security.service.MemberService;
-import mit.iwrcore.IWRCore.security.service.ProductService;
-import mit.iwrcore.IWRCore.security.service.ProplanService;
+import mit.iwrcore.IWRCore.security.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,6 +38,9 @@ public class JodalPlanServiceTests {
     @Autowired
     private MemberService memberService; // MemberRepository 추가
 
+    @Autowired
+    private MaterialService materialService;
+
 
     @Test
     @Transactional
@@ -50,14 +50,16 @@ public class JodalPlanServiceTests {
                 .planDate(LocalDateTime.now())
                 .memberDTO(memberService.findMemberDto(1L, null))
                 .proplanDTO(proplanService.findById(1L))
+                .materialDTO(materialService.findM(1L))
                 .build();
-//        jodalPlanService.save(dto);
-//        JodalPlanDTO dto1=JodalPlanDTO.builder()
-//                .planDate(LocalDateTime.now())
-//                .memberDTO(memberService.findMemberDto(2L, null))
-//                .proplanDTO(proplanService.findById(2L))
-//                .build();
         jodalPlanService.save(dto);
+        JodalPlanDTO dto1=JodalPlanDTO.builder()
+                .planDate(LocalDateTime.now())
+                .memberDTO(memberService.findMemberDto(2L, null))
+                .proplanDTO(proplanService.findById(2L))
+                .materialDTO(materialService.findM(2L))
+                .build();
+        jodalPlanService.save(dto1);
 //    }
 
 }}

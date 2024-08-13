@@ -23,6 +23,7 @@ public class JodalPlanServiceImpl implements JodalPlanService {
 
     private final MemberService memberService;
     private final ProplanService proplanService;
+    private final MaterialService materialService;
 
     @Override
     public void save(JodalPlanDTO dto) {
@@ -54,6 +55,7 @@ public class JodalPlanServiceImpl implements JodalPlanService {
                 .planDate(dto.getPlanDate())
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
                 .proPlan(proplanService.dtoToEntity(dto.getProplanDTO()))
+                .material(materialService.materdtoToEntity(dto.getMaterialDTO()))
                 .build();
     }
 
@@ -64,6 +66,7 @@ public class JodalPlanServiceImpl implements JodalPlanService {
                 .planDate(entity.getPlanDate())
                 .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .proplanDTO(proplanService.entityToDTO(entity.getProPlan()))
+                .materialDTO(materialService.materTodto(entity.getMaterial()))
                 .build();
         }
 }

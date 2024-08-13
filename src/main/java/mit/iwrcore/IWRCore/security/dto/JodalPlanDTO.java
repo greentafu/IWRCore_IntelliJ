@@ -24,5 +24,6 @@ public class JodalPlanDTO {
 //    private Long proPlanId; // ProPlan ID
     private MemberDTO memberDTO;            // 작성자
     private ProplanDTO proplanDTO;          // 연관된 ProPlan 엔티티
+    private MaterialDTO materialDTO;
 }
 

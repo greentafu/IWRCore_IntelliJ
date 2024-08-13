@@ -1,4 +1,4 @@
-package mit.iwrcore.IWRCore.repository;
+package mit.iwrcore.IWRCore.repository.Pro;
 
 import mit.iwrcore.IWRCore.entity.ProL;
 import org.springframework.data.jpa.repository.JpaRepository;
