@@ -1,5 +1,6 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import jakarta.transaction.Transactional;
 import mit.iwrcore.IWRCore.entity.Shipment;
 import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
 
@@ -23,6 +24,10 @@ public interface ShipmentService {
     void deleteShipment(Long id);
 
     List<ShipmentDTO> getAllShipments();
+
+    @Transactional
+    void updateShipmentWithReturns(Long shipmentId, Long returnsId);
+
     ShipmentDTO createShipmentWithoutInvoice();
     ShipmentDTO linkShipmentToInvoice(Long shipmentId, Long invoiceId);
 }

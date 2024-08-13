@@ -3,6 +3,7 @@ package mit.iwrcore.IWRCore.security.service;
 import lombok.RequiredArgsConstructor;
 
 import mit.iwrcore.IWRCore.entity.Returns;
+import mit.iwrcore.IWRCore.entity.Shipment;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.repository.ReturnsRepository;
 import mit.iwrcore.IWRCore.repository.ShipmentRepository;
@@ -15,13 +16,18 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ReturnsServiceImpl implements ReturnsService{
+public class ReturnsServiceImpl implements ReturnsService {
     private final ReturnsRepository returnsRepository;
     private final ShipmentService shipmentService;
     private final MemberService memberService;
 
     @Override
     public Returns convertToEntity(ReturnsDTO dto) {
+        // 수정: Returns 엔티티를 생성할 때, Shipment 엔티티를 조회하여 설정합니다.
+        Shipment shipment = dto.getShipmentDTO() != null
+                ? shipmentService.convertToEntity(dto.getShipmentDTO())
+                : null;
+
         return Returns.builder()
                 .reNO(dto.getReNO())
                 .reDetail(dto.getReDetail())
@@ -29,8 +35,8 @@ public class ReturnsServiceImpl implements ReturnsService{
                 .bGo(dto.getBGo())
                 .filename(dto.getFilename())
                 .email(dto.getEmail())
-                .shipment(shipmentService.convertToEntity(dto.getShipmentDTO())) // ShipmentDTO를 Shipment로 변환
-                .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))       // MemberDTO를 Member로 변환
+                .shipment(shipment)
+                .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
                 .build();
     }
 
@@ -43,8 +49,8 @@ public class ReturnsServiceImpl implements ReturnsService{
                 .bGo(entity.getBGo())
                 .filename(entity.getFilename())
                 .email(entity.getEmail())
-                .shipmentDTO(shipmentService.convertToDTO(entity.getShipment())) // Shipment를 ShipmentDTO로 변환
-                .memberDTO(memberService.memberTodto(entity.getWriter()))       // Member를 MemberDTO로 변환
+                .shipmentDTO(entity.getShipment() != null ? shipmentService.convertToDTO(entity.getShipment()) : null)
+                .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .build();
     }
 

@@ -4,15 +4,16 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.*;
+import mit.iwrcore.IWRCore.security.dto.ReturnsDTO;
 import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ShipmentServiceImpl implements ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
@@ -20,18 +21,22 @@ public class ShipmentServiceImpl implements ShipmentService {
     private final BaljuService baljuService;
     private final MemberService memberService;
     private final InvoiceRepository invoiceRepository;
+    private final ReturnsRepository returnsRepository;
 
-    @Autowired
-    public ShipmentServiceImpl(ShipmentRepository shipmentRepository,
-                               InvoiceService invoiceService,
-                               BaljuService baljuService,
-                               MemberService memberService,
-                               InvoiceRepository invoiceRepository) {
-        this.shipmentRepository = shipmentRepository;
-        this.invoiceService = invoiceService;
-        this.baljuService = baljuService;
-        this.memberService = memberService;
-        this.invoiceRepository = invoiceRepository;
+    @Override
+    @Transactional
+    public void updateShipmentWithReturns(Long shipmentId, Long returnsId) {
+        Shipment shipment = shipmentRepository.findById(shipmentId)
+                .orElseThrow(() -> new RuntimeException("Shipment not found"));
+        Returns returns = returnsRepository.findById(returnsId)
+                .orElseThrow(() -> new RuntimeException("Returns not found"));
+
+        // 출고와 반품 연결 설정
+        shipment.setReturns(returns);
+        returns.setShipment(shipment);
+
+        shipmentRepository.save(shipment);
+        returnsRepository.save(returns);
     }
 
     @Override
@@ -57,27 +62,36 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public Shipment convertToEntity(ShipmentDTO dto) {
+        Returns returns = dto.getReturnsDTO() != null
+                ? returnsRepository.findById(dto.getReturnsDTO().getReNO()).orElse(null)
+                : null;
+
         return Shipment.builder()
                 .shipNO(dto.getShipNO())
                 .shipNum(dto.getShipNum())
                 .receipt(dto.getReceipt())
-                .writer(memberService.memberdtoToEntity(dto.getMemberDTO())) // MemberDTO를 Member로 변환
-                .returns(dto.getReturnsId())
-                .invoice(dto.getInvoiceDTO() != null ? invoiceService.convertToEntity(dto.getInvoiceDTO()) : null) // InvoiceDTO를 Invoice로 변환
-                .balju(dto.getBaljuDTO() != null ? baljuService.convertToEntity(dto.getBaljuDTO()) : null) // BaljuDTO를 Balju로 변환
+                .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
+                .returns(returns) // Returns 엔티티로 변환
+                .invoice(dto.getInvoiceDTO() != null ? invoiceService.convertToEntity(dto.getInvoiceDTO()) : null)
+                .balju(dto.getBaljuDTO() != null ? baljuService.convertToEntity(dto.getBaljuDTO()) : null)
                 .build();
     }
 
     @Override
     public ShipmentDTO convertToDTO(Shipment entity) {
+        ReturnsDTO returnsDTO = entity.getReturns() != null
+                ? ReturnsDTO.builder()
+                .reNO(entity.getReturns().getReNO())
+                .build()
+                : null;
         return ShipmentDTO.builder()
                 .shipNO(entity.getShipNO())
                 .shipNum(entity.getShipNum())
                 .receipt(entity.getReceipt())
-                .returnsId(entity.getReturns()) // Returns를 ID로 변환
-                .invoiceDTO(entity.getInvoice() != null ? invoiceService.convertToDTO(entity.getInvoice()) : null) // Invoice를 InvoiceDTO로 변환
-                .baljuDTO(entity.getBalju() != null ? baljuService.convertToDTO(entity.getBalju()) : null) // Balju를 BaljuDTO로 변환
-                .memberDTO(memberService.memberTodto(entity.getWriter())) // Member를 MemberDTO로 변환
+                .returnsDTO(returnsDTO) // ReturnsDTO를 빌더로 생성
+                .invoiceDTO(entity.getInvoice() != null ? invoiceService.convertToDTO(entity.getInvoice()) : null)
+                .baljuDTO(entity.getBalju() != null ? baljuService.convertToDTO(entity.getBalju()) : null)
+                .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .build();
     }
 
@@ -91,7 +105,9 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public ShipmentDTO getShipmentById(Long id) {
-        return convertToDTO(shipmentRepository.findById(id).get());
+        return shipmentRepository.findById(id)
+                .map(this::convertToDTO)
+                .orElseThrow(() -> new RuntimeException("Shipment not found"));
     }
 
     @Override
@@ -119,8 +135,12 @@ public class ShipmentServiceImpl implements ShipmentService {
         if (shipmentDTO.getMemberDTO() != null) {
             existingShipment.setWriter(memberService.memberdtoToEntity(shipmentDTO.getMemberDTO()));
         }
-        if (shipmentDTO.getReturnsId() != null) {
-            existingShipment.setReturns(shipmentDTO.getReturnsId());
+        if (shipmentDTO.getReturnsDTO() != null) {
+            Returns returns = returnsRepository.findById(shipmentDTO.getReturnsDTO().getReNO())
+                    .orElseThrow(() -> new RuntimeException("Returns not found"));
+            existingShipment.setReturns(returns);
+        } else {
+            existingShipment.setReturns(null);
         }
 
         Shipment updatedShipment = shipmentRepository.save(existingShipment);

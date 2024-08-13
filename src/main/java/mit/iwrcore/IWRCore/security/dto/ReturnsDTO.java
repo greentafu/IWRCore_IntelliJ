@@ -15,6 +15,6 @@ public class ReturnsDTO {
     private String filename;    // 파일
     private String email;       // 담당자 이메일
 
-    private ShipmentDTO shipmentDTO;    // 관련된 Shipment ID
-    private MemberDTO memberDTO;      // 작성자 ID
+    private ShipmentDTO shipmentDTO;    // 관련된 Shipment DTO
+    private MemberDTO memberDTO;        // 작성자 DTO
 }

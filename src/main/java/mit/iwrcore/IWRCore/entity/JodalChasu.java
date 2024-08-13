@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString(exclude = {"writer", "jodalPlan"})
 public class JodalChasu extends BaseEntity {
-    @Id
+
     private Long joNum;      // 조달 수량
     private LocalDateTime joDate;   // 조달 예정일
 
