@@ -22,9 +22,6 @@ public class JodalPlan extends BaseEntity {
     @JoinColumn(name = "writer_id")  // 외래 키 컬럼 이름
     private Member writer;            // 작성자
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Contract contract;          // 연관된 Contract 엔티티
-
     @OneToMany(mappedBy = "jodalPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<JodalChasu> jodalChasus; // 이 JodalPlan과 연관된 JodalChasu 목록
 

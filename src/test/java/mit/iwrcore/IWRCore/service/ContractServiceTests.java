@@ -1,26 +1,22 @@
 package mit.iwrcore.IWRCore.service;
 
-import mit.iwrcore.IWRCore.repository.ContractRepository;
-import mit.iwrcore.IWRCore.repository.PartnerRepository;
+
+import jakarta.transaction.Transactional;
 import mit.iwrcore.IWRCore.security.dto.ContractDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
-import mit.iwrcore.IWRCore.security.dto.MemberDTO;
-import mit.iwrcore.IWRCore.security.dto.PartnerDTO;
-import mit.iwrcore.IWRCore.security.service.ContractServiceImpl;
-import mit.iwrcore.IWRCore.security.service.JodalPlanService;
-import mit.iwrcore.IWRCore.security.service.MemberService;
-import mit.iwrcore.IWRCore.security.service.PartnerService;
+import mit.iwrcore.IWRCore.security.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.annotation.Commit;
+
 
 import java.time.LocalDateTime;
+
 
 @SpringBootTest
 public class ContractServiceTests {
     @Autowired
-    private ContractRepository contractRepository;
+    private ContractService contractService;
 
     @Autowired
     private MemberService memberService;
@@ -31,35 +27,28 @@ public class ContractServiceTests {
     @Autowired
     private PartnerService partnerService;
 
-    @Autowired
-    private ContractServiceImpl contractServiceImpl;
-
-
     @Test
-    public void createContractTest() {
+    @Transactional
+    public void testCreateContract() {
 
-        MemberDTO memberDTO = memberService.findMemberDto(1L, null);
-        JodalPlanDTO jodalPlanDTO = jodalPlanService.findById(1L);
-        PartnerDTO partnerDTO = partnerService.findPartnerDto(1L,"param1", "param2");
+        // Given
+        ContractDTO dto = ContractDTO.builder()
 
-        ContractDTO contractDTO = ContractDTO.builder()
-                .conNo(null) // ID는 null로 설정, 생성 시 자동으로 설정됨
-                .conNum(100L)
-                .money(5000L)
-                .howDate(30L)
-                .conDate(LocalDateTime.now())
+                .conNum(1L)
+                .money(1000L)
+                .howDate(2L)
+                .conDate(LocalDateTime.now().plusDays(3))
                 .filename("contract.pdf")
                 .who("John Doe")
-                .jodalPlanDTO(jodalPlanDTO)
-                .memberDTO(memberDTO)
-                .partnerDTO(partnerDTO)
+                .memberDTO(memberService.findMemberDto(1L,null))
+                .jodalPlanDTO(jodalPlanService.findById(1L))
+                .partnerDTO(partnerService.findPartnerDto(1L,null,null))
                 .build();
 
-        // When
-        ContractDTO createdContractDTO = contractServiceImpl.createContract(contractDTO);
-
-        // Then
-        System.out.println("Created ContractDTO: " + createdContractDTO);
-        // Check database manually for the created contract
+       contractService.createContract(dto);
     }
+
+
+
+
 }

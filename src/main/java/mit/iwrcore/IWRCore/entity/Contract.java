@@ -28,7 +28,7 @@ public class Contract extends BaseEntity {
     @JoinColumn(name = "writer_id")  // 외래 키 컬럼 이름
     private Member writer;            // 작성자
 
-    @OneToOne(mappedBy = "contract")  // JodalPlan과의 1대1 관계
+    @OneToOne  // JodalPlan과의 1대1 관계
     private JodalPlan jodalPlan;        // 연관된 JodalPlan 엔티티
 
     @ManyToOne(fetch = FetchType.LAZY)

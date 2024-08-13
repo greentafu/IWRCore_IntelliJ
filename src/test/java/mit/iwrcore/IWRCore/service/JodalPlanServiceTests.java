@@ -57,7 +57,7 @@ public class JodalPlanServiceTests {
 //                .memberDTO(memberService.findMemberDto(2L, null))
 //                .proplanDTO(proplanService.findById(2L))
 //                .build();
-//        jodalPlanService.save(dto1);
+        jodalPlanService.save(dto);
 //    }
 
 }}
