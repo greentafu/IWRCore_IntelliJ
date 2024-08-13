@@ -53,10 +53,10 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public ContractDTO createContract(ContractDTO contractDTO) {
+    public void createContract(ContractDTO contractDTO) {
         Contract contract = convertToEntity(contractDTO);
         Contract savedContract = contractRepository.save(contract);
-        return convertToDTO(savedContract);
+
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = {"writer", "jodalPlan"})
+@ToString(exclude = {"writer", "partner"})
 public class Contract extends BaseEntity {
 
     @Id

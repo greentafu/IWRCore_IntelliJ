@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
-
 import java.time.LocalDateTime;
 
 
@@ -29,6 +28,7 @@ public class ContractServiceTests {
 
     @Test
     @Transactional
+    @Commit
     public void testCreateContract() {
 
         // Given
@@ -44,7 +44,7 @@ public class ContractServiceTests {
                 .jodalPlanDTO(jodalPlanService.findById(1L))
                 .partnerDTO(partnerService.findPartnerDto(1L,null,null))
                 .build();
-
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@"+dto);
        contractService.createContract(dto);
     }
 

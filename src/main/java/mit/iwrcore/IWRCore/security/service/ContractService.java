@@ -14,7 +14,7 @@ public interface ContractService {
     ContractDTO convertToDTO(Contract entity);
 
     // 계약 생성
-    ContractDTO createContract(ContractDTO contractDTO);
+    void createContract(ContractDTO contractDTO);
 
     // 계약 ID로 조회
     Optional<ContractDTO> getContractById(Long id);
