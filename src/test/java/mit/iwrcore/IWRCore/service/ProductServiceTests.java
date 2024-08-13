@@ -52,30 +52,30 @@ public class ProductServiceTests {
                 .build();
         productRepository.save(productServiceImpl.productDtoToEntity(dto));
 
-//        ProductDTO dto1=ProductDTO.builder()
-//                .name("A자전거").color("빨강").text("").uuid("")
-//                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
-//                .memberDTO(memberService.findMemberDto(2L, null))
-//                .proSDTO(proCodeService.findProS(2L))
-//                .build();
-//        productRepository.save(productServiceImpl.productDtoToEntity(dto1));
-//
-//        ProductDTO dto2=ProductDTO.builder()
-//                .name("A자전거").color("빨강").text("").uuid("")
-//                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
-//                .memberDTO(memberService.findMemberDto(2L, null))
-//                .proSDTO(proCodeService.findProS(3L))
-//                .build();
-//        productRepository.save(productServiceImpl.productDtoToEntity(dto2));
-//
-//        ProductDTO dto3=ProductDTO.builder()
-//                .name("A자전거").color("빨강").text("").uuid("")
-//                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
-//                .memberDTO(memberService.findMemberDto(3L, null))
-//                .proSDTO(proCodeService.findProS(4L))
-//                .build();
-//        productRepository.save(productServiceImpl.productDtoToEntity(dto3));
-//    }
+        ProductDTO dto1=ProductDTO.builder()
+                .name("A자전거").color("빨강").text("").uuid("")
+                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
+                .memberDTO(memberService.findMemberDto(2L, null))
+                .proSDTO(proCodeService.findProS(2L))
+                .build();
+        productRepository.save(productServiceImpl.productDtoToEntity(dto1));
+
+        ProductDTO dto2=ProductDTO.builder()
+                .name("A자전거").color("빨강").text("").uuid("")
+                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
+                .memberDTO(memberService.findMemberDto(2L, null))
+                .proSDTO(proCodeService.findProS(3L))
+                .build();
+        productRepository.save(productServiceImpl.productDtoToEntity(dto2));
+
+        ProductDTO dto3=ProductDTO.builder()
+                .name("A자전거").color("빨강").text("").uuid("")
+                .supervisor("감독자1").mater_imsi(0L).mater_check(0L)
+                .memberDTO(memberService.findMemberDto(3L, null))
+                .proSDTO(proCodeService.findProS(4L))
+                .build();
+        productRepository.save(productServiceImpl.productDtoToEntity(dto3));
+    }
 //
 //    // 제품 한개 가져오기
 //    @Test
@@ -115,9 +115,15 @@ public class ProductServiceTests {
 //    public void deleteTest(){
 //        productService.deleteProduct(5L);
 //    }
-//
-//
-//
+    @Test
+    @Transactional
+    @Commit
+    public void test23(){
+        Pageable pageable=PageRequest.of(0,2);
+//           productRepository.findNonPlanProduct(pageable).forEach(System.out::println);
+        productRepository.findNonCheckProduct(pageable).forEach(System.out::println);
+    }
+
 
 //
 //    @Test
@@ -185,4 +191,4 @@ public class ProductServiceTests {
 //    }
 
 
-}}
+}

@@ -21,7 +21,7 @@ public class ProductionController {
 
     @GetMapping("/list_manufacture")
     public void list_manufacture(PageRequestDTO pageRequestDTO, Model model) {
-        model.addAttribute("product_list", productService.getAllProducts(pageRequestDTO));
+        model.addAttribute("product_list", productService.getCheckProducts(pageRequestDTO));
     }
 
     @GetMapping("/new_manufacture")
@@ -38,7 +38,7 @@ public class ProductionController {
 
     @GetMapping("/list_newProduct")
     public void list_newProduct(PageRequestDTO pageRequestDTO, Model model) {
-        model.addAttribute("product_list", productService.getAllProducts(pageRequestDTO));
+        model.addAttribute("product_list", productService.getNonCheckProducts(pageRequestDTO));
     }
     @GetMapping("/check_manufacture")
     public void check_manufacture() {

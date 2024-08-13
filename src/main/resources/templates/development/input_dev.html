@@ -124,9 +124,13 @@
                         </td>
                         <td>[[${list.materCode}]]</td>
                         <td>[[${list.name}]]</td>
+                        <td style="display: none;">[[${list.materSDTO.materMDTO.materLDTO.lname}]]</td>
+                        <td style="display: none;">[[${list.materSDTO.materMDTO.Mname}]]</td>
+                        <td style="display: none;">[[${list.materSDTO.Sname}]]</td>
                         <td>[[${list.standard}]]</td>
                         <td>[[${list.unit}]]</td>
                         <td>[[${list.color}]]</td>
+                        <td style="display: none;">[[${list.boxDTO.boxname}]]</td>
                         <td style="display: none;">[[${list.file}]]</td>
                       </tr>
                     </tbody>
@@ -150,7 +154,7 @@
           </div>
           <label class="form-label">제품에 들어가는 자재 목록</label>
           <div class="text-nowrap table-responsive">
-            <table class="table table-bordered mb-4" id="materialSel">
+            <table class="table table-bordered mb-4">
               <thead>
                 <tr>
                   <th>자재번호</th>
@@ -167,48 +171,7 @@
                   <th style="width: 10px;">삭제</th>
                 </tr>
               </thead>
-              <tbody>
-              </tbody>
-              <tr>
-                <td>AM-8520</td>
-                <td>앞타이어</td>
-                <td>
-                  <input type="number" style="border: 0px; width: 80px;">
-                </td>
-                <td>대</td>
-                <td>중</td>
-                <td>소</td>
-                <td>30cm*30cm*2cm</td>
-                <td>개</td>
-                <td>검정</td>
-                <td>A창고 c-2</td>
-                <td>
-                  <button type="button" class="btn btn-outline-primary btn-sm">다운</button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-sm btn-secondary">삭제</button>
-                </td>
-              </tr>
-              <tr>
-                <td>BM-8523</td>
-                <td>앞브레이크</td>
-                <td>
-                  <input type="number" style="border: 0px; width: 80px;">
-                </td>
-                <td>대</td>
-                <td>중</td>
-                <td>소</td>
-                <td>70mm*15mm*10mm</td>
-                <td>개</td>
-                <td>검정</td>
-                <td>A창고 c-2</td>
-                <td>
-                  <button type="button" class="btn btn-outline-primary btn-sm">다운</button>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-sm btn-secondary">삭제</button>
-                </td>
-              </tr>
+              <tbody id="materialSel"></tbody>
             </table>
             <div class="text-end mb-4">
               <button type="button" class="btn btn-primary">자재등록완료</button>
@@ -355,12 +318,50 @@
 
             const code=cells[1].innerText;
             const name=cells[2].innerText;
-            const standard=cells[3].innerText;
-            const unit=cells[4].innerText;
-            const color=cells[5].innerText;
-            const file=cells[6].innerText;
+            const matL=cells[3].innerText;
+            const matM=cells[4].innerText;
+            const matS=cells[5].innerText;
+            const standard=cells[6].innerText;
+            const unit=cells[7].innerText;
+            const color=cells[8].innerText;
+            const box=cells[9].innerText;
+            const file=cells[10].innerText;
 
-            console.log(code+"/"+file);
+            const newRow = document.createElement('tr');
+
+            [code, name].forEach(text => {
+                const td = document.createElement('td');
+                td.innerText = text;
+                newRow.appendChild(td);
+            });
+
+            const inputTd = document.createElement('td');
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.style.border = '0px';
+            input.style.width = '80px';
+            input.id = `quantity${code}`;
+            inputTd.appendChild(input);
+            newRow.appendChild(inputTd);
+
+            [matL, matM, matS, standard, unit, color, box, file].forEach(text => {
+                const td = document.createElement('td');
+                td.innerText = text;
+                newRow.appendChild(td);
+            });
+
+            const deleteTd = document.createElement('td');
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'btn btn-sm btn-secondary';
+            button.innerText = '삭제';
+            button.onclick = function() {
+                newRow.remove(); // Remove the row when the button is clicked
+            };
+            deleteTd.appendChild(button);
+            newRow.appendChild(deleteTd);
+
+            materialSelTable.appendChild(newRow);
           }
         });
       }
