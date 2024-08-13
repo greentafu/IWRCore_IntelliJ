@@ -1,0 +1,25 @@
+@javascript.js
+
+function extractTableData() {
+            const table = document.querySelector('table');
+            const rows = table.querySelectorAll('tbody tr');
+    let data = [];
+
+    rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const item = {
+            materialNumber: cells[0].innerText.trim(),
+            materialName: cells[1].innerText.trim(),
+            category: cells[2].innerText.trim(),
+            quantity: cells[3].innerText.trim(),
+            orderStatus: cells[4].innerText.trim(),
+            storageLocation: cells[5].innerText.trim()
+                };
+
+    data.push(item);
+            });
+
+    return data;
+}
+
+        console.log(extractTableData());
