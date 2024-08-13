@@ -31,24 +31,10 @@ public class ProplanServiceImpl implements ProplanService{
 
 
     @Override
-    public void save(ProplanDTO dto) {
+    public ProplanDTO save(ProplanDTO dto) {
         ProPlan proPlan = dtoToEntity(dto);
         ProPlan savedProPlan=proPlanRepository.save(proPlan); // savedProPlan = 저장된 proplan
-        Long product_id=savedProPlan.getProduct().getManuCode(); // product_id = 저장된 proplan의 제품 번호
-
-        List<StructureDTO> structureDTOS=structureService.findByProduct_ManuCode(product_id); // structureDTOS = 저장된 proplan의 제품의 구조목록
-
-        structureDTOS.forEach(x->{
-            MaterialDTO materialDTO=x.getMaterialDTO(); // 자제dto
-
-
-        });
-
-
-
-
-
-
+        return entityToDTO(savedProPlan);
     }
 
     @Override

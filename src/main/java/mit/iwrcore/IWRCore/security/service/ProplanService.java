@@ -6,7 +6,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 
 public interface ProplanService {
-    void save(ProplanDTO dto);
+    ProplanDTO save(ProplanDTO dto);
     void update(ProplanDTO dto);
     void deleteById(Long id);
     ProplanDTO findById(Long id);

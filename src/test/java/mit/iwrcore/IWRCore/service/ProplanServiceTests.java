@@ -54,7 +54,7 @@ public class ProplanServiceTests {
                 .productDTO(productService.getProductById(1L))
                 .memberDTO(memberService.findMemberDto(1L, null))
                 .build();
-        proplanService.save(proplanDTO);
+        System.out.println(proplanService.save(proplanDTO));
 //        ProplanDTO proplanDTO1=ProplanDTO.builder()
 //                .pronum(3000L)
 //                .filename("")
