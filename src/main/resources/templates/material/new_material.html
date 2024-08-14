@@ -93,7 +93,7 @@
                     <div class="row mb-4">
                       <label for="exampleFormControlInput1" class="col-form-label" style="width: 60px;">규격 : </label>
                       <input
-                              type="email"
+                              type="text"
                               id="exampleFormControlInput1"
                               class="form-control col-md-10"
                               style="width: 30%;"
@@ -106,10 +106,10 @@
                         <div class="row mb-3">
                           <select id="selectMeasure" class="col-form-label form-select" style="width: fit-content;"
                                   aria-label="Default select example" onchange="directMeasure(this.value)" name="unit">
-                            <option selected>mm</option>
-                            <option value="1">m</option>
-                            <option value="2">㎡</option>
-                            <option value="3">kg</option>
+                            <option value="mm" >mm</option>
+                            <option value="m">m</option>
+                            <option value="㎡">㎡</option>
+                            <option value="kg">kg</option>
                             <option value="direct">직접입력</option>
                           </select>&nbsp;
                           <input type="text" class="col-md-10 form-control" style="width: 30%;" id="writeMeasure"
@@ -123,10 +123,10 @@
                         <div class="row mb-3">
                           <select id="selectColor" class="col-form-label form-select" style="width: fit-content;" name="color"
                                   aria-label="Default select example" onchange="directColor(this.value)">
-                            <option selected>빨강</option>
-                            <option value="1">파랑</option>
-                            <option value="2">초록</option>
-                            <option value="3">검정</option>
+                            <option value="빨강">빨강</option>
+                            <option value="파랑">파랑</option>
+                            <option value="초록">초록</option>
+                            <option value="검정">검정</option>
                             <option value="direct">직접입력</option>
                           </select>&nbsp;
                           <input type="text" class="col-md-10 form-control" style="width: 30%;" id="writeColor"
