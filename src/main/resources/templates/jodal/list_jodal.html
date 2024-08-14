@@ -275,7 +275,7 @@
                     <td>[[${list2.jodalPlanDTO.materialDTO.materCode}]]</td>
                     <td>[[${list2.jodalPlanDTO.materialDTO.name}]]</td>
                     <td>[[${list2.jodalPlanDTO.proplanDTO.pronum}]]</td>
-                    <td>[[${list2.jodalChasuDTO.joDate}]]</td>
+                    <td>[[${#temporals.format(list2.jodalChasuDTO.joDate, 'yyyy-MM-dd')}]]</td>
                     <td>
                       <button th:onclick="|location.href='@{/jodal/modify_jodal(joNo=${list2.jodalPlanDTO.joNo})}'|" class="btn btn-primary">수정</button>
                       <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
@@ -292,7 +292,6 @@
                         </a>
                       </th:block>
                     </td>
-
                   </tr>
                 </tbody>
               </table>

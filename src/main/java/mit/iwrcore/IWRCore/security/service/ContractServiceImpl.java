@@ -10,6 +10,7 @@ import mit.iwrcore.IWRCore.repository.ContractRepository;
 import mit.iwrcore.IWRCore.security.dto.ContractDTO;
 import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
@@ -103,19 +104,25 @@ public class ContractServiceImpl implements ContractService {
                 .collect(Collectors.toList());
     }
 
-        @Override
+    @Override
     public PageResultDTO<ContractJodalChasyDTO, Object[]> yesJodalplanMaterial(PageRequestDTO2 requestDTO) {
         Pageable pageable=requestDTO.getPageable(Sort.by("joNo").descending());
         Page<Object[]> entityPage=contractRepository.yesplanMaterial(pageable);
+        return new PageResultDTO<>(entityPage, this::JodalPlanContractToDTO);
+    }
+    @Override
+    public PageResultDTO<ContractJodalChasyDTO, Object[]> couldContractMaterial(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("joNo").descending());
+        Page<Object[]> entityPage=contractRepository.couldContractMaterial(pageable);
         return new PageResultDTO<>(entityPage, this::JodalPlanContractToDTO);
     }
     private ContractJodalChasyDTO JodalPlanContractToDTO(Object[] objects){
         JodalPlan jodalPlan=(JodalPlan) objects[0];
         Contract contract=(Contract) objects[1];
         JodalChasu jodalChasu=(JodalChasu) objects[2];
-        JodalPlanDTO jodalPlanDTO=jodalPlanService.entityToDTO(jodalPlan);
-        ContractDTO contractDTO=convertToDTO(contract);
-        JodalChasuDTO jodalChasuDTO=jodalChasuService.convertToDTO(jodalChasu);
+        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)?jodalPlanService.entityToDTO(jodalPlan):null;
+        ContractDTO contractDTO=(contract!=null)?convertToDTO(contract):null;
+        JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
         return new ContractJodalChasyDTO(jodalPlanDTO, contractDTO, jodalChasuDTO);
     }
 

@@ -3,6 +3,10 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Balju;
 import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +32,7 @@ public interface BaljuService {
 
     // 모든 BaljuDTO 조회
     List<BaljuDTO> getAllBaljus();
+
+    // 계약서 리스트+발주여부
+    PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO);
 }

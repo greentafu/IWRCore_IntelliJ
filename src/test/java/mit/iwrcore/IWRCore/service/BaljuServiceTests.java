@@ -15,6 +15,8 @@ import mit.iwrcore.IWRCore.security.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,8 @@ import java.util.Optional;
 public class BaljuServiceTests {
     @Autowired
     private BaljuService baljuService;
+    @Autowired
+    private BaljuRepository baljuRepository;
 
     @Autowired
     private MemberService memberService;
@@ -50,5 +54,12 @@ public class BaljuServiceTests {
 //
 //
 //        baljuService.createBalju(dto);
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test1(){
+        Pageable pageable= PageRequest.of(0, 2);
+        System.out.println(baljuRepository.finishContract(pageable));
     }
 }

@@ -90,7 +90,7 @@ public class ContractServiceTests {
     @Commit
     public void tes1234(){
         Pageable pageable= PageRequest.of(0,2);
-        contractRepository.yesplanMaterial(pageable).forEach(System.out::println);
+        contractRepository.couldContractMaterial(pageable).forEach(System.out::println);
     }
     @Test
     @Transactional

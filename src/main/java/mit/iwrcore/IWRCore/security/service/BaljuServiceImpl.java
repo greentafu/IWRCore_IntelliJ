@@ -3,8 +3,21 @@ package mit.iwrcore.IWRCore.security.service;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.Balju;
+import mit.iwrcore.IWRCore.entity.Contract;
+import mit.iwrcore.IWRCore.entity.JodalChasu;
+import mit.iwrcore.IWRCore.entity.JodalPlan;
 import mit.iwrcore.IWRCore.repository.BaljuRepository;
 import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.ContractDTO;
+import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -88,5 +101,19 @@ public class BaljuServiceImpl implements BaljuService {
         return baljuRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("conNo").descending());
+        Page<Object[]> entityPage=baljuRepository.finishContract(pageable);
+        return new PageResultDTO<>(entityPage, this::ContractBaljuToDTO);
+    }
+    private ContractBaljuDTO ContractBaljuToDTO(Object[] objects){
+        Contract contract=(Contract) objects[0];
+        Balju balju=(Balju) objects[1];
+        ContractDTO contractDTO=contractService.convertToDTO(contract);
+        BaljuDTO baljuDTO=(balju!=null)? convertToDTO(balju):null;
+        return new ContractBaljuDTO(contractDTO, baljuDTO);
     }
 }
