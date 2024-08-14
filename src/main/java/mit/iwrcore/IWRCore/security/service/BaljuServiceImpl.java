@@ -11,6 +11,7 @@ import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
 import mit.iwrcore.IWRCore.security.dto.ContractDTO;
 import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
@@ -107,6 +108,12 @@ public class BaljuServiceImpl implements BaljuService {
     public PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO){
         Pageable pageable=requestDTO.getPageable(Sort.by("conNo").descending());
         Page<Object[]> entityPage=baljuRepository.finishContract(pageable);
+        return new PageResultDTO<>(entityPage, this::ContractBaljuToDTO);
+    }
+    @Override
+    public PageResultDTO<ContractBaljuDTO, Object[]> couldBalju(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("conNo").descending());
+        Page<Object[]> entityPage=baljuRepository.couldBalju(pageable);
         return new PageResultDTO<>(entityPage, this::ContractBaljuToDTO);
     }
     private ContractBaljuDTO ContractBaljuToDTO(Object[] objects){

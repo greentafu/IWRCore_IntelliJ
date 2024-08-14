@@ -60,6 +60,22 @@ public class BaljuServiceTests {
     @Commit
     public void test1(){
         Pageable pageable= PageRequest.of(0, 2);
-        System.out.println(baljuRepository.finishContract(pageable));
+        System.out.println(baljuRepository.couldBalju(pageable));
     }
+    @Test
+    @Transactional
+    @Commit
+    public void test12(){
+        BaljuDTO baljuDTO=BaljuDTO.builder()
+                .baljuNum(2000L)
+                .baljuDate(LocalDateTime.now().plusDays(6L))
+                .baljuWhere("경기도 수원시")
+                .baljuPlz("잘")
+                .filename("")
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .contractDTO(contractService.getContractById(1L))
+                .build();
+        baljuService.createBalju(baljuDTO);
+    }
+
 }

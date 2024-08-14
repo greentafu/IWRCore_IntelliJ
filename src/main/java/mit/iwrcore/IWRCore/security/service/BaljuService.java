@@ -3,6 +3,7 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Balju;
 import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
@@ -35,4 +36,6 @@ public interface BaljuService {
 
     // 계약서 리스트+발주여부
     PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO);
+    // 계약서 리스트+발주해야할 것만
+    PageResultDTO<ContractBaljuDTO, Object[]> couldBalju(PageRequestDTO requestDTO);
 }

@@ -326,7 +326,16 @@
                       <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
                     </td>
                     <td>
-
+                      <th:block th:if="${list2.baljuDTO==null}">
+                        <a th:href="@{/order/new_order2(conNo=${list2.contractDTO.conNo})}">
+                          <button class="btn btn-primary">발주 요청</button>
+                        </a>
+                      </th:block>
+                      <th:block th:if="${list2.baljuDTO!=null}">
+                        <a th:href="@{/order/download_order(baljuNo=${list2.baljuDTO.baljuNo})}">
+                          <button class="btn btn-secondary">발주 완료</button>
+                        </a>
+                      </th:block>
                     </td>
                   </tr>
                 </tbody>
@@ -339,35 +348,34 @@
               </div>
               <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
-                  <li class="page-item prev">
-                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-                  </li>
-                      <li class="page-item active">
-                        <a class="page-link" href="javascript:void(0);">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);">4</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="javascript:void(0);">5</a>
-                      </li>
-                      <li class="page-item next">
-                        <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-                      </li>
-                    </ul>
-                  </nav>
-
-                </div>
-              </div>
+                  <th:block th:if="${finContract_list.prev}">
+                    <li class="page-item prev">
+                      <a class="page-link" th:href="@{/jodal/list_jodal(page2=${finContract_list.start}-1)}">
+                        <i class="tf-icon bx bx-chevrons-left"></i>
+                      </a>
+                    </li>
+                  </th:block>
+                  <th:block th:each="pagenum:${finContract_list.pageList}">
+                    <li class="page-item " th:classappend="${finContract_list.page}==${pagenum}? active">
+                      <a class="page-link" th:href="@{/jodal/list_jodal(page2=${pagenum})}">
+                        [[${pagenum}]]
+                      </a>
+                    </li>
+                  </th:block>
+                  <th:block th:if="${finContract_list.next}">
+                    <li class="page-item next">
+                      <a class="page-link" th:href="@{/jodal/list_jodal(page2=${finContract_list.end}+1)}">
+                        <i class="tf-icon bx bx-chevrons-right"></i>
+                      </a>
+                    </li>
+                  </th:block>
+                </ul>
+              </nav>
             </div>
-         <!--/ Bootstrap modals -->
           </div>
+        </div>
+        <!--/ Bootstrap modals -->
+      </div>
 
         <!--Modal-->
 
