@@ -75,4 +75,22 @@ public class JodalchasuServiceTests {
     public void test11(){
         System.out.println(jodalChasuService.getJodalChasuById(1L));
     }
+    @Test
+    @Transactional
+    @Commit
+    public void test1231(){
+        JodalChasuDTO jodalChasuDTO=jodalChasuService.getJodalChasuById(2L);
+        jodalChasuDTO.setJoDate(LocalDateTime.now().plusDays(13L));
+        jodalChasuService.updateJodalChasu(jodalChasuDTO);
+        JodalChasuDTO jodalChasuDTO2=jodalChasuService.getJodalChasuById(3L);
+        jodalChasuDTO2.setJoDate(LocalDateTime.now().plusDays(20L));
+        jodalChasuService.updateJodalChasu(jodalChasuDTO2);
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test12(){
+//        jodalChasuService.getAllJodalChasus().forEach(System.out::println);
+        jodalChasuService.getPlanJodalChasus(1L).forEach(System.out::println);
+    }
 }

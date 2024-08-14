@@ -84,4 +84,11 @@ public class JodalChasuServiceImpl implements JodalChasuService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<JodalChasuDTO> getPlanJodalChasus(Long jodalplanId) {
+        List<JodalChasu> entityList=jodalChasuRepository.getJodalChausFromPlan(jodalplanId);
+        List<JodalChasuDTO> dtoList=entityList.stream().map(x->convertToDTO(x)).toList();
+        return dtoList;
+    }
 }

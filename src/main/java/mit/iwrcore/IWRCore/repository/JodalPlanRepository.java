@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Objects;
 
 public interface JodalPlanRepository extends JpaRepository<JodalPlan, Long> {
     List<JodalPlan> findByProPlanProplanNo(Long proplanNo);

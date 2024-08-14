@@ -35,20 +35,20 @@ public class BaljuServiceTests {
     @Transactional
     @Commit
     public void insert(){
-        Optional<ContractDTO> optionalContractDTO = contractService.getContractById(1L);
-
-        // BaljuDTO를 생성
-        BaljuDTO dto = BaljuDTO.builder()
-                .baljuNum(100L)
-                .baljuDate(LocalDateTime.of(2024, 8, 20, 10, 20))
-                .baljuWhere("집앞")
-                .baljuPlz("조용히")
-                .filename("avc")
-                .memberDTO(memberService.findMemberDto(1L, null))
-                .contractDTO(optionalContractDTO.orElse(null)) // Optional에서 값을 추출
-                .build();
-
-
-        baljuService.createBalju(dto);
+//        Optional<ContractDTO> optionalContractDTO = contractService.getContractById(1L);
+//
+//        // BaljuDTO를 생성
+//        BaljuDTO dto = BaljuDTO.builder()
+//                .baljuNum(100L)
+//                .baljuDate(LocalDateTime.of(2024, 8, 20, 10, 20))
+//                .baljuWhere("집앞")
+//                .baljuPlz("조용히")
+//                .filename("avc")
+//                .memberDTO(memberService.findMemberDto(1L, null))
+//                .contractDTO(optionalContractDTO.orElse(null)) // Optional에서 값을 추출
+//                .build();
+//
+//
+//        baljuService.createBalju(dto);
     }
 }

@@ -20,6 +20,8 @@ public interface JodalChasuService {
     void deleteJodalChasu(Long id);
 
     List<JodalChasuDTO> getAllJodalChasus();
+    // 조달계획에 따른 조달차수 리스트
+    List<JodalChasuDTO> getPlanJodalChasus(Long jodalplanId);
 //    void save(JodalChasuDTO dto);
 //    JodalChasuDTO update(JodalChasuDTO dto);
 //    void deleteById(Long id);
