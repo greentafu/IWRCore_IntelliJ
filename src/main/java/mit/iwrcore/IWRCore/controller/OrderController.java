@@ -29,6 +29,7 @@ public class OrderController {
     @GetMapping("/list_order")
     public void list_order(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model){
         model.addAttribute("couldBalju_list", baljuService.couldBalju(pageRequestDTO));
+        model.addAttribute("didBalju_list", baljuService.finishedBalju(pageRequestDTO2));
     }
     @GetMapping("/modify_order2")
     public void modify_order2(){

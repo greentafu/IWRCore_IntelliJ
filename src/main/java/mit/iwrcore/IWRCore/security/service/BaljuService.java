@@ -34,6 +34,8 @@ public interface BaljuService {
     // 모든 BaljuDTO 조회
     List<BaljuDTO> getAllBaljus();
 
+    // 발주완료 리스트
+    PageResultDTO<BaljuDTO, Balju> finishedBalju(PageRequestDTO2 requestDTO);
     // 계약서 리스트+발주여부
     PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO);
     // 계약서 리스트+발주해야할 것만

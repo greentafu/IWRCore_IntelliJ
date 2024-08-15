@@ -17,7 +17,7 @@ public class GumsuChasu extends BaseEntity {
     private Long gcnum;
 
     private Long gumsuNum;      // 검수량
-    private LocalDateTime gumsu1; // 검수일
+    private LocalDateTime gumsuDate; // 검수일
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름

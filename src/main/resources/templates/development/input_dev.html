@@ -35,7 +35,7 @@
           <label for="exampleDataList" class="form-label">제품명</label>
           <input
                   class="form-control"
-                  name="name"
+                  name="productName"
                   id="exampleDataList"
                   placeholder="등록할 제품 명"
           />
@@ -56,19 +56,19 @@
           <label for="exampleDataList" class="form-label">색상</label>
           <div class="row">
             <div class="col-md-2">
-              <select class="form-select">
-                <option>빨강</option>
-                <option>검정</option>
-                <option>초록</option>
-                <option>노랑</option>
-                <option>파랑</option>
-                <option>하양</option>
-                <option>회색</option>
+              <select class="form-select" id="selColor">
+                <option value="빨강">빨강</option>
+                <option value="검정">검정</option>
+                <option value="초록">초록</option>
+                <option value="노랑">노랑</option>
+                <option value="파랑">파랑</option>
+                <option value="하양">하양</option>
+                <option value="회색">회색</option>
                 <option>직접입력</option>
               </select>
             </div>
             <div class="col-md-2">
-              <input type="text" class="form-control" id="directColor">
+              <input type="text" class="form-control" id="directColor" name="color">
             </div>
           </div>
           <label class="form-label">제품 도안</label>
@@ -76,14 +76,13 @@
             <input
                     type="file"
                     class="form-control"
-                    id="inputGroupFile04"
                     aria-describedby="inputGroupFileAddon04"
                     aria-label="Upload"
             />
-            <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+            <button class="btn btn-outline-primary" type="button">업로드</button>
           </div>
           <label for="exampleDataList" class="form-label">비고</label>
-          <textarea class="form-control" rows="5"></textarea>
+          <textarea class="form-control" rows="5" name="text"></textarea>
         </div>
         <!--/ Card-->
         <hr class="m-0">
@@ -203,11 +202,11 @@
           </div>
           <div class="modal-body">
             <div class="mb-3">
-              <label for="organization" class="form-label">담당자</label>
+              <label class="form-label">담당자</label>
               <input type="text" class="form-control">
-              <label for="organization" class="form-label">자재명</label>
+              <label class="form-label">자재명</label>
               <input type="text" class="form-control">
-              <label for="organization" class="form-label">첨부 파일</label>
+              <label class="form-label">첨부 파일</label>
               <div class="input-group mb-4">
                 <input
                         type="file"
@@ -220,36 +219,24 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">대분류 : </label>
+              <label fclass="col-form-label" style="width: 85px;">대분류 : </label>
               <div class="col-md-3">
                 <div class="row">
-                  <select id="selectCategory1" class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" onchange="directCategory1(this.value)">
-                    <option selected>카테고리1</option>
-                    <option value="1">카테고리2</option>
-                    <option value="direct">직접입력</option>
-                  </select>&nbsp;
+                  <select class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" id="selectMaterL2" onchange="updateMaterCode2('L')"></select>&nbsp;
                   <input type="text" class="form-control col-md-2" id="writeCategory1" name="selboxDirectMeasure" hidden>
                 </div>
               </div>
-              <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">중분류 : </label>
+              <label class="col-form-label" style="width: 85px;">중분류 : </label>
               <div class="col-md-3">
                 <div class="row">
-                  <select id="selectCategory2" class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" onchange="directCategory2(this.value)">
-                    <option selected>카테고리1</option>
-                    <option value="1">카테고리2</option>
-                    <option value="direct">직접입력</option>
-                  </select>&nbsp;
+                  <select class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" id="selectMaterM2" onchange="updateMaterCode2('M')"></select>&nbsp;
                   <input type="text" class="form-control col-md-10" id="writeCategory2" name="selboxDirectMeasure" hidden>
                 </div>
               </div>
-              <label for="exampleFormControlSelect1" class="col-form-label" style="width: 85px;">소분류 : </label>
+              <label class="col-form-label" style="width: 85px;">소분류 : </label>
               <div class="col-md-3">
                 <div class="row">
-                  <select id="selectCategory3" class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" onchange="directCategory3(this.value)">
-                    <option selected>카테고리1</option>
-                    <option value="1">카테고리2</option>
-                    <option value="direct">직접입력</option>
-                  </select>&nbsp;
+                  <select class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" id="selectMaterS2" onchange="updateMaterCode2('S')"></select>&nbsp;
                   <input type="text" class="form-control col-md-10" id="writeCategory3" name="selboxDirectMeasure" hidden>
                 </div>
               </div>

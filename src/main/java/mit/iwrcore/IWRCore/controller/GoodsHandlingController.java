@@ -2,11 +2,13 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.MaterService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import mit.iwrcore.IWRCore.security.service.ProCodeService;
+import mit.iwrcore.IWRCore.security.service.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/goodshandling")
 @RequiredArgsConstructor
 public class GoodsHandlingController {
+
+    private final RequestService requestService;
 
     @GetMapping("/list_received")
     public void list_received(){
@@ -29,7 +33,8 @@ public class GoodsHandlingController {
 
     }
     @GetMapping("/list_request")
-    public void list_request(){
+    public void list_request(PageRequestDTO requestDTO, Model model){
+        model.addAttribute("list", requestService.requestPage(requestDTO));
     }
     @GetMapping("/view_request")
     public void view_request(){

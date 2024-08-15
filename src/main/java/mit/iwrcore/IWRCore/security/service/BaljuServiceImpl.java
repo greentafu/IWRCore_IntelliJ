@@ -2,15 +2,9 @@ package mit.iwrcore.IWRCore.security.service;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.entity.Balju;
-import mit.iwrcore.IWRCore.entity.Contract;
-import mit.iwrcore.IWRCore.entity.JodalChasu;
-import mit.iwrcore.IWRCore.entity.JodalPlan;
+import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.BaljuRepository;
-import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
-import mit.iwrcore.IWRCore.security.dto.ContractDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
+import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
@@ -24,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,6 +97,15 @@ public class BaljuServiceImpl implements BaljuService {
         return baljuRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public PageResultDTO<BaljuDTO, Balju> finishedBalju(PageRequestDTO2 requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("baljuNo").descending());
+        Page<Balju> entityPage=baljuRepository.finishBalju(pageable);
+        Function<Balju, BaljuDTO> fn=(entity->convertToDTO(entity));
+        return new PageResultDTO<>(entityPage, fn);
     }
 
     @Override

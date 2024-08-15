@@ -1,6 +1,8 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Request;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.RequestDTO;
 
 import java.util.List;
@@ -12,8 +14,10 @@ public interface RequestService {
     RequestDTO convertToDTO(Request entity);
 
     RequestDTO createRequest(RequestDTO requestDTO);
-    Optional<RequestDTO> getRequestById(Long id);
+    RequestDTO getRequestById(Long id);
     RequestDTO updateRequest(Long id, RequestDTO requestDTO);
     void deleteRequest(Long id);
     List<RequestDTO> getAllRequests();
+
+    PageResultDTO<RequestDTO, Request> requestPage(PageRequestDTO requestDTO);
 }

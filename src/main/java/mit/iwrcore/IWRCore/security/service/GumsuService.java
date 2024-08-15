@@ -2,6 +2,9 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Gumsu;
 import mit.iwrcore.IWRCore.security.dto.GumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuGumsuDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +20,13 @@ public interface GumsuService {
     // 기타 CRUD 메서드
     GumsuDTO createGumsu(GumsuDTO gumsuDTO);
 
- GumsuDTO getGumsuById(Long id);
+    GumsuDTO getGumsuById(Long id);
 
     GumsuDTO updateGumsu(Long id, GumsuDTO gumsuDTO);
 
     void deleteGumsu(Long id);
 
     List<GumsuDTO> getAllGumsus();
+
+    PageResultDTO<BaljuGumsuDTO, Object[]> couldGumsu(PageRequestDTO requestDTO);
 }

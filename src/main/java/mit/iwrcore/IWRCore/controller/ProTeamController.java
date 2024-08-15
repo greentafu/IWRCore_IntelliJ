@@ -7,6 +7,7 @@ import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.ProCodeService;
 import mit.iwrcore.IWRCore.security.service.ProductService;
 import mit.iwrcore.IWRCore.security.service.ProplanService;
+import mit.iwrcore.IWRCore.security.service.RequestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class ProTeamController {
 
     private final ProductService productService;
     private final ProplanService proplanService;
-
+    private final RequestService requestService;
 
     @GetMapping("list_pro")
     public void list_pro(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model){
@@ -28,7 +29,8 @@ public class ProTeamController {
     }
 
     @GetMapping("list_request")
-    public void list_request(){
+    public void list_request(PageRequestDTO requestDTO, Model model){
+        model.addAttribute("list", requestService.requestPage(requestDTO));
     }
     @GetMapping("input_pro")
     public void input_pro(){

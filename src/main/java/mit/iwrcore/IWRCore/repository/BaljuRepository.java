@@ -8,8 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface BaljuRepository extends JpaRepository<Balju, Long> {
+    @Query("select b from Balju b")
+    Page<Balju> finishBalju(Pageable pageable);
+
     @Query("select c, b from Contract c left join Balju b on (c.conNo=b.contract.conNo)")
     Page<Object[]> finishContract(Pageable pageable);
-    @Query("select c, b from Contract c left join Balju b on (c.conNo=b.contract.conNo) where c.conNo in (select b2.contract.conNo from Balju b2)")
+    @Query("select c, b from Contract c left join Balju b on (c.conNo=b.contract.conNo) where c.conNo not in (select b2.contract.conNo from Balju b2)")
     Page<Object[]> couldBalju(Pageable pageable);
 }
