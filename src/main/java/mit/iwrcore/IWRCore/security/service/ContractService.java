@@ -36,4 +36,6 @@ public interface ContractService {
     // 계약서 등록해야 하는 조달계획목록
     PageResultDTO<ContractJodalChasyDTO, Object[]> couldContractMaterial(PageRequestDTO requestDTO);
 
+    // 협력회사용 계약서목록
+    PageResultDTO<ContractDTO, Contract> partnerContractList(PageRequestDTO requestDTO);
 }

@@ -7,6 +7,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public interface GumsuChasuService {
@@ -26,4 +27,6 @@ public interface GumsuChasuService {
     void deleteGumsuChasu(Long id);
 
     PageResultDTO<GumsuChasuDTO, GumsuChasu> getAllGumsuChasus(PageRequestDTO requestDTO);
+
+    List<Object[]> PartnerMain(Long pno);
 }

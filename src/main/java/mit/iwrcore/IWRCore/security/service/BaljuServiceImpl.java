@@ -127,4 +127,13 @@ public class BaljuServiceImpl implements BaljuService {
         BaljuDTO baljuDTO=(balju!=null)? convertToDTO(balju):null;
         return new ContractBaljuDTO(contractDTO, baljuDTO);
     }
+
+    // 협력회사용 발주서
+    @Override
+    public PageResultDTO<BaljuDTO, Balju> partnerBaljuList(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("baljuNo").descending());
+        Page<Balju> entityPage=baljuRepository.partnerBaljuList(pageable, requestDTO.getPno());
+        Function<Balju, BaljuDTO> fn=(entity->convertToDTO(entity));
+        return new PageResultDTO<>(entityPage, fn);
+    }
 }

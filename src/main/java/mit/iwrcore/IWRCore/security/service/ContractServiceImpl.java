@@ -2,18 +2,12 @@ package mit.iwrcore.IWRCore.security.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.entity.Contract;
-import mit.iwrcore.IWRCore.entity.JodalChasu;
-import mit.iwrcore.IWRCore.entity.JodalPlan;
-import mit.iwrcore.IWRCore.entity.ProPlan;
+import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.ContractRepository;
-import mit.iwrcore.IWRCore.security.dto.ContractDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
+import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -124,6 +119,15 @@ public class ContractServiceImpl implements ContractService {
         ContractDTO contractDTO=(contract!=null)?convertToDTO(contract):null;
         JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
         return new ContractJodalChasyDTO(jodalPlanDTO, contractDTO, jodalChasuDTO);
+    }
+
+    // 협력회사용 계약서 목록
+    @Override
+    public PageResultDTO<ContractDTO, Contract> partnerContractList(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("conNo").descending());
+        Page<Contract> entityPage=contractRepository.partnerContractList(pageable, requestDTO.getPno());
+        Function<Contract, ContractDTO> fn=(entity->convertToDTO(entity));
+        return new PageResultDTO<>(entityPage, fn);
     }
 
 }

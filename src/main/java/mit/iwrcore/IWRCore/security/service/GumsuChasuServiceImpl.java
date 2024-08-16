@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -87,5 +88,10 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
         Page<GumsuChasu> entityPage=gumsuChasuRepository.findAll(pageable);
         Function<GumsuChasu, GumsuChasuDTO> fn=(entity->convertToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
+    }
+
+    @Override
+    public List<Object[]> PartnerMain(Long pno){
+        return gumsuChasuRepository.partnerMain(pno);
     }
 }

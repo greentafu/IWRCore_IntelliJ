@@ -13,6 +13,10 @@ public interface BaljuRepository extends JpaRepository<Balju, Long> {
 
     @Query("select c, b from Contract c left join Balju b on (c.conNo=b.contract.conNo)")
     Page<Object[]> finishContract(Pageable pageable);
+
     @Query("select c, b from Contract c left join Balju b on (c.conNo=b.contract.conNo) where c.conNo not in (select b2.contract.conNo from Balju b2)")
     Page<Object[]> couldBalju(Pageable pageable);
+
+    @Query("select b from Balju b where b.contract.partner.pno=:pno")
+    Page<Balju> partnerBaljuList(Pageable pageable, Long pno);
 }

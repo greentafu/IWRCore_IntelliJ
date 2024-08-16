@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.service;
 
 import jakarta.transaction.Transactional;
 import mit.iwrcore.IWRCore.entity.GumsuChasu;
+import mit.iwrcore.IWRCore.repository.GumsuChasuRepository;
 import mit.iwrcore.IWRCore.security.dto.GumsuChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.GumsuDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
 public class GumsuChasuTests {
@@ -23,6 +25,8 @@ public class GumsuChasuTests {
     private GumsuService gumsuService;
     @Autowired
     private GumsuChasuService gumsuChasuService;
+    @Autowired
+    private GumsuChasuRepository gumsuChasuRepository;
 
     @Test
     @Transactional
@@ -56,5 +60,16 @@ public class GumsuChasuTests {
     public void test12(){
         PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).build();
         System.out.println(gumsuChasuService.getAllGumsuChasus(requestDTO));
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test123(){
+        List<Object[]> list=gumsuChasuRepository.partnerMain(2L);
+        for(Object[] obj:list){
+            for(Object object:obj){
+                System.out.println(object);
+            }
+        }
     }
 }

@@ -40,4 +40,7 @@ public interface BaljuService {
     PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO);
     // 계약서 리스트+발주해야할 것만
     PageResultDTO<ContractBaljuDTO, Object[]> couldBalju(PageRequestDTO requestDTO);
+
+    // 협력회사용 발주서 목록
+    PageResultDTO<BaljuDTO, Balju> partnerBaljuList(PageRequestDTO requestDTO);
 }

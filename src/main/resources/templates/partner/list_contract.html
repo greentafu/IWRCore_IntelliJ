@@ -26,29 +26,15 @@
             <table class="table table-hover mb-4">
               <thead>
                 <tr>
+                  <th>계약일</th>
                   <th>서류명</th>
                   <th>다운로드</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                <tr>
-                  <td>20230620(주)HAN생활공업</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>20230511(주)HAN생활공업</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>20230301(주)HAN생활공업</td>
+                <tr th:each="list:${contract_list.dtoList}">
+                  <td>[[${#temporals.format(list.conDate, 'yyyy-MM-dd')}]]</td>
+                  <td>[[${list.filename}]]</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-outline-primary">
                       <span class="bx bx-arrow-to-bottom"></span>
@@ -59,31 +45,27 @@
             </table>
             <nav aria-label="Page navigation">
               <ul class="pagination justify-content-center">
-                <li class="page-item prev">
-                  <a class="page-link" href="javascript:void(0);"
-                  ><i class="tf-icon bx bx-chevrons-left"></i
-                  ></a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="javascript:void(0);">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">4</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">5</a>
-                </li>
-                <li class="page-item next">
-                  <a class="page-link" href="javascript:void(0);"
-                  ><i class="tf-icon bx bx-chevrons-right"></i
-                  ></a>
-                </li>
+                <th:block th:if="${contract_list.prev}">
+                  <li class="page-item prev">
+                    <a class="page-link" th:href="@{/partner/list_contract(page=${contract_list.start}-1)}">
+                      <i class="tf-icon bx bx-chevrons-left"></i>
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:each="pagenum:${contract_list.pageList}">
+                  <li class="page-item " th:classappend="${contract_list.page}==${pagenum}? active">
+                    <a class="page-link" th:href="@{/partner/list_contract(page=${pagenum})}">
+                      [[${pagenum}]]
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:if="${contract_list.next}">
+                  <li class="page-item next">
+                    <a class="page-link" th:href="@{/partner/list_contract(page=${contract_list.end}+1)}">
+                      <i class="tf-icon bx bx-chevrons-right"></i>
+                    </a>
+                  </li>
+                </th:block>
               </ul>
             </nav>
           </div>
