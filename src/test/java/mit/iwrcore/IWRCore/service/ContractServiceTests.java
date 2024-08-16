@@ -99,7 +99,13 @@ public class ContractServiceTests {
         PageRequestDTO2 pageRequestDTO=PageRequestDTO2.builder().size2(2).page2(1).build();
         System.out.println(contractService.yesJodalplanMaterial(pageRequestDTO));
     }
-
+    @Test
+    @Transactional
+    @Commit
+    public void test111(){
+        PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).pno(2L).build();
+        System.out.println(contractService.partnerContractList(requestDTO));
+    }
 
 
 }

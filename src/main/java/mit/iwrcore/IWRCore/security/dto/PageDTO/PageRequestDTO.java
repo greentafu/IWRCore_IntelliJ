@@ -23,6 +23,9 @@ public class PageRequestDTO {
         return PageRequest.of(page-1, size, sort);
     }
 
+    // 협력회사 번호
+    private Long pno;
+
     // 관리자_회원검색
     private Integer department;
     private Integer role;

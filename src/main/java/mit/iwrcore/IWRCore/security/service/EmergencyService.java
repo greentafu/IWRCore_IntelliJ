@@ -2,6 +2,8 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Emergency;
 import mit.iwrcore.IWRCore.security.dto.EmergencyDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,5 +24,5 @@ public interface EmergencyService {
 
     void deleteEmergency(Long id);
 
-    List<EmergencyDTO> getAllEmergencies();
+    PageResultDTO<EmergencyDTO, Emergency> getAllEmergencies(PageRequestDTO requestDTO);
 }

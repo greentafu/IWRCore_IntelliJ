@@ -20,10 +20,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "and j.joNo not in (select c2.jodalPlan.joNo from Contract c2)")
     Page<Object[]> couldContractMaterial(Pageable pageable);
 
-
-
-//    @Query("select c, j from Contract c " +
-//            "left join JodalChasu j on (c.jodalPlan.joNo=j.jodalPlan.joNo) " +
-//            "where j.jcnum = (select min(j2.jcnum) from JodalChasu j2 where j2.jodalPlan.joNo = c.jodalPlan.joNo)")
-//    Page<Object[]> yesplanMaterial(Pageable pageable);
+    @Query("select c from Contract c where c.partner.pno=:pno")
+    Page<Contract> partnerContractList(Pageable pageable, Long pno);
 }

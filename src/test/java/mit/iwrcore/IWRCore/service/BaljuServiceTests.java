@@ -8,6 +8,7 @@ import mit.iwrcore.IWRCore.repository.MemberRepository;
 
 import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
 import mit.iwrcore.IWRCore.security.dto.ContractDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.service.BaljuService;
 
@@ -84,6 +85,13 @@ public class BaljuServiceTests {
     public void test1234(){
         PageRequestDTO2 requestDTO=PageRequestDTO2.builder().page2(1).size2(2).build();
         System.out.println(baljuService.finishedBalju(requestDTO));
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test11(){
+        PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).pno(2L).build();
+        System.out.println(baljuService.partnerBaljuList(requestDTO));
     }
 
 }
