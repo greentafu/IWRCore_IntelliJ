@@ -30,46 +30,52 @@
 
 
                       <div class="mb-3 col-md-6">
-                        <label for="exampleFormControlSelect1" class="form-label">제품명</label>
-                        <input class="form-control" type="text" id="firstName" name="firstName"
-                               value="전동 킥보드" readonly />
+                        <label for="productName" class="form-label">제품명</label>
+                        <input class="form-control" type="text" id="productName" name="productName"
+                               th:value="${product.name}" readonly />
+
                       </div>
 
-                      <label for="exampleFormControlSelect1" class="form-label">생산 라인</label>
-                      <div class="row mb-1">
-                        <span class="col-md-1" style="width: fit-content;">A라인:</span>
-                        <div class="col-md-2">
-                          <input type="number" class="form-control col-md-2">
-                        </div>
-                      </div>
-                      <div class="row mb-1">
-                        <span class="col-md-1" style="width: fit-content;">B라인:</span>
-                        <div class="col-md-2">
-                          <input type="number" class="form-control col-md-2">
-                        </div>
-                      </div>
-                      <div class="row mb-1">
-                        <span class="col-md-1" style="width: fit-content;">C라인:</span>
-                        <div class="col-md-2">
-                          <input type="number" class="form-control col-md-2">
-                        </div>
-                      </div>
-                      <div class="row mb-1">
-                        <span class="col-md-1" style="width: fit-content;">D라인:</span>
-                        <div class="col-md-2">
-                          <input type="number" class="form-control col-md-2">
-                        </div>
-                      </div>
-                      <div class="row mb-1">
-                        <div class="col text-end">
-                          <button type="button" class="btn btn-primary">추가</button>
-                          <button class="btn btn-primary" style="width: 80px;">
-                            저장
-                          </button>
-                        </div>
-                      </div>
+                      <label class="form-label">생산 라인</label>
+<form th:action="@{/proteam/save_plan}" method="post">
+        <div class="row mb-1" th:each="line:${plan_list}">
+             <span class="col-md-1" style="width: fit-content;" th:text="${line.line} + '라인:'"></span>
+            <div class="col-md-2">
+                <input type="number" class="form-control col-md-2" th:value="${line.quantity}"/>
+            </div>
+        </div>
 
-                    </div>
+
+    <div class="row mb-1">
+        <span class="col-md-1" style="width: fit-content;">A라인:</span>
+        <div class="col-md-2">
+            <input type="number" class="form-control col-md-2" name="lineA" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <span class="col-md-1" style="width: fit-content;">B라인:</span>
+        <div class="col-md-2">
+            <input type="number" class="form-control col-md-2" name="lineB" />
+        </div>
+    </div>
+
+    <div class="row mb-1">
+        <span class="col-md-1" style="width: fit-content;">C라인:</span>
+        <div class="col-md-2">
+            <input type="number" class="form-control col-md-2" name="lineC" />
+        </div>
+    </div>
+
+    <!-- Form submission buttons -->
+    <div class="row mb-1">
+        <div class="col text-end">
+            <button type="button" class="btn btn-primary">추가</button>
+            <button type="submit" class="btn btn-primary" style="width: 80px;">저장</button>
+        </div>
+    </div>
+</form>
+
                     <hr class="m-0">
                     <div class="card-body">
                       <h5>생산 계획</h5>
