@@ -1,25 +1,40 @@
 package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.repository.MaterialRepository;
+import mit.iwrcore.IWRCore.security.dto.AjaxDTO.MaterQuantityDTO;
+import mit.iwrcore.IWRCore.security.dto.AjaxDTO.SaveProductDTO;
+import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
+import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
-import mit.iwrcore.IWRCore.security.service.MaterialService;
-import mit.iwrcore.IWRCore.security.service.ProCodeService;
-import mit.iwrcore.IWRCore.security.service.ProductService;
+import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
+import mit.iwrcore.IWRCore.security.dto.ProductDTO;
+import mit.iwrcore.IWRCore.security.dto.StructureDTO;
+import mit.iwrcore.IWRCore.security.service.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/development")
 @RequiredArgsConstructor
+@Log4j2
 public class DevelopmentController {
 
     private final ProductService productService;
     private final MaterialService materialService;
     private final MaterialRepository materialRepository;
+    private final MemberService memberService;
+    private final ProCodeService proCodeService;
+    private final StructureService structureService;
 
     @GetMapping("/input_dev")
     public void input_dev(PageRequestDTO pageRequestDTO, Model model){
@@ -33,5 +48,40 @@ public class DevelopmentController {
     @GetMapping("/detail_dev")
     public void detail_dev(){
 
+    }
+    @PostMapping("/saveProduct")
+    public String saveProduct(@RequestBody SaveProductDTO saveProductDTO){
+        ProductDTO productDTO=ProductDTO.builder()
+                .name(saveProductDTO.getProductName())
+                .color(saveProductDTO.getProColor())
+                .text(saveProductDTO.getProText())
+                .uuid(saveProductDTO.getProFile())
+                .supervisor(saveProductDTO.getPerson())
+                .mater_imsi(0L)
+                .mater_check(0L)
+                .build();
+        if(saveProductDTO.getSel()==1) productDTO.setMater_imsi(1L);
+
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        AuthMemberDTO authMemberDTO=(AuthMemberDTO) authentication.getPrincipal();
+        MemberDTO memberDTO=memberService.findMemberDto(authMemberDTO.getMno(), null);
+        productDTO.setMemberDTO(memberDTO);
+
+        ProSDTO proSDTO=proCodeService.findProS(saveProductDTO.getSelectProS());
+        productDTO.setProSDTO(proSDTO);
+
+        ProductDTO savedProductDTO=productService.addProduct(productDTO);
+
+        for(MaterQuantityDTO materQuantityDTO:saveProductDTO.getMaterQuantityDTOs()){
+            MaterialDTO materialDTO=materialService.findM(materQuantityDTO.getCode());
+
+            StructureDTO structureDTO=StructureDTO.builder()
+                    .productDTO(savedProductDTO)
+                    .materialDTO(materialDTO)
+                    .quantity(materQuantityDTO.getQuantity())
+                    .build();
+            structureService.save(structureDTO);
+        }
+        return "redirect:/development/list_dev";
     }
 }
