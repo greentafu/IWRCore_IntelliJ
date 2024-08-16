@@ -20,6 +20,7 @@ public class Returns extends BaseEntity {
     private String bGo;                 // 비고
     private String filename;            // 파일
     private String email;               // 담당자 이메일
+    private Long returnCheck;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipment_id")  // 외래 키 컬럼 이름

@@ -93,5 +93,11 @@ public class BaljuServiceTests {
         PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).pno(2L).build();
         System.out.println(baljuService.partnerBaljuList(requestDTO));
     }
+    @Test
+    @Transactional
+    @Commit
+    public void test22(){
+        System.out.println(baljuRepository.partListBalju(2L));
+    }
 
 }

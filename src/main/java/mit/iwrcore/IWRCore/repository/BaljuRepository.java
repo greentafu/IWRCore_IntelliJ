@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 public interface BaljuRepository extends JpaRepository<Balju, Long> {
     @Query("select b from Balju b")
     Page<Balju> finishBalju(Pageable pageable);
@@ -19,4 +21,7 @@ public interface BaljuRepository extends JpaRepository<Balju, Long> {
 
     @Query("select b from Balju b where b.contract.partner.pno=:pno")
     Page<Balju> partnerBaljuList(Pageable pageable, Long pno);
+
+    @Query("select b from Balju b where b.contract.partner.pno=:pno")
+    List<Balju> partListBalju(Long pno);
 }

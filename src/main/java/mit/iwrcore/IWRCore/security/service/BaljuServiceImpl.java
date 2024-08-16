@@ -136,4 +136,10 @@ public class BaljuServiceImpl implements BaljuService {
         Function<Balju, BaljuDTO> fn=(entity->convertToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
     }
+    @Override
+    public List<BaljuDTO> partListBalju(Long pno){
+        List<Balju> entityList=baljuRepository.partListBalju(pno);
+        List<BaljuDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        return dtoList;
+    }
 }

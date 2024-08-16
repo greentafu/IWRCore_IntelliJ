@@ -1,13 +1,9 @@
 package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.entity.Balju;
-import mit.iwrcore.IWRCore.entity.GumsuChasu;
-import mit.iwrcore.IWRCore.entity.JodalChasu;
+import mit.iwrcore.IWRCore.entity.*;
+import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthPartnerDTO;
-import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
-import mit.iwrcore.IWRCore.security.dto.GumsuChasuDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.PartnerMainDTO;
 import mit.iwrcore.IWRCore.security.service.*;
@@ -31,6 +27,7 @@ public class PartnerController {
     private final BaljuService baljuService;
     private final GumsuChasuService gumsuChasuService;
     private final JodalChasuService jodalChasuService;
+    private final ReturnsService returnsService;
 
     @GetMapping("/list_contract")
     public void list_contract(PageRequestDTO requestDTO, Model model){
@@ -85,39 +82,63 @@ public class PartnerController {
 
         List<PartnerMainDTO> mainList=new ArrayList<>();
 
-        for(Object[] objects:list){
-            Set<BaljuDTO> baljuDTOSet=new HashSet<>();
-            Set<JodalChasuDTO> jodalChasuDTOSet=new HashSet<>();
-            Set<GumsuChasuDTO> gumsuChasuDTOSet=new HashSet<>();
+        List<BaljuDTO> baljuDTOList=baljuService.partListBalju(authPartnerDTO.getPno());
+        for(BaljuDTO baljuDTO:baljuDTOList){
 
-            for(Object obj:objects){
-                if(obj instanceof Balju) baljuDTOSet.add(baljuService.convertToDTO((Balju) obj));
-                if(obj instanceof JodalChasu) jodalChasuDTOSet.add(jodalChasuService.convertToDTO((JodalChasu) obj));
-                if(obj instanceof GumsuChasu) gumsuChasuDTOSet.add(gumsuChasuService.convertToDTO((GumsuChasu) obj));
-            }
 
-            List<BaljuDTO> baljuDTOList=new ArrayList<>(baljuDTOSet);
-            List<JodalChasuDTO> jodalChasuDTOList=new ArrayList<>(jodalChasuDTOSet);
-            List<GumsuChasuDTO> gumsuChasuDTOList=new ArrayList<>(gumsuChasuDTOSet);
 
-            Comparator<BaljuDTO> baljuDTOComparator=Comparator.comparing(BaljuDTO::getBaljuNo);
-            Comparator<JodalChasuDTO> jodalChasuDTOComparator=Comparator.comparing(JodalChasuDTO::getJcnum);
-            Comparator<GumsuChasuDTO> gumsuChasuDTOComparator=Comparator.comparing(GumsuChasuDTO::getGcnum);
 
-            baljuDTOList.sort(baljuDTOComparator);
-            jodalChasuDTOList.sort(jodalChasuDTOComparator);
-            gumsuChasuDTOList.sort(gumsuChasuDTOComparator);
 
-            PartnerMainDTO partnerMainDTO=PartnerMainDTO.builder()
-                    .baljuDTO(baljuDTOList.get(0))
-                    .jodalChasuDTOs(jodalChasuDTOList)
-                    .gumsuChasuDTOs(gumsuChasuDTOList)
-                    .build();
 
-            mainList.add(partnerMainDTO);
         }
 
-        model.addAttribute("contract_list", mainList);
+
+
+
+
+
+
+//        for(Object[] objects:list){
+//            Set<BaljuDTO> baljuDTOSet=new HashSet<>();
+//            Set<JodalChasuDTO> jodalChasuDTOSet=new HashSet<>();
+//            Set<GumsuChasuDTO> gumsuChasuDTOSet=new HashSet<>();
+//            Set<EmergencyDTO> emergencyDTOSet=new HashSet<>();
+//            Set<ReturnsDTO> returnsDTOSet=new HashSet<>();
+//
+//            for(Object obj:objects){
+//                if(obj instanceof Balju) baljuDTOSet.add(baljuService.convertToDTO((Balju) obj));
+//                if(obj instanceof JodalChasu) jodalChasuDTOSet.add(jodalChasuService.convertToDTO((JodalChasu) obj));
+//                if(obj instanceof GumsuChasu) gumsuChasuDTOSet.add(gumsuChasuService.convertToDTO((GumsuChasu) obj));
+//                if(obj instanceof Emergency) emergencyDTOSet.add(emergencyService.convertToDTO((Emergency) obj));
+//                if(obj instanceof Returns) returnsDTOSet.add(returnsService.convertToDTO((Returns) obj));
+//            }
+//
+//            List<BaljuDTO> baljuDTOList=new ArrayList<>(baljuDTOSet);
+//            List<JodalChasuDTO> jodalChasuDTOList=new ArrayList<>(jodalChasuDTOSet);
+//            List<GumsuChasuDTO> gumsuChasuDTOList=new ArrayList<>(gumsuChasuDTOSet);
+//            List<EmergencyDTO> emergencyDTOList=new ArrayList<>(emergencyDTOSet);
+//            List<ReturnsDTO> returnsDTOList=new ArrayList<>(returnsDTOSet);
+//
+//            Comparator<BaljuDTO> baljuDTOComparator=Comparator.comparing(BaljuDTO::getBaljuNo);
+//            Comparator<JodalChasuDTO> jodalChasuDTOComparator=Comparator.comparing(JodalChasuDTO::getJcnum);
+//            Comparator<GumsuChasuDTO> gumsuChasuDTOComparator=Comparator.comparing(GumsuChasuDTO::getGcnum);
+//
+//            baljuDTOList.sort(baljuDTOComparator);
+//            jodalChasuDTOList.sort(jodalChasuDTOComparator);
+//            gumsuChasuDTOList.sort(gumsuChasuDTOComparator);
+//
+//            PartnerMainDTO partnerMainDTO=PartnerMainDTO.builder()
+//                    .baljuDTO(baljuDTOList.get(0))
+//                    .jodalChasuDTOs(jodalChasuDTOList)
+//                    .gumsuChasuDTOs(gumsuChasuDTOList)
+//                    .emergencyDTOs(emergencyDTOList)
+//                    .returnsDTOs(returnsDTOList)
+//                    .build();
+//
+//            mainList.add(partnerMainDTO);
+//        }
+
+        model.addAttribute("main_list", mainList);
 
     }
 

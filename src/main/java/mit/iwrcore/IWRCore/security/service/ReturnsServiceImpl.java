@@ -35,6 +35,7 @@ public class ReturnsServiceImpl implements ReturnsService {
                 .bGo(dto.getBGo())
                 .filename(dto.getFilename())
                 .email(dto.getEmail())
+                .returnCheck(dto.getReturnCheck())
                 .shipment(shipment)
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
                 .build();
@@ -49,6 +50,7 @@ public class ReturnsServiceImpl implements ReturnsService {
                 .bGo(entity.getBGo())
                 .filename(entity.getFilename())
                 .email(entity.getEmail())
+                .returnCheck(entity.getReturnCheck())
                 .shipmentDTO(entity.getShipment() != null ? shipmentService.convertToDTO(entity.getShipment()) : null)
                 .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .build();

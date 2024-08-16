@@ -43,4 +43,6 @@ public interface BaljuService {
 
     // 협력회사용 발주서 목록
     PageResultDTO<BaljuDTO, Balju> partnerBaljuList(PageRequestDTO requestDTO);
+    // 협력회사 발주서 목록
+    List<BaljuDTO> partListBalju(Long pno);
 }

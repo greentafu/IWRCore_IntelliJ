@@ -14,6 +14,7 @@ public class ReturnsDTO {
     private String bGo;         // 비고
     private String filename;    // 파일
     private String email;       // 담당자 이메일
+    private Long returnCheck;
 
     private ShipmentDTO shipmentDTO;    // 관련된 Shipment DTO
     private MemberDTO memberDTO;        // 작성자 DTO

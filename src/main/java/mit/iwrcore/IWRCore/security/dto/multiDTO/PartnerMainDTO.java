@@ -2,9 +2,7 @@ package mit.iwrcore.IWRCore.security.dto.multiDTO;
 
 import lombok.Builder;
 import lombok.Data;
-import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
-import mit.iwrcore.IWRCore.security.dto.GumsuChasuDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.*;
 
 import java.util.List;
 
@@ -14,4 +12,6 @@ public class PartnerMainDTO {
     BaljuDTO baljuDTO;
     List<JodalChasuDTO> jodalChasuDTOs;
     List<GumsuChasuDTO> gumsuChasuDTOs;
+    List<EmergencyDTO> emergencyDTOs;
+    List<ReturnsDTO> returnsDTOs;
 }
