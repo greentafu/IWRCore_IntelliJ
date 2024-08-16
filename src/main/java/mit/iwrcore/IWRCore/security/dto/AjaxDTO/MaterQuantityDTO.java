@@ -10,4 +10,6 @@ import lombok.Data;
 public class MaterQuantityDTO {
     private Long code;
     private Long quantity;
+    private Long box;
+    private Long sno;
 }

@@ -31,7 +31,6 @@
                     class="form-control"
                     id="person"
                     placeholder="실명 작성"
-                    aria-describedby="defaultFormControlHelp"
             />
             <label class="form-label">제품명</label>
             <input
@@ -57,6 +56,7 @@
             <div class="row">
               <div class="col-md-2">
                 <select class="form-select" id="selColor">
+                  <option value="">직접입력</option>
                   <option value="빨강">빨강</option>
                   <option value="검정">검정</option>
                   <option value="초록">초록</option>
@@ -64,7 +64,6 @@
                   <option value="파랑">파랑</option>
                   <option value="하양">하양</option>
                   <option value="회색">회색</option>
-                  <option>직접입력</option>
                 </select>
               </div>
               <div class="col-md-2">
@@ -76,7 +75,6 @@
               <input
                       type="file"
                       class="form-control"
-                      aria-describedby="inputGroupFileAddon04"
                       aria-label="Upload"
                       id="proFile"
               />
@@ -296,69 +294,12 @@
     <!--/Modal-->
 
     <!--Script-->
+    <script src="../assets/js/select-input.js"></script>
+    <script src="../assets/js/product-addStructure.js"></script>
+
     <script>
-      function addToLowerTable(){
-        const materialRows=document.querySelectorAll('#materialList tbody tr');
-        const materialSelTable=document.querySelector('#materialSel');
-
-        materialRows.forEach(x=>{
-          const checkbox=x.querySelector('input[type="checkbox"]');
-          if(checkbox&&checkbox.checked){
-            const cells=x.querySelectorAll('td');
-
-            const code=cells[1].innerText;
-            const name=cells[2].innerText;
-            const matL=cells[3].innerText;
-            const matM=cells[4].innerText;
-            const matS=cells[5].innerText;
-            const standard=cells[6].innerText;
-            const unit=cells[7].innerText;
-            const color=cells[8].innerText;
-            const box=cells[9].innerText;
-            const file=cells[10].innerText;
-
-            const newRow = document.createElement('tr');
-
-            [code, name].forEach(text => {
-                const td = document.createElement('td');
-                td.innerText = text;
-                newRow.appendChild(td);
-            });
-
-            const inputTd = document.createElement('td');
-            const input = document.createElement('input');
-            input.type = 'number';
-            input.min='0';
-            input.style.border = '0px';
-            input.style.width = '80px';
-            input.id = `quantity${code}`;
-            inputTd.appendChild(input);
-            newRow.appendChild(inputTd);
-
-            [matL, matM, matS, standard, unit, color, box, file].forEach(text => {
-                const td = document.createElement('td');
-                td.innerText = text;
-                newRow.appendChild(td);
-            });
-
-            const deleteTd = document.createElement('td');
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'btn btn-sm btn-secondary';
-            button.innerText = '삭제';
-            button.onclick = function() {
-                newRow.remove(); // Remove the row when the button is clicked
-            };
-            deleteTd.appendChild(button);
-            newRow.appendChild(deleteTd);
-
-            materialSelTable.appendChild(newRow);
-          }
-        });
-      }
-
       $('form').on('submit', function(event) {
-        event.preventDefault(); // 폼 제출을 막음
+        event.preventDefault();
       });
 
       function saveToLowerTable(whatButton){

@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class SaveProductDTO {
+    private Long manuCode;
     private String person;
     private String productName;
     private Long selectProS;

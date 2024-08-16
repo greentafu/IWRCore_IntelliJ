@@ -1,5 +1,22 @@
 $(document).ready(function(){
-    initPro1();
+    var Lcode=$('#selectProL').val();
+    var Mcode=$('#selectProM').val();
+    var Scode=$('#selectProS').val();
+
+    Lcode=(Lcode==="")?null:Lcode;
+    Mcode=(Mcode==="")?null:Mcode;
+    Scode=(Scode==="")?null:Scode;
+
+    console.log(Lcode+"/"+Mcode+"/"+Scode);
+
+    if(Lcode===null && Mcode===null && Scode===null){
+        console.log("비었다")
+        initPro1();
+    }
+    else{
+        console.log("채웠다")
+        searchProCode(Lcode, Mcode, Scode);
+    }
     initPro2();
 });
 
@@ -181,6 +198,56 @@ function updateProCode2(changedSelect){
             });
             data.proSDTOs.forEach(function(proS) {
                 $('#selectProS2').append(
+                    $('<option></option>')
+                        .attr('value', proS.proScode)
+                        .text(proS.sname)
+                        .prop('selected', proS.proScode == data.s)
+                );
+            });
+
+        }
+    });
+
+}
+
+// 초기화면1(검색)
+function searchProCode(proL1, proM1, proS1){
+    var Lcode=proL1;
+    var Mcode=proM1;
+    var Scode=proS1;
+
+    console.log(Lcode, Mcode, Scode);
+
+    $.ajax({
+        url:'/select/pro',
+        method:'GET',
+        data:{lcode:Lcode, mcode:Mcode, scode:Scode},
+        success:function(data){
+
+            console.log(data);
+
+            $('#selectProL').empty().append("<option value=''>전체보기</option>");
+            $('#selectProM').empty().append('<option value="">전체보기</option>');
+            $('#selectProS').empty().append('<option value="">전체보기</option>');
+
+            data.proLDTOs.forEach(function(proL) {
+                $('#selectProL').append(
+                    $('<option></option>')
+                        .attr('value', proL.proLcode)
+                        .text(proL.lname)
+                        .prop('selected', proL.proLcode == data.l)
+                );
+            });
+            data.proMDTOs.forEach(function(proM) {
+                $('#selectProM').append(
+                    $('<option></option>')
+                        .attr('value', proM.proMcode)
+                        .text(proM.mname)
+                        .prop('selected', proM.proMcode == data.m)
+                );
+            });
+            data.proSDTOs.forEach(function(proS) {
+                $('#selectProS').append(
                     $('<option></option>')
                         .attr('value', proS.proScode)
                         .text(proS.sname)
