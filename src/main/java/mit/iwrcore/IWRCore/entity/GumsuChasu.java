@@ -16,7 +16,6 @@ public class GumsuChasu extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gcnum;
 
-    @Id
     private Long gumsuNum;      // 검수량
     private LocalDateTime gumsuDate; // 검수일
 
