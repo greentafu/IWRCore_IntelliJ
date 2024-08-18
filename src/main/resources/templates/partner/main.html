@@ -19,23 +19,41 @@
 
   <span id="content">
     <div class="container-xxl flex-grow-1 container-p-y">
-      <div class="card mb-4">
+
+      <!--카드-->
+      <div class="card mb-4" th:each="list:${main_list}">
         <div class="d-flex justify-content-between w-100">
-          <a th:href="@{/partner/view_product}">
-            <h5 class="card-header"><button type="button" class="btn btn-outline-primary">세이프티락</button></h5>
+          <a th:href="@{/partner/view_product(baljuNo=${list.baljuDTO.baljuNo})}">
+            <h5 class="card-header">
+              <button type="button" class="btn btn-outline-primary btn-lg">
+                [[${list.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]
+              </button>
+            </h5>
           </a>
           <div class="demo-inline-spacing">
-            <div class="row"></div>
-            <a th:href="@{/partner/view_return}">
+
+            <th:block th:if="${list.returns}!=null and ${list.returns}!=1">
+              <button type="button" class="btn btn-sm btn-primary" th:onclick="|location.href='@{/partner/view_return(reNO=${list.returns})}'|">
+                <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
+              </button>
+            </th:block>
+            <th:block th:if="${list.returns}==null or ${list.returns}==1">
               <button type="button" class="btn btn-sm btn-outline-primary">
-              <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
-            </button>
-            </a>
-            <a th:href="@{/partner/list_urgent}">
-              <button type="button" class="btn btn-sm btn-primary">
-              <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
-            </button>
-            </a>
+                <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
+              </button>
+            </th:block>
+
+            <th:block th:if="${list.emergency}!=null and ${list.emergency}!=1">
+              <button type="button" class="btn btn-sm btn-primary" th:onclick="|location.href='@{/partner/list_urgent}'|">
+                <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
+              </button>
+            </th:block>
+            <th:block th:if="${list.emergency}==null or ${list.emergency}==1">
+              <button type="button" class="btn btn-sm btn-outline-primary">
+                <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
+              </button>
+            </th:block>
+
           </div>
         </div>
         <hr class="m-0" />
@@ -43,49 +61,23 @@
           <span class="text-light fw-semibold">납기일</span>
           <div class="d-flex justify-content-between w-100">
             <span></span>
-            <b>2024-07-20</b>
-            <b>2024-07-27</b>
-            <b>2024-08-04</b>
+            <b th:each="chasu:${list.jodalList}">
+              [[${#temporals.format(chasu.dueDate, 'yyyy-MM-dd')}]]
+            </b>
           </div>
           <div class="demo-vertical-spacing mb-4">
             <div class="row g-0">
-              <div class="progress">
+              <div class="progress" th:each="chasu:${list.jodalList}">
                 <div
                         class="progress-bar bg-info"
                         role="progressbar"
-                        style="width: 100%"
+                        th:style="'width: '+${chasu.percent}+'%'"
                         aria-valuenow="20"
                         aria-valuemin="0"
                         aria-valuemax="100"
                 >
-                  100%
-                  <span class="count" style="display: none;">3</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        style="width: 50%"
-                        aria-valuenow="20"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  50%
-                  <span class="count" style="display: none;">3</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        style="width: 0%"
-                        aria-valuenow="20"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  0%
-                  <span class="count" style="display: none;">3</span>
+                  [[${chasu.percent}]]%
+                  <span class="count" style="display: none;">[[${#lists.size(list.jodalList)}]]</span>
                 </div>
               </div>
             </div>
@@ -93,49 +85,23 @@
           <span class="text-light fw-semibold">납기량</span>
           <div class="d-flex justify-content-between w-100">
             <span></span>
-            <b>400</b>
-            <b>400</b>
-            <b>400</b>
+            <b th:each="chasu:${list.jodalList}">
+              [[${chasu.quantity}]]
+            </b>
           </div>
           <div class="demo-vertical-spacing mb-4">
             <div class="row g-0">
-              <div class="progress">
+              <div class="progress" th:each="chasu:${list.jodalList}">
                 <div
                         class="progress-bar"
                         role="progressbar"
-                        style="width: 100%"
+                        th:style="'width: '+${chasu.count}+'%'"
                         aria-valuenow="25"
                         aria-valuemin="0"
                         aria-valuemax="100"
                 >
-                  100%
-                  <span class="count" style="display: none;">3</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar"
-                        role="progressbar"
-                        style="width: 30%"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  30%
-                  <span class="count" style="display: none;">3</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar"
-                        role="progressbar"
-                        style="width: 0%"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  0%
-                  <span class="count" style="display: none;">3</span>
+                  [[${chasu.count}]]%
+                  <span class="count" style="display: none;">[[${#lists.size(list.jodalList)}]]</span>
                 </div>
               </div>
             </div>
@@ -145,198 +111,21 @@
             <table class="table table-bordered">
               <tr>
                 <th></th>
-                <th>1차</th>
-                <th>2차</th>
-                <th>3차</th>
+                <th:block th:each="index:${list.gumsuList}">
+                  <th>[[${indexStat.count}]]차</th>
+                </th:block>
               </tr>
               <tr>
                 <th>검수 일자</th>
-                <td>2024-07-17</td>
-                <td>2024-07-24</td>
-                <td>2024-08-01</td>
+                <td th:each="gumsu:${list.gumsuList}">
+                  [[${#temporals.format(gumsu.dueDate, 'yyyy-MM-dd')}]]
+                </td>
               </tr>
               <tr>
                 <th>검수 수량</th>
-                <td>200</td>
-                <td>200</td>
-                <td>200</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="card mb-4">
-        <div class="d-flex justify-content-between w-100">
-          <a th:href="@{/partner/view_product}">
-            <h5 class="card-header"><button type="button" class="btn btn-outline-primary">슬라이딩 슬리브</button></h5>
-          </a>
-          <div class="demo-inline-spacing">
-            <div class="row"></div>
-            <a th:href="@{/partner/view_return}">
-              <button type="button" class="btn btn-sm btn-primary">
-              <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
-              </button>
-            </a>
-            <a th:href="@{/partner/list_urgent}">
-              <button type="button" class="btn btn-sm btn-outline-primary">
-              <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
-              </button>
-            </a>
-          </div>
-        </div>
-        <hr class="m-0" />
-        <div class="card-body">
-          <span class="text-light fw-semibold">납기일</span>
-          <div class="d-flex justify-content-between w-100">
-            <span></span>
-            <b>2024-07-09</b>
-            <b>2024-07-16</b>
-            <b>2024-07-23</b>
-            <b>2024-07-30</b>
-          </div>
-          <div class="demo-vertical-spacing mb-4">
-            <div class="row g-0">
-              <div class="progress">
-                <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        style="width: 100%"
-                        aria-valuenow="28"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  100%
-                  <span class="count" style="display: none;">4</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        style="width: 100%"
-                        aria-valuenow="28"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  100%
-                  <span class="count" style="display: none;">4</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        style="width: 100%"
-                        aria-valuenow="28"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  100%
-                  <span class="count" style="display: none;">4</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        style="width: 50%"
-                        aria-valuenow="28"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  50%
-                  <span class="count" style="display: none;">4</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <span class="text-light fw-semibold">납기량</span>
-          <div class="d-flex justify-content-between w-100">
-            <span></span>
-            <b>300</b>
-            <b>300</b>
-            <b>300</b>
-            <b>300</b>
-          </div>
-          <div class="demo-vertical-spacing mb-4">
-            <div class="row g-0">
-              <div class="progress">
-                <div
-                        class="progress-bar"
-                        role="progressbar"
-                        style="width: 100%"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  100%
-                  <span class="count" style="display: none;">4</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar"
-                        role="progressbar"
-                        style="width: 100%"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  10%
-                  <span class="count" style="display: none;">4</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar"
-                        role="progressbar"
-                        style="width: 50%"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  50%
-                  <span class="count" style="display: none;">4</span>
-                </div>
-              </div>
-              <div class="progress">
-                <div
-                        class="progress-bar"
-                        role="progressbar"
-                        style="width: 0%"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                >
-                  0%
-                  <span class="count" style="display: none;">4</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between w-100">
-            <span class="text-light fw-semibold" style="width: 70px;">검수계획</span>
-            <table class="table table-bordered">
-              <tr>
-                <th></th>
-                <th>1차</th>
-                <th>2차</th>
-                <th>3차</th>
-                <th>4차</th>
-              </tr>
-              <tr>
-                <th>검수 일자</th>
-                <td>2024-07-06</td>
-                <td>2024-07-13</td>
-                <td>2024-07-20</td>
-                <td>2024-07-27</td>
-              </tr>
-              <tr>
-                <th>검수 수량</th>
-                <td>150</td>
-                <td>150</td>
-                <td>150</td>
-                <td>150</td>
+                <td th:each="gumsu:${list.gumsuList}">
+                  [[${gumsu.quantity}]]
+                </td>
               </tr>
             </table>
           </div>

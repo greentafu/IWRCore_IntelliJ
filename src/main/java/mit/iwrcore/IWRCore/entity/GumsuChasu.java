@@ -12,10 +12,13 @@ import java.time.LocalDateTime;
 @Setter
 @ToString(exclude = {"writer", "gumsu"})
 public class GumsuChasu extends BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long gcnum;
 
     @Id
     private Long gumsuNum;      // 검수량
-    private LocalDateTime gumsu1; // 검수일
+    private LocalDateTime gumsuDate; // 검수일
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름

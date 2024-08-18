@@ -8,8 +8,9 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class GumsuChasuDTO {
+    private Long gcnum;
     private Long gumsuNum;
-    private LocalDateTime gumsu1;
+    private LocalDateTime gumsuDate;
 
     private MemberDTO memberDTO; // 연관된 Member의 ID
     private GumsuDTO gumsuDTO;  // 연관된 Gumsu의 ID

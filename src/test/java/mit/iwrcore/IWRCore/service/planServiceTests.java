@@ -53,6 +53,7 @@ public class planServiceTests {
                 .quantity(700L).build();
         planService.save(planDTO3);
     }
+
     @Test
     @Transactional
     @Commit

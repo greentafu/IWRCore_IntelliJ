@@ -1,22 +1,35 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.entity.Gumsu;
-import mit.iwrcore.IWRCore.entity.GumsuChasu;
-import mit.iwrcore.IWRCore.entity.Member;
+import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.GumsuChasuRepository;
 import mit.iwrcore.IWRCore.repository.GumsuReposetory;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.security.dto.GumsuChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class GumsuChasuServiceImpl implements GumsuChasuService{
+    private static final Logger log = LoggerFactory.getLogger(GumsuChasuServiceImpl.class);
     private final GumsuChasuRepository gumsuChasuRepository;
     private final MemberService memberService;
     private final GumsuService gumsuService;
@@ -24,8 +37,9 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     @Override
     public GumsuChasu convertToEntity(GumsuChasuDTO dto) {
         return GumsuChasu.builder()
+                .gcnum(dto.getGcnum())
                 .gumsuNum(dto.getGumsuNum())
-                .gumsu1(dto.getGumsu1())
+                .gumsuDate(dto.getGumsuDate())
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO())) // MemberDTO를 Member로 변환
                 .gumsu(gumsuService.convertToEntity(dto.getGumsuDTO()))   // GumsuDTO를 Gumsu로 변환
                 .build();
@@ -34,8 +48,9 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     @Override
     public GumsuChasuDTO convertToDTO(GumsuChasu entity) {
         return GumsuChasuDTO.builder()
+                .gcnum(entity.getGcnum())
                 .gumsuNum(entity.getGumsuNum())
-                .gumsu1(entity.getGumsu1())
+                .gumsuDate(entity.getGumsuDate())
                 .memberDTO(memberService.memberTodto(entity.getWriter())) // Member를 MemberDTO로 변환
                 .gumsuDTO(gumsuService.convertToDTO(entity.getGumsu()))   // Gumsu를 GumsuDTO로 변환
                 .build();
@@ -73,9 +88,25 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     }
 
     @Override
-    public List<GumsuChasuDTO> getAllGumsuChasus() {
-        return gumsuChasuRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public PageResultDTO<GumsuChasuDTO, GumsuChasu> getAllGumsuChasus(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("gcnum").descending());
+        Page<GumsuChasu> entityPage=gumsuChasuRepository.findAll(pageable);
+        Function<GumsuChasu, GumsuChasuDTO> fn=(entity->convertToDTO(entity));
+        return new PageResultDTO<>(entityPage, fn);
+    }
+
+    @Override
+    public List<QuantityDateDTO> partnerMainGumsu(Long baljuNo){
+        List<GumsuChasu> entityList=gumsuChasuRepository.getGumsuChasuByBaljuNo(baljuNo);
+        List<QuantityDateDTO> list=new ArrayList<>();
+        for(GumsuChasu gumsuChasu:entityList){
+            QuantityDateDTO quantityDateDTO=QuantityDateDTO.builder()
+                    .quantity(gumsuChasu.getGumsuNum())
+                    .dueDate(gumsuChasu.getGumsuDate())
+                    .build();
+            list.add(quantityDateDTO);
+        }
+        list.get(0).setTotalOrder(entityList.get(0).getGumsu().getMake());
+        return list;
     }
 }

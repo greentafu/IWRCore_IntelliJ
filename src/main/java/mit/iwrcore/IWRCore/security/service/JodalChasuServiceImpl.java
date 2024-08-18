@@ -2,37 +2,35 @@ package mit.iwrcore.IWRCore.security.service;
 
 import jakarta.transaction.Transactional;
 
+import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.JodalChasu;
 import mit.iwrcore.IWRCore.repository.JodalChasuRepository;
 
 import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
-
+@RequiredArgsConstructor
 public class JodalChasuServiceImpl implements JodalChasuService {
+
     private final JodalChasuRepository jodalChasuRepository;
     private final MemberService memberService;
     private final JodalPlanService jodalPlanService;
 
-    @Autowired
-    public JodalChasuServiceImpl(JodalChasuRepository jodalChasuRepository,
-                                 MemberService memberService,
-                                 JodalPlanService jodalPlanService) {
-        this.jodalChasuRepository = jodalChasuRepository;
-        this.memberService = memberService;
-        this.jodalPlanService = jodalPlanService;
-    }
-
     @Override
     public JodalChasuDTO convertToDTO(JodalChasu entity) {
         return JodalChasuDTO.builder()
+                .jcnum(entity.getJcnum())
                 .joNum(entity.getJoNum())
                 .joDate(entity.getJoDate())
                 .memberDTO(memberService.memberTodto(entity.getWriter())) // Assuming memberService has this method
@@ -43,6 +41,7 @@ public class JodalChasuServiceImpl implements JodalChasuService {
     @Override
     public JodalChasu convertToEntity(JodalChasuDTO dto) {
         return JodalChasu.builder()
+                .jcnum(dto.getJcnum())
                 .joNum(dto.getJoNum())
                 .joDate(dto.getJoDate())
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO())) // Assuming memberService has this method
@@ -58,19 +57,21 @@ public class JodalChasuServiceImpl implements JodalChasuService {
     }
 
     @Override
-    public Optional<JodalChasuDTO> getJodalChasuById(Long id) {
-        return jodalChasuRepository.findById(id).map(this::convertToDTO);
+    public JodalChasuDTO getJodalChasuById(Long jcnum) {
+        return convertToDTO(jodalChasuRepository.findById(jcnum).get());
     }
 
     @Override
-    public JodalChasuDTO updateJodalChasu(Long id, JodalChasuDTO dto) {
-        if (!jodalChasuRepository.existsById(id)) {
-            throw new RuntimeException("ID가 " + id + "인 JodalChasuDTO를 찾을 수 없습니다.");
-        }
-        JodalChasu entity = convertToEntity(dto);
-        entity.setJoNum(id); // 수정할 때 ID를 설정합니다.
-        JodalChasu updatedEntity = jodalChasuRepository.save(entity);
-        return convertToDTO(updatedEntity);
+    public JodalChasuDTO updateJodalChasu(JodalChasuDTO dto) {
+        JodalChasuDTO jodalChasuDTO=createJodalChasu(dto);
+        return jodalChasuDTO;
+//        if (!jodalChasuRepository.existsById(id)) {
+//            throw new RuntimeException("ID가 " + id + "인 JodalChasuDTO를 찾을 수 없습니다.");
+//        }
+//        JodalChasu entity = convertToEntity(dto);
+//        entity.setJoNum(id); // 수정할 때 ID를 설정합니다.
+//        JodalChasu updatedEntity = jodalChasuRepository.save(entity);
+//        return convertToDTO(updatedEntity);
     }
 
     @Override
@@ -86,5 +87,53 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         return jodalChasuRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<QuantityDateDTO> partnerMainJodal(Long jodalplanId, LocalDateTime baljuDate, Long make) {
+        List<JodalChasu> entityList=jodalChasuRepository.getJodalChausFromPlan(jodalplanId);
+        List<QuantityDateDTO> list=new ArrayList<>();
+        for(JodalChasu jodalChasu:entityList){
+            QuantityDateDTO quantityDateDTO= QuantityDateDTO.builder()
+                    .quantity(jodalChasu.getJoNum())
+                    .dueDate(jodalChasu.getJoDate())
+                    .build();
+            list.add(quantityDateDTO);
+        }
+        LocalDateTime now=LocalDateTime.now();
+
+        long entire1= ChronoUnit.DAYS.between(baljuDate, list.get(0).getDueDate()); // 전체 일수
+        long current1= ChronoUnit.DAYS.between(baljuDate, now)+1; // 현재까지의 일수
+        Float temp1=Float.parseFloat(String.format("%.2f", current1*100f/entire1));
+        if(temp1<0) list.get(0).setPercent(0f);
+        else if(temp1>100) list.get(0).setPercent(100f);
+        else list.get(0).setPercent(temp1);
+
+        for(int i=0; i<list.size()-1; i++){
+            long entire2= ChronoUnit.DAYS.between(list.get(i).getDueDate(), list.get(i+1).getDueDate()); // 전체 일수
+            long current2=ChronoUnit.DAYS.between(list.get(i).getDueDate(), now)+1; // 현재까지의 일수
+            Float temp2=Float.parseFloat(String.format("%.2f", current2*100f/entire2));
+            if(temp2<0) list.get(i+1).setPercent(0f);
+            else if(temp2>100) list.get(i+1).setPercent(100f);
+            else list.get(i+1).setPercent(temp2);
+        }
+
+        Long totalOrder=0L;
+        Long sum=make;
+
+        for(int i=0; i<list.size(); i++){
+            long entire=list.get(i).getQuantity();
+            totalOrder+=entire;
+            if(sum>=entire){
+                list.get(i).setCount(100.0f);
+                sum-=entire;
+            }else if(sum<entire){
+                list.get(i).setCount(Float.parseFloat(String.format("%.2f", sum*100f/entire)));
+                sum=0L;
+            }
+        }
+        list.get(0).setTotalOrder(totalOrder);
+
+        return list;
     }
 }

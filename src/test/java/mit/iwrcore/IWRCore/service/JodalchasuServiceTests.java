@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @SpringBootTest
 public class JodalchasuServiceTests {
@@ -42,4 +43,57 @@ public class JodalchasuServiceTests {
                 .build();
         jodalChasuService.createJodalChasu(jodalChasuDTO);
     }
+
+    @Test
+    @Transactional
+    @Commit
+    public void test123(){
+        JodalChasuDTO jodalChasuDTO=JodalChasuDTO.builder()
+                .jodalPlanDTO(jodalPlanService.findById(1L))
+                .joDate(LocalDateTime.now().plusDays(7L))
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .joNum(700L)
+                .build();
+        jodalChasuService.createJodalChasu(jodalChasuDTO);
+        JodalChasuDTO jodalChasuDTO1=JodalChasuDTO.builder()
+                .jodalPlanDTO(jodalPlanService.findById(1L))
+                .joDate(LocalDateTime.now().plusDays(7L))
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .joNum(650L)
+                .build();
+        jodalChasuService.createJodalChasu(jodalChasuDTO1);
+        JodalChasuDTO jodalChasuDTO2=JodalChasuDTO.builder()
+                .jodalPlanDTO(jodalPlanService.findById(1L))
+                .joDate(LocalDateTime.now().plusDays(7L))
+                .memberDTO(memberService.findMemberDto(1L, null))
+                .joNum(650L)
+                .build();
+        jodalChasuService.createJodalChasu(jodalChasuDTO2);
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test11(){
+        System.out.println(jodalChasuService.getJodalChasuById(1L));
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test1231(){
+        JodalChasuDTO jodalChasuDTO=jodalChasuService.getJodalChasuById(2L);
+        jodalChasuDTO.setJoDate(LocalDateTime.now().plusDays(13L));
+        jodalChasuService.updateJodalChasu(jodalChasuDTO);
+        JodalChasuDTO jodalChasuDTO2=jodalChasuService.getJodalChasuById(3L);
+        jodalChasuDTO2.setJoDate(LocalDateTime.now().plusDays(20L));
+        jodalChasuService.updateJodalChasu(jodalChasuDTO2);
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test342(){
+        LocalDateTime l1=LocalDateTime.now().plusDays(3L);
+        LocalDateTime l2=LocalDateTime.now();
+        System.out.println(ChronoUnit.DAYS.between(l1, l2));
+    }
+
 }

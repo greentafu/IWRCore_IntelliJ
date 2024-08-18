@@ -2,8 +2,13 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.GumsuChasu;
 import mit.iwrcore.IWRCore.security.dto.GumsuChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public interface GumsuChasuService {
@@ -22,5 +27,7 @@ public interface GumsuChasuService {
 
     void deleteGumsuChasu(Long id);
 
-    List<GumsuChasuDTO> getAllGumsuChasus();
+    PageResultDTO<GumsuChasuDTO, GumsuChasu> getAllGumsuChasus(PageRequestDTO requestDTO);
+
+    List<QuantityDateDTO> partnerMainGumsu(Long baljuNo);
 }

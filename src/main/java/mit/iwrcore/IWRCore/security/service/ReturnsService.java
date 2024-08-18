@@ -23,4 +23,6 @@ public interface ReturnsService {
     void deleteReturns(Long id);
 
     List<ReturnsDTO> getAllReturns();
+
+    List<ReturnsDTO> getReturnsList(Long baljuNo);
 }

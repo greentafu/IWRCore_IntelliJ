@@ -1,9 +1,20 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
+import mit.iwrcore.IWRCore.entity.Balju;
+import mit.iwrcore.IWRCore.entity.Contract;
 import mit.iwrcore.IWRCore.entity.Gumsu;
 import mit.iwrcore.IWRCore.repository.GumsuReposetory;
+import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.ContractDTO;
 import mit.iwrcore.IWRCore.security.dto.GumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuGumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +34,6 @@ public class GumsuServiceImpl implements GumsuService{
                 .gumsuNo(dto.getGumsuNo())
                 .make(dto.getMake())
                 .who(dto.getWho())
-                .gumsuDate(dto.getGumsuDate())
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO())) // MemberDTO를 Member로 변환
                 .balju(baljuService.convertToEntity(dto.getBaljuDTO()))   // BaljuDTO를 Balju로 변환
                 .build();
@@ -35,7 +45,6 @@ public class GumsuServiceImpl implements GumsuService{
                 .gumsuNo(entity.getGumsuNo())
                 .make(entity.getMake())
                 .who(entity.getWho())
-                .gumsuDate(entity.getGumsuDate())
                 .baljuDTO(baljuService.convertToDTO(entity.getBalju())) // Balju를 BaljuDTO로 변환
                 .memberDTO(memberService.memberTodto(entity.getWriter())) // Member를 MemberDTO로 변환
                 .build();
@@ -78,4 +87,24 @@ public class GumsuServiceImpl implements GumsuService{
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public PageResultDTO<BaljuGumsuDTO, Object[]> couldGumsu(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("baljuNo").descending());
+        Page<Object[]> entityPage=gumsuReposetory.couldGumsu(pageable);
+        return new PageResultDTO<>(entityPage, this::BaljuGumsuToDTO);
+    }
+    private BaljuGumsuDTO BaljuGumsuToDTO(Object[] objects){
+        Balju balju=(Balju) objects[0];
+        Gumsu gumsu=(Gumsu) objects[1];
+        BaljuDTO baljuDTO=(balju!=null)? baljuService.convertToDTO(balju):null;
+        GumsuDTO gumsuDTO=(gumsu!=null)? convertToDTO(gumsu):null;
+        return new BaljuGumsuDTO(baljuDTO, gumsuDTO);
+    }
+
+    @Override
+    public Long getQuantityMake(Long baljuNo){
+        return gumsuReposetory.quantityMake(baljuNo);
+    }
+
 }

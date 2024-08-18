@@ -1,13 +1,21 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
+import mit.iwrcore.IWRCore.entity.ProPlan;
 import mit.iwrcore.IWRCore.entity.Request;
 import mit.iwrcore.IWRCore.repository.RequestRepository;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import mit.iwrcore.IWRCore.security.dto.RequestDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +32,7 @@ public class RequestServiceImpl implements RequestService{
     public Request convertToEntity(RequestDTO dto) {
         return Request.builder()
                 .requstCode(dto.getRequstCode())
+                .requestNum(dto.getRequestNum())
                 .eventDate(dto.getEventDate())
                 .text(dto.getText())
                 .reqCheck(dto.getReqCheck())
@@ -38,6 +47,7 @@ public class RequestServiceImpl implements RequestService{
     public RequestDTO convertToDTO(Request entity) {
         return RequestDTO.builder()
                 .requstCode(entity.getRequstCode())
+                .requestNum(entity.getRequestNum())
                 .eventDate(entity.getEventDate())
                 .text(entity.getText())
                 .reqCheck(entity.getReqCheck())
@@ -56,8 +66,8 @@ public class RequestServiceImpl implements RequestService{
     }
 
     @Override
-    public Optional<RequestDTO> getRequestById(Long id) {
-        return requestRepository.findById(id).map(this::convertToDTO);
+    public RequestDTO getRequestById(Long id) {
+        return convertToDTO(requestRepository.findById(id).get());
     }
 
     @Override
@@ -84,5 +94,13 @@ public class RequestServiceImpl implements RequestService{
         return requestRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PageResultDTO<RequestDTO, Request> requestPage(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("requstCode").descending());
+        Page<Request> entityPage=requestRepository.findAll(pageable);
+        Function<Request, RequestDTO> fn=(entity->convertToDTO(entity));
+        return new PageResultDTO<>(entityPage, fn);
     }
 }

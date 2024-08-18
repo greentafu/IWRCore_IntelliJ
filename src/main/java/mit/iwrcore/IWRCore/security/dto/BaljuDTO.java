@@ -14,6 +14,8 @@ public class BaljuDTO {
     private String baljuWhere; // 배송장소
     private String baljuPlz; // 요청사항
     private String filename; // 파일
+    private Long finCheck;
+    private LocalDateTime regDate;
 
 
     private MemberDTO memberDTO; // 작성자 ID

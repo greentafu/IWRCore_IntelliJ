@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import mit.iwrcore.IWRCore.entity.Returns;
 import mit.iwrcore.IWRCore.entity.Shipment;
-import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.repository.ReturnsRepository;
-import mit.iwrcore.IWRCore.repository.ShipmentRepository;
 import mit.iwrcore.IWRCore.security.dto.ReturnsDTO;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +33,7 @@ public class ReturnsServiceImpl implements ReturnsService {
                 .bGo(dto.getBGo())
                 .filename(dto.getFilename())
                 .email(dto.getEmail())
+                .returnCheck(dto.getReturnCheck())
                 .shipment(shipment)
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
                 .build();
@@ -49,6 +48,7 @@ public class ReturnsServiceImpl implements ReturnsService {
                 .bGo(entity.getBGo())
                 .filename(entity.getFilename())
                 .email(entity.getEmail())
+                .returnCheck(entity.getReturnCheck())
                 .shipmentDTO(entity.getShipment() != null ? shipmentService.convertToDTO(entity.getShipment()) : null)
                 .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .build();
@@ -90,5 +90,12 @@ public class ReturnsServiceImpl implements ReturnsService {
         return returnsRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReturnsDTO> getReturnsList(Long baljuNo){
+        List<Returns> entityList=returnsRepository.getReturns(baljuNo);
+        List<ReturnsDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        return dtoList;
     }
 }

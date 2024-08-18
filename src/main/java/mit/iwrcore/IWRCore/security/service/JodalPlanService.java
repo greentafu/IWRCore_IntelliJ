@@ -1,13 +1,9 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.JodalPlan;
-import mit.iwrcore.IWRCore.entity.Material;
-import mit.iwrcore.IWRCore.entity.Product;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-
-import java.util.List;
 
 public interface JodalPlanService {
     void saveFromProplan(ProplanDTO proplanDTO, MemberDTO memberDTO);

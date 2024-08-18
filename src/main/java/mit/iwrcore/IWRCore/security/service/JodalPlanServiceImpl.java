@@ -4,10 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.*;
-import mit.iwrcore.IWRCore.repository.ContractRepository;
-import mit.iwrcore.IWRCore.repository.JodalChasuRepository;
 import mit.iwrcore.IWRCore.repository.JodalPlanRepository;
-import mit.iwrcore.IWRCore.repository.ProplanRepository;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
@@ -21,7 +18,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -86,14 +82,6 @@ public class JodalPlanServiceImpl implements JodalPlanService {
         Function<JodalPlan, JodalPlanDTO> fn=(entity->entityToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
     }
-
-
-
-
-
-
-
-
 
     @Override
     public JodalPlan dtoToEntity(JodalPlanDTO dto) {

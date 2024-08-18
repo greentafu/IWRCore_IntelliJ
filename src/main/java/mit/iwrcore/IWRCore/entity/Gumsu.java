@@ -14,12 +14,10 @@ import java.util.List;
 @ToString(exclude = {"writer", "balju", "gumsuChasus"})
 public class Gumsu extends BaseEntity {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gumsuNo;   // 검수 계획번호
     private Long make;      // 생산량
     private String who;     // 담당자
-    private LocalDateTime gumsuDate; // 등록일자
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름

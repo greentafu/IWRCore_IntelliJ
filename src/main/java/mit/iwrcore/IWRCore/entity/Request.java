@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -16,12 +17,11 @@ public class Request extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long requstCode;
-    private LocalDate eventDate;
+    private Long requestNum;
+    private LocalDateTime eventDate;
     private String text;
     private Long reqCheck;
     private String line;
-
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "proplan_no")

@@ -1,9 +1,15 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import jakarta.transaction.Transactional;
+import mit.iwrcore.IWRCore.entity.Member;
 import mit.iwrcore.IWRCore.entity.Shipment;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentGumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturnDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,4 +36,14 @@ public interface ShipmentService {
 
     ShipmentDTO createShipmentWithoutInvoice();
     ShipmentDTO linkShipmentToInvoice(Long shipmentId, Long invoiceId);
+
+
+    ShipmentReturnDTO findShipment(Long shipNo);
+
+    void updateShipmentDate(LocalDateTime dateTime, Long shipNo);
+    void updateMemberCheck(Member member, Long shipNo);
+
+    List<ShipmentDTO> getShipmentByBalju(Long baljuNo);
+
+    PageResultDTO<ShipmentGumsuDTO, Object[]> pageShipment(PageRequestDTO requestDTO);
 }

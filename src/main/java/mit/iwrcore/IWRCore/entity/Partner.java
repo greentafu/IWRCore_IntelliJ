@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = "partS")
 public class Partner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,8 +41,8 @@ public class Partner {
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)  // Contract와의 1대다 관계
-    private List<Contract> contracts;  // 이 Partner와 연관된 Contract 목록
+//    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)  // Contract와의 1대다 관계
+//    private List<Contract> contracts;  // 이 Partner와 연관된 Contract 목록
 
     @PostPersist
     public void generateId() {

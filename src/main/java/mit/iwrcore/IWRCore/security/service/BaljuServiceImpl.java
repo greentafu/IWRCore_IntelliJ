@@ -2,14 +2,23 @@ package mit.iwrcore.IWRCore.security.service;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.entity.Balju;
+import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.BaljuRepository;
-import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.*;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +41,7 @@ public class BaljuServiceImpl implements BaljuService {
                 .baljuWhere(dto.getBaljuWhere())
                 .baljuPlz(dto.getBaljuPlz())
                 .filename(dto.getFilename())
+                .finCheck(dto.getFinCheck())
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO())) // DTO를 엔티티로 변환
                 .contract(contractService.convertToEntity(dto.getContractDTO())) // DTO를 엔티티로 변환
                 .build();
@@ -47,6 +57,8 @@ public class BaljuServiceImpl implements BaljuService {
                 .baljuWhere(entity.getBaljuWhere())
                 .baljuPlz(entity.getBaljuPlz())
                 .filename(entity.getFilename())
+                .finCheck(entity.getFinCheck())
+                .regDate(entity.getRegDate())
                 .memberDTO(memberService.memberTodto(entity.getWriter())) // 엔티티를 DTO로 변환
                 .contractDTO(contractService.convertToDTO(entity.getContract())) // 엔티티를 DTO로 변환
                 .build();
@@ -88,5 +100,49 @@ public class BaljuServiceImpl implements BaljuService {
         return baljuRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public PageResultDTO<BaljuDTO, Balju> finishedBalju(PageRequestDTO2 requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("baljuNo").descending());
+        Page<Balju> entityPage=baljuRepository.finishBalju(pageable);
+        Function<Balju, BaljuDTO> fn=(entity->convertToDTO(entity));
+        return new PageResultDTO<>(entityPage, fn);
+    }
+
+    @Override
+    public PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("conNo").descending());
+        Page<Object[]> entityPage=baljuRepository.finishContract(pageable);
+        return new PageResultDTO<>(entityPage, this::ContractBaljuToDTO);
+    }
+    @Override
+    public PageResultDTO<ContractBaljuDTO, Object[]> couldBalju(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("conNo").descending());
+        Page<Object[]> entityPage=baljuRepository.couldBalju(pageable);
+        return new PageResultDTO<>(entityPage, this::ContractBaljuToDTO);
+    }
+    private ContractBaljuDTO ContractBaljuToDTO(Object[] objects){
+        Contract contract=(Contract) objects[0];
+        Balju balju=(Balju) objects[1];
+        ContractDTO contractDTO=contractService.convertToDTO(contract);
+        BaljuDTO baljuDTO=(balju!=null)? convertToDTO(balju):null;
+        return new ContractBaljuDTO(contractDTO, baljuDTO);
+    }
+
+    // 협력회사용 발주서
+    @Override
+    public PageResultDTO<BaljuDTO, Balju> partnerBaljuList(PageRequestDTO requestDTO) {
+        Pageable pageable=requestDTO.getPageable(Sort.by("baljuNo").descending());
+        Page<Balju> entityPage=baljuRepository.partnerBaljuList(pageable, requestDTO.getPno());
+        Function<Balju, BaljuDTO> fn=(entity->convertToDTO(entity));
+        return new PageResultDTO<>(entityPage, fn);
+    }
+    @Override
+    public List<BaljuDTO> partListBalju(Long pno){
+        List<Balju> entityList=baljuRepository.partListBalju(pno);
+        List<BaljuDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        return dtoList;
     }
 }

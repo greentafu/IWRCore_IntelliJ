@@ -22,66 +22,82 @@
       <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">입고/출하 관리 /</span> 자재 반품</h4>
       <div class="row">
         <div class="fullscreen-background">
-          <div class="card mb-4">
-            <div class="card-body">
-              <div class="mb-3">
-                <label for="exampleFormControlReadOnlyInput1" class="form-label">자재명</label>
-                <input
-                        class="form-control"
-                        type="text"
-                        id="exampleFormControlReadOnlyInput1"
-                        placeholder="앞 브레이크"
-                        readonly
-                />
+          <form th:action="@{/goodshandling/savereturn}" method="post">
+            <input style="display:none;" name="shipNo" th:value="${shipment.shipNo}">
+            <div class="card mb-4">
+              <div class="card-body">
+                <div>
+                  <label class="form-label">이메일</label>
+                  <input
+                          type="email"
+                          class="form-control"
+                          aria-describedby="defaultFormControlHelp"
+                          name="email"
+                  />
+                </div>
+                <label class="form-label">첨부자료</label>
+                <div class="input-group">
+                  <input
+                          type="file"
+                          class="form-control"
+                          id="inputGroupFile04"
+                          aria-describedby="inputGroupFileAddon04"
+                          aria-label="Upload"
+                          name="filename"
+                  />
+                  <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04" disabled>업로드</button>
+                </div>
               </div>
-              <div>
-                <label for="exampleFormControlSelect1" class="form-label">반품 수량</label>
-                <input type="number" class="form-control">
-              </div>
-              <div class="mb-3">
-                <label for="exampleFormControlSelect1" class="form-label">반품 내용</label>
-                <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
-                  <option selected>항목 선택</option>
-                  <option value="1">규격</option>
-                  <option value="2">수량</option>
-                  <option value="3">무게</option>
-                  <option value="4">색상</option>
-                  <option value="5">재질</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="exampleDataList" class="form-label">이유</label>
-                <input
-                        class="form-control"
-                        list="datalistOptions"
-                        id="exampleDataList"
-                        placeholder="내용"
-                />
-                <datalist id="datalistOptions">
-              </div>
-              <div class="mb-4">
-                <label for="exampleFormControlTextarea1" class="form-label">비고</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              <div class="text-end">
-                <button type="button" class="btn btn-outline-primary" onclick="return confirmReturn();">반품</button>
+              <hr class="m-0">
+              <div class="card-body">
+                <div class="mb-3">
+                  <label for="exampleFormControlReadOnlyInput1" class="form-label">자재명</label>
+                  <input
+                          class="form-control"
+                          type="text"
+                          id="exampleFormControlReadOnlyInput1"
+                          th:value="${shipment.materialName}"
+                          readonly
+                  />
+                </div>
+                <div>
+                  <label class="form-label">반품 수량</label>
+                  <input type="number" class="form-control mb-4" th:value="${shipment.shipNum}" readonly>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">반품 내용</label>
+                  <select class="form-select" aria-label="Default select example" name="reDetail">
+                    <option>항목 선택</option>
+                    <option value="규격">규격</option>
+                    <option value="수량">수량</option>
+                    <option value="무게">무게</option>
+                    <option value="색상">색상</option>
+                    <option value="재질">재질</option>
+                    <option value="기타">기타</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">이유</label>
+                  <textarea class="form-control" rows="5" name="whyRe"></textarea>
+                </div>
+                <div class="mb-4">
+                  <label class="form-label">비고</label>
+                  <textarea class="form-control" rows="10" name="bGo"></textarea>
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-outline-primary">반품</button>
+                </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
 
     <!--Modal-->
-
     <!--/Modal-->
 
     <!--Script-->
-    <script>
-      function confirmReturn() {
-        return confirm('반품 하시겠습니까?');
-      }
-    </script>
     <!--Script-->
   </span>
 

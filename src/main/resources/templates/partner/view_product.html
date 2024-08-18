@@ -21,52 +21,84 @@
     <div class="container-xxl flex-grow-1 container-p-y">
       <div class="card mb-4">
         <div class="d-flex justify-content-between w-100">
-            <h5 class="card-header">세이프티락</h5>
+          <h5 class="card-header">
+            <button type="button" class="btn btn-outline-primary btn-lg">
+              [[${list.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]
+            </button>
+          </h5>
           <div class="demo-inline-spacing">
-            <button type="button" class="btn btn-sm btn-primary">
-              <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-primary">
-              <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
-            </button>
+
+            <th:block th:if="${list.returns}!=null and ${list.returns}!=1">
+              <button type="button" class="btn btn-sm btn-primary" th:onclick="|location.href='@{/partner/view_return(reNO=${list.returns})}'|">
+                <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
+              </button>
+            </th:block>
+            <th:block th:if="${list.returns}==null or ${list.returns}==1">
+              <button type="button" class="btn btn-sm btn-outline-primary">
+                <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
+              </button>
+            </th:block>
+
+            <th:block th:if="${list.emergency}!=null and ${list.emergency}!=1">
+              <button type="button" class="btn btn-sm btn-primary" th:onclick="|location.href='@{/partner/list_urgent}'|">
+                <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
+              </button>
+            </th:block>
+            <th:block th:if="${list.emergency}==null or ${list.emergency}==1">
+              <button type="button" class="btn btn-sm btn-outline-primary">
+                <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
+              </button>
+            </th:block>
+
           </div>
         </div>
         <hr class="m-0" />
         <div class="card-body">
+          <span class="text-light fw-semibold">납기일</span>
           <div class="d-flex justify-content-between w-100">
-            <span class="text-light small fw-semibold">납기일</span>
-            <b>2024-12-08</b>
+            <span></span>
+            <b th:each="chasu:${list.jodalList}">
+              [[${#temporals.format(chasu.dueDate, 'yyyy-MM-dd')}]]
+            </b>
           </div>
-          <div class="demo-vertical-spacing">
-            <div class="progress">
-              <div
-                      class="progress-bar bg-info"
-                      role="progressbar"
-                      style="width: 20%"
-                      aria-valuenow="20"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-              >
-                20%
+          <div class="demo-vertical-spacing mb-4">
+            <div class="row g-0">
+              <div class="progress" th:each="chasu:${list.jodalList}">
+                <div
+                        class="progress-bar bg-info"
+                        role="progressbar"
+                        th:style="'width: '+${chasu.percent}+'%'"
+                        aria-valuenow="20"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                >
+                  [[${chasu.percent}]]%
+                  <span class="count" style="display: none;">[[${#lists.size(list.jodalList)}]]</span>
+                </div>
               </div>
             </div>
           </div>
-          <p></p>
+          <span class="text-light fw-semibold">납기량</span>
           <div class="d-flex justify-content-between w-100">
-            <span class="text-light small fw-semibold">납기량</span>
-            <b>325 / 1,300</b>
+            <span></span>
+            <b th:each="chasu:${list.jodalList}">
+              [[${chasu.quantity}]]
+            </b>
           </div>
-          <div class="demo-vertical-spacing">
-            <div class="progress">
-              <div
-                      class="progress-bar"
-                      role="progressbar"
-                      style="width: 25%"
-                      aria-valuenow="25"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-              >
-                25%
+          <div class="demo-vertical-spacing mb-4">
+            <div class="row g-0">
+              <div class="progress" th:each="chasu:${list.jodalList}">
+                <div
+                        class="progress-bar"
+                        role="progressbar"
+                        th:style="'width: '+${chasu.count}+'%'"
+                        aria-valuenow="25"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                >
+                  [[${chasu.count}]]%
+                  <span class="count" style="display: none;">[[${#lists.size(list.jodalList)}]]</span>
+                </div>
               </div>
             </div>
           </div>
@@ -79,16 +111,18 @@
                 <th>총 주문수량</th>
                 <th>현재 보유수량</th>
                 <th>총 출고수량</th>
+                <th>총 반품수량</th>
               </tr>
               <tr>
-                <td>1,200</td>
-                <td>560</td>
-                <td>400</td>
+                <td>[[${list.jodalList[0].totalOrder}]]</td>
+                <td>[[${list.gumsuList[0].totalOrder-list.totalShipment}]]</td>
+                <td>[[${list.totalShipment}]]</td>
+                <td>[[${list.totalReturn}]]</td>
               </tr>
             </table>
           </div>
         </div>
-        <hr class="m-0" />
+        <hr class="m-0">
         <div class="card-body">
           <span class="text-light small fw-semibold">생산량</span>
           <div class="demo-vertical-spacing">
@@ -108,20 +142,14 @@
         <div class="card-body" style="width: 100%;">
           <!-- Vertically Centered Modal -->
           <div class="col-lg-4 col-md-6" style="width: 100%;">
-            <span class="text-light small fw-semibold">출고처리</span>
-            <form class="demo-vertical-spacing">
-              <textarea class="form-control" rows="15" style="width: 100%;"></textarea>
-              <div><p></p></div>
-              <!-- Button trigger modal -->
-              <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalCenter"
-              >
-                출고 완료
-              </button>
-            </form>
+            <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalCenter"
+            >
+              출고하기
+            </button>
           </div>
         </div>
       </div>
@@ -129,62 +157,55 @@
 
     <!--Modal-->
     <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="modalCenterTitle">출고 완료 처리</h5>
-            <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-            ></button>
           </div>
-          <div class="modal-body">
-            <label for="nameWithTitle" class="form-label">담당자</label>
-            <input
-                    type="text"
-                    id="nameWithTitle"
-                    class="form-control"
-                    placeholder="홍길동"
-            />
-            <label for="nameWithTitle" class="form-label">품목명</label>
-            <input
-                    type="text"
-                    id="nameWithTitle"
-                    class="form-control"
-                    value="세이프티락"
-            />
-            <div class="row g-2">
-              <div class="col mb-0">
-                <label for="emailWithTitle" class="form-label">날짜</label>
-                <input
-                        type="text"
-                        id="emailWithTitle"
-                        class="form-control"
-                        value="2024/07/23"
-                        readonly
-                />
+          <form th:action="@{/partner/release}" method="post">
+            <div class="modal-body">
+              <label class="form-label">품목명</label>
+              <input style="display:none;" name="baljuNo" th:value="${list.baljuDTO.baljuNo}">
+              <input
+                      type="text"
+                      class="form-control"
+                      th:value="${list.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}"
+                      readonly
+              />
+              <div class="row g-2">
+                <div class="col mb-0">
+                  <label for="emailWithTitle" class="form-label">날짜</label>
+                  <input
+                          type="text"
+                          id="emailWithTitle"
+                          class="form-control"
+                          th:value="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"
+                          readonly
+                  />
+                </div>
+                <div class="col mb-0">
+                  <label for="dobWithTitle" class="form-label">출고량</label>
+                  <input
+                          type="text"
+                          id="dobWithTitle"
+                          class="form-control"
+                          placeholder="출고량 입력"
+                          name="shipNum"
+                  />
+                </div>
               </div>
-              <div class="col mb-0">
-                <label for="dobWithTitle" class="form-label">출고량</label>
-                <input
-                        type="text"
-                        id="dobWithTitle"
-                        class="form-control"
-                        value="400"
-                />
-              </div>
+              <label class="form-label">비고</label>
+              <textarea class="form-control mb-4" rows="15" style="width: 100%;" name="text"></textarea>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-              출고 완료
-            </button>
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              취소
-            </button>
-          </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                출고 완료
+              </button>
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                취소
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
