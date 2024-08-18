@@ -4,6 +4,7 @@ import mit.iwrcore.IWRCore.entity.GumsuChasu;
 import mit.iwrcore.IWRCore.security.dto.GumsuChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -28,5 +29,5 @@ public interface GumsuChasuService {
 
     PageResultDTO<GumsuChasuDTO, GumsuChasu> getAllGumsuChasus(PageRequestDTO requestDTO);
 
-    List<Object[]> PartnerMain(Long pno);
+    List<QuantityDateDTO> partnerMainGumsu(Long baljuNo);
 }

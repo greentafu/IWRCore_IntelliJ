@@ -29,4 +29,6 @@ public interface GumsuService {
     List<GumsuDTO> getAllGumsus();
 
     PageResultDTO<BaljuGumsuDTO, Object[]> couldGumsu(PageRequestDTO requestDTO);
+
+    Long getQuantityMake(Long baljuNo);
 }

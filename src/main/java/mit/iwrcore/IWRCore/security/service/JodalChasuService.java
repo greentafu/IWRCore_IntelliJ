@@ -2,7 +2,9 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.JodalChasu;
 import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +23,7 @@ public interface JodalChasuService {
 
     List<JodalChasuDTO> getAllJodalChasus();
     // 조달계획에 따른 조달차수 리스트
-    List<JodalChasuDTO> getPlanJodalChasus(Long jodalplanId);
+    List<QuantityDateDTO> partnerMainJodal(Long jodalplanId, LocalDateTime baljuDate, Long make);
 //    void save(JodalChasuDTO dto);
 //    JodalChasuDTO update(JodalChasuDTO dto);
 //    void deleteById(Long id);

@@ -101,4 +101,10 @@ public class GumsuServiceImpl implements GumsuService{
         GumsuDTO gumsuDTO=(gumsu!=null)? convertToDTO(gumsu):null;
         return new BaljuGumsuDTO(baljuDTO, gumsuDTO);
     }
+
+    @Override
+    public Long getQuantityMake(Long baljuNo){
+        return gumsuReposetory.quantityMake(baljuNo);
+    }
+
 }

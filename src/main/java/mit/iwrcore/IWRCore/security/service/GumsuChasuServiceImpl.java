@@ -11,11 +11,15 @@ import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,6 +29,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class GumsuChasuServiceImpl implements GumsuChasuService{
+    private static final Logger log = LoggerFactory.getLogger(GumsuChasuServiceImpl.class);
     private final GumsuChasuRepository gumsuChasuRepository;
     private final MemberService memberService;
     private final GumsuService gumsuService;
@@ -91,7 +96,17 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     }
 
     @Override
-    public List<Object[]> PartnerMain(Long pno){
-        return gumsuChasuRepository.partnerMain(pno);
+    public List<QuantityDateDTO> partnerMainGumsu(Long baljuNo){
+        List<GumsuChasu> entityList=gumsuChasuRepository.getGumsuChasuByBaljuNo(baljuNo);
+        List<QuantityDateDTO> list=new ArrayList<>();
+        for(GumsuChasu gumsuChasu:entityList){
+            QuantityDateDTO quantityDateDTO=QuantityDateDTO.builder()
+                    .quantity(gumsuChasu.getGumsuNum())
+                    .dueDate(gumsuChasu.getGumsuDate())
+                    .build();
+            list.add(quantityDateDTO);
+        }
+        list.get(0).setTotalOrder(entityList.get(0).getGumsu().getMake());
+        return list;
     }
 }

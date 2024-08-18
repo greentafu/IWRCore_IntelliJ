@@ -1,6 +1,7 @@
 package mit.iwrcore.IWRCore.repository;
 
 import mit.iwrcore.IWRCore.entity.JodalChasu;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

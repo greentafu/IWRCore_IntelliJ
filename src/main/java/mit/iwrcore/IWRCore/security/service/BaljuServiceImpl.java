@@ -41,6 +41,7 @@ public class BaljuServiceImpl implements BaljuService {
                 .baljuWhere(dto.getBaljuWhere())
                 .baljuPlz(dto.getBaljuPlz())
                 .filename(dto.getFilename())
+                .finCheck(dto.getFinCheck())
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO())) // DTO를 엔티티로 변환
                 .contract(contractService.convertToEntity(dto.getContractDTO())) // DTO를 엔티티로 변환
                 .build();
@@ -56,6 +57,8 @@ public class BaljuServiceImpl implements BaljuService {
                 .baljuWhere(entity.getBaljuWhere())
                 .baljuPlz(entity.getBaljuPlz())
                 .filename(entity.getFilename())
+                .finCheck(entity.getFinCheck())
+                .regDate(entity.getRegDate())
                 .memberDTO(memberService.memberTodto(entity.getWriter())) // 엔티티를 DTO로 변환
                 .contractDTO(contractService.convertToDTO(entity.getContract())) // 엔티티를 DTO로 변환
                 .build();

@@ -165,337 +165,107 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>배송중</td>
+                <tr th:each="list:${list.dtoList}">
                   <td>
-                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
+                    <th:block th:if="${list.shipmentDTO.receipt}==null">배송중</th:block>
+                    <th:block th:if="${list.shipmentDTO.receipt}!=null">[[${#temporals.format(list.shipmentDTO.receipt, 'yyyy-MM-dd')}]]</th:block>
                   </td>
-                  <td><a th:href="@{/goodshandling/view_received}">앞 브레이크</a></td>
-                  <td>300</td>
-                  <td>200</td>
-                  <td>100</td>
                   <td>
-                    <button
-                            type="button"
-                            class="btn btn-outline-primary btn-sm"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalCenter2"
-                    >
-                      수령
-                    </button>
+                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
+                    <strong>[[${list.shipmentDTO.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode}]]</strong>
                   </td>
-                  <td><span style="color: red;">미완료</span></td>
-                  <td>AAA</td>
+                  <td>[[${list.shipmentDTO.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
+                  <td>[[${list.shipmentDTO.baljuDTO.baljuNum}]]</td>
+                  <td>[[${list.totalShipment}]]</td>
+                  <td>[[${list.shipmentDTO.baljuDTO.baljuNum-list.totalShipment}]]</td>
+                  <td>
+                    <th:block th:if="${list.shipmentDTO.receipt==null}">
+                      <button
+                              type="button"
+                              class="btn btn-outline-primary btn-sm"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalCenter2"
+                              th:shipNum="${list.shipmentDTO.shipNum}"
+                              th:shipNo="${list.shipmentDTO.shipNO}"
+                              onclick="receivebutton(this)"
+                      >
+                        수령
+                      </button>
+                    </th:block>
+                    <th:block th:if="${list.shipmentDTO.receipt!=null}">
+                      [[${list.shipmentDTO.shipNum}]]
+                    </th:block>
+                  </td>
+                  <td>
+                    <th:block th:if="${list.shipmentDTO.baljuDTO.baljuNum-list.totalShipment}==0">
+                      <span style="color: green;">완료</span>
+                    </th:block>
+                    <th:block th:if="${list.shipmentDTO.baljuDTO.baljuNum-list.totalShipment}!=0">
+                      <span style="color: red;">미완료</span>
+                    </th:block>
+                  </td>
+                  <td>[[${list.shipmentDTO.baljuDTO.contractDTO.partnerDTO.name}]]</td>
                   <td>
                     <button type="button" class="btn btn-outline-primary">
                       <span class="bx bx-download"></span>
                     </button>
                   </td>
+
                   <td>
-                    <a th:href="@{/goodshandling/return_received}">
-                      <button class="btn btn-primary">반품</button>
-                    </a>
-                    <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalCenter"
-                    >
-                      입고
-                    </button>
-                  </td>
-                  <td>
-                    <button onclick="showOptions()" class="btn btn-primary">요청</button>
-                    <div id="myModal" class="modal">
-                      <div class="modal-content">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <p>원하는 작업을 선택하세요:</p>
-                        <button onclick="callContact()" class="btn btn-secondary">담당자 전화 걸기</button>
-                        <button onclick="emailContact()" class="btn btn-secondary">담당자 이메일 보내기</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>배송중</td>
-                  <td>
-                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>BB-124</strong>
-                  </td>
-                  <td><a th:href="@{/goodshandling/view_received}">뒷 브레이크</a></td>
-                  <td>200</td>
-                  <td>150</td>
-                  <td>50</td>
-                  <td>
-                    <button
-                            type="button"
-                            class="btn btn-outline-primary btn-sm"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalCenter2"
-                    >
-                      수령
-                    </button>
-                  </td>
-                  <td><span style="color: red;">미완료</span></td>
-                  <td>AAA</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-primary">
-                              <span class="bx bx-download"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <a th:href="@{/goodshandling/return_received}">
-                      <button class="btn btn-primary">반품</button>
-                    </a>
-                    <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalCenter"
-                    >
-                      입고
-                    </button>
-                  </td>
-                  <td>
-                    <button onclick="showOptions()" class="btn btn-primary">요청</button>
-                    <div id="myModal" class="modal">
-                      <div class="modal-content">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <p>원하는 작업을 선택하세요:</p>
-                        <button onclick="callContact()" class="btn btn-secondary">담당자 전화 걸기</button>
-                        <button onclick="emailContact()" class="btn btn-secondary">담당자 이메일 보내기</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2024-07-15</td>
-                  <td>
-                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>BT-590</strong>
-                  </td>
-                  <td><a th:href="@{/goodshandling/view_received}">배터리</a></td>
-                  <td>510</td>
-                  <td>300</td>
-                  <td>210</td>
-                  <td>80</td>
-                  <td><span style="color: red;">미완료</span></td>
-                  <td>AAA</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-primary">
-                      <span class="bx bx-download"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <a th:href="@{/goodshandling/return_received}">
-                      <button class="btn btn-primary">반품</button>
-                    </a>
-                    <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalCenter"
-                    >
-                      입고
-                    </button>
-                  </td>
-                  <td>
-                    <button onclick="showOptions()" class="btn btn-primary">요청</button>
-                    <div id="myModal" class="modal">
-                      <div class="modal-content">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <p>원하는 작업을 선택하세요:</p>
-                        <button onclick="callContact()" class="btn btn-secondary">담당자 전화 걸기</button>
-                        <button onclick="emailContact()" class="btn btn-secondary">담당자 이메일 보내기</button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2024-07-11</td>
-                  <td>
-                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AT-152	</strong>
-                  </td>
-                  <td><a th:href="@{/goodshandling/view_received}">앞 타이어	</a></td>
-                  <td>300</td>
-                  <td>200</td>
-                  <td>100</td>
-                  <td>100</td>
-                  <td><span style="color: green;">완료</span></td>
-                  <td>BBB</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-primary">
-                      <span class="bx bx-download"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <li class="menu-item">
+                    <th:block th:if="${list.shipmentDTO.receipt!=null && list.shipmentDTO.returnsDTO==null && list.shipmentDTO.receiveCheck==0}">
+                      <a th:href="@{/goodshandling/return_received(shipNo=${list.shipmentDTO.shipNO})}">
+                        <button class="btn btn-primary">반품</button>
+                      </a>
+                      <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalCenter"
+                              th:shipNum="${list.shipmentDTO.shipNum}"
+                              th:shipNo="${list.shipmentDTO.shipNO}"
+                              onclick="receiveConfirm(this)"
+                      >
+                        입고
+                      </button>
+                    </th:block>
+                    <th:block th:if="${list.shipmentDTO.returnsDTO==null && list.shipmentDTO.receiveCheck==1}">
                       <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
                         <button  class="btn btn-secondary">입고완료</button>
                       </a>
-                    </li>
-                  </td><td>
-                  <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                      <button  class="btn btn-secondary">요청</button>
-                    </a>
-                  </li>
-                </td>
-                </tr>
-                <tr>
-                  <td>2024-07-11</td>
-                  <td>
-                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>DT-569</strong>
-                  </td>
-                  <td><a th:href="@{/goodshandling/view_received}">뒷 타이어	</a></td>
-                  <td>200</td>
-                  <td>50</td>
-                  <td>150</td>
-                  <td>100</td>
-                  <td><span style="color: red;">미완료</span></td>
-                  <td>BBB</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-primary">
-                      <span class="bx bx-download"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <li class="menu-item">
+                    </th:block>
+                    <th:block th:if="${list.shipmentDTO.returnsDTO!=null}">
                       <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                        <button  class="btn btn-secondary">입고완료</button>
+                        <button  class="btn btn-secondary">반품완료</button>
                       </a>
-                    </li>
-                  </td><td>
-                  <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                      <button  class="btn btn-secondary">요청</button>
-                    </a>
-                  </li>
-                </td>
-                </tr>
-                <tr>
-                  <td>2024-07-11</td>
-                  <td>
-                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>KT-632</strong>
+                    </th:block>
                   </td>
-                  <td><a th:href="@{/goodshandling/view_received}">컨트롤러	</a></td>
-                  <td>300</td>
-                  <td>200</td>
-                  <td>100</td>
-                  <td>100</td>
-                  <td><span style="color: green;">완료</span></td>
-                  <td>BBB</td>
+
                   <td>
-                    <button type="button" class="btn btn-outline-primary">
-                      <span class="bx bx-download"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                        <button  class="btn btn-secondary">입고완료</button>
-                      </a>
-                    </li>
-                  </td>
-                  <td>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                        <button  class="btn btn-secondary">요청</button>
-                      </a>
-                    </li>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2024-07-11</td>
-                  <td>
-                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>SS-149</strong>
-                  </td>
-                  <td><a th:href="@{/goodshandling/view_received}">슬라이-슬리브</a></td>
-                  <td>300</td>
-                  <td>200</td>
-                  <td>100</td>
-                  <td>100</td>
-                  <td><span style="color: green;">완료</span></td>
-                  <td>CCC</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-primary">
-                      <span class="bx bx-download"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                        <button  class="btn btn-secondary">입고완료</button>
-                      </a>
-                    </li>
-                  </td><td>
-                  <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                      <button  class="btn btn-secondary">요청</button>
-                    </a>
-                  </li>
-                </td>
-                </tr>
-                <tr>
-                  <td>2024-07-11</td>
-                  <td>
-                    <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>ST-694</strong>
-                  </td>
-                  <td><a th:href="@{/goodshandling/view_received}">스티어링 튜브	</a></td>
-                  <td>200</td>
-                  <td>70</td>
-                  <td>130</td>
-                  <td>100</td>
-                  <td><span style="color: red;">미완료</span></td>
-                  <td>CCC</td>
-                  <td>
-                    <button type="button" class="btn btn-outline-primary">
-                      <span class="bx bx-download"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                        <button  class="btn btn-secondary">입고완료</button>
-                      </a>
-                    </li>
-                  </td>
-                  <td>
-                    <li class="menu-item">
-                      <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
-                        <button  class="btn btn-secondary">요청</button>
-                      </a>
-                    </li>
+                    <button onclick="showOptions()" class="btn btn-outline-primary">요청</button>
                   </td>
                 </tr>
               </tbody>
             </table>
             <nav aria-label="Page navigation">
-              <br>
               <ul class="pagination justify-content-center">
-                <li class="page-item prev">
-                  <a class="page-link" href="javascript:void(0);"
-                  ><i class="tf-icon bx bx-chevrons-left"></i
-                  ></a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="javascript:void(0);">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">4</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">5</a>
-                </li>
-                <li class="page-item next">
-                  <a class="page-link" href="javascript:void(0);"
-                  ><i class="tf-icon bx bx-chevrons-right"></i
-                  ></a>
-                </li>
+                <th:block th:if="${list.prev}">
+                  <li class="page-item prev">
+                    <a class="page-link"
+                       th:href="@{/goodshandling/list_received(page=${list.start}-1)}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                  </li>
+                </th:block>
+                <th:block th:each="pagenum:${list.pageList}">
+                  <li class="page-item " th:classappend="${list.page}==${pagenum}? active">
+                    <a class="page-link"
+                       th:href="@{/goodshandling/list_received(page=${pagenum})}">[[${pagenum}]]</a>
+                  </li>
+                </th:block>
+                <th:block th:if="${list.next}">
+                  <li class="page-item next">
+                    <a class="page-link"
+                       th:href="@{/goodshandling/list_received(page=${list.end}+1)}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                  </li>
+                </th:block>
               </ul>
             </nav>
           </div>
@@ -512,36 +282,17 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col mb-3 text-center">
-                AM-823의 반품수량은 0개 입니다.<br/>
-                입고 가능 수량 : 300개
-              </div>
-            </div>
-            <div class="row g-2">
-              <div class="col mb-0">
-                <label for="emailWithTitle" class="form-label">담당자</label>
-                <input
-                        type="text"
-                        id="emailWithTitle"
-                        class="form-control"
-                        placeholder="실명 입력"
-                />
-              </div>
-              <div class="col mb-0">
-                <label for="dobWithTitle" class="form-label">입고처리 수량 입력</label>
-                <input
-                        type="number"
-                        id="dobWithTitle"
-                        class="form-control"
-                />
-              </div>
+              <div class="col mb-3 text-center" id="receiveConfirmText"></div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              취소
-            </button>
-            <button type="button" class="btn btn-primary">입고확인</button>
+            <form th:action="@{/goodshandling/receiveConfirm}" method="post">
+              <input style="display:none;" name="shipNO" id="receiveConfirmNo">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                취소
+              </button>
+              <button type="submit" class="btn btn-primary">입고확정</button>
+            </form>
           </div>
         </div>
       </div>
@@ -552,48 +303,51 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalCenterTitle">수령확인</h5>
+            <h5 class="modal-title">수령확인</h5>
           </div>
           <div class="modal-body">
-            <div class="row">
-              <div class="col mb-3 text-center">
-                협력회사에서 보낸 수량은 100개 입니다.<br/>
-                수령 가능 수량 : 100개
-              </div>
-            </div>
-            <div class="row g-2">
-              <div class="col mb-0">
-                <label for="emailWithTitle" class="form-label">담당자</label>
-                <input
-                        type="text"
-                        id="emailWithTitle"
-                        class="form-control"
-                        placeholder="실명 입력"
-                />
-              </div>
-              <div class="col mb-0">
-                <label for="dobWithTitle" class="form-label">수령한 수량 입력</label>
-                <input
-                        type="number"
-                        id="dobWithTitle"
-                        class="form-control"
-                />
-              </div>
-            </div>
+            <div class="col mb-3 text-center" id="receiveText"></div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              취소
-            </button>
-            <button type="button" class="btn btn-primary">수령확인</button>
+            <form th:action="@{/goodshandling/receiveCheck}" method="post">
+              <input style="display:none;" name="shipNO" id="receiveNo">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                취소
+              </button>
+              <button type="submit" class="btn btn-primary">수령확인</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
     <!--/Modal2-->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>원하는 작업을 선택하세요:</p>
+        <button onclick="callContact()" class="btn btn-secondary">담당자 전화 걸기</button>
+        <button onclick="emailContact()" class="btn btn-secondary">담당자 이메일 보내기</button>
+      </div>
+    </div>
     <!--/Modal-->
 
     <!--Script-->
+    <script>
+      function receivebutton(button){
+        var shipNum=button.getAttribute('shipNum');
+        var shipNo=button.getAttribute('shipNo');
+        document.getElementById('receiveText').innerHTML="협력회사에서 보낸 수량은 "+shipNum+"개 입니다.<br/>수령확정시 '수령확인'버튼을 누르세요.";
+        document.getElementById('receiveNo').value=shipNo;
+      }
+
+      function receiveConfirm(button){
+      var shipNum=button.getAttribute('shipNum');
+        var shipNo=button.getAttribute('shipNo');
+        document.getElementById('receiveConfirmText').innerHTML="협력회사에서 보낸 수량 "+shipNum+"개를 입고확정하시겠습니까?<br/>입고확정시 '입고확정'버튼을 누르세요.";
+        document.getElementById('receiveConfirmNo').value=shipNo;
+      }
+
+    </script>
     <script>
       function showConfirmation() {
         alert("입고 완료");

@@ -89,4 +89,11 @@ public class EmergencyServiceImpl implements EmergencyService{
         Function<Emergency, EmergencyDTO> fn=(entity->convertToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
     }
+
+    @Override
+    public List<EmergencyDTO> getEmergencyByBalju(Long baljuNo){
+        List<Emergency> entityList=emergencyRepository.getEmengencyListByBalju(baljuNo);
+        List<EmergencyDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        return dtoList;
+    }
 }

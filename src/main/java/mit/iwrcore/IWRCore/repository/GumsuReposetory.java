@@ -10,4 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface GumsuReposetory extends JpaRepository<Gumsu,Long> {
     @Query("select b, g from Balju b left join Gumsu g on (b.baljuNo=g.balju.baljuNo) where b.baljuNo not in (select g2.balju.baljuNo from Gumsu g2)")
     Page<Object[]> couldGumsu(Pageable pageable);
+
+    @Query("select g.make from Gumsu g where g.balju.baljuNo=:baljuNo")
+    Long quantityMake(Long baljuNo);
 }

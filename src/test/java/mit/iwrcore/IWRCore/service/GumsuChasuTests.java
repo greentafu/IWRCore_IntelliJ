@@ -61,15 +61,4 @@ public class GumsuChasuTests {
         PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).build();
         System.out.println(gumsuChasuService.getAllGumsuChasus(requestDTO));
     }
-    @Test
-    @Transactional
-    @Commit
-    public void test123(){
-        List<Object[]> list=gumsuChasuRepository.partnerMain(2L);
-        for(Object[] obj:list){
-            for(Object object:obj){
-                System.out.println(object);
-            }
-        }
-    }
 }

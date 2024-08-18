@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @SpringBootTest
 public class JodalchasuServiceTests {
@@ -89,8 +90,10 @@ public class JodalchasuServiceTests {
     @Test
     @Transactional
     @Commit
-    public void test12(){
-//        jodalChasuService.getAllJodalChasus().forEach(System.out::println);
-        jodalChasuService.getPlanJodalChasus(1L).forEach(System.out::println);
+    public void test342(){
+        LocalDateTime l1=LocalDateTime.now().plusDays(3L);
+        LocalDateTime l2=LocalDateTime.now();
+        System.out.println(ChronoUnit.DAYS.between(l1, l2));
     }
+
 }

@@ -9,9 +9,11 @@ import java.util.List;
 @Builder
 @Data
 public class PartnerMainDTO {
-    BaljuDTO baljuDTO;
-    List<JodalChasuDTO> jodalChasuDTOs;
-    List<GumsuChasuDTO> gumsuChasuDTOs;
-    List<EmergencyDTO> emergencyDTOs;
-    List<ReturnsDTO> returnsDTOs;
+    private BaljuDTO baljuDTO;
+    private List<QuantityDateDTO> jodalList;
+    private List<QuantityDateDTO> gumsuList;
+    private Long emergency;
+    private Long returns;
+    private Long totalReturn;
+    private Long totalShipment;
 }
