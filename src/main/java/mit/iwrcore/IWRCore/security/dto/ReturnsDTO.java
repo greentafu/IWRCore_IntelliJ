@@ -4,6 +4,8 @@ package mit.iwrcore.IWRCore.security.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @Builder
@@ -15,6 +17,7 @@ public class ReturnsDTO {
     private String filename;    // 파일
     private String email;       // 담당자 이메일
     private Long returnCheck;
+    private LocalDateTime regDate;
 
     private ShipmentDTO shipmentDTO;    // 관련된 Shipment DTO
     private MemberDTO memberDTO;        // 작성자 DTO

@@ -1,6 +1,7 @@
 package mit.iwrcore.IWRCore.repository;
 
 import mit.iwrcore.IWRCore.entity.Member;
+import mit.iwrcore.IWRCore.entity.Returns;
 import mit.iwrcore.IWRCore.entity.Shipment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,14 +19,15 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
     @Query("select s from Shipment s where s.balju.baljuNo=:baljuNo")
     List<Shipment> getShipmentByBalju(Long baljuNo);
 
-    @EntityGraph(attributePaths = {"balju"})
-    @Query("select s, g, sss.totalsum from Shipment s " +
+    @EntityGraph(attributePaths = {"balju", "returns", "invoice"})
+    @Query("select s, g, sss.totalsum, r.reNO from Shipment s " +
             "left join Gumsu g on (s.balju.baljuNo=g.balju.baljuNo) " +
             "left join (select ss.balju.baljuNo as baljuNo1, sum(ss.shipNum) as totalsum " +
-                        "from Shipment ss " +
-                        "where ss.receiveCheck=1 " +
-                        "group by ss.balju.baljuNo) as sss " +
-            "on (s.balju.baljuNo=sss.baljuNo1)")
+                    "from Shipment ss " +
+                    "where ss.receiveCheck=1 " +
+                    "group by ss.balju.baljuNo) as sss " +
+            "on (s.balju.baljuNo=sss.baljuNo1) " +
+            "left join Returns r on (s.shipNO=r.shipment.shipNO)")
     Page<Object[]> shipmentPage(Pageable pageable);
 
     @Modifying
@@ -35,8 +37,15 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
 
     @Modifying
     @Transactional
+    @EntityGraph(attributePaths = {"balju"})
     @Query("update Shipment s set s.writer=:member, s.receiveCheck=1 where s.shipNO=:shipNo")
     void updateShipmentMemberCheck(Member member, Long shipNo);
+
+    @Modifying
+    @Transactional
+    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+    @Query("update Shipment s set s.returns=:returns where s.shipNO=:shipNo")
+    void updateShipmentReturns(Returns returns, Long shipNo);
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})

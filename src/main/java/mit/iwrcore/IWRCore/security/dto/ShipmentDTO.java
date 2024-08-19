@@ -13,6 +13,7 @@ public class ShipmentDTO {
     private LocalDateTime receipt;     // 입고 일
     private String text;
     private Long receiveCheck;
+    private LocalDateTime regDate;
 
     private ReturnsDTO returnsDTO;            // 관련된 Returns ID
     private InvoiceDTO invoiceDTO;            // 관련된 Invoice ID

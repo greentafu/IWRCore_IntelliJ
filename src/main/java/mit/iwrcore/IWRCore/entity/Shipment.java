@@ -25,7 +25,6 @@ public class Shipment extends BaseEntity {
     @JoinColumn(name = "writer_id", nullable = true)    // 외래 키 컬럼 이름
     private Member writer;              // 작성자
     @OneToOne(mappedBy = "shipment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(nullable = true)
     private Returns returns; // 관련된 Returns
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)

@@ -30,7 +30,7 @@
                 <input
                         class="form-control"
                         type="text"
-                        value="슬라이딩 슬리브"
+                        th:value="${returns.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}"
                         readonly
                 />
               </div>
@@ -39,39 +39,43 @@
                 <input
                         class="form-control"
                         type="text"
-                        value="200"
+                        th:value="${returns.shipNum}"
                         readonly
                 />
               </div>
               <div class="mb-3">
                 <label class="form-label">반품 내용</label>
-                <select class="form-select" aria-label="Default select example" disabled>
-                  <option>항목 선택</option>
-                  <option value="1">규격</option>
-                  <option value="2">수량</option>
-                  <option value="3" selected>무게</option>
-                  <option value="4">색상</option>
-                  <option value="5">재질</option>
-                </select>
+                <input
+                        class="form-control"
+                        type="text"
+                        th:value="${returns.returnsDTO.whyRe}"
+                        readonly
+                />
               </div>
               <div class="mb-3">
                 <label class="form-label">이유</label>
-                <input
-                        class="form-control"
-                        value="1.3kg 초과"
-                        readonly
-                />
+                <textarea class="form-control" rows="4" readonly>[[${returns.returnsDTO.reDetail}]]</textarea>
               </div>
 
               <div class="mb-4">
                 <label class="form-label">비고</label>
-                <textarea class="form-control" rows="3" readonly>빠른 시일 내에 다시 보내주시기를 바랍니다.</textarea>
+                <textarea class="form-control" rows="10" readonly>[[${returns.returnsDTO.bGo}]]</textarea>
               </div>
               <div class="d-flex justify-content-between w-100">
                 <a th:href="@{/partner/list_return}">
                   <button type="button" class="btn btn-outline-secondary">목록가기</button>
                 </a>
-                <button class="btn btn-primary">확인</button>
+                <div>
+                  <th:block th:if="${returns.returnsDTO.returnCheck==0}">
+                    <form th:action="@{/partner/returnCheck}" method="post">
+                      <input type="number" style="display:none;" name="reNo" th:value="${returns.returnsDTO.reNO}">
+                      <button type="submit" class="btn btn-primary">확인</button>
+                    </form>
+                  </th:block>
+                  <th:block th:if="${returns.returnsDTO.returnCheck==1}">
+                    <button type="button" class="btn btn-secondary">확인완료</button>
+                  </th:block>
+                </div>
               </div>
             </div>
           </div>
