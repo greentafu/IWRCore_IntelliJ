@@ -169,6 +169,11 @@
                 </tr>
               </tbody>
             </table>
+            <div class="mt-3 text-end mb-4">
+              <a th:href="@{/order/new_order}">
+                <button type="button" class="btn btn-primary">등록</button>
+              </a>
+            </div>
             <!-- Modal Backdrop -->
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
@@ -353,11 +358,6 @@
                 </tr>
               </tbody>
             </table>
-            <div class="mt-3 text-end mb-4">
-              <a th:href="@{/order/new_order}">
-                <button type="button" class="btn btn-primary">등록</button>
-              </a>
-            </div>
             <nav aria-label="Page navigation">
               <ul class="pagination justify-content-center">
                 <th:block th:if="${didBalju_list.prev}">

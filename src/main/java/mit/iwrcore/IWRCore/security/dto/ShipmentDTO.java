@@ -14,6 +14,7 @@ public class ShipmentDTO {
     private String text;
     private Long receiveCheck;
     private LocalDateTime regDate;
+    private String bGo;
 
     private ReturnsDTO returnsDTO;            // 관련된 Returns ID
     private InvoiceDTO invoiceDTO;            // 관련된 Invoice ID

@@ -138,12 +138,7 @@
                       <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="82,000"> </td>
                     </tr>
                     <tr>
-                      <td colspan="22">
-                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#modalScrollable3">
-                          품목 추가
-                        </button>
-                      </td>
+                      <td colspan="22"></td>
                     </tr>
                     <tr>
                       <th style="text-align: center;">월</th>
@@ -256,51 +251,7 @@
           </div>
           <hr class="m-0">
           <div class="modal-body" style="height: 350px;">
-            <table class="table table-hover">
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
+            <table class="table table-hover" id="partnerList">
             </table>
           </div>
           <div class="modal-footer">
@@ -317,7 +268,7 @@
       <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width: fit-content;">
           <div class="modal-body">
-            <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
+            <h5 class="modal-title mb-4">자재 검색</h5>
             <div class="row mb-10 mb-2">
               <label class="form-label col-md-2" style="width: fit-content;">제품</label>
               <div class="col-md-10">
@@ -373,49 +324,16 @@
           <div class="modal-body" style="height: 350px;">
             <div class="table-responsive text-nowrap">
               <table class="table table-hover">
-                <tr>
-                  <th></th>
-                  <th>자재번호</th>
-                  <th>자재명</th>
-                  <th>입고일</th>
-                  <th>입고수량</th>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input" checked>
-                  </td>
-                  <td>KE-8705</td>
-                  <td>전선100m(3mm)</td>
-                  <td>2024-07-02</td>
-                  <td>10</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input" checked>
-                  </td>
-                  <td>KE-8706</td>
-                  <td>전선100m(1.5mm)</td>
-                  <td>2024-07-03</td>
-                  <td>10</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>YF-8705</td>
-                  <td>브레이크(검정)</td>
-                  <td>2024-07-05</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>YF-8705</td>
-                  <td>충전기(검정)</td>
-                  <td>2024-07-06</td>
-                  <td>200</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>자재번호</th>
+                    <th>자재명</th>
+                    <th>입고일</th>
+                    <th>입고수량</th>
+                  </tr>
+                </thead>
+                <tbody id="shipmentList"></tbody>
               </table>
             </div>
           </div>
@@ -431,161 +349,78 @@
       </div>
     </div>
     <!--/ Modal2-->
-    <!-- Modal3 -->
-    <div class="modal fade" id="modalScrollable3" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content" style="width: 500px;">
-          <div class="modal-body">
-            <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
-            <div class="row mb-10 mb-2">
-              <label class="form-label col-md-2" style="width: fit-content;">제품</label>
-              <div class="col-md-10">
-                <div class="row">
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mb-10 mb-2">
-              <label class="form-label col-md-2" style="width: fit-content;">자재</label>
-              <div class="col-md-10">
-                <div class="row">
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <form class="d-flex" onsubmit="return false">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-              </form>
-            </div>
-          </div>
-          <hr class="m-0">
-          <div class="modal-body" style="height: 350px;">
-            <button type="button" class="btn btn-primary btn-sm mb-2">모두선택</button>
-            <div class="table-responsive text-nowrap">
-              <table class="table table-hover">
-                <tr>
-                  <th></th>
-                  <th>자재번호</th>
-                  <th>자재명</th>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td></td>
-                  <td>직접입력</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>QR-1234</td>
-                  <td>앞브레이크</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>QR-1235</td>
-                  <td>뒷브레이크</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>OC-2765</td>
-                  <td>T바</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>YX-8125</td>
-                  <td>스티어링튜브</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>WE-1534</td>
-                  <td>폴딩레버</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>LB-2795</td>
-                  <td>충전소켓</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>ZO-3548</td>
-                  <td>배터리</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>ZA-2154</td>
-                  <td>모터</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>VG-3012</td>
-                  <td>킥스탠드</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-              확인
-            </button>
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              닫기
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/ Modal3-->
     <!--/Modal-->
 
     <!--Script-->
+    <script>
+      $(document).ready(function(){
+        initPartner();
+        initShipment();
+      });
+
+      function initPartner(){
+        $.ajax({
+            url:'/select/getPartner',
+            method:'GET',
+            success:function(data){
+              var partnerList=document.getElementById('partnerList');
+              partnerList.innerHTML='';
+
+              data.forEach(function(partner) {
+                var name=partner.name;
+                var pno=partner.pno;
+                var registerNum=partner.registrationNumber;
+
+                var newRow = document.createElement('tr');
+
+                [pno, name, registerNum].forEach(function(text) {
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+                });
+
+                partnerList.appendChild(newRow)
+              });
+            }
+        });
+
+      }
+      function initShipment(){
+        $.ajax({
+            url:'/select/getShipment',
+            method:'GET',
+            success:function(data){
+              var shipmentList=document.getElementById('shipmentList');
+              shipmentList.innerHTML='';
+
+              data.forEach(function(shipment) {
+                var name=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+                var materCode=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode;
+                var receipt=shipment.receipt;
+                var shipNum=shipment.shipNum;
+
+                var newRow = document.createElement('tr');
+
+                var inputTd = document.createElement('td');
+                var input = document.createElement('input');
+                input.type = 'checkbox';
+                input.class='form-check-input';
+                inputTd.appendChild(input);
+                newRow.appendChild(inputTd);
+
+                [materCode, name, receipt, shipNum].forEach(function(text) {
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+                });
+
+                shipmentList.appendChild(newRow)
+              });
+            }
+        });
+
+      }
+    </script>
 
     <!--Script-->
   </span>

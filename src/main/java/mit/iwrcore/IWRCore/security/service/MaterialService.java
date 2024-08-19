@@ -26,6 +26,7 @@ public interface MaterialService {
     PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO); //모든 리스트
 
     List<Material> findMaterialPart(Long boxcode, Long materscode); //일부분(창고별, 자재소분류별)
+    List<MaterialDTO> materialList();
 
     // 자재 삭제
     void deleteJa(Long materCode);

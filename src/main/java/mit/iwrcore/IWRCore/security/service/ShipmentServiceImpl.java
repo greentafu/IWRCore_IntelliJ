@@ -9,6 +9,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuGumsuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentGumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturn2DTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturnDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +33,7 @@ public class ShipmentServiceImpl implements ShipmentService {
     private final InvoiceRepository invoiceRepository;
     private final ReturnsRepository returnsRepository;
     private final GumsuService gumsuService;
+    private final PartnerService partnerService;
 
     @Override
     @Transactional
@@ -77,6 +80,7 @@ public class ShipmentServiceImpl implements ShipmentService {
                 .receipt(dto.getReceipt())
                 .text(dto.getText())
                 .receiveCheck(dto.getReceiveCheck())
+                .bGo(dto.getBGo())
                 .writer(dto.getMemberDTO()!=null ? memberService.memberdtoToEntity(dto.getMemberDTO()) : null)
                 .invoice(dto.getInvoiceDTO() != null ? invoiceService.convertToEntity(dto.getInvoiceDTO()) : null)
                 .balju(dto.getBaljuDTO() != null ? baljuService.convertToEntity(dto.getBaljuDTO()) : null)
@@ -93,6 +97,7 @@ public class ShipmentServiceImpl implements ShipmentService {
                 .text(entity.getText())
                 .receiveCheck(entity.getReceiveCheck())
                 .regDate(entity.getRegDate())
+                .bGo(entity.getBGo())
                 .invoiceDTO(entity.getInvoice() != null ? invoiceService.convertToDTO(entity.getInvoice()) : null)
                 .baljuDTO(entity.getBalju() != null ? baljuService.convertToDTO(entity.getBalju()) : null)
                 .memberDTO(entity.getWriter()!=null ? memberService.memberTodto(entity.getWriter()) : null)
@@ -193,6 +198,21 @@ public class ShipmentServiceImpl implements ShipmentService {
         return dtoList;
     }
     @Override
+    public List<ShipmentDTO> canInvoiceShipment(){
+        List<Shipment> entityList=shipmentRepository.couldInvoice();
+        List<ShipmentDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        return dtoList;
+    }
+    @Override
+    public List<PartnerDTO> canInvoicePartner(){
+        List<Partner> entityList=shipmentRepository.couldInvoicePartner();
+        List<PartnerDTO> dtoList=new ArrayList<>();
+        entityList.stream().forEach(x->dtoList.add(partnerService.partnerTodto(x)));
+        return dtoList;
+    }
+
+
+    @Override
     public Shipment findShipmentEntity(Long shipNo){
         return shipmentRepository.findShipment(shipNo);
     }
@@ -213,5 +233,12 @@ public class ShipmentServiceImpl implements ShipmentService {
         totalShipment=(totalShipment!=null)?totalShipment:0L;
         reNo=(reNo!=null)?reNo:0L;
         return new ShipmentGumsuDTO(shipmentDTO, gumsuDTO, totalShipment, reNo);
+    }
+
+    @Override
+    public PageResultDTO<ShipmentDTO, Shipment> noneInvoiceShipment(PageRequestDTO requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("shipNO").descending());
+        Page<Shipment> entityPage=shipmentRepository.noneInvoiceShipment(pageable);
+        return new PageResultDTO<>(entityPage, this::convertToDTO);
     }
 }

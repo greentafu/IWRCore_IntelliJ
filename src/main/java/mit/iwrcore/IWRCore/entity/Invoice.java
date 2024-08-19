@@ -21,6 +21,11 @@ public class Invoice extends BaseEntity {
     private LocalDateTime dateCreated;      // 작성일
     private String filename;                // 파일
 
+    private Long cash;
+    private Long cheque;
+    private Long promissory;
+    private Long receivable;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")        // 외래 키 컬럼 이름
     private Member writer;                  // 작성자

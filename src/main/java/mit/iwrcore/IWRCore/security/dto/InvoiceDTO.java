@@ -14,5 +14,10 @@ public class InvoiceDTO {
     private LocalDateTime dateCreated; // 작성일
     private String filename;           // 파일
 
+    private Long cash;
+    private Long cheque;
+    private Long promissory;
+    private Long receivable;
+
     private MemberDTO memberDTO;             // 작성자 ID
 }

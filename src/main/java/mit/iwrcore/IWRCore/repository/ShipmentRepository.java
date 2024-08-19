@@ -1,6 +1,7 @@
 package mit.iwrcore.IWRCore.repository;
 
 import mit.iwrcore.IWRCore.entity.Member;
+import mit.iwrcore.IWRCore.entity.Partner;
 import mit.iwrcore.IWRCore.entity.Returns;
 import mit.iwrcore.IWRCore.entity.Shipment;
 import org.springframework.data.domain.Page;
@@ -51,4 +52,21 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
     @Query("select s from Shipment s where s.shipNO=:shipNo")
     Shipment findShipment(Long shipNo);
+
+    @Transactional
+    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+    @Query("select s from Shipment s where s.receiveCheck=1 and s.invoice is null")
+    Page<Shipment> noneInvoiceShipment(Pageable pageable);
+
+    @Transactional
+    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+    @Query("select s from Shipment s where s.receiveCheck=1 and s.invoice is null")
+    List<Shipment> couldInvoice();
+
+
+    @Transactional
+    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+    @Query("select distinct s.balju.contract.partner from Shipment s " +
+            "where s.receiveCheck=1 and s.invoice is null")
+    List<Partner> couldInvoicePartner();
 }

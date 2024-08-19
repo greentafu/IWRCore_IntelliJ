@@ -5,8 +5,10 @@ import mit.iwrcore.IWRCore.entity.Member;
 import mit.iwrcore.IWRCore.entity.Shipment;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.PartnerDTO;
 import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentGumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturn2DTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturnDTO;
 
 import java.time.LocalDateTime;
@@ -45,6 +47,11 @@ public interface ShipmentService {
     void updateMemberCheck(Member member, Long shipNo);
 
     List<ShipmentDTO> getShipmentByBalju(Long baljuNo);
+    List<ShipmentDTO> canInvoiceShipment();
+    List<PartnerDTO> canInvoicePartner();
 
     PageResultDTO<ShipmentGumsuDTO, Object[]> pageShipment(PageRequestDTO requestDTO);
+
+    PageResultDTO<ShipmentDTO, Shipment> noneInvoiceShipment(PageRequestDTO requestDTO);
+
 }

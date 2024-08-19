@@ -20,6 +20,7 @@ public class Shipment extends BaseEntity {
     private LocalDateTime receipt;      // 입고 일
     private String text;
     private Long receiveCheck;
+    private String bGo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id", nullable = true)    // 외래 키 컬럼 이름
