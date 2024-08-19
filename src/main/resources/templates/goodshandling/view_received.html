@@ -28,7 +28,7 @@
                 <h4 class="mb-4">출하 확인서</h4>
                 <p><strong>전화번호:</strong> ([[${shipment.baljuDTO.contractDTO.partnerDTO.name}]]) [[${shipment.baljuDTO.contractDTO.partnerDTO.telNumber}]] &nbsp;&nbsp;<strong>주문 번호:</strong> ([[${shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]) [[${shipment.baljuDTO.baljuNo}]]</p>
                 <p class="mb-4"><strong>출하 일자:</strong> [[${#temporals.format(shipment.regDate, 'yyyy-MM-dd')}]] &nbsp;&nbsp;<strong>출하 수량:</strong> [[${shipment.shipNum}]]</p>
-                <textarea class="form-control mb-4" rows="25" style="width: 100%;" name="text">[[${shipment.text}]]</textarea>
+                <textarea class="form-control mb-4" rows="25" style="width: 100%;" name="text" readonly>[[${shipment.text}]]</textarea>
                 <div class="d-flex justify-content-between w-100">
                   <div class="menu-item" style="position: absolute; bottom: 20px; left: 20px;">
                     <a th:href="@{/goodshandling/list_received}">
@@ -36,20 +36,22 @@
                     </a>
                   </div>
                   <div class="menu-item" style="position: absolute; bottom: 20px; right: 20px;">
-                    <a th:href="@{/goodshandling/return_received(shipNo=${shipment.shipNO})}">
-                      <button type="button" class="btn btn-secondary">반품</button>
-                    </a>
-                    <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalCenter"
-                            th:shipNum="${shipment.shipNum}"
-                            th:shipNo="${shipment.shipNO}"
-                            onclick="receiveConfirm(this)"
-                    >
+                    <th:block th:if="${shipment.receipt}!=null">
+                      <a th:href="@{/goodshandling/return_received(shipNo=${shipment.shipNO})}">
+                        <button type="button" class="btn btn-secondary">반품</button>
+                      </a>
+                      <button
+                              type="button"
+                              class="btn btn-primary"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalCenter"
+                              th:shipNum="${shipment.shipNum}"
+                              th:shipNo="${shipment.shipNO}"
+                              onclick="receiveConfirm(this)"
+                      >
                         입고
                       </button>
+                    </th:block>
                   </div>
                 </div>
               </div>

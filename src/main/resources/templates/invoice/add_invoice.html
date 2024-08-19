@@ -49,7 +49,7 @@
                         등록<br />번호
                       </th>
                       <td colspan="5" style="border-top: 2px solid red;">
-                        <input type="text" style="border: 0; width: 100%; min-width: 100px;" value="000-00-00000">
+                        <input type="text" style="border: 0; width: 100%; min-width: 100px;" id="partnerRegister">
                       </td>
                       <th style="text-align: center; border-top: 2px solid red;">
                         종사업장<br />번호
@@ -77,9 +77,9 @@
                     </tr>
                     <tr>
                       <th style="text-align: center;">상호</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="(주)한일전자"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0;" id="partnerName"> </td>
                       <th style="text-align: center;">성명</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="이대표"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0;" id="partnerCEO"> </td>
                       <th style="text-align: center;">상호</th>
                       <td colspan="5"> <input type="text" style="border: 0;" value="DG물산"> </td>
                       <th style="text-align: center;">성명</th>
@@ -87,8 +87,8 @@
                     </tr>
                     <tr>
                       <th style="text-align: center;">사업장</th>
-                      <td colspan="11"> <input type="text" style="border: 0; width: 100%;"
-                                                     value="충청북도 청주시 흥덕구 ...">
+                      <td colspan="11">
+                        <input type="text" style="border: 0; width: 100%;" id="partnerLocation">
                       </td>
                       <th style="text-align: center;">사업장</th>
                       <td colspan="11"> <input type="text" style="border: 0; width: 100%;" value="경기도 수원시 ...">
@@ -96,9 +96,9 @@
                     </tr>
                     <tr>
                       <th style="text-align: center;">업태</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="제조업"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0;" id="partnerType"> </td>
                       <th style="text-align: center;">종목</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="도매 및 소매업"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0;" id="partnerSector"> </td>
                       <th style="text-align: center;">업태</th>
                       <td colspan="5"> <input type="text" style="border: 0;" value="제조업"> </td>
                       <th style="text-align: center;">종목</th>
@@ -109,7 +109,7 @@
                         이메일
                       </th>
                       <td rowspan="2" colspan="11" style=" border-bottom: 2px solid red;">
-                        <input type="text" style="border: 0;" value="asd1234@mail.com">
+                        <input type="text" style="border: 0;" id="partnerEmail">
                       </td>
                       <th style="text-align: center;">이메일</th>
                       <td colspan="11"> <input type="text" style="border: 0;" value="qwe4567@mail.com"> </td>
@@ -151,6 +151,7 @@
                       <th colspan="3" style="text-align: center;">세액</th>
                       <th colspan="2" style="text-align: center;">비고</th>
                     </tr>
+                    <span id="selectedShipment"></span>
                     <tr>
                       <td> <input type="text" style="border: 0; width: 100%;" value="07"> </td>
                       <td> <input type="text" style="border: 0; width: 100%;" value="02"> </td>
@@ -201,8 +202,8 @@
                     <a th:href="@{/invoice/list_invoice}">
                       <button type="reset" class="btn btn-outline-secondary">취소</button>
                     </a>
-                    <div></div>
-                    <button type="button" class="btn btn-primary btn-sm">발급하기</button>
+                    <div><input type="number" style="display:none;" name="pno" id="partnerPno"></div>
+                    <button type="submit" class="btn btn-primary btn-sm">발급하기</button>
                   </div>
                   <!--/-->
                 </div>
@@ -338,7 +339,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="selectInvoiceShipment()">
               확인
             </button>
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -354,13 +355,12 @@
     <!--Script-->
     <script>
       $(document).ready(function(){
-        initPartner();
-        initShipment();
+        initInvoicePartner();
       });
 
-      function initPartner(){
+      function initInvoicePartner(){
         $.ajax({
-            url:'/select/getPartner',
+            url:'/select/getInvoicePartner',
             method:'GET',
             success:function(data){
               var partnerList=document.getElementById('partnerList');
@@ -379,25 +379,62 @@
                   newRow.appendChild(td);
                 });
 
+                var btnTd = document.createElement('td');
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.value=pno;
+                btn.innerText='선택';
+                btn.className='btn btn-sm btn-outline-primary';
+                btn.onclick = function() {
+                  selectPartner(pno);
+                };
+                btnTd.appendChild(btn);
+                newRow.appendChild(btnTd);
+
                 partnerList.appendChild(newRow)
               });
             }
         });
 
       }
-      function initShipment(){
+
+      function selectPartner(pno){
         $.ajax({
-            url:'/select/getShipment',
+          url:'/select/selectInvoicePartner',
+          method:'POST',
+          data:{pno:pno},
+          success:function(data){
+            $('#partnerPno').val(data.pno);
+            $('#partnerRegister').val(data.registrationNumber);
+            $('#partnerName').val(data.name);
+            $('#partnerCEO').val(data.ceo);
+            $('#partnerLocation').val(data.location);
+            $('#partnerType').val(data.type);
+            $('#partnerSector').val(data.sector);
+            $('#partnerEmail').val(data.email);
+            initInvoiceShipment(pno);
+          }
+        });
+      }
+
+      function initInvoiceShipment(pno){
+        $.ajax({
+            url:'/select/getInvoiceShipment',
             method:'GET',
             success:function(data){
               var shipmentList=document.getElementById('shipmentList');
               shipmentList.innerHTML='';
 
               data.forEach(function(shipment) {
-                var name=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+
                 var materCode=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode;
+                var name=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
                 var receipt=shipment.receipt;
                 var shipNum=shipment.shipNum;
+
+                var shipNO=shipment.shipNO;
+                var standard=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.standard;
+                var price=shipment.baljuDTO.contractDTO.money;
 
                 var newRow = document.createElement('tr');
 
@@ -414,6 +451,13 @@
                   newRow.appendChild(td);
                 });
 
+                [shipNO, standard, price].forEach(function(text) {
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  td.style.display = 'none';
+                  newRow.appendChild(td);
+                });
+
                 shipmentList.appendChild(newRow)
               });
             }
@@ -421,7 +465,6 @@
 
       }
     </script>
-
     <!--Script-->
   </span>
 

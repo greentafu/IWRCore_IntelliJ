@@ -32,6 +32,7 @@ public class SelectboxController {
     private final MaterService materService;
     private final ProCodeService proCodeService;
     private final ShipmentService shipmentService;
+    private final PartnerService partnerService;
 
     @GetMapping("/getPart")
     public PartCodeListDTO getPart(){
@@ -123,12 +124,16 @@ public class SelectboxController {
         }
         return list;
     }
-    @GetMapping("/getPartner")
+    @GetMapping("/getInvoicePartner")
     public List<PartnerDTO> getPartner(@RequestParam(required = false) Long shipNo){
         return shipmentService.canInvoicePartner();
     }
-    @GetMapping("/getShipment")
-    public List<ShipmentDTO> getShipment(){
-        return shipmentService.canInvoiceShipment();
+    @PostMapping("/selectInvoicePartner")
+    public PartnerDTO selectInvoicePartner(@RequestParam(required = false) Long pno){
+        return partnerService.findPartnerDto(pno, null, null);
+    }
+    @GetMapping("/getInvoiceShipment")
+    public List<ShipmentDTO> getShipment(@RequestParam(required = false) Long pno){
+        return shipmentService.canInvoiceShipment(pno);
     }
 }

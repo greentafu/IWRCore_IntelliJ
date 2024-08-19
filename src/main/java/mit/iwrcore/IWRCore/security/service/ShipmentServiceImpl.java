@@ -198,8 +198,8 @@ public class ShipmentServiceImpl implements ShipmentService {
         return dtoList;
     }
     @Override
-    public List<ShipmentDTO> canInvoiceShipment(){
-        List<Shipment> entityList=shipmentRepository.couldInvoice();
+    public List<ShipmentDTO> canInvoiceShipment(Long pno){
+        List<Shipment> entityList=shipmentRepository.couldInvoice(pno);
         List<ShipmentDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
         return dtoList;
     }
