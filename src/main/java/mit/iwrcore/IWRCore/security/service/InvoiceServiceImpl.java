@@ -26,6 +26,10 @@ public class InvoiceServiceImpl implements InvoiceService{
                 .plz(dto.getPlz())
                 .dateCreated(dto.getDateCreated())
                 .filename(dto.getFilename())
+                .cash(dto.getCash())
+                .cheque(dto.getCheque())
+                .promissory(dto.getPromissory())
+                .receivable(dto.getReceivable())
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO())) // MemberDTO를 Member로 변환
                 .build();
     }
@@ -37,6 +41,10 @@ public class InvoiceServiceImpl implements InvoiceService{
                 .plz(entity.getPlz())
                 .dateCreated(entity.getDateCreated())
                 .filename(entity.getFilename())
+                .cash(entity.getCash())
+                .cheque(entity.getCheque())
+                .promissory(entity.getPromissory())
+                .receivable(entity.getReceivable())
                 .memberDTO(memberService.memberTodto(entity.getWriter())) // Member를 MemberDTO로 변환
                 .build();
     }

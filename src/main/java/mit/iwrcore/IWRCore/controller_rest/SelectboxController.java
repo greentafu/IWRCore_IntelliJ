@@ -3,7 +3,9 @@ package mit.iwrcore.IWRCore.controller_rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PartnerDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterLDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterMDTO;
@@ -14,13 +16,11 @@ import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProLDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProMDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
-import mit.iwrcore.IWRCore.security.service.MaterService;
-import mit.iwrcore.IWRCore.security.service.PartCodeService;
-import mit.iwrcore.IWRCore.security.service.ProCodeService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
+import mit.iwrcore.IWRCore.security.service.*;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/select")
@@ -31,6 +31,7 @@ public class SelectboxController {
     private final PartCodeService partCodeService;
     private final MaterService materService;
     private final ProCodeService proCodeService;
+    private final ShipmentService shipmentService;
 
     @GetMapping("/getPart")
     public PartCodeListDTO getPart(){
@@ -50,7 +51,6 @@ public class SelectboxController {
             @RequestParam(required = false) Long lcode,
             @RequestParam(required = false) Long mcode,
             @RequestParam(required = false) Long scode){
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@"+lcode+"/"+mcode+"/"+scode);
         PartLDTO ldto=(lcode!=null)?partCodeService.findPartL(lcode):null;
         PartMDTO mdto=(mcode!=null)?partCodeService.findPartM(mcode):null;
         PartSDTO sdto=(scode!=null)?partCodeService.findPartS(scode):null;
@@ -69,8 +69,6 @@ public class SelectboxController {
             list.setM(null);
             list.setS(null);
         }
-
-        log.info("####################"+list);
         return list;
     }
 
@@ -79,7 +77,6 @@ public class SelectboxController {
             @RequestParam(required = false) Long lcode,
             @RequestParam(required = false) Long mcode,
             @RequestParam(required = false) Long scode){
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@"+lcode+"/"+mcode+"/"+scode);
         MaterLDTO ldto=(lcode!=null)?materService.findMaterL(lcode):null;
         MaterMDTO mdto=(mcode!=null)?materService.findMaterM(mcode):null;
         MaterSDTO sdto=(scode!=null)?materService.findMaterS(scode):null;
@@ -98,8 +95,6 @@ public class SelectboxController {
             list.setM(null);
             list.setS(null);
         }
-
-        log.info("####################"+list);
         return list;
     }
 
@@ -108,7 +103,6 @@ public class SelectboxController {
             @RequestParam(required = false) Long lcode,
             @RequestParam(required = false) Long mcode,
             @RequestParam(required = false) Long scode){
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@"+lcode+"/"+mcode+"/"+scode);
         ProLDTO ldto=(lcode!=null)?proCodeService.findProL(lcode):null;
         ProMDTO mdto=(mcode!=null)?proCodeService.findProM(mcode):null;
         ProSDTO sdto=(scode!=null)?proCodeService.findProS(scode):null;
@@ -127,8 +121,14 @@ public class SelectboxController {
             list.setM(null);
             list.setS(null);
         }
-
-        log.info("####################"+list);
         return list;
+    }
+    @GetMapping("/getPartner")
+    public List<PartnerDTO> getPartner(@RequestParam(required = false) Long shipNo){
+        return shipmentService.canInvoicePartner();
+    }
+    @GetMapping("/getShipment")
+    public List<ShipmentDTO> getShipment(){
+        return shipmentService.canInvoiceShipment();
     }
 }

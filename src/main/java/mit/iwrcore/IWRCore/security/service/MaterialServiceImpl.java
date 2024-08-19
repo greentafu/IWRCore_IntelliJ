@@ -74,6 +74,11 @@ public class MaterialServiceImpl implements MaterialService {
         return materialRepository.materialListPart(boxcode, materscode);
     }
     @Override
+    public List<MaterialDTO> materialList(){
+        return materialRepository.findAll().stream().map(this::materTodto).toList();
+    }
+
+    @Override
     public void deleteJa(Long materCode) {
         log.info("Deleting material with code: {}", materCode);
         materialRepository.deleteById(materCode);
