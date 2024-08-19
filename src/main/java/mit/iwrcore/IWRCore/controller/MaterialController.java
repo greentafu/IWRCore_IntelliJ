@@ -3,9 +3,11 @@ package mit.iwrcore.IWRCore.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.FileMetadata;
+import mit.iwrcore.IWRCore.entity.Material;
 import mit.iwrcore.IWRCore.repository.FileMetadataRepository;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.BoxDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
@@ -159,7 +161,7 @@ public class MaterialController {
     @PostMapping("/register")
     public String registerMaterial(
             @ModelAttribute MaterialDTO materialDTO,
-            @RequestParam("uploadFiles") MultipartFile[] uploadFiles,
+            @RequestParam("uploadFile") MultipartFile uploadFile, // 단일 파일 업로드로 변경
             @RequestParam(name = "box", required = true) String box,
             @RequestParam(name = "materS", required = false) String materS,
             Model model) {
@@ -186,39 +188,53 @@ public class MaterialController {
         materialDTO.setBoxDTO(BoxDTO.builder().boxcode(boxCode).build());
         materialDTO.setMaterSDTO(materService.findMaterS(materSId));
 
-        materialService.insertj(materialDTO);
-
         // 파일 저장 및 메타데이터 저장
-        File directory = new File(UPLOADED_FOLDER);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        String fileName = null;
+        if (uploadFile != null && !uploadFile.isEmpty()) {
+            try {
+                fileName = UUID.randomUUID().toString() + "_" + uploadFile.getOriginalFilename();
+                Path path = Paths.get(UPLOADED_FOLDER + fileName);
+                Files.write(path, uploadFile.getBytes());
 
-        for (MultipartFile file : uploadFiles) {
-            if (!file.isEmpty()) {
-                try {
-                    String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-                    Path path = Paths.get(UPLOADED_FOLDER + fileName);
-                    Files.write(path, file.getBytes());
+                // 파일 메타데이터 저장
+                FileMetadata metadata = new FileMetadata();
+                metadata.setFileName(fileName);
+                metadata.setFilePath(path.toString());
+                fileMetadataRepository.save(metadata);
 
-                    // 파일 메타데이터 저장
-                    FileMetadata metadata = new FileMetadata();
-                    metadata.setFileName(fileName);
-                    metadata.setFilePath(path.toString());
-                    fileMetadataRepository.save(metadata);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    model.addAttribute("message", "파일 업로드 중 오류가 발생했습니다.");
-                    return "redirect:/material/register";
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("message", "파일 업로드 중 오류가 발생했습니다.");
+                return "redirect:/material/register";
             }
         }
+        return fileName;
+    }
+}
+
+
+
+        // DTO에 파일 이름 설정
+        /*materialDTO.setFile(fileName); // 단일 파일이므로 파일 이름을 직접 설정
+
+        // DTO를 엔티티로 변환 후 저장
+        Material material = Material.builder()
+                .name(materialDTO.getName())
+                .unit(materialDTO.getUnit())
+                .standard(materialDTO.getStandard())
+                .color(materialDTO.getColor())
+                .file(fileName) // 단일 파일 이
+                .writer(memberService.memberdtoToEntity(memberDTO)
+                //.materS(materS)
+                //.box(boxService.findBox(materialDTO.getBoxDTO().getBoxcode()))
+                .build();
+
+        materialService.insertj(material);
 
         model.addAttribute("message", "파일 업로드와 자재 등록이 완료되었습니다.");
         return "redirect:/material/list_material";
-    }
+    }*/
 
 
 
-}
+

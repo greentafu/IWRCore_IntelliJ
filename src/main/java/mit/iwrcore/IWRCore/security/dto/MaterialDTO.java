@@ -24,8 +24,9 @@ public class MaterialDTO {
     private String unit;        //단위
     private String standard;    //규격
     private String color;       //색상
-    private String file;        //파일
     private LocalDateTime date;        //등록일자
+
+    private String file;
 
     private BoxDTO boxDTO;
     private MaterSDTO materSDTO;
