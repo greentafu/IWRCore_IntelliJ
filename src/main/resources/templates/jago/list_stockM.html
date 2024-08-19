@@ -127,8 +127,8 @@
                         다운로드
                       </button>
                     </div>
-                      <!--다운로드-->
-                    <table class="table table-bordered mb-4">
+                      <!--/다운로드-->
+                    <table id= "data-table" class="table table-bordered mb-4">
                       <thead>
                         <tr>
                           <th>자재번호</th>
@@ -139,6 +139,7 @@
                           <th>재고금액</th>
                         </tr>
                       </thead>
+
                       <tbody class="table-border-bottom-0">
                         <tr>
                           <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>AM-823</strong></td>
@@ -262,6 +263,7 @@
                         </tr>
                       </tbody>
                     </table>
+                        <!--페이지 네비게이션-->
                     <nav aria-label="Page navigation">
                       <ul class="pagination justify-content-center">
                         <li class="page-item prev">
@@ -291,7 +293,8 @@
                         </li>
                       </ul>
                     </nav>
-                  </div>
+                        <!--/페이지 네비게이션-->
+                    </div>
                 </div>
               </div>
         <!--/ Hoverable Table rows -->
@@ -307,11 +310,9 @@
                   </div>
                   <div class="modal-body">
                     <div class="d-flex justify-content-center">
-                      <form th:action="@{/export}" method="post" class="me-2">
-                      <button type="submit" class="btn btn-outline-primary">
+                      <button id="export-btn" class="btn btn-outline-primary">
                         예
                       </button>
-                      </form>
                       <form th:action="@{/export}" method="post">
                       <button type="submit" class="btn btn-outline-primary">
                         아니오(전체 다운로드)
@@ -333,4 +334,30 @@
   </span>
 
 </th:block>
+<!-- JavaScript 코드 -->
+<script>
+    document.getElementById('export-btn').addEventListener('click', function () {
+        const table = document.getElementById('data-table');
+        const rows = Array.from(table.querySelectorAll('tr'));
+        const csvContent = rows.map(row => {
+            const cells = Array.from(row.querySelectorAll('th, td'));
+            return cells.map(cell => `"${cell.innerText.replace(/"/g, '""')}"`).join(',');
+        }).join('\n');
+
+        const date = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '_');
+        const filename = `${date}_stockM_export.csv`;
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    });
+</script>
 </html>
