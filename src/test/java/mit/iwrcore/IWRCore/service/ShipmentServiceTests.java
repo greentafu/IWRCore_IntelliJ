@@ -133,6 +133,14 @@ public class ShipmentServiceTests {
         System.out.println(shipmentRepository.findShipment(1L));
 //        System.out.println(shipmentService.getShipmentById(1L));
     }
+    @Test
+    @Transactional
+    @Commit
+    public void test11111(){
+        Shipment shipment=shipmentService.findShipmentEntity(1L);
+        ShipmentDTO shipmentDTO=shipmentService.convertToDTO(shipment);
+        System.out.println(shipmentDTO);
+    }
 
 }
 

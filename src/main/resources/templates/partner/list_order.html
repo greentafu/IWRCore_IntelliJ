@@ -33,7 +33,7 @@
               </thead>
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${balju_list.dtoList}">
-                  <td>--</td>
+                  <td>[[${#temporals.format(list.regDate, 'yyyy-MM-dd')}]]</td>
                   <td>[[${list.filename}]]</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-outline-primary">

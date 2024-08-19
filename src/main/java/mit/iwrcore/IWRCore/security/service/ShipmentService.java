@@ -39,6 +39,7 @@ public interface ShipmentService {
 
 
     ShipmentReturnDTO findShipment(Long shipNo);
+    Shipment findShipmentEntity(Long shipNo);
 
     void updateShipmentDate(LocalDateTime dateTime, Long shipNo);
     void updateMemberCheck(Member member, Long shipNo);

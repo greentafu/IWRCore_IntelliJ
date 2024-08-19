@@ -59,8 +59,10 @@ public class PartnerController {
 
     }
     @GetMapping("/list_return")
-    public void list_return(){
-
+    public void list_return(PageRequestDTO requestDTO, Model model){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        AuthPartnerDTO authPartnerDTO=(AuthPartnerDTO) authentication.getPrincipal();
+        model.addAttribute("list", returnsService.getReturnPage(requestDTO, authPartnerDTO.getPno()));
     }
     @GetMapping("/list_urgent")
     public void list_urgetn(PageRequestDTO requestDTO, Model model){
@@ -114,8 +116,8 @@ public class PartnerController {
         model.addAttribute("list", partnerMainDTO);
     }
     @GetMapping("/view_return")
-    public void view_return(){
-
+    public void view_return(@RequestParam Long reNO, Model model){
+        model.addAttribute("returns", returnsService.getDetailReturn(reNO));
     }
     @GetMapping("/main")
     public void main(Model model){
@@ -160,5 +162,20 @@ public class PartnerController {
         shipmentService.createShipment(saveShipment);
         attr.addAttribute("baljuNo", baljuNo);
         return "redirect:/partner/view_product";
+    }
+    @PostMapping("/addQuantity")
+    public String addQuantity(@RequestParam Long baljuNo, @RequestParam Long quantity, RedirectAttributes attr){
+        if(quantity>0){
+            GumsuDTO gumsuDTO=gumsuService.getGumsuById(baljuNo);
+            gumsuDTO.setMake(gumsuDTO.getMake()+quantity);
+            gumsuService.createGumsu(gumsuDTO);
+        }
+        attr.addAttribute("baljuNo", baljuNo);
+        return "redirect:/partner/view_product";
+    }
+    @PostMapping("/returnCheck")
+    public String returnCheck(@RequestParam Long reNo){
+        returnsService.addReturnCheck(reNo);
+        return "redirect:/partner/list_return";
     }
 }

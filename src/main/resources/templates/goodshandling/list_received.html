@@ -161,7 +161,7 @@
                   <th>요청</th>
                   <th>총입고</th>
                   <th>필요</th>
-                  <th>입고대기</th>
+                  <th>검수량</th>
                 </tr>
               </thead>
               <tbody>
@@ -174,7 +174,11 @@
                     <i class="fab fa-bootstrap fa-lg text-primary me-3"></i>
                     <strong>[[${list.shipmentDTO.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode}]]</strong>
                   </td>
-                  <td>[[${list.shipmentDTO.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
+                  <td>
+                    <a th:href="@{/goodshandling/view_received(shipNO=${list.shipmentDTO.shipNO})}">
+                      [[${list.shipmentDTO.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]
+                    </a>
+                  </td>
                   <td>[[${list.shipmentDTO.baljuDTO.baljuNum}]]</td>
                   <td>[[${list.totalShipment}]]</td>
                   <td>[[${list.shipmentDTO.baljuDTO.baljuNum-list.totalShipment}]]</td>
@@ -193,7 +197,15 @@
                       </button>
                     </th:block>
                     <th:block th:if="${list.shipmentDTO.receipt!=null}">
-                      [[${list.shipmentDTO.shipNum}]]
+                      <th:block th:if="${list.shipmentDTO.receiveCheck==1}">
+                        <span style="color: green;">[[${list.shipmentDTO.shipNum}]] (입고)</span>
+                      </th:block>
+                      <th:block th:if="${list.reNo!=0}">
+                        <span style="color: red;">[[${list.shipmentDTO.shipNum}]] (반품)</span>
+                      </th:block>
+                      <th:block th:if="${list.shipmentDTO.receiveCheck==0 && list.reNo==0}">
+                        [[${list.shipmentDTO.shipNum}]] (입고대기)
+                      </th:block>
                     </th:block>
                   </td>
                   <td>
@@ -212,7 +224,7 @@
                   </td>
 
                   <td>
-                    <th:block th:if="${list.shipmentDTO.receipt!=null && list.shipmentDTO.returnsDTO==null && list.shipmentDTO.receiveCheck==0}">
+                    <th:block th:if="${list.shipmentDTO.receipt!=null && list.reNo==0 && list.shipmentDTO.receiveCheck==0}">
                       <a th:href="@{/goodshandling/return_received(shipNo=${list.shipmentDTO.shipNO})}">
                         <button class="btn btn-primary">반품</button>
                       </a>
@@ -228,12 +240,12 @@
                         입고
                       </button>
                     </th:block>
-                    <th:block th:if="${list.shipmentDTO.returnsDTO==null && list.shipmentDTO.receiveCheck==1}">
+                    <th:block th:if="${list.shipmentDTO.receiveCheck==1}">
                       <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
                         <button  class="btn btn-secondary">입고완료</button>
                       </a>
                     </th:block>
-                    <th:block th:if="${list.shipmentDTO.returnsDTO!=null}">
+                    <th:block th:if="${list.reNo!=0}">
                       <a href="javascript:void(0);" class="menu-link" onclick="alert('이미 완료된 작업 입니다.');">
                         <button  class="btn btn-secondary">반품완료</button>
                       </a>

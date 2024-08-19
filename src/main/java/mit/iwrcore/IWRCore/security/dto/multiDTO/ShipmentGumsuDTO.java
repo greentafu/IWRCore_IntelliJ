@@ -10,10 +10,12 @@ public class ShipmentGumsuDTO {
     private ShipmentDTO shipmentDTO;
     private GumsuDTO gumsuDTO;
     private Long totalShipment;
+    private Long reNo;
 
-    public ShipmentGumsuDTO(ShipmentDTO shipmentDTO, GumsuDTO gumsuDTO, Long totalShipment){
+    public ShipmentGumsuDTO(ShipmentDTO shipmentDTO, GumsuDTO gumsuDTO, Long totalShipment, Long reNo){
         this.shipmentDTO=shipmentDTO;
         this.gumsuDTO=gumsuDTO;
         this.totalShipment=totalShipment;
+        this.reNo=reNo;
     }
 }

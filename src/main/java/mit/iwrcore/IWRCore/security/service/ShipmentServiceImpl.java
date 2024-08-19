@@ -92,6 +92,7 @@ public class ShipmentServiceImpl implements ShipmentService {
                 .receipt(entity.getReceipt())
                 .text(entity.getText())
                 .receiveCheck(entity.getReceiveCheck())
+                .regDate(entity.getRegDate())
                 .invoiceDTO(entity.getInvoice() != null ? invoiceService.convertToDTO(entity.getInvoice()) : null)
                 .baljuDTO(entity.getBalju() != null ? baljuService.convertToDTO(entity.getBalju()) : null)
                 .memberDTO(entity.getWriter()!=null ? memberService.memberTodto(entity.getWriter()) : null)
@@ -191,6 +192,10 @@ public class ShipmentServiceImpl implements ShipmentService {
         List<ShipmentDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
         return dtoList;
     }
+    @Override
+    public Shipment findShipmentEntity(Long shipNo){
+        return shipmentRepository.findShipment(shipNo);
+    }
 
     @Override
     public PageResultDTO<ShipmentGumsuDTO, Object[]> pageShipment(PageRequestDTO requestDTO){
@@ -202,9 +207,11 @@ public class ShipmentServiceImpl implements ShipmentService {
         Shipment shipment=(Shipment) objects[0];
         Gumsu gumsu=(Gumsu) objects[1];
         Long totalShipment=(Long) objects[2];
+        Long reNo=(Long) objects[3];
         ShipmentDTO shipmentDTO=(shipment!=null)? convertToDTO(shipment):null;
         GumsuDTO gumsuDTO=(gumsu!=null)? gumsuService.convertToDTO(gumsu):null;
         totalShipment=(totalShipment!=null)?totalShipment:0L;
-        return new ShipmentGumsuDTO(shipmentDTO, gumsuDTO, totalShipment);
+        reNo=(reNo!=null)?reNo:0L;
+        return new ShipmentGumsuDTO(shipmentDTO, gumsuDTO, totalShipment, reNo);
     }
 }

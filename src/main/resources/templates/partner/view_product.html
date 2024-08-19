@@ -126,15 +126,17 @@
         <div class="card-body">
           <span class="text-light small fw-semibold">생산량</span>
           <div class="demo-vertical-spacing">
-            <form class="input-group">
+            <form class="input-group" th:action="@{/partner/addQuantity}" method="post">
+              <input type="number" style="display:none;" name="baljuNo" th:value="${list.baljuDTO.baljuNo}">
               <input
                       type="text"
                       class="form-control"
                       placeholder="생산량 입력"
                       aria-label="Recipient's username"
                       aria-describedby="button-addon2"
+                      name="quantity"
               />
-              <button class="btn btn-outline-primary" type="button" id="button-addon2">등록</button>
+              <button type="submit" class="btn btn-outline-primary">등록</button>
             </form>
           </div>
         </div>
