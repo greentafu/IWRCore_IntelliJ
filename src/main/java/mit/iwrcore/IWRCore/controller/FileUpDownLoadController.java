@@ -1,4 +1,4 @@
-/*package mit.iwrcore.IWRCore.controller;
+package mit.iwrcore.IWRCore.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class FileUpDownLoadController {
             log.info("fileName: " + fileName);
         }
     }
-}*/
+}
 /*MaterialController:
 
 @PostMapping("/upload"): 클라이언트에서 파일을 업로드하는 요청을 처리합니다.

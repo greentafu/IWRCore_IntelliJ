@@ -25,7 +25,7 @@
                 <!-- Hoverable Table rows -->
               <div class="card">
                 <div class="table-responsive text-nowrap">
-<form th:action="@{/material/register}" method="post">
+<form th:action="@{/material/register}" method="post" enctype="multipart/form-data">
                   <!-- Outline Dropdowns -->
                   <div class="card-body">
                     <h5>자재 정보</h5>
@@ -39,10 +39,11 @@
                               type="file"
                               class="form-control"
                               id="inputGroupFile04"
+                              name="uploadFiles"
                               aria-describedby="inputGroupFileAddon04"
                               aria-label="Upload"
                       />
-                      <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+                      <!--<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">업로드</button>-->
                     </div>
                       <!--/자재 파일 업로드-->
                     <div
