@@ -30,7 +30,7 @@ public class MaterialController {
     private final MaterialService materialService;
     private final MemberService memberService;
     private final MaterService materService;
-    private final RestTemplate restTemplate; // HTTP 요청 보내는거
+   // private final RestTemplate restTemplate; // HTTP 요청 보내는거
 
     @GetMapping("/list_material")
     public void list_material(PageRequestDTO pageRequestDTO, Model model) {
@@ -63,7 +63,7 @@ public class MaterialController {
         return "redirect:/material/list_material";
     }
 
-    @PostMapping("/upload")
+    /*@PostMapping("/upload")
     public String uploadFile(@RequestParam("uploadFiles") MultipartFile[] uploadFiles, Model model) {
         String url = "http://localhost:8080/uploadAjax"; // FileUpDownLoadController의 URL
 
@@ -84,10 +84,5 @@ public class MaterialController {
 
         model.addAttribute("message", "파일 업로드가 완료되었습니다.");
         return "redirect:/material/list_material"; // 업로드 완료 후 돌아갈 페이지
-    }
-
-    @GetMapping("/new_material")
-    public String newMaterial() {
-        return "new_material"; // 업로드 폼이 있는 뷰를 반환
-    }
+    }*/
 }
