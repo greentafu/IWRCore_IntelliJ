@@ -128,6 +128,7 @@
                       </button>
                     </div>
                       <!--다운로드-->
+
                     <table class="table table-bordered mb-4">
                       <thead>
                         <tr>
@@ -373,13 +374,11 @@
                   </div>
                   <div class="modal-body">
                     <div class="d-flex justify-content-center">
-                     <form action="/export" method="post" class="me-2">
-                      <button type="button" class="btn btn-outline-primary">
+                     <button id="export-btn" class="btn btn-outline-primary">
                         예
                       </button>
-                     </form>
-                      <form action="/export" method="post">
-                      <button type="button" class="btn btn-outline-primary">
+                      <form th:action="@{/export}" method="post">
+                      <button type="submit" class="btn btn-outline-primary">
                         아니오(전체 다운로드)
                       </button>
                       </form>
@@ -388,15 +387,34 @@
                 </div>
               </div>
             </div>
-
-
         <!--Modal-->
 
         <!--/Modal-->
-        <!--Script-->
-
-        <!--Script-->
   </span>
-
 </th:block>
+<script>
+    document.getElementById('export-btn').addEventListener('click', function () {
+        const table = document.getElementById('data-table');
+        const rows = Array.from(table.querySelectorAll('tr'));
+        const csvContent = rows.map(row => {
+            const cells = Array.from(row.querySelectorAll('th, td'));
+            return cells.map(cell => `"${cell.innerText.replace(/"/g, '""')}"`).join(',');
+        }).join('\n');
+
+        const date = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '_');
+        const filename = `${date}_stock_export.csv`;
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    });
+</script>
 </html>

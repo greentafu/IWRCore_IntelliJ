@@ -1,25 +1,29 @@
-@javascript.js
+<!-- JavaScript 코드 -->
+    <script>
+        document.getElementById('export-btn').addEventListener('click', function () {
+            const table = document.getElementById('data-table');
+            const rows = Array.from(table.querySelectorAll('tr'));
+            const csvContent = rows.map(row => {
+                const cells = Array.from(row.querySelectorAll('th, td'));
+                return cells.map(cell => `"${cell.innerText.replace(/"/g, '""')}"`).join(',');
+            }).join('\n');
 
-function extractTableData() {
-            const table = document.querySelector('table');
-            const rows = table.querySelectorAll('tbody tr');
-    let data = [];
+            const date = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '_');
+            const filename = `${date}_data_export.csv`;
 
-    rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const item = {
-            materialNumber: cells[0].innerText.trim(),
-            materialName: cells[1].innerText.trim(),
-            category: cells[2].innerText.trim(),
-            quantity: cells[3].innerText.trim(),
-            orderStatus: cells[4].innerText.trim(),
-            storageLocation: cells[5].innerText.trim()
-                };
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        });
+    </script>
 
-    data.push(item);
-            });
 
-    return data;
-}
 
-        console.log(extractTableData());

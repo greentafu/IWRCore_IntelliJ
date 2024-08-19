@@ -23,5 +23,5 @@ public class MemberDTO {
     private String id;
     private String pw;
     private String password;
-    private Set<MemberRole> roleSet=new HashSet<>();
+    private Set<MemberRole> roleSet= new HashSet<>();
 }
