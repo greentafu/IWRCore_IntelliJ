@@ -47,7 +47,7 @@ public interface ShipmentService {
     void updateMemberCheck(Member member, Long shipNo);
 
     List<ShipmentDTO> getShipmentByBalju(Long baljuNo);
-    List<ShipmentDTO> canInvoiceShipment();
+    List<ShipmentDTO> canInvoiceShipment(Long pno);
     List<PartnerDTO> canInvoicePartner();
 
     PageResultDTO<ShipmentGumsuDTO, Object[]> pageShipment(PageRequestDTO requestDTO);

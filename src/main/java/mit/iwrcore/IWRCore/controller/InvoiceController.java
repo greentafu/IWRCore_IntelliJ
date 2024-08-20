@@ -34,7 +34,7 @@ public class InvoiceController {
     @GetMapping("/add_invoice")
     public void add_invoice(@RequestParam(required = false) Long shipNO, Model model){
         // 회사 정보 전달(고정)
-        model.addAttribute("company", partnerService.findPartnerDto(19L, null, null));
+        model.addAttribute("company", partnerService.findPartnerDto(1L, null, null));
 //        model.addAttribute("material", materialService.materialList());
 //
 //        if(shipNO==null){

@@ -160,7 +160,8 @@ public class ShipmentServiceTests {
     @Commit
     public void test123131231(){
 //        System.out.println(shipmentRepository.couldInvoicePartner());
-        System.out.println(shipmentService.canInvoicePartner());
+//        System.out.println(shipmentService.canInvoicePartner());
+        System.out.println(shipmentRepository.couldInvoice(2L));
     }
 
 }

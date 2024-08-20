@@ -1,104 +1,103 @@
-<<!DOCTYPE html>
-
-<html
-        lang="ko" xmlns:th="http://www.thymeleaf.org"
-        class="light-style layout-menu-fixed"
-        dir="ltr"
-        data-theme="theme-default"
-        data-assets-path="../assets/"
-        data-template="vertical-menu-template-free"
->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
 <th:block th:replace="~{/layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
     <title>자재 관리/ 조달 계획 필요 자재</title>
       <!--Style-->
-
       <!--/Style-->
   </span>
 
     <span id="content">
     <!-- Content -->
-          <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">자재 관리 /</span> 조달 계획 수립</h4>
-            <div class="card mb-4">
-              <div class="card-body">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-outline-primary dropdown-toggle mb-4" data-bs-toggle="dropdown"
-                          aria-expanded="false">
-                    조달 차수
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="javascript:void(0);">1 차</a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0);">2 차</a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0);">3 차</a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0);">4 차</a></li>
-                  </ul>
-                </div>
-                <div class="row mb-4">
-                  &nbsp;&nbsp;&nbsp;
-                  <button type="button" class="col-md-2 btn btn-outline-primary" style="width: fit-content;">수량
-                    자동입력</button>&nbsp;
-                  <div class="col-md-10">
-                    <div class="row">
-                      <input type="date" class="form-control col-md-2" style="width: 300px;">&nbsp;
-                      <button type="button" class="btn btn-outline-primary col-md-2" style="width: fit-content;">예정일 일괄
-                        등록</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="text-nowrap table-responsive">
-                  <table class="table table-bordered mb-4">
-                    <thead>
-                      <tr>
-                        <th style="width: fit-content;">자재번호</th>
-                        <th style="width: fit-content;">자재명</th>
-                        <th style="width: fit-content;">요청수량</th>
-                        <th style="width: fit-content;">재고수량</th>
-                        <th>조달수량</th>
-                        <th>조달 예정일</th>
-                        <th>1차수량</th>
-                        <th>1차예정일</th>
-                        <th>1차수량</th>
-                        <th>1차예정일</th>
-                        <th>1차수량</th>
-                        <th>1차예정일</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>TY-4521</td>
-                        <td>앞브레이크</td>
-                        <td>1000</td>
-                        <td>450</td>
-                        <td><input type="number" style="border: 0; width: 45px;"></td>
-                        <td><input type="date" style="border: 0; width: 100px;"></td>
-                        <td><input type="number" style="border: 0; width: 45px;"></td>
-                        <td><input type="date" style="border: 0; width: 100px;"></td>
-                        <td><input type="number" style="border: 0; width: 45px;"></td>
-                        <td><input type="date" style="border: 0; width: 100px;"></td>
-                        <td><input type="number" style="border: 0; width: 45px;"></td>
-                        <td><input type="date" style="border: 0; width: 100px;"></td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="d-flex justify-content-between w-100">
-                  <a th:href="@{/jodal/list_jodal}">
-                    <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
-                  </a>
-                   <a th:href="@{/jodal/list_jodal}">
-                    <button class="btn btn-primary">등록</button>
-                  </a>
-                </div>
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">자재 관리 /</span> 조달 계획 수립</h4>
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="row mb-4">
+            &nbsp;&nbsp;&nbsp;
+            <button id="auto-fill-button" type="button" class="col-md-2 btn btn-outline-primary" style="width: fit-content;">수량 자동입력</button>&nbsp;
+            <div class="col-md-10">
+              <div class="row">
+                <input type="date" class="form-control col-md-2" style="width: 300px;">&nbsp;
+                <button type="button" class="btn btn-outline-primary col-md-2" style="width: fit-content;">예정일 일괄 등록</button>
               </div>
             </div>
-              <!--/ Content-->
-              <!--Script-->
+          </div>
+          <div class="text-nowrap table-responsive">
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th style="width: fit-content;">자재번호</th>
+                  <th style="width: fit-content;">자재명</th>
+                  <th style="width: fit-content;">요청수량</th>
+                  <th style="width: fit-content;">재고수량</th>
+                  <th>조달수량</th>
+                  <th>조달 예정일</th>
+                  <th>1차수량</th>
+                  <th>1차예정일</th>
+                  <th>2차수량</th>
+                  <th>2차예정일</th>
+                  <th>3차수량</th>
+                  <th>3차예정일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="structure, iterStat : ${structureList}" data-index="${iterStat.index}">
+                  <td th:text="${structure.materialDTO.materCode}"></td>
+                  <td th:text="${structure.materialDTO.name}"></td>
+                  <td th:text="${structure.quantity}"></td>
+                  <td>4</td>
+                  <td><input type="number" class="quantity-input" data-row="${iterStat.index}" name="1" style="border: 0; width: 45px;"></td>
+                  <td><input type="date" name="2" style="border: 0; width: 100px;"></td>
+                  <td><input type="number" class="quantity-input" data-row="${iterStat.index}" name="3" style="border: 0; width: 45px;"></td>
+                  <td><input type="date" name="4" style="border: 0; width: 100px;"></td>
+                  <td><input type="number" class="quantity-input" data-row="${iterStat.index}" name="5" style="border: 0; width: 45px;"></td>
+                  <td><input type="date" name="6" style="border: 0; width: 100px;"></td>
+                  <td><input type="number" class="quantity-input" data-row="${iterStat.index}" name="7" style="border: 0; width: 45px;"></td>
+                  <td><input type="date" name="8" style="border: 0; width: 100px;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-between w-100">
+            <a th:href="@{/jodal/list_jodal}">
+              <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+            </a>
+            <a th:href="@{/jodal/list_jodal}">
+              <button class="btn btn-primary">등록</button>
+            </a>
+          </div>
+        </div>
+      </div>
+        <!--/ Content-->
+        <!--Script-->
+      <script>
+        document.getElementById('auto-fill-button').addEventListener('click', function() {
+          // AJAX 요청으로 서버에서 데이터 가져오기
+          fetch('/api/structures')
+            .then(response => response.json())
+            .then(data => {
+              // 데이터가 표 형식으로 있을 경우, 각 행의 데이터를 순회하여 처리합니다.
+              data.forEach((item, index) => {
+                const quantity = item.quantity;
+                const stock = item.stock; // stock 데이터를 서버에서 가져온다고 가정
+                const result = quantity - stock;
 
-              <!--Script-->
-  </span>
+                // 입력 필드에 결과 자동 입력
+                const inputField = document.querySelector(`.quantity-input[data-row="${index}"][name="1"]`);
+                if (inputField) {
+                  inputField.value = result;
+                }
 
+                // 추가 필드에 대해서도 필요시 자동 입력 처리
+                // 예: 2차수량, 3차수량 등
+              });
+            })
+            .catch(error => console.error('Error:', error));
+        });
+      </script>
+        <!--/Script-->
+    </span>
 </th:block>
 </html>
