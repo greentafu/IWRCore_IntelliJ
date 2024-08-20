@@ -10,6 +10,7 @@ import mit.iwrcore.IWRCore.repository.ReturnsRepository;
 import mit.iwrcore.IWRCore.repository.ShipmentRepository;
 import mit.iwrcore.IWRCore.security.dto.InvoiceDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
 import mit.iwrcore.IWRCore.security.service.BaljuService;
 import mit.iwrcore.IWRCore.security.service.InvoiceService;
@@ -146,14 +147,16 @@ public class ShipmentServiceTests {
     @Commit
     public void test2323(){
         Pageable pageable=PageRequest.of(0, 2);
-        System.out.println(shipmentRepository.noneInvoiceShipment(pageable));
+//        System.out.println(shipmentRepository.noneInvoiceShipment(pageable));
+        System.out.println(shipmentRepository.finInvoicePage(pageable));
     }
     @Test
     @Transactional
     @Commit
     public void test220(){
-        PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).build();
-        System.out.println(shipmentService.noneInvoiceShipment(requestDTO));
+        PageRequestDTO2 requestDTO=PageRequestDTO2.builder().page2(1).size2(2).build();
+//        System.out.println(shipmentService.noneInvoiceShipment(requestDTO));
+        System.out.println(shipmentService.pageFinInvoice(requestDTO));
     }
     @Test
     @Transactional
@@ -161,7 +164,7 @@ public class ShipmentServiceTests {
     public void test123131231(){
 //        System.out.println(shipmentRepository.couldInvoicePartner());
 //        System.out.println(shipmentService.canInvoicePartner());
-        System.out.println(shipmentRepository.couldInvoice(2L));
+//        System.out.println(shipmentRepository.couldInvoice(2L));
     }
 
 }

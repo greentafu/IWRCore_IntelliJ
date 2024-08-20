@@ -39,11 +39,18 @@ public class InvoiceController {
     @GetMapping("/list_invoice")
     public void list_invoice(PageRequestDTO requestDTO, PageRequestDTO2 requestDTO2, Model model){
         model.addAttribute("none_list", shipmentService.noneInvoiceShipment(requestDTO));
+        model.addAttribute("fin_list", shipmentService.pageFinInvoice(requestDTO2));
     }
     @GetMapping("/add_invoice")
     public void add_invoice(@RequestParam(required = false) Long shipNO, Model model){
         // 회사 정보 전달(고정)
         model.addAttribute("company", partnerService.findPartnerDto(19L, null, null));
+        if(shipNO!=null){
+            Shipment shipment=shipmentService.findShipmentEntity(shipNO);
+            Long pno=shipment.getBalju().getContract().getPartner().getPno();
+            model.addAttribute("selectedPartner", pno);
+            model.addAttribute("selectedShipNo", shipNO);
+        }
 
     }
     @GetMapping("/modify_invoice")

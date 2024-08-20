@@ -6,11 +6,9 @@ import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.*;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuGumsuDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentGumsuDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturn2DTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturnDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -244,5 +242,19 @@ public class ShipmentServiceImpl implements ShipmentService {
         Pageable pageable=requestDTO.getPageable(Sort.by("shipNO").descending());
         Page<Shipment> entityPage=shipmentRepository.noneInvoiceShipment(pageable);
         return new PageResultDTO<>(entityPage, this::convertToDTO);
+    }
+
+    @Override
+    public PageResultDTO<InvoicePartnerDTO, Object[]> pageFinInvoice(PageRequestDTO2 requestDTO2){
+        Pageable pageable=requestDTO2.getPageable(Sort.by("tranNO").descending());
+        Page<Object[]> entityPage=shipmentRepository.finInvoicePage(pageable);
+        return new PageResultDTO<>(entityPage, this::invoicePartnerToDTO);
+    }
+    private InvoicePartnerDTO invoicePartnerToDTO(Object[] objects){
+        Invoice invoice=(Invoice) objects[0];
+        Partner partner=(Partner) objects[1];
+        InvoiceDTO invoiceDTO=(invoice!=null)? invoiceService.convertToDTO(invoice):null;
+        PartnerDTO partnerDTO=(partner!=null)? partnerService.partnerTodto(partner):null;
+        return new InvoicePartnerDTO(invoiceDTO, partnerDTO);
     }
 }

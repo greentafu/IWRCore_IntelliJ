@@ -172,7 +172,8 @@
                     <a th:href="@{/invoice/list_invoice}">
                       <button type="reset" class="btn btn-outline-secondary">취소</button>
                     </a>
-                    <div><input type="number" style="display:none;" name="pno" id="partnerPno"></div>
+                    <input type="number" style="display:none;" name="pno" id="partnerPno" th:attr="value=${selectedPartner != null ? selectedPartner : ''}">
+                    <input type="number" style="display:none;" id="selectedShipNo" th:attr="value=${selectedShipNo != null ? selectedShipNo : ''}">
                     <button type="button" class="btn btn-primary btn-sm" onclick="makeInvoice()">발급하기</button>
                   </div>
                   <!--/-->
@@ -332,6 +333,10 @@
       $(document).ready(function(){
         initInvoicePartner();
         document.getElementById('writeDate').value = todayDate();
+
+        var selectedPartner=document.getElementById('partnerPno').value;
+        if(selectedPartner!=null && selectedPartner!='') selectPartner(selectedPartner);
+
       });
 
       function initInvoicePartner(){
@@ -426,6 +431,13 @@
                   var inputTd = document.createElement('td');
                   var input = document.createElement('input');
                   input.type = 'checkbox';
+                  input.id = 'checkbox'+shipNo;
+
+
+                  console.log("추가된 checkbox들",input.id);
+
+
+
                   input.class='form-check-input';
                   inputTd.appendChild(input);
                   newRow.appendChild(inputTd);
@@ -449,6 +461,22 @@
             }
         });
       }
+
+      function checkCheckbox(){
+        var element=document.getElementById('selectedShipNo');
+        if(element){
+          if(element.value!=null && element.value!=''){
+            var selectedShipNo=document.getElementById('selectedShipNo').value;
+            console.log("selectedShipNo:", selectedShipNo);
+            var checkboxId='checkbox'+selectedShipNo;
+            console.log("checkbox:"+checkboxId);
+            var emptyCheckbox=document.getElementById(checkboxId);
+            console.log("엠티",emptyCheckbox);
+          }
+          element.remove();
+        }
+      }
+
 
       function selectInvoiceShipment(button){
         var pno=button.value;
@@ -621,23 +649,6 @@
             window.location.href = '/invoice/list_invoice';
           }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       }
 
       function whoChecked(){

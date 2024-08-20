@@ -323,149 +323,30 @@
         <div class="table-responsive text-nowrap">
           <!-- Outline Dropdowns -->
           <div class="card-body">
-            <table class="table table-hover">
+            <table class="table table-hover mb-4">
               <thead>
                 <tr>
                   <th></th>
                   <th>협력업체명</th>
-                  <th>거래명세서 파일명</th>
                   <th>발행일</th>
                   <th>다운로드</th>
                   <th>수정/삭제</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
-                <tr>
-                  <td>35</td>
-                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
-                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
-                  <td>2024-06-09</td>
+                <tr th:each="list2:${fin_list.dtoList}">
+                  <td>[[${list2.invoiceDTO.tranNO}]]</td>
+                  <td>[[${list2.partnerDTO.name}]]</td>
+                  <td>[[${#temporals.format(list2.invoiceDTO.dateCreated, 'yyyy-MM-dd')}]]</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-outline-primary">
                       <span class="bx bx-arrow-to-bottom"></span>
                     </button>
                   </td>
                   <td>
-                    <a th:href="@{/invoice/modify_invoice}">
+                    <a th:href="@{/invoice/modify_invoice(tranNO=${list2.invoiceDTO.tranNO})}">
                       <button class="btn btn-primary">수정</button>
                     </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>34</td>
-                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
-                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
-                  <td>2024-06-03</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <a th:href="@{/invoice/modify_invoice}">
-                      <button class="btn btn-primary">수정</button>
-                    </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>33</td>
-                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
-                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
-                  <td>2024-06-03</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <a th:href="@{/invoice/modify_invoice}">
-                      <button class="btn btn-primary">수정</button>
-                    </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>32</td>
-                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
-                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
-                  <td>2024-05-25</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <a th:href="@{/invoice/modify_invoice}">
-                      <button class="btn btn-primary">수정</button>
-                    </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>31</td>
-                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
-                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
-                  <td>2024-05-23</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <a th:href="@{/invoice/modify_invoice}">
-                      <button class="btn btn-primary">수정</button>
-                    </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>30</td>
-                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
-                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
-                  <td>2024-05-22</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <a th:href="@{/invoice/modify_invoice}">
-                      <button class="btn btn-primary">수정</button>
-                    </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>29</td>
-                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
-                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
-                  <td>2024-04-27</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <a th:href="@{/invoice/modify_invoice}">
-                      <button class="btn btn-primary">수정</button>
-                    </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>28</td>
-                  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>A</strong></td>
-                  <td><a th:href="@{/invoice/view_invoice}" class="link-class">TEST</a></td>
-                  <td>2024-04-26</td>
-                  <td>
-                    <button type="button" class="btn btn-sm btn-outline-primary">
-                      <span class="bx bx-arrow-to-bottom"></span>
-                    </button>
-                  </td>
-                  <td>
-                    <button class="btn btn-secondary">수정</button>
                     <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
                   </td>
                 </tr>
@@ -474,27 +355,27 @@
             <!-- Modal Backdrop -->
             <nav aria-label="Page navigation">
               <ul class="pagination justify-content-center">
-                <li class="page-item prev">
-                  <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="javascript:void(0);">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">4</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);">5</a>
-                </li>
-                <li class="page-item next">
-                  <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-                </li>
+                <th:block th:if="${fin_list.prev}">
+                  <li class="page-item prev">
+                    <a class="page-link" th:href="@{/invoice/list_invoice(page2=${fin_list.start}-1)}">
+                      <i class="tf-icon bx bx-chevrons-left"></i>
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:each="pagenum:${fin_list.pageList}">
+                  <li class="page-item " th:classappend="${fin_list.page}==${pagenum}? active">
+                    <a class="page-link" th:href="@{/invoice/list_invoice(page2=${pagenum})}">
+                      [[${pagenum}]]
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:if="${fin_list.next}">
+                  <li class="page-item next">
+                    <a class="page-link" th:href="@{/invoice/list_invoice(page2=${fin_list.end}+1)}">
+                      <i class="tf-icon bx bx-chevrons-right"></i>
+                    </a>
+                  </li>
+                </th:block>
               </ul>
             </nav>
           </div>
