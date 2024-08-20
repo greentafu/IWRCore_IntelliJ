@@ -23,13 +23,14 @@ public class InvoiceServiceTests {
     @Commit
     public void insert(){
         InvoiceDTO dto = InvoiceDTO.builder()
-                .plz(2L)
+                .plz("영수")
                 .dateCreated(LocalDateTime.now())
-                .filename("asd")
                 .memberDTO(memberService.findMemberDto(1L,null))
+                .cash(100000L)
+                .text("asd")
                 .build();
 
-        invoiceService.createInvoice(dto);
+        System.out.println(invoiceService.createInvoice(dto));
     }
 
 

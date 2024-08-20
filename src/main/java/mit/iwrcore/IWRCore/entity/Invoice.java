@@ -17,9 +17,11 @@ public class Invoice extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tranNO;                    // 거래명세서 번호
 
-    private Long plz;                    // 영수.정구 (영수증 여부)
+    private String plz;                    // 영수.정구 (영수증 여부)
     private LocalDateTime dateCreated;      // 작성일
     private String filename;                // 파일
+
+    private String text;
 
     private Long cash;
     private Long cheque;

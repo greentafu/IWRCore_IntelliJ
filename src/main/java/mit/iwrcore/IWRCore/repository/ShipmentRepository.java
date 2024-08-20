@@ -1,9 +1,6 @@
 package mit.iwrcore.IWRCore.repository;
 
-import mit.iwrcore.IWRCore.entity.Member;
-import mit.iwrcore.IWRCore.entity.Partner;
-import mit.iwrcore.IWRCore.entity.Returns;
-import mit.iwrcore.IWRCore.entity.Shipment;
+import mit.iwrcore.IWRCore.entity.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -47,6 +44,12 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
     @Query("update Shipment s set s.returns=:returns where s.shipNO=:shipNo")
     void updateShipmentReturns(Returns returns, Long shipNo);
+
+    @Modifying
+    @Transactional
+    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+    @Query("update Shipment s set s.invoice=:invoice, s.bGo=:text where s.shipNO=:shipNo")
+    void updateShipmentInvoice(Invoice invoice, String text, Long shipNo);
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})

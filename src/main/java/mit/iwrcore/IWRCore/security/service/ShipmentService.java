@@ -1,6 +1,7 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import jakarta.transaction.Transactional;
+import mit.iwrcore.IWRCore.entity.Invoice;
 import mit.iwrcore.IWRCore.entity.Member;
 import mit.iwrcore.IWRCore.entity.Shipment;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
@@ -45,6 +46,7 @@ public interface ShipmentService {
 
     void updateShipmentDate(LocalDateTime dateTime, Long shipNo);
     void updateMemberCheck(Member member, Long shipNo);
+    void updateSHipmentInvoice(Invoice invoice, String text, Long shipNo);
 
     List<ShipmentDTO> getShipmentByBalju(Long baljuNo);
     List<ShipmentDTO> canInvoiceShipment(Long pno);
