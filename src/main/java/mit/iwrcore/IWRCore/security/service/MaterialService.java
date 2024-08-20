@@ -13,6 +13,7 @@ import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProductDTO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,7 +24,9 @@ public interface MaterialService {
     // 자재 찾기
     MaterialDTO findM (Long matercode);
     // 자재 리스트
-    PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO); //모든 리스트
+    PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO);//모든 리스트
+
+    void upload(Material material, MultipartFile file) throws Exception; //파일을 업로드 하기 위함
 
     List<Material> findMaterialPart(Long boxcode, Long materscode); //일부분(창고별, 자재소분류별)
     List<MaterialDTO> materialList();

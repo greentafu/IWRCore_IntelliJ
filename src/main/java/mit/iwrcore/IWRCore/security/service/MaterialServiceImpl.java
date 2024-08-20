@@ -20,10 +20,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -39,7 +42,7 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public void insertj(MaterialDTO dto) {
         log.info("Inserting material");
-        Material material =materdtoToEntity(dto);
+        Material material = materdtoToEntity(dto);
         materialRepository.save(material);
     }
 
@@ -52,15 +55,15 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO){
-        Pageable pageable=requestDTO.getPageable(Sort.by("materCode").descending());
+    public PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO) {
+        Pageable pageable = requestDTO.getPageable(Sort.by("materCode").descending());
 
-        BooleanBuilder booleanBuilder=getSearch(requestDTO);
+        BooleanBuilder booleanBuilder = getSearch(requestDTO);
 
-        Page<Material> entityPage=materialRepository.findAll(booleanBuilder, pageable);
-        Function<Material, MaterialDTO> fn=(entity->materTodto(entity));
+        Page<Material> entityPage = materialRepository.findAll(booleanBuilder, pageable);
+        Function<Material, MaterialDTO> fn = (entity -> materTodto(entity));
 
-        PageResultDTO pageResultDTO=new PageResultDTO<>(entityPage, fn);
+        PageResultDTO pageResultDTO = new PageResultDTO<>(entityPage, fn);
         pageResultDTO.setMaterL(requestDTO.getMaterL());
         pageResultDTO.setMaterM(requestDTO.getMaterM());
         pageResultDTO.setMaterS(requestDTO.getMaterS());
@@ -70,11 +73,12 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public List<Material> findMaterialPart(Long boxcode, Long materscode){
+    public List<Material> findMaterialPart(Long boxcode, Long materscode) {
         return materialRepository.materialListPart(boxcode, materscode);
     }
+
     @Override
-    public List<MaterialDTO> materialList(){
+    public List<MaterialDTO> materialList() {
         return materialRepository.findAll().stream().map(this::materTodto).toList();
     }
 
@@ -84,10 +88,27 @@ public class MaterialServiceImpl implements MaterialService {
         materialRepository.deleteById(materCode);
     }
 
+    @Override
+    public void upload(Material material, MultipartFile file) throws Exception {
+        String projectPath = System.getProperty("user.dir") + "\\src\\main\\webapp";
+
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + file.getOriginalFilename();
+
+        File saveFile =new File(projectPath, fileName);
+
+        file.transferTo(saveFile);
+
+        material.setFile(fileName);
+        material.setUuid("/webapp/" + fileName);
+        materialRepository.save(material);
+
+    }
+
     // dto를 entity로
     @Override
-    public Material materdtoToEntity(MaterialDTO dto){
-        Material entity=Material.builder()
+    public Material materdtoToEntity(MaterialDTO dto) {
+        Material entity = Material.builder()
                 .materCode(dto.getMaterCode())
                 .name(dto.getName())
                 .unit(dto.getUnit())
@@ -100,10 +121,11 @@ public class MaterialServiceImpl implements MaterialService {
                 .build();
         return entity;
     }
+
     // entity를 dto로
     @Override
-    public MaterialDTO materTodto(Material entity){
-        MaterialDTO dto=MaterialDTO.builder()
+    public MaterialDTO materTodto(Material entity) {
+        MaterialDTO dto = MaterialDTO.builder()
                 .materCode(entity.getMaterCode())
                 .name(entity.getName())
                 .unit(entity.getUnit())
@@ -118,38 +140,38 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     // 검색조건
-    private BooleanBuilder getSearch(PageRequestDTO requestDTO){
-        Long materL=requestDTO.getMaterL();
-        Long materM=requestDTO.getMaterM();
-        Long materS= requestDTO.getMaterS();
-        String materSearch= requestDTO.getMaterialSearch();
+    private BooleanBuilder getSearch(PageRequestDTO requestDTO) {
+        Long materL = requestDTO.getMaterL();
+        Long materM = requestDTO.getMaterM();
+        Long materS = requestDTO.getMaterS();
+        String materSearch = requestDTO.getMaterialSearch();
 
-        BooleanBuilder booleanBuilder=new BooleanBuilder();
-        QMaterial qMaterial=QMaterial.material;
-        BooleanExpression expression=qMaterial.materCode.gt(0L); // materCode>0
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QMaterial qMaterial = QMaterial.material;
+        BooleanExpression expression = qMaterial.materCode.gt(0L); // materCode>0
 
         booleanBuilder.and(expression);
 
-        if(materL==null && materM==null && materS==null && materSearch==null){
+        if (materL == null && materM == null && materS == null && materSearch == null) {
             return booleanBuilder;
         }
 
-        BooleanBuilder conditionBuilder1=new BooleanBuilder();
-        if(materS!=null){
-            MaterS ms=materService.materSdtoToEntity(materService.findMaterS(materS));
+        BooleanBuilder conditionBuilder1 = new BooleanBuilder();
+        if (materS != null) {
+            MaterS ms = materService.materSdtoToEntity(materService.findMaterS(materS));
             conditionBuilder1.and(qMaterial.materS.eq(ms));
-        }else if(materM!=null){
-            List<MaterSDTO> sdtoList=materService.findListMaterS(null, materService.findMaterM(materM), null);
-            List<MaterS> sList=sdtoList.stream().map(x->materService.materSdtoToEntity(x)).collect(Collectors.toList());
+        } else if (materM != null) {
+            List<MaterSDTO> sdtoList = materService.findListMaterS(null, materService.findMaterM(materM), null);
+            List<MaterS> sList = sdtoList.stream().map(x -> materService.materSdtoToEntity(x)).collect(Collectors.toList());
             conditionBuilder1.and(qMaterial.materS.in(sList));
-        }else if(materL!=null){
-            List<MaterSDTO> sdtoList=materService.findListMaterS(materService.findMaterL(materL), null, null);
-            List<MaterS> sList=sdtoList.stream().map(x->materService.materSdtoToEntity(x)).collect(Collectors.toList());
+        } else if (materL != null) {
+            List<MaterSDTO> sdtoList = materService.findListMaterS(materService.findMaterL(materL), null, null);
+            List<MaterS> sList = sdtoList.stream().map(x -> materService.materSdtoToEntity(x)).collect(Collectors.toList());
             conditionBuilder1.and(qMaterial.materS.in(sList));
         }
 
-        BooleanBuilder conditionBuilder2=new BooleanBuilder();
-        if(materSearch!=null){
+        BooleanBuilder conditionBuilder2 = new BooleanBuilder();
+        if (materSearch != null) {
             conditionBuilder2.and(qMaterial.name.contains(materSearch));
         }
 
