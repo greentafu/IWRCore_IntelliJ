@@ -401,6 +401,7 @@
 
       function initInvoiceShipment(pno){
         var pno=pno;
+        var element=document.getElementById('selectedShipNo');
         $.ajax({
             url:'/select/getInvoiceShipment',
             method:'GET',
@@ -432,12 +433,17 @@
                   var input = document.createElement('input');
                   input.type = 'checkbox';
                   input.id = 'checkbox'+shipNo;
-
-
-                  console.log("추가된 checkbox들",input.id);
-
-
-
+                  if(element){
+                    var selectedShipNo=element.value;
+                    var btn=document.getElementById('selectShipmentBtn');
+                    if(element.value==shipNo) {
+                      setTimeout(() => {
+                          input.checked = true;
+                          element.value = '';
+                          btn.click();
+                      }, 10);
+                    }
+                  }
                   input.class='form-check-input';
                   inputTd.appendChild(input);
                   newRow.appendChild(inputTd);
@@ -461,22 +467,6 @@
             }
         });
       }
-
-      function checkCheckbox(){
-        var element=document.getElementById('selectedShipNo');
-        if(element){
-          if(element.value!=null && element.value!=''){
-            var selectedShipNo=document.getElementById('selectedShipNo').value;
-            console.log("selectedShipNo:", selectedShipNo);
-            var checkboxId='checkbox'+selectedShipNo;
-            console.log("checkbox:"+checkboxId);
-            var emptyCheckbox=document.getElementById(checkboxId);
-            console.log("엠티",emptyCheckbox);
-          }
-          element.remove();
-        }
-      }
-
 
       function selectInvoiceShipment(button){
         var pno=button.value;
