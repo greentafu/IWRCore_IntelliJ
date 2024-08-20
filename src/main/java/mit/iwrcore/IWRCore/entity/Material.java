@@ -6,6 +6,7 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Builder
 @AllArgsConstructor
@@ -21,7 +22,9 @@ public class Material extends BaseEntity {
     private String unit;
     private String standard;
     private String color;
+    private String uuid;
     private String file;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer")    // 외래 키 컬럼 이름

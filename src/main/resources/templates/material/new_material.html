@@ -33,6 +33,7 @@
                     <input type="text" class="form-control" name="name">
 
                       <!--자재 파일 업로드-->
+                    <form action="/material/upload" method="post" enctype="multipart/form-data">
                     <label class="form-label">첨부 파일</label>
                     <div class="input-group mb-4">
                       <input
@@ -43,9 +44,11 @@
                               aria-describedby="inputGroupFileAddon04"
                               aria-label="Upload"
                       />
-                      <!--<button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">업로드</button>-->
+                        <button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">업로드</button>
                     </div>
-                      <!--/자재 파일 업로드-->
+                    </form>
+
+                    <!--/자재 파일 업로드-->
                     <div
                             class="card shadow-none border border-secondary mb-3"
                             style="min-height: 100px;">
@@ -154,10 +157,10 @@
                     </div>
 
                   </div>
-  </form>
+                  </form>
                 </div>
               </div>
-            </div>
+        </div>
         <!-- / Content -->
         <!--Script-->
 

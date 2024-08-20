@@ -41,6 +41,7 @@ public class MaterialController {
     private final MaterialService materialService;
     private final MemberService memberService;
     private final MaterService materService;
+/*
     private final RestTemplate restTemplate; // HTTP 요청 보내는거
     private final FileMetadataRepository fileMetadataRepository;
 
@@ -55,7 +56,7 @@ public class MaterialController {
         } catch (NumberFormatException e) {
             return null;
         }
-    }
+    }*/
 
     @GetMapping("/list_material")
     public void list_material(PageRequestDTO pageRequestDTO, Model model) {
@@ -74,7 +75,7 @@ public class MaterialController {
     public void new_material() {
     }
 
-    /*@PostMapping("/register")
+    @PostMapping("/register")
     public String aaa(@ModelAttribute MaterialDTO materialDTO, @RequestParam(name = "box") Long box, @RequestParam(name = "box") Long materS) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
@@ -86,9 +87,25 @@ public class MaterialController {
 
         materialService.insertj(materialDTO);
         return "redirect:/material/list_material";
-    }*/
+    }
+    @PostMapping("/upload")
+    public String uploadMaterial(@ModelAttribute Material material,
+                                 @RequestParam("uploadFiles") MultipartFile file,
+                                 Model model) {
+        try {
+            materialService.upload(material, file);
+            model.addAttribute("message", "파일 업로드가 완료되었습니다.");
+        } catch (Exception e) {
+            model.addAttribute("message", "파일 업로드 중 오류가 발생했습니다.");
+            e.printStackTrace();
+        }
+        return "redirect:/material/list_material"; // 업로드 후 리다이렉트할 페이지
+    }
 
-    /*@PostMapping("/upload")
+}
+    /*
+
+    @PostMapping("/upload")
     public String uploadFile(@RequestParam("uploadFiles") MultipartFile[] uploadFiles, Model model) {
         String url = "http://localhost:8080/uploadAjax"; // FileUpDownLoadController의 URL
 
@@ -110,6 +127,7 @@ public class MaterialController {
         model.addAttribute("message", "파일 업로드가 완료되었습니다.");
         return "redirect:/material/list_material"; // 업로드 완료 후 돌아갈 페이지
     }*/
+
     /*@PostMapping("/register")
     public String registerMaterial(
             @ModelAttribute MaterialDTO materialDTO,
@@ -158,7 +176,7 @@ public class MaterialController {
         model.addAttribute("message", "파일 업로드와 자재 등록이 완료되었습니다.");
         return "redirect:/material/list_material";
     }*/
-    @PostMapping("/register")
+    /*@PostMapping("/register")
     public String registerMaterial(
             @ModelAttribute MaterialDTO materialDTO,
             @RequestParam("uploadFile") MultipartFile uploadFile, // 단일 파일 업로드로 변경
@@ -210,7 +228,7 @@ public class MaterialController {
         }
         return fileName;
     }
-}
+}*/
 
 
 
