@@ -27,6 +27,7 @@ public class MaterialDTO {
     private LocalDateTime date;        //등록일자
 
     private String file;
+    private String uuid;
 
     private BoxDTO boxDTO;
     private MaterSDTO materSDTO;

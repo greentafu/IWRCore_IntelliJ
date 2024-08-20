@@ -2,34 +2,21 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.entity.FileMetadata;
 import mit.iwrcore.IWRCore.entity.Material;
-import mit.iwrcore.IWRCore.repository.FileMetadataRepository;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.BoxDTO;
-import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.service.*;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 @RequestMapping("/material")
@@ -76,6 +63,53 @@ public class MaterialController {
     }
 
     @PostMapping("/register")
+    public String registerMaterial(@ModelAttribute MaterialDTO materialDTO,
+                                   @RequestParam("uploadFiles") MultipartFile file,
+                                   @RequestParam("box") Long box,
+                                   @RequestParam("materS") Long materS,
+                                   Model model) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
+            MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
+
+            materialDTO.setMemberDTO(memberDTO);
+            materialDTO.setBoxDTO(BoxDTO.builder().boxcode(box).build());
+            materialDTO.setMaterSDTO(materService.findMaterS(materS));
+
+            // 파일 업로드 처리
+            String projectPath = System.getProperty("user.dir") + "\\src\\main\\webapp";
+            File directory = new File(projectPath);
+
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid + "_" + file.getOriginalFilename();
+            File saveFile = new File(projectPath, fileName);
+
+            file.transferTo(saveFile);
+
+            // DTO에 파일 정보 설정
+            materialDTO.setFile(fileName);
+            materialDTO.setUuid("/webapp/" + fileName);
+
+            // 서비스 메서드 호출
+            materialService.upload(materialDTO, file);
+            materialService.insertj(materialDTO);
+
+            model.addAttribute("message", "파일 업로드 및 자재 등록이 완료되었습니다.");
+        } catch (Exception e) {
+            model.addAttribute("message", "파일 업로드 또는 자재 등록 중 오류가 발생했습니다.");
+            e.printStackTrace();
+        }
+
+        return "redirect:/material/list_material";
+    }
+}
+
+    /*@PostMapping("/register")
     public String aaa(@ModelAttribute MaterialDTO materialDTO, @RequestParam(name = "box") Long box, @RequestParam(name = "box") Long materS) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
@@ -102,7 +136,7 @@ public class MaterialController {
         return "redirect:/material/list_material"; // 업로드 후 리다이렉트할 페이지
     }
 
-}
+}*/
     /*
 
     @PostMapping("/upload")

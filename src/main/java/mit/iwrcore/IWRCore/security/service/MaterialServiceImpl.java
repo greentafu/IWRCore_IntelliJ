@@ -87,23 +87,31 @@ public class MaterialServiceImpl implements MaterialService {
         log.info("Deleting material with code: {}", materCode);
         materialRepository.deleteById(materCode);
     }
+    /*서비스 메서드에서는 DTO를 받아서 엔티티를 생성하고, 데이터베이스에 저장하는 작업을 수행합니다.
+    파일 정보와 자재 정보를 DTO에서 받아 엔티티를 생성해야 합니다.*/
 
     @Override
-    public void upload(Material material, MultipartFile file) throws Exception {
+    public void upload(MaterialDTO materialDTO, MultipartFile file) throws Exception {
+        // 파일 저장 경로 설정
         String projectPath = System.getProperty("user.dir") + "\\src\\main\\webapp";
 
+        // 파일 이름 생성
         UUID uuid = UUID.randomUUID();
         String fileName = uuid + "_" + file.getOriginalFilename();
 
-        File saveFile =new File(projectPath, fileName);
-
+        // 파일 저장
+        File saveFile = new File(projectPath, fileName);
         file.transferTo(saveFile);
 
+        // DTO를 엔티티로 변환
+        Material material = materdtoToEntity(materialDTO);
         material.setFile(fileName);
         material.setUuid("/webapp/" + fileName);
-        materialRepository.save(material);
 
+        // 엔티티 저장
+        materialRepository.save(material);
     }
+
 
     // dto를 entity로
     @Override

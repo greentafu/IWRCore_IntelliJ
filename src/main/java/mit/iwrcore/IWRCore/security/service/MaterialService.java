@@ -26,7 +26,7 @@ public interface MaterialService {
     // 자재 리스트
     PageResultDTO<MaterialDTO, Material> findMaterialAll(PageRequestDTO requestDTO);//모든 리스트
 
-    void upload(Material material, MultipartFile file) throws Exception; //파일을 업로드 하기 위함
+    void upload(MaterialDTO materialDTO, MultipartFile file) throws Exception; //파일을 업로드 하기 위함
 
     List<Material> findMaterialPart(Long boxcode, Long materscode); //일부분(창고별, 자재소분류별)
     List<MaterialDTO> materialList();
