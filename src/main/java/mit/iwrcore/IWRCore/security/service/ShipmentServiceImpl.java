@@ -190,6 +190,10 @@ public class ShipmentServiceImpl implements ShipmentService {
     public void updateMemberCheck(Member member, Long shipNo){
         shipmentRepository.updateShipmentMemberCheck(member, shipNo);
     }
+    @Override
+    public void updateSHipmentInvoice(Invoice invoice, String text, Long shipNo){
+        shipmentRepository.updateShipmentInvoice(invoice, text, shipNo);
+    }
 
     @Override
     public List<ShipmentDTO> getShipmentByBalju(Long baljuNo){
