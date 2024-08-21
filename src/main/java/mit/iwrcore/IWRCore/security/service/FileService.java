@@ -1,6 +1,8 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,5 +38,18 @@ public class FileService {
         file.transferTo(filePath.toFile());
 
         return fileName; // Return the file name or file path as needed
+    }
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new RuntimeException("파일을 읽을 수 없습니다: " + fileName);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("파일을 읽는 중 오류 발생: " + fileName, e);
+        }
     }
 }

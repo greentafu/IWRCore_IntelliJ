@@ -10,6 +10,9 @@ import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -52,7 +55,7 @@ public class MaterialController {
     }
 
     @PostMapping("/register")
-    public String aaa(@ModelAttribute MaterialDTO materialDTO, @RequestParam(name = "box") Long box, @RequestParam(name = "box") Long materS,
+    public String aaa(@ModelAttribute MaterialDTO materialDTO, @RequestParam(name = "box") Long box, @RequestParam(name = "materS") Long materS,
                       @RequestParam("uploadFiles") MultipartFile file) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
@@ -88,66 +91,27 @@ public class MaterialController {
             return "{\"status\":\"error\", \"message\":\"파일 저장 실패\"}";
         }
     }
-}
-
-    /*@PostMapping("/register")
-    public String registerMaterial(
-            @ModelAttribute MaterialDTO materialDTO,
-            @RequestParam("uploadFile") MultipartFile uploadFile, // 단일 파일 업로드로 변경
-            @RequestParam(name = "box", required = true) String box,
-            @RequestParam(name = "materS", required = false) String materS,
-            Model model) {
-
-        Long boxCode = parseLongOrNull(box);
-        Long materSId = parseLongOrNull(materS);
-
-        if (boxCode == null) {
-            model.addAttribute("message", "Box code is invalid.");
-            return "redirect:/material/register";
+    @GetMapping("/download")
+    public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String fileName) {
+        try {
+            Resource resource = fileService.loadFileAsResource(fileName);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (Exception e) {
+            log.error("파일 다운로드 실패", e);
+            return ResponseEntity.notFound().build();
         }
-
-        if (materSId == null) {
-            model.addAttribute("message", "Mater S ID is invalid.");
-            return "redirect:/material/register";
-        }
-
-        // 자재 정보 저장
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
-        MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
-
-        materialDTO.setMemberDTO(memberDTO);
-        materialDTO.setBoxDTO(BoxDTO.builder().boxcode(boxCode).build());
-        materialDTO.setMaterSDTO(materService.findMaterS(materSId));
-
-        // 파일 저장 및 메타데이터 저장
-        String fileName = null;
-        if (uploadFile != null && !uploadFile.isEmpty()) {
-            try {
-                fileName = UUID.randomUUID().toString() + "_" + uploadFile.getOriginalFilename();
-                Path path = Paths.get(UPLOADED_FOLDER + fileName);
-                Files.write(path, uploadFile.getBytes());
-
-                // 파일 메타데이터 저장
-                FileMetadata metadata = new FileMetadata();
-                metadata.setFileName(fileName);
-                metadata.setFilePath(path.toString());
-                fileMetadataRepository.save(metadata);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                model.addAttribute("message", "파일 업로드 중 오류가 발생했습니다.");
-                return "redirect:/material/register";
-            }
-        }
-        return fileName;
     }
-}*/
+    @GetMapping("/{id}")
+    public String viewMaterial(@PathVariable Long id, Model model) {
+        MaterialDTO materialDTO = materialService.findM(id);
+        model.addAttribute("materialDTO", materialDTO);
+        return "material"; // Thymeleaf 템플릿 파일명
+    }
 
 
-
-
-
+}
 
 
 
