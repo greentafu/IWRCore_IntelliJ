@@ -6,11 +6,11 @@ import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.GumsuChasuRepository;
 import mit.iwrcore.IWRCore.repository.GumsuReposetory;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
-import mit.iwrcore.IWRCore.security.dto.GumsuChasuDTO;
-import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
+import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.GumsuChasuContractDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +33,7 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     private final GumsuChasuRepository gumsuChasuRepository;
     private final MemberService memberService;
     private final GumsuService gumsuService;
+    private final ContractService contractService;
 
     @Override
     public GumsuChasu convertToEntity(GumsuChasuDTO dto) {
@@ -108,5 +109,19 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
         }
         list.get(0).setTotalOrder(entityList.get(0).getGumsu().getMake());
         return list;
+    }
+
+    @Override
+    public PageResultDTO<GumsuChasuContractDTO, Object[]> getAllGumsuChasuContract(PageRequestDTO requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("gcnum").descending());
+        Page<Object[]> entityPage=gumsuChasuRepository.getAllGumsuChasuContract(pageable);
+        return new PageResultDTO<>(entityPage, this::gumsuChasuContractToDTO);
+    }
+    private GumsuChasuContractDTO gumsuChasuContractToDTO(Object[] objects){
+        GumsuChasu gumsuChasu=(GumsuChasu) objects[0];
+        Contract contract=(Contract) objects[1];
+        GumsuChasuDTO gumsuChasuDTO=(gumsuChasu!=null)?convertToDTO(gumsuChasu):null;
+        ContractDTO contractDTO=(contract!=null)?contractService.convertToDTO(contract):null;
+        return new GumsuChasuContractDTO(gumsuChasuDTO, contractDTO);
     }
 }
