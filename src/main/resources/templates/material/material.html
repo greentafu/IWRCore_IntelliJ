@@ -31,11 +31,14 @@
                     <label for="organization" class="form-label">자재명</label>
                     <input type="text" class="form-control" value="앞바퀴" readonly>
                     <label for="organization" class="form-label">첨부 파일</label>
-                    <div
-                            class="card shadow-none border border-secondary mb-3"
-                            style="min-height: 100px;">
+                    <div class="card shadow-none border border-secondary mb-3"
+                         style="min-height: 100px;">
+                      <!--<a th:href="@{/material/download(fileName=${materialDTO.file})}" class="btn btn-primary">
+                        파일다운로드
+                      </a>-->
                     </div>
                   </div>
+
                   <hr class="m-0"/>
                   <div class="card-body">
                     <table class="table table-bordered">
@@ -72,16 +75,11 @@
                       <a th:href="@{/material/list_material}">
                         <button class="btn btn-primary">수정</button>
                       </a>
-                        <!--/-->
+                    </div>
                   </div>
-                </div>
+                 </div>
               </div>
             </div>
-                <!-- / Content -->
-                <!--Script-->
-
-                <!--Script-->
   </span>
-
 </th:block>
 </html>

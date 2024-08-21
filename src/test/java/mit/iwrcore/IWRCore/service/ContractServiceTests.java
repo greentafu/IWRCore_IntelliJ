@@ -65,7 +65,7 @@ public class ContractServiceTests {
                 .conDate(LocalDateTime.now().minusDays(1L))
                 .filename("")
                 .who("계약담당자")
-                .jodalPlanDTO(jodalPlanService.findById(1L))
+                .jodalPlanDTO(jodalPlanService.findById(5L))
                 .memberDTO(memberService.findMemberDto(1L, null))
                 .partnerDTO(partnerService.findPartnerDto(2L, null, null))
                 .build();
@@ -106,6 +106,11 @@ public class ContractServiceTests {
         PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).pno(2L).build();
         System.out.println(contractService.partnerContractList(requestDTO));
     }
-
+    @Test
+    @Transactional
+    @Commit
+    public void test5566(){
+        System.out.println(contractService.newOrderContract(2L));
+    }
 
 }

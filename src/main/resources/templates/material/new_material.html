@@ -25,7 +25,8 @@
                 <!-- Hoverable Table rows -->
               <div class="card">
                 <div class="table-responsive text-nowrap">
-<form th:action="@{/material/register}" method="post" enctype="multipart/form-data">
+
+<form id="materialForm" th:action="@{/material/register}" method="post" enctype="multipart/form-data">
                   <!-- Outline Dropdowns -->
                   <div class="card-body">
                     <h5>자재 정보</h5>
@@ -35,15 +36,9 @@
                       <!--자재 파일 업로드-->
                     <label class="form-label">첨부 파일</label>
                     <div class="input-group mb-4">
-                      <input
-                              type="file"
-                              class="form-control"
-                              id="inputGroupFile04"
-                              name="uploadFiles"
-                              aria-describedby="inputGroupFileAddon04"
-                              aria-label="Upload"
-                      />
-                       <button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04">업로드</button>
+                      <input type="file" class="form-control" id="inputGroupFile04" name="uploadFiles"
+                             aria-describedby="inputGroupFileAddon04" aria-label="Upload"/>
+                <!--<button type="button" class="btn btn-outline-primary" id="uploadButton">파일 업로드</button>-->
                     </div>
                       <!--/자재 파일 업로드-->
                     <div
@@ -165,4 +160,32 @@
   </span>
 
 </th:block>
+<script>
+    document.getElementById('uploadButton').addEventListener('click', function() {
+        var formData = new FormData();
+        var fileInput = document.getElementById('inputGroupFile04');
+        var file = fileInput.files[0];
+
+        if (file) {
+            formData.append('uploadFiles', file);
+
+            // 비동기 파일 업로드
+            fetch('/material/upload', {  // 업로드할 서버 엔드포인트 URL로 변경
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+                // 업로드 성공 시 필요한 처리
+                // 예: 서버에서 파일의 URL을 반환하는 경우 폼에 URL을 추가할 수 있습니다.
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        } else {
+            alert('파일을 선택해 주세요.');
+        }
+    });
+</script>
 </html>

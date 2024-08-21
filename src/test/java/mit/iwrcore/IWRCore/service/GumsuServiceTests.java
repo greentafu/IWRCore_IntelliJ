@@ -47,4 +47,10 @@ public class GumsuServiceTests {
         Pageable pageable= PageRequest.of(0,2);
         gumsuReposetory.couldGumsu(pageable).forEach(System.out::println);
     }
+    @Test
+    @Transactional
+    @Commit
+    public void test12(){
+        System.out.println(gumsuService.getGumsuById(1L));
+    }
 }

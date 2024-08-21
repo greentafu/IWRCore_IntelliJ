@@ -83,11 +83,15 @@ public class EmergencyServiceImpl implements EmergencyService{
     }
 
     @Override
-    public PageResultDTO<EmergencyDTO, Emergency> getAllEmergencies(PageRequestDTO requestDTO) {
+    public PageResultDTO<EmergencyDTO, Object[]> getAllEmergencies(PageRequestDTO requestDTO) {
         Pageable pageable=requestDTO.getPageable(Sort.by("emerNo").descending());
-        Page<Emergency> entityPage=emergencyRepository.findEmergency(pageable, requestDTO.getPno());
-        Function<Emergency, EmergencyDTO> fn=(entity->convertToDTO(entity));
-        return new PageResultDTO<>(entityPage, fn);
+        Page<Object[]> entityPage=emergencyRepository.findEmergency(pageable, requestDTO.getPno());
+        return new PageResultDTO<>(entityPage, this::extractEmergencyDTO);
+    }
+    private EmergencyDTO extractEmergencyDTO(Object[] objects){
+        Emergency emergency=(Emergency) objects[0];
+        EmergencyDTO emergencyDTO=(emergency!=null)? convertToDTO(emergency):null;
+        return emergencyDTO;
     }
 
     @Override

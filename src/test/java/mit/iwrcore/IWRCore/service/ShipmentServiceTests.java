@@ -131,40 +131,25 @@ public class ShipmentServiceTests {
     @Transactional
     @Commit
     public void test12312(){
-        System.out.println(shipmentRepository.findShipment(1L));
-//        System.out.println(shipmentService.getShipmentById(1L));
+        Pageable pageable=PageRequest.of(0,2);
+        System.out.println(shipmentRepository.shipmentPage(pageable));
     }
     @Test
     @Transactional
     @Commit
-    public void test11111(){
-        Shipment shipment=shipmentService.findShipmentEntity(1L);
-        ShipmentDTO shipmentDTO=shipmentService.convertToDTO(shipment);
-        System.out.println(shipmentDTO);
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void test2323(){
-        Pageable pageable=PageRequest.of(0, 2);
-//        System.out.println(shipmentRepository.noneInvoiceShipment(pageable));
-        System.out.println(shipmentRepository.finInvoicePage(pageable));
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void test220(){
-        PageRequestDTO2 requestDTO=PageRequestDTO2.builder().page2(1).size2(2).build();
+    public void test1(){
+        PageRequestDTO requestDTO=PageRequestDTO.builder().size(2).page(1).build();
+        PageRequestDTO2 requestDTO2=PageRequestDTO2.builder().size2(2).page2(1).build();
 //        System.out.println(shipmentService.noneInvoiceShipment(requestDTO));
-        System.out.println(shipmentService.pageFinInvoice(requestDTO));
+//        System.out.println(shipmentService.pageFinInvoice(requestDTO2));
+        System.out.println(shipmentService.partnerInvoicePage(requestDTO));
     }
     @Test
     @Transactional
     @Commit
-    public void test123131231(){
-//        System.out.println(shipmentRepository.couldInvoicePartner());
-//        System.out.println(shipmentService.canInvoicePartner());
-//        System.out.println(shipmentRepository.couldInvoice(2L));
+    public void test12(){
+        Pageable pageable=PageRequest.of(0,2);
+        System.out.println(shipmentRepository.partnerInvoicePage(pageable, 2L));
     }
 
 }

@@ -338,19 +338,19 @@
               </thead>
               <tbody class="table-border-bottom-0">
                 <tr th:each="list2:${didBalju_list.dtoList}">
-                  <td>[[${list2.baljuNo}]]</td>
+                  <td>[[${list2.baljuDTO.baljuNo}]]</td>
                   <td>[[${list2.contractDTO.partnerDTO.name}]]</td>
-                  <td>[[${list2.filename}]]</td>
+                  <td>[[${list2.baljuDTO.filename}]]</td>
                   <td>[[${list2.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
-                  <td>[[${list2.baljuNum}]]</td>
-                  <td>[[${#temporals.format(list2.baljuDate, 'yyyy-MM-dd')}]]</td>
+                  <td>[[${list2.baljuDTO.baljuNum}]]</td>
+                  <td>[[${#temporals.format(list2.baljuDTO.baljuDate, 'yyyy-MM-dd')}]]</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-outline-primary">
                       <span class="bx bx-arrow-to-bottom"></span>
                     </button>
                   </td>
                   <td>
-                    <a th:href="@{/order/modify_order2(baljuNo=${list2.baljuNo})}">
+                    <a th:href="@{/order/modify_order2(baljuNo=${list2.baljuDTO.baljuNo})}">
                       <button class="btn btn-primary">수정</button>
                     </a>
                     <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>

@@ -22,7 +22,6 @@ public class Material extends BaseEntity {
     private String unit;
     private String standard;
     private String color;
-    private String uuid;
     private String file;
 
 

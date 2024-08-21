@@ -47,8 +47,11 @@ public class PartnerController {
         model.addAttribute("balju_list", baljuService.partnerBaljuList(requestDTO));
     }
     @GetMapping("/list_invoice")
-    public void list_invoice(){
-
+    public void list_invoice(PageRequestDTO requestDTO, Model model){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        AuthPartnerDTO authPartnerDTO=(AuthPartnerDTO) authentication.getPrincipal();
+        requestDTO.setPno(authPartnerDTO.getPno());
+        model.addAttribute("invoice_list", shipmentService.partnerInvoicePage(requestDTO));
     }
     @GetMapping("/add_invoice")
     public void add_invoice(){

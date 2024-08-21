@@ -171,26 +171,26 @@
               </thead>
               <tbody>
                 <tr th:each="list:${list.dtoList}">
-                  <td>[[${list.gumsuDTO.baljuDTO.contractDTO.partnerDTO.name}]]</td>
-                  <td>[[${list.gumsuDTO.baljuDTO.contractDTO.jodalPlanDTO.proplanDTO.productDTO.name}]]</td>
-                  <td><strong>[[${list.gumsuDTO.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]</strong></td>
-                  <td>[[${list.gumsuNum}]]</td>
-                  <td>[[${#temporals.format(list.gumsuDate, 'yyyy-MM-dd')}]]</td>
-                  <td>[[${list.gumsuDTO.make}]]</td>
+                  <td>[[${list.contractDTO.partnerDTO.name}]]</td>
+                  <td>[[${list.contractDTO.jodalPlanDTO.proplanDTO.productDTO.name}]]</td>
+                  <td><strong>[[${list.contractDTO.jodalPlanDTO.materialDTO.name}]]</strong></td>
+                  <td>[[${list.gumsuChasuDTO.gumsuNum}]]</td>
+                  <td>[[${#temporals.format(list.gumsuChasuDTO.gumsuDate, 'yyyy-MM-dd')}]]</td>
+                  <td>[[${list.gumsuChasuDTO.gumsuDTO.make}]]</td>
                   <td>--</td>
                   <td>
-                    <th:block th:if="${(list.gumsuDTO.make/list.gumsuNum)*100}>=70">
-                      <p class="green-text">[[${(list.gumsuDTO.make/list.gumsuNum)*100}]]%</p>
+                    <th:block th:if="${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}>=70">
+                      <p class="green-text">[[${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}]]%</p>
                     </th:block>
-                    <th:block th:if="${(list.gumsuDTO.make/list.gumsuNum)*100}>=40">
-                      <p class="yellow-text">[[${(list.gumsuDTO.make/list.gumsuNum)*100}]]%</p>
+                    <th:block th:if="${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}>=40">
+                      <p class="yellow-text">[[${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}]]%</p>
                     </th:block>
-                    <th:block th:if="${(list.gumsuDTO.make/list.gumsuNum)*100}<40">
-                      <p class="red-text">[[${(list.gumsuDTO.make/list.gumsuNum)*100}]]%</p>
+                    <th:block th:if="${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}<40">
+                      <p class="red-text">[[${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}]]%</p>
                     </th:block>
                   </td>
                   <td>
-                    <a th:href="@{/progress/modify_progress(gcnum=${list.gcnum})}">
+                    <a th:href="@{/progress/modify_progress(gcnum=${list.gumsuChasuDTO.gcnum})}">
                       <button class="btn btn-primary">수정</button>
                     </a>
                     <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>

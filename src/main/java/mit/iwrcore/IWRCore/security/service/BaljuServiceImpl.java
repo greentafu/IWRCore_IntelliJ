@@ -73,7 +73,9 @@ public class BaljuServiceImpl implements BaljuService {
 
     @Override
     public BaljuDTO getBaljuById(Long id) {
-        return convertToDTO(baljuRepository.findById(id).get());
+        List<Object[]> list=baljuRepository.findBaljuFromNo(id);
+        Balju balju=(Balju) list.get(0)[0];
+        return convertToDTO(balju);
     }
 
     @Override
@@ -110,6 +112,12 @@ public class BaljuServiceImpl implements BaljuService {
         Function<Balju, BaljuDTO> fn=(entity->convertToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
     }
+    @Override
+    public PageResultDTO<ContractBaljuDTO, Object[]> finBaljuPage(PageRequestDTO2 requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("baljuNo").descending());
+        Page<Object[]> entityPage=baljuRepository.finBaljuPage(pageable);
+        return new PageResultDTO<>(entityPage, this::ContractBaljuToDTO);
+    }
 
     @Override
     public PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO){
@@ -133,16 +141,21 @@ public class BaljuServiceImpl implements BaljuService {
 
     // 협력회사용 발주서
     @Override
-    public PageResultDTO<BaljuDTO, Balju> partnerBaljuList(PageRequestDTO requestDTO) {
+    public PageResultDTO<BaljuDTO, Object[]> partnerBaljuList(PageRequestDTO requestDTO) {
         Pageable pageable=requestDTO.getPageable(Sort.by("baljuNo").descending());
-        Page<Balju> entityPage=baljuRepository.partnerBaljuList(pageable, requestDTO.getPno());
-        Function<Balju, BaljuDTO> fn=(entity->convertToDTO(entity));
-        return new PageResultDTO<>(entityPage, fn);
+        Page<Object[]> entityPage=baljuRepository.partnerBaljuList(pageable, requestDTO.getPno());
+        return new PageResultDTO<>(entityPage, this::extractBaljuDTO);
     }
+
     @Override
     public List<BaljuDTO> partListBalju(Long pno){
-        List<Balju> entityList=baljuRepository.partListBalju(pno);
-        List<BaljuDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        List<Object[]> entityList=baljuRepository.partListBalju(pno);
+        List<BaljuDTO> dtoList=entityList.stream().map(this::extractBaljuDTO).toList();
         return dtoList;
+    }
+    private BaljuDTO extractBaljuDTO(Object[] objects){
+        Balju balju=(Balju) objects[0];
+        BaljuDTO baljuDTO=(balju!=null)?convertToDTO(balju):null;
+        return baljuDTO;
     }
 }

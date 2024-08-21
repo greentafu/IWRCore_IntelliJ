@@ -144,21 +144,21 @@
                 <ul class="pagination justify-content-center">
                   <th:block th:if="${yesPlan_list.prev}">
                     <li class="page-item prev">
-                      <a class="page-link" th:href="@{/jodal/list_jodal(page=${yesPlan_list.start}-1)}">
+                      <a class="page-link" th:href="@{/contract/list_contract(page=${yesPlan_list.start}-1)}">
                         <i class="tf-icon bx bx-chevrons-left"></i>
                       </a>
                     </li>
                   </th:block>
                   <th:block th:each="pagenum:${yesPlan_list.pageList}">
                     <li class="page-item " th:classappend="${yesPlan_list.page}==${pagenum}? active">
-                      <a class="page-link" th:href="@{/jodal/list_jodal(page=${pagenum})}">
+                      <a class="page-link" th:href="@{/contract/list_contract(page=${pagenum})}">
                         [[${pagenum}]]
                       </a>
                     </li>
                   </th:block>
                   <th:block th:if="${yesPlan_list.next}">
                     <li class="page-item next">
-                      <a class="page-link" th:href="@{/jodal/list_jodal(page=${yesPlan_list.end}+1)}">
+                      <a class="page-link" th:href="@{/contract/list_contract(page=${yesPlan_list.end}+1)}">
                         <i class="tf-icon bx bx-chevrons-right"></i>
                       </a>
                     </li>
@@ -350,21 +350,21 @@
                 <ul class="pagination justify-content-center">
                   <th:block th:if="${finContract_list.prev}">
                     <li class="page-item prev">
-                      <a class="page-link" th:href="@{/jodal/list_jodal(page2=${finContract_list.start}-1)}">
+                      <a class="page-link" th:href="@{/contract/list_contract(page2=${finContract_list.start}-1)}">
                         <i class="tf-icon bx bx-chevrons-left"></i>
                       </a>
                     </li>
                   </th:block>
                   <th:block th:each="pagenum:${finContract_list.pageList}">
                     <li class="page-item " th:classappend="${finContract_list.page}==${pagenum}? active">
-                      <a class="page-link" th:href="@{/jodal/list_jodal(page2=${pagenum})}">
+                      <a class="page-link" th:href="@{/contract/list_contract(page2=${pagenum})}">
                         [[${pagenum}]]
                       </a>
                     </li>
                   </th:block>
                   <th:block th:if="${finContract_list.next}">
                     <li class="page-item next">
-                      <a class="page-link" th:href="@{/jodal/list_jodal(page2=${finContract_list.end}+1)}">
+                      <a class="page-link" th:href="@{/contract/list_contract(page2=${finContract_list.end}+1)}">
                         <i class="tf-icon bx bx-chevrons-right"></i>
                       </a>
                     </li>

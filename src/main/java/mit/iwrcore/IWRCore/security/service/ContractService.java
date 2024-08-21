@@ -6,6 +6,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
 
 import java.util.List;
 
@@ -38,4 +39,7 @@ public interface ContractService {
 
     // 협력회사용 계약서목록
     PageResultDTO<ContractDTO, Contract> partnerContractList(PageRequestDTO requestDTO);
+
+    // 발주해야 하는 계약목록(협력회사로 묶음)
+    List<NewOrderDTO> newOrderContract(Long pno);
 }

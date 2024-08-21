@@ -281,12 +281,12 @@
                       <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
                     </td>
                     <td>
-                      <th:block th:if="${list2.contractDTO.conNo}==null">
+                      <th:block th:if="${list2.contractDTO}==null">
                         <a th:href="@{/contract/new_contract(joNo=${list2.jodalPlanDTO.joNo})}">
                           <button type="button" class="btn btn-primary">계약서 등록</button>
                         </a>
                       </th:block>
-                      <th:block th:if="${list2.contractDTO.conNo}!=null">
+                      <th:block th:if="${list2.contractDTO}!=null">
                         <a th:href="@{/contract/download_contract(conNo=${list2.contractDTO.conNo})}">
                           <button type="button" class="btn btn-secondary">계약서 보기</button>
                         </a>
