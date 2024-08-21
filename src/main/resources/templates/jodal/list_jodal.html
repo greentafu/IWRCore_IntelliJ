@@ -127,7 +127,7 @@
                     <td>[[${list1.proplanDTO.pronum}]]</td>
                     <td>[[${#temporals.format(list1.proplanDTO.startDate, 'yyyy-MM-dd')}]]~[[${#temporals.format(list1.proplanDTO.endDate, 'yyyy-MM-dd')}]]</td>
                    <td>
-    <a th:href="@{/jodal/jodal_ready(manufactureCode=${list1.proplanDTO.productDTO.manuCode})}">
+    <a th:href="@{/jodal/jodal_ready(joNo=${list1.joNo}, manufactureCode=${list1.proplanDTO.productDTO.manuCode})}">
     <button type="button" class="btn btn-primary">조달계획 등록</button>
 </a>
 </td>

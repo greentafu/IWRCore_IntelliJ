@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+
 @ToString(exclude = {"writer", "proPlan", "material"})
 public class JodalPlan extends BaseEntity {
 

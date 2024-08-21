@@ -58,7 +58,7 @@
                             <li><a class="dropdown-item" href="javascript:void(0);">A 라인</a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);">B 라인</a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);">C 라인</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">D 라인</a></li>
+
                           </ul>
                         </div>
                         <label class="col-sm-1 col-form-label" for="basic-default-email">제품수량 :</label>
@@ -243,19 +243,13 @@
                       <div class="col-md-10">
                         <div class="row">
                           <div class="col-md-4">
-                            <select class="form-select form-select-sm">
-                              <option>전체보기</option>
-                            </select>
+                             <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
                           </div>
                           <div class="col-md-4">
-                            <select class="form-select form-select-sm">
-                              <option>전체보기</option>
-                            </select>
+                             <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
                           </div>
                           <div class="col-md-4">
-                            <select class="form-select form-select-sm">
-                              <option>전체보기</option>
-                            </select>
+                            <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
                           </div>
                         </div>
                       </div>
@@ -272,6 +266,7 @@
                   <div class="modal-body" style="height: 350px;">
                     <div class="table-responsive text-nowrap">
                       <table class="table table-hover">
+                        <thead>
                         <tr>
                           <th></th>
                           <th>제품번호</th>
@@ -280,47 +275,19 @@
                           <th>생산계획 마감일</th>
                           <th>생산계획 수량</th>
                         </tr>
-                        <tr>
+                        </thead>
+                         <tbody>
+                         <tr th:each="item:${dataList}">
                           <td>
                             <input type="radio" name="proudct" class="form-check-input">
                           </td>
-                          <td>KE-8705</td>
-                          <td>AT-전기자전거</td>
-                          <td>2024-07-02</td>
-                          <td>2024-07-02</td>
-                          <td>10</td>
+                          <td>[[${item.productDTO.manucode}]]</td>
+                          <td>[[${item.productDTO.name}]]</td>
+                          <td>[[${item.proplanDTO.startDate}]]</td>
+                          <td>[[${item.proplanDTO.endDate}]]</td>
+                          <td>[[${item.proplanDTO.pronum}]]</td>
                         </tr>
-                        <tr>
-                          <td>
-                            <input type="radio" name="proudct" class="form-check-input">
-                          </td>
-                          <td>KE-8706</td>
-                          <td>AK-전기자전거</td>
-                          <td>2024-07-03</td>
-                          <td>2024-07-02</td>
-                          <td>10</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <input type="radio" name="proudct" class="form-check-input">
-                          </td>
-                          <td>YF-8705</td>
-                          <td>OM-산악자전거</td>
-                          <td>2024-07-05</td>
-                          <td>2024-07-02</td>
-                          <td>200</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <input type="radio" name="proudct" class="form-check-input">
-                          </td>
-                          <td>YF-8705</td>
-                          <td>JS-아동용킥보드</td>
-                          <td>2024-07-06</td>
-                          <td>2024-07-02</td>
-                          <td>200</td>
-                        </tr>
-                      </table>
+                        </table>
                     </div>
                   </div>
                   <div class="modal-footer">
