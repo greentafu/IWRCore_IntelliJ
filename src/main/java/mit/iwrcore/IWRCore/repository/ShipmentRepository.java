@@ -18,7 +18,7 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
     List<Shipment> getShipmentByBalju(Long baljuNo);
 
     @EntityGraph(attributePaths = {"balju", "returns", "invoice"})
-    @Query("select s, g, sss.totalsum, r.reNO from Shipment s " +
+    @Query("select s, g, sss.totalsum, r.reNO, s.balju.contract from Shipment s " +
             "left join Gumsu g on (s.balju.baljuNo=g.balju.baljuNo) " +
             "left join (select ss.balju.baljuNo as baljuNo1, sum(ss.shipNum) as totalsum " +
                     "from Shipment ss " +
@@ -58,14 +58,14 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
-    @Query("select s from Shipment s where s.receiveCheck=1 and s.invoice is null")
-    Page<Shipment> noneInvoiceShipment(Pageable pageable);
+    @Query("select s, s.balju.contract from Shipment s where s.receiveCheck=1 and s.invoice is null")
+    Page<Object[]> noneInvoiceShipment(Pageable pageable);
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
-    @Query("select s from Shipment s " +
+    @Query("select s, s.balju.contract from Shipment s " +
             "where s.receiveCheck=1 and s.invoice is null and s.balju.contract.partner.pno=:pno")
-    List<Shipment> couldInvoice(Long pno);
+    List<Object[]> couldInvoice(Long pno);
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})

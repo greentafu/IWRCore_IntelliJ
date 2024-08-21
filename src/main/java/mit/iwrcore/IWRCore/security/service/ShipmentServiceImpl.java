@@ -201,10 +201,17 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
     @Override
     public List<ShipmentDTO> canInvoiceShipment(Long pno){
-        List<Shipment> entityList=shipmentRepository.couldInvoice(pno);
-        List<ShipmentDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        List<Object[]> entityList=shipmentRepository.couldInvoice(pno);
+        List<ShipmentDTO> dtoList=entityList.stream().map(this::extractShipmentDTO).toList();
         return dtoList;
     }
+    private ShipmentDTO extractShipmentDTO(Object[] objects){
+        Shipment shipment=(Shipment) objects[0];
+        ShipmentDTO shipmentDTO=(shipment!=null)?convertToDTO(shipment):null;
+        return shipmentDTO;
+    }
+
+
     @Override
     public List<PartnerDTO> canInvoicePartner(){
         List<Partner> entityList=shipmentRepository.couldInvoicePartner();
@@ -238,10 +245,15 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
 
     @Override
-    public PageResultDTO<ShipmentDTO, Shipment> noneInvoiceShipment(PageRequestDTO requestDTO){
+    public PageResultDTO<ShipmentDTO, Object[]> noneInvoiceShipment(PageRequestDTO requestDTO){
         Pageable pageable=requestDTO.getPageable(Sort.by("shipNO").descending());
-        Page<Shipment> entityPage=shipmentRepository.noneInvoiceShipment(pageable);
-        return new PageResultDTO<>(entityPage, this::convertToDTO);
+        Page<Object[]> entityPage=shipmentRepository.noneInvoiceShipment(pageable);
+        return new PageResultDTO<>(entityPage, this::shipmentContractToDTO);
+    }
+    private ShipmentDTO shipmentContractToDTO(Object[] objects){
+        Shipment shipment=(Shipment) objects[0];
+        ShipmentDTO shipmentDTO=(shipment!=null)? convertToDTO(shipment):null;
+        return shipmentDTO;
     }
 
     @Override
