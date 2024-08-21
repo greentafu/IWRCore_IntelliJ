@@ -35,7 +35,7 @@ public interface ReturnsRepository extends JpaRepository<Returns,Long> {
 
     @Transactional
     @EntityGraph(attributePaths = {"shipment", "writer"})
-    @Query("select r, s.shipNum, s.regDate, b from Returns r " +
+    @Query("select r, s.shipNum, s.regDate, b, r.shipment.balju.contract from Returns r " +
             "left join Shipment s on (r.shipment.shipNO=s.shipNO) " +
             "left join Balju b on (r.shipment.balju.baljuNo=b.baljuNo)" +
             "where r.shipment.balju.contract.partner.pno=:pno")
@@ -43,7 +43,7 @@ public interface ReturnsRepository extends JpaRepository<Returns,Long> {
 
     @Transactional
     @EntityGraph(attributePaths = {"shipment", "writer"})
-    @Query("select r, s.shipNum, s.regDate, b from Returns r " +
+    @Query("select r, s.shipNum, s.regDate, b, r.shipment.balju.contract from Returns r " +
             "left join Shipment s on (r.shipment.shipNO=s.shipNO) " +
             "left join Balju b on (r.shipment.balju.baljuNo=b.baljuNo)" +
             "where r.reNO=:reNO")

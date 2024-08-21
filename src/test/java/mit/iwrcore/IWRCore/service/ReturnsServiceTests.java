@@ -61,4 +61,10 @@ public class ReturnsServiceTests {
 //        list.forEach(x-> Arrays.stream(x).forEach(System.out::println));
         System.out.println(returnsService.getDetailReturn(1L));
     }
+    @Test
+    @Transactional
+    @Commit
+    public void test12312(){
+        System.out.println(returnsService.getReturnsList(1L));
+    }
 }

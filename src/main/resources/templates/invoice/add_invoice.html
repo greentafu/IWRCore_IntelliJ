@@ -172,7 +172,8 @@
                     <a th:href="@{/invoice/list_invoice}">
                       <button type="reset" class="btn btn-outline-secondary">취소</button>
                     </a>
-                    <div><input type="number" style="display:none;" name="pno" id="partnerPno"></div>
+                    <input type="number" style="display:none;" name="pno" id="partnerPno" th:attr="value=${selectedPartner != null ? selectedPartner : ''}">
+                    <input type="number" style="display:none;" id="selectedShipNo" th:attr="value=${selectedShipNo != null ? selectedShipNo : ''}">
                     <button type="button" class="btn btn-primary btn-sm" onclick="makeInvoice()">발급하기</button>
                   </div>
                   <!--/-->
@@ -332,6 +333,10 @@
       $(document).ready(function(){
         initInvoicePartner();
         document.getElementById('writeDate').value = todayDate();
+
+        var selectedPartner=document.getElementById('partnerPno').value;
+        if(selectedPartner!=null && selectedPartner!='') selectPartner(selectedPartner);
+
       });
 
       function initInvoicePartner(){
@@ -396,6 +401,7 @@
 
       function initInvoiceShipment(pno){
         var pno=pno;
+        var element=document.getElementById('selectedShipNo');
         $.ajax({
             url:'/select/getInvoiceShipment',
             method:'GET',
@@ -426,6 +432,18 @@
                   var inputTd = document.createElement('td');
                   var input = document.createElement('input');
                   input.type = 'checkbox';
+                  input.id = 'checkbox'+shipNo;
+                  if(element){
+                    var selectedShipNo=element.value;
+                    var btn=document.getElementById('selectShipmentBtn');
+                    if(element.value==shipNo) {
+                      setTimeout(() => {
+                          input.checked = true;
+                          element.value = '';
+                          btn.click();
+                      }, 10);
+                    }
+                  }
                   input.class='form-check-input';
                   inputTd.appendChild(input);
                   newRow.appendChild(inputTd);
@@ -621,23 +639,6 @@
             window.location.href = '/invoice/list_invoice';
           }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       }
 
       function whoChecked(){

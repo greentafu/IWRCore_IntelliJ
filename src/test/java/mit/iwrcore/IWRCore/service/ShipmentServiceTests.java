@@ -10,6 +10,7 @@ import mit.iwrcore.IWRCore.repository.ReturnsRepository;
 import mit.iwrcore.IWRCore.repository.ShipmentRepository;
 import mit.iwrcore.IWRCore.security.dto.InvoiceDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
 import mit.iwrcore.IWRCore.security.service.BaljuService;
 import mit.iwrcore.IWRCore.security.service.InvoiceService;
@@ -130,38 +131,25 @@ public class ShipmentServiceTests {
     @Transactional
     @Commit
     public void test12312(){
-        System.out.println(shipmentRepository.findShipment(1L));
-//        System.out.println(shipmentService.getShipmentById(1L));
+        Pageable pageable=PageRequest.of(0,2);
+        System.out.println(shipmentRepository.shipmentPage(pageable));
     }
     @Test
     @Transactional
     @Commit
-    public void test11111(){
-        Shipment shipment=shipmentService.findShipmentEntity(1L);
-        ShipmentDTO shipmentDTO=shipmentService.convertToDTO(shipment);
-        System.out.println(shipmentDTO);
+    public void test1(){
+        PageRequestDTO requestDTO=PageRequestDTO.builder().size(2).page(1).build();
+        PageRequestDTO2 requestDTO2=PageRequestDTO2.builder().size2(2).page2(1).build();
+//        System.out.println(shipmentService.noneInvoiceShipment(requestDTO));
+//        System.out.println(shipmentService.pageFinInvoice(requestDTO2));
+        System.out.println(shipmentService.partnerInvoicePage(requestDTO));
     }
     @Test
     @Transactional
     @Commit
-    public void test2323(){
-        Pageable pageable=PageRequest.of(0, 2);
-        System.out.println(shipmentRepository.noneInvoiceShipment(pageable));
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void test220(){
-        PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).build();
-        System.out.println(shipmentService.noneInvoiceShipment(requestDTO));
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void test123131231(){
-//        System.out.println(shipmentRepository.couldInvoicePartner());
-//        System.out.println(shipmentService.canInvoicePartner());
-        System.out.println(shipmentRepository.couldInvoice(2L));
+    public void test12(){
+        Pageable pageable=PageRequest.of(0,2);
+        System.out.println(shipmentRepository.partnerInvoicePage(pageable, 2L));
     }
 
 }

@@ -5,9 +5,11 @@ import mit.iwrcore.IWRCore.entity.Invoice;
 import mit.iwrcore.IWRCore.entity.Member;
 import mit.iwrcore.IWRCore.entity.Shipment;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.PartnerDTO;
 import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.InvoicePartnerDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentGumsuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturn2DTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturnDTO;
@@ -54,6 +56,9 @@ public interface ShipmentService {
 
     PageResultDTO<ShipmentGumsuDTO, Object[]> pageShipment(PageRequestDTO requestDTO);
 
-    PageResultDTO<ShipmentDTO, Shipment> noneInvoiceShipment(PageRequestDTO requestDTO);
+    PageResultDTO<ShipmentDTO, Object[]> noneInvoiceShipment(PageRequestDTO requestDTO);
 
+    PageResultDTO<InvoicePartnerDTO, Object[]> pageFinInvoice(PageRequestDTO2 requestDTO2);
+
+    PageResultDTO<InvoicePartnerDTO, Object[]> partnerInvoicePage(PageRequestDTO requestDTO);
 }

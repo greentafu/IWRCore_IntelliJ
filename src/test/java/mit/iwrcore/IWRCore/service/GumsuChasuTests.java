@@ -12,6 +12,8 @@ import mit.iwrcore.IWRCore.security.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDateTime;
@@ -59,6 +61,13 @@ public class GumsuChasuTests {
     @Commit
     public void test12(){
         PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).build();
-        System.out.println(gumsuChasuService.getAllGumsuChasus(requestDTO));
+        System.out.println(gumsuChasuService.getAllGumsuChasuContract(requestDTO));
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test123123(){
+        Pageable pageable= PageRequest.of(0,2);
+        System.out.println(gumsuChasuRepository.getAllGumsuChasuContract(pageable));
     }
 }

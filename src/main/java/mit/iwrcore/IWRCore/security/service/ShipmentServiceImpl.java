@@ -6,11 +6,9 @@ import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.*;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
+import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuGumsuDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentGumsuDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturn2DTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ShipmentReturnDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -203,10 +201,17 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
     @Override
     public List<ShipmentDTO> canInvoiceShipment(Long pno){
-        List<Shipment> entityList=shipmentRepository.couldInvoice(pno);
-        List<ShipmentDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        List<Object[]> entityList=shipmentRepository.couldInvoice(pno);
+        List<ShipmentDTO> dtoList=entityList.stream().map(this::extractShipmentDTO).toList();
         return dtoList;
     }
+    private ShipmentDTO extractShipmentDTO(Object[] objects){
+        Shipment shipment=(Shipment) objects[0];
+        ShipmentDTO shipmentDTO=(shipment!=null)?convertToDTO(shipment):null;
+        return shipmentDTO;
+    }
+
+
     @Override
     public List<PartnerDTO> canInvoicePartner(){
         List<Partner> entityList=shipmentRepository.couldInvoicePartner();
@@ -240,9 +245,35 @@ public class ShipmentServiceImpl implements ShipmentService {
     }
 
     @Override
-    public PageResultDTO<ShipmentDTO, Shipment> noneInvoiceShipment(PageRequestDTO requestDTO){
+    public PageResultDTO<ShipmentDTO, Object[]> noneInvoiceShipment(PageRequestDTO requestDTO){
         Pageable pageable=requestDTO.getPageable(Sort.by("shipNO").descending());
-        Page<Shipment> entityPage=shipmentRepository.noneInvoiceShipment(pageable);
-        return new PageResultDTO<>(entityPage, this::convertToDTO);
+        Page<Object[]> entityPage=shipmentRepository.noneInvoiceShipment(pageable);
+        return new PageResultDTO<>(entityPage, this::shipmentContractToDTO);
+    }
+    private ShipmentDTO shipmentContractToDTO(Object[] objects){
+        Shipment shipment=(Shipment) objects[0];
+        ShipmentDTO shipmentDTO=(shipment!=null)? convertToDTO(shipment):null;
+        return shipmentDTO;
+    }
+
+    @Override
+    public PageResultDTO<InvoicePartnerDTO, Object[]> pageFinInvoice(PageRequestDTO2 requestDTO2){
+        Pageable pageable=requestDTO2.getPageable(Sort.by("tranNO").descending());
+        Page<Object[]> entityPage=shipmentRepository.finInvoicePage(pageable);
+        return new PageResultDTO<>(entityPage, this::invoicePartnerToDTO);
+    }
+    private InvoicePartnerDTO invoicePartnerToDTO(Object[] objects){
+        Invoice invoice=(Invoice) objects[0];
+        Partner partner=(Partner) objects[1];
+        InvoiceDTO invoiceDTO=(invoice!=null)? invoiceService.convertToDTO(invoice):null;
+        PartnerDTO partnerDTO=(partner!=null)? partnerService.partnerTodto(partner):null;
+        return new InvoicePartnerDTO(invoiceDTO, partnerDTO);
+    }
+
+    @Override
+    public PageResultDTO<InvoicePartnerDTO, Object[]> partnerInvoicePage(PageRequestDTO requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("tranNO").descending());
+        Page<Object[]> entityPage=shipmentRepository.partnerInvoicePage(pageable, requestDTO.getPno());
+        return new PageResultDTO<>(entityPage, this::invoicePartnerToDTO);
     }
 }

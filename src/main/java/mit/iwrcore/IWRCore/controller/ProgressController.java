@@ -21,7 +21,7 @@ public class ProgressController {
 
     @GetMapping("/list_progress")
     public void list_progress(PageRequestDTO pageRequestDTO, Model model){
-        model.addAttribute("list", gumsuChasuService.getAllGumsuChasus(pageRequestDTO));
+        model.addAttribute("list", gumsuChasuService.getAllGumsuChasuContract(pageRequestDTO));
     }
     @GetMapping("/add_progress")
     public void add_progress(){

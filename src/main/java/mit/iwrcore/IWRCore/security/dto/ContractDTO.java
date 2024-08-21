@@ -17,6 +17,7 @@ public class ContractDTO {
     private LocalDateTime conDate;
     private String filename;
     private String who;
+    private LocalDateTime regDate;
 
     private JodalPlanDTO jodalPlanDTO;
     private MemberDTO memberDTO;
