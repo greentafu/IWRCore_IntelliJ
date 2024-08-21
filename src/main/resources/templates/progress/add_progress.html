@@ -63,7 +63,7 @@
               </div>
             </div>
           </div>
-          <div class="table-responsive text-nowrap">
+          <div class="table-responsive text-nowrap" id="alltable">
             <table class="table table-bordered">
               <thead>
                 <tr>
@@ -232,17 +232,14 @@
           <hr class="m-0">
           <div class="modal-body" style="height: 350px;">
             <table class="table table-hover">
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)HAN생활공업</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>사주제일</td>
-                <td>000-00-00000</td>
+              <tr th:each="partnerList:${nonGumsu_list}">
+                <td>[[${partnerList.name}]]</td>
+                <td>[[${partnerListregistrationNumber}]]</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary" th:value="${partnerList.pno}" onclick="selectPartner(this)">
+                    선택
+                  </button>
+                </td>
               </tr>
             </table>
           </div>
@@ -257,6 +254,58 @@
     <!--/Modal-->
 
     <!--Script-->
+    <script>
+      function selectPartner(button){
+        var pno=button.value;
+        var alltable=document.getElementById('alltable');
+        alltable.innerHTML='';
+
+        $.ajax({
+          url:'/select/noneGumsu',
+          method:'GET',
+          data:{pno:pno},
+          success:function(data){
+            var alltable = document.getElementById('alltable');
+
+            var newTable=document.createElement('table');
+            data.forEach(function(tableData){
+
+              var newRowHead=document.createElement('tr');
+              ['선택', '자재', '발주수량', '진척검수 수량', '진척검수 날짜'].forEach(function(text) {
+                var td = document.createElement('td');
+                td.innerText = text;
+                newRowHead.appendChild(td);
+              });
+              newTable.appendChild(newRowHead);
+
+              var baljuNo=tableData.baljuDTO.baljuNo;
+              var materialName=tableData.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+              var jodalChasuDTOs=tableData.jodalChasuDTOs;
+
+              tableData.jodalChasuDTOs.forEach(x=>{
+                console.log(x);
+
+              });
+
+
+
+            });
+            alltable.appendChild(newTable);
+            newTable=document.createElement('table');
+
+          }
+        });
+
+      }
+
+
+
+
+    </script>
+
+
+
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const tableRows = document.querySelectorAll('.table-row');

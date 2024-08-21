@@ -1,16 +1,16 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.entity.Balju;
-import mit.iwrcore.IWRCore.entity.Contract;
-import mit.iwrcore.IWRCore.entity.Gumsu;
+import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.GumsuReposetory;
 import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
 import mit.iwrcore.IWRCore.security.dto.ContractDTO;
 import mit.iwrcore.IWRCore.security.dto.GumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuGumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +27,7 @@ public class GumsuServiceImpl implements GumsuService{
     private final GumsuReposetory gumsuReposetory;
     private final BaljuService baljuService;
     private final MemberService memberService;
+    private final JodalChasuService jodalChasuService;
 
     @Override
     public Gumsu convertToEntity(GumsuDTO dto) {
@@ -107,6 +108,23 @@ public class GumsuServiceImpl implements GumsuService{
     @Override
     public Long getQuantityMake(Long baljuNo){
         return gumsuReposetory.quantityMake(baljuNo);
+    }
+
+    @Override
+    public List<Partner> getNonGumsuPartner(){return gumsuReposetory.getNonGumsuPartner();}
+
+    @Override
+    public List<BaljuJodalChasuDTO> getNoneGumsuBalju(Long pno){
+        List<Object[]> list=gumsuReposetory.getNoneGumsu(pno);
+        List<BaljuJodalChasuDTO> dtoList=list.stream().map(this::baljuJodalChasuToDTO).toList();
+        return dtoList;
+    }
+    private BaljuJodalChasuDTO baljuJodalChasuToDTO(Object[] objects){
+        Balju balju=(Balju) objects[0];
+        JodalChasu jodalChasu=(JodalChasu) objects[1];
+        BaljuDTO baljuDTO=(balju!=null)?baljuService.convertToDTO(balju):null;
+        JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
+        return new BaljuJodalChasuDTO(baljuDTO, jodalChasuDTO);
     }
 
 }

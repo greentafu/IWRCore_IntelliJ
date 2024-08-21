@@ -1,10 +1,12 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Gumsu;
+import mit.iwrcore.IWRCore.entity.Partner;
 import mit.iwrcore.IWRCore.security.dto.GumsuDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuGumsuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuJodalChasuDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,4 +33,8 @@ public interface GumsuService {
     PageResultDTO<BaljuGumsuDTO, Object[]> couldGumsu(PageRequestDTO requestDTO);
 
     Long getQuantityMake(Long baljuNo);
+
+    List<Partner> getNonGumsuPartner();
+
+    List<BaljuJodalChasuDTO> getNoneGumsuBalju(Long pno);
 }

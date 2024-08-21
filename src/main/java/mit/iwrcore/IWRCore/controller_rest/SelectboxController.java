@@ -2,10 +2,10 @@ package mit.iwrcore.IWRCore.controller_rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import mit.iwrcore.IWRCore.security.dto.*;
+import mit.iwrcore.IWRCore.security.dto.AjaxDTO.NoneGumsuDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
-import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
-import mit.iwrcore.IWRCore.security.dto.PartnerDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterLDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterMDTO;
@@ -16,11 +16,11 @@ import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProLDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProMDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
-import mit.iwrcore.IWRCore.security.dto.ShipmentDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/select")
@@ -33,6 +33,7 @@ public class SelectboxController {
     private final ProCodeService proCodeService;
     private final ShipmentService shipmentService;
     private final PartnerService partnerService;
+    private final GumsuService gumsuService;
 
     @GetMapping("/getPart")
     public PartCodeListDTO getPart(){
@@ -135,5 +136,27 @@ public class SelectboxController {
     @GetMapping("/getInvoiceShipment")
     public List<ShipmentDTO> getShipment(@RequestParam(required = false) Long pno){
         return shipmentService.canInvoiceShipment(pno);
+    }
+    @GetMapping("/noneGumsu")
+    public List<NoneGumsuDTO> noneGumsu(@RequestParam(required = false) Long pno){
+        List<NoneGumsuDTO> result=new ArrayList<>();
+        Set<BaljuDTO> baljuDTOSet=new HashSet<>();
+        Set<JodalChasuDTO> jodalChasuDTOSet=new HashSet<>();
+
+        List<BaljuJodalChasuDTO> baljuJodalChasuDTOList=gumsuService.getNoneGumsuBalju(pno);
+        for(BaljuJodalChasuDTO dto:baljuJodalChasuDTOList){
+            baljuDTOSet.add(dto.getBaljuDTO());
+            jodalChasuDTOSet.add(dto.getJodalChasuDTO());
+            if(jodalChasuDTOSet.size()==3){
+                BaljuDTO baljuDTO=baljuDTOSet.stream().toList().get(0);
+                List<JodalChasuDTO> jodalChasuDTOList=jodalChasuDTOSet.stream().toList();
+                List<JodalChasuDTO> sortedJC=jodalChasuDTOList.stream().sorted(Comparator.comparing(JodalChasuDTO::getJcnum)).toList();
+                NoneGumsuDTO noneGumsuDTO= NoneGumsuDTO.builder().baljuDTO(baljuDTO).jodalChasuDTOs(sortedJC).build();
+                result.add(noneGumsuDTO);
+                baljuDTOSet.clear();
+                jodalChasuDTOSet.clear();
+            }
+        }
+        return result;
     }
 }

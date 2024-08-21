@@ -51,6 +51,6 @@ public class GumsuServiceTests {
     @Transactional
     @Commit
     public void test12(){
-        System.out.println(gumsuService.getGumsuById(1L));
+        System.out.println(gumsuService.getNoneGumsuBalju(2L));
     }
 }
