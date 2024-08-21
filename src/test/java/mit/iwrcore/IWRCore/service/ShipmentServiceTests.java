@@ -141,7 +141,15 @@ public class ShipmentServiceTests {
         PageRequestDTO requestDTO=PageRequestDTO.builder().size(2).page(1).build();
         PageRequestDTO2 requestDTO2=PageRequestDTO2.builder().size2(2).page2(1).build();
 //        System.out.println(shipmentService.noneInvoiceShipment(requestDTO));
-        System.out.println(shipmentService.pageFinInvoice(requestDTO2));
+//        System.out.println(shipmentService.pageFinInvoice(requestDTO2));
+        System.out.println(shipmentService.partnerInvoicePage(requestDTO));
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test12(){
+        Pageable pageable=PageRequest.of(0,2);
+        System.out.println(shipmentRepository.partnerInvoicePage(pageable, 2L));
     }
 
 }

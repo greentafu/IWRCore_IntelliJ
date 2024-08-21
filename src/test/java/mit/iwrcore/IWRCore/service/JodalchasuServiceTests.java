@@ -95,5 +95,10 @@ public class JodalchasuServiceTests {
         LocalDateTime l2=LocalDateTime.now();
         System.out.println(ChronoUnit.DAYS.between(l1, l2));
     }
-
+    @Test
+    @Transactional
+    @Commit
+    public void test132131(){
+        System.out.println(jodalChasuRepository.getJodalChausFromPlan(1L));
+    }
 }

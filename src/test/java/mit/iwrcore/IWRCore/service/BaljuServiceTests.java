@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.service;
 
 
 import jakarta.transaction.Transactional;
+import mit.iwrcore.IWRCore.entity.Balju;
 import mit.iwrcore.IWRCore.repository.BaljuRepository;
 import mit.iwrcore.IWRCore.repository.ContractRepository;
 import mit.iwrcore.IWRCore.repository.MemberRepository;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -112,8 +114,9 @@ public class BaljuServiceTests {
     @Transactional
     @Commit
     public void test22222(){
-        PageRequestDTO2 requestDTO2=PageRequestDTO2.builder().size2(2).page2(1).build();
-        System.out.println(baljuService.finBaljuPage(requestDTO2));
+//        PageRequestDTO2 requestDTO2=PageRequestDTO2.builder().size2(2).page2(1).build();
+//        System.out.println(baljuService.finBaljuPage(requestDTO2));
+        System.out.println(baljuService.getBaljuById(1L));
     }
 
 }

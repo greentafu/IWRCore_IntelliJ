@@ -59,7 +59,9 @@ public class GumsuServiceImpl implements GumsuService{
 
     @Override
     public GumsuDTO getGumsuById(Long id) {
-        return convertToDTO(gumsuReposetory.findById(id).get());
+        List<Object[]> list=gumsuReposetory.getGumsuFromBalju(id);
+        Gumsu gumsu=(Gumsu) list.get(0)[0];
+        return convertToDTO(gumsu);
     }
 
     @Override

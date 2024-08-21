@@ -269,4 +269,11 @@ public class ShipmentServiceImpl implements ShipmentService {
         PartnerDTO partnerDTO=(partner!=null)? partnerService.partnerTodto(partner):null;
         return new InvoicePartnerDTO(invoiceDTO, partnerDTO);
     }
+
+    @Override
+    public PageResultDTO<InvoicePartnerDTO, Object[]> partnerInvoicePage(PageRequestDTO requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("tranNO").descending());
+        Page<Object[]> entityPage=shipmentRepository.partnerInvoicePage(pageable, requestDTO.getPno());
+        return new PageResultDTO<>(entityPage, this::invoicePartnerToDTO);
+    }
 }

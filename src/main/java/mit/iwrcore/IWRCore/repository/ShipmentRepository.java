@@ -79,4 +79,11 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
             "join Shipment s on (s.invoice.tranNO=i.tranNO) " +
             "where s.invoice is not null")
     Page<Object[]> finInvoicePage(Pageable pageable);
+
+    @Transactional
+    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+    @Query("select distinct i, s.balju.contract.partner from Invoice i " +
+            "join Shipment s on (s.invoice.tranNO=i.tranNO) " +
+            "where s.invoice is not null and s.balju.contract.partner.pno=:pno")
+    Page<Object[]> partnerInvoicePage(Pageable pageable, Long pno);
 }
