@@ -10,6 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface BaljuRepository extends JpaRepository<Balju, Long> {
+    @Query("select b.contract, b from Balju b")
+    Page<Object[]> finBaljuPage(Pageable pageable);
+
     @Query("select b from Balju b")
     Page<Balju> finishBalju(Pageable pageable);
 

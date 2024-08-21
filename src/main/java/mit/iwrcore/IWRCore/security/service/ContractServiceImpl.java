@@ -9,12 +9,13 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -55,6 +56,7 @@ public class ContractServiceImpl implements ContractService {
                 .conDate(entity.getConDate())
                 .filename(entity.getFilename())
                 .who(entity.getWho())
+                .regDate(entity.getRegDate())
                 .jodalPlanDTO(jodalPlanService.entityToDTO(entity.getJodalPlan()))
                 .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .partnerDTO(partnerService.partnerTodto(entity.getPartner()))
@@ -130,6 +132,36 @@ public class ContractServiceImpl implements ContractService {
         return new PageResultDTO<>(entityPage, fn);
     }
 
+    @Override
+    public List<NewOrderDTO> newOrderContract(Long pno){
+        List<Object[]> entityList=contractRepository.newOrderContract(pno);
+        List<NewOrderDTO> newOrderDTOList=new ArrayList<>();
+        Set<ContractDTO> contractDTOSet=new HashSet<>();
+        Set<JodalChasuDTO> jodalChasuDTOSet=new HashSet<>();
+
+        for(Object[] objects:entityList){
+            Contract contract=(Contract) objects[0];
+            JodalChasu jodalChasu=(JodalChasu) objects[1];
+            ContractDTO contractDTO=convertToDTO(contract);
+            JodalChasuDTO jodalChasuDTO=jodalChasuService.convertToDTO(jodalChasu);
+            contractDTOSet.add(contractDTO);
+            jodalChasuDTOSet.add(jodalChasuDTO);
+
+            if(jodalChasuDTOSet.size()==3){
+                ContractDTO saveContractDTO=contractDTOSet.stream().toList().get(0);
+                List<JodalChasuDTO> saveJodalChasuDTOList=jodalChasuDTOSet.stream().toList();
+                List<JodalChasuDTO> sortedJodalChsasuList=saveJodalChasuDTOList.stream()
+                        .sorted(Comparator.comparing(JodalChasuDTO::getJcnum))
+                        .collect(Collectors.toList());
+
+                NewOrderDTO newOrderDTO=new NewOrderDTO(saveContractDTO, sortedJodalChsasuList);
+                newOrderDTOList.add(newOrderDTO);
+                contractDTOSet.clear();
+                jodalChasuDTOSet.clear();
+            }
+        }
+        return newOrderDTOList;
+    }
 }
 
 

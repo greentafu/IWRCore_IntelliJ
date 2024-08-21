@@ -106,6 +106,11 @@ public class ContractServiceTests {
         PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).pno(2L).build();
         System.out.println(contractService.partnerContractList(requestDTO));
     }
-
+    @Test
+    @Transactional
+    @Commit
+    public void test5566(){
+        System.out.println(contractService.newOrderContract(2L));
+    }
 
 }

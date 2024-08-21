@@ -110,6 +110,12 @@ public class BaljuServiceImpl implements BaljuService {
         Function<Balju, BaljuDTO> fn=(entity->convertToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
     }
+    @Override
+    public PageResultDTO<ContractBaljuDTO, Object[]> finBaljuPage(PageRequestDTO2 requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("baljuNo").descending());
+        Page<Object[]> entityPage=baljuRepository.finBaljuPage(pageable);
+        return new PageResultDTO<>(entityPage, this::ContractBaljuToDTO);
+    }
 
     @Override
     public PageResultDTO<ContractBaljuDTO, Object[]> finishedContract(PageRequestDTO2 requestDTO){

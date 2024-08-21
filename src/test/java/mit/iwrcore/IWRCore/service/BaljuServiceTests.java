@@ -99,5 +99,21 @@ public class BaljuServiceTests {
     public void test22(){
         System.out.println(baljuRepository.partListBalju(2L));
     }
+    @Test
+    @Transactional
+    @Commit
+    public void test456(){
+//        Pageable pageable=PageRequest.of(0,2);
+//        System.out.println(baljuRepository.finishBalju(pageable));
+        PageRequestDTO2 requestDTO2=PageRequestDTO2.builder().size2(2).page2(1).build();
+        System.out.println(baljuService.finishedBalju(requestDTO2));
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test22222(){
+        PageRequestDTO2 requestDTO2=PageRequestDTO2.builder().size2(2).page2(1).build();
+        System.out.println(baljuService.finBaljuPage(requestDTO2));
+    }
 
 }
