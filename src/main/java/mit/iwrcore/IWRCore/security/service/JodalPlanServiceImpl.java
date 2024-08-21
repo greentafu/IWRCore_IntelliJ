@@ -8,6 +8,7 @@ import mit.iwrcore.IWRCore.repository.JodalPlanRepository;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -71,6 +72,28 @@ public class JodalPlanServiceImpl implements JodalPlanService {
     public JodalPlanDTO findById(Long id) {
         Optional<JodalPlan> jodalPlan = jodalPlanRepository.findById(id);
         return jodalPlan.map(this::entityToDTO).orElse(null);
+    }
+
+    @Override
+    public List<ProPlanSturctureDTO> newJodalChasu(Long proplanNo){
+        List<Object[]> list=jodalPlanRepository.stock(proplanNo);
+        List<ProPlanSturctureDTO> dtoList=list.stream().map(this::proPlanSturctureToDTO).toList();
+        return dtoList;
+    }
+    private ProPlanSturctureDTO proPlanSturctureToDTO(Object[] objects){
+        ProPlan proPlan=(ProPlan) objects[0];
+        Structure structure=(Structure) objects[1];
+        Long tempSumRequest=(Long) objects[2];
+        Long tempSumShip=(Long) objects[3];
+        JodalPlan jodalPlan=(JodalPlan) objects[4];
+
+        ProplanDTO proplanDTO=(proPlan!=null)?proplanService.entityToDTO(proPlan):null;
+        StructureDTO structureDTO=(structure!=null)?structureService.structureTodto(structure):null;
+        Long sumRequest=(tempSumRequest!=null)?tempSumRequest:0L;
+        Long sumShip=(tempSumShip!=null)?tempSumShip:0L;
+        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)?entityToDTO(jodalPlan):null;
+
+        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO);
     }
 
 

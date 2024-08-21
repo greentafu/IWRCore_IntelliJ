@@ -3,6 +3,7 @@ package mit.iwrcore.IWRCore.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.JodalPlan;
+import mit.iwrcore.IWRCore.security.dto.AjaxDTO.SaveJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
@@ -23,6 +24,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +58,9 @@ public class JodalController {
         model.addAttribute("structureList", structureList);
         model.addAttribute("manuCode", manuCode);
         model.addAttribute("joNo", joNo);
+
+
+        model.addAttribute("structure_list", jodalPlanService.newJodalChasu(jodalPlanDTO.getProplanDTO().getProplanNo()));
 
 
     }
@@ -125,6 +131,46 @@ public class JodalController {
         }
         System.out.println("성공했냐");
         // 성공적으로 처리 후 리디렉션
+        return "redirect:/jodal/list_jodal";
+    }
+
+    @PostMapping("/saveJodalChasu")
+    @ResponseBody
+    public String saveJodalChasu(@RequestBody List<SaveJodalChasuDTO> list){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
+        MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
+
+        for(SaveJodalChasuDTO dto:list){
+            JodalPlanDTO jodalPlanDTO=jodalPlanService.findById(Long.valueOf(dto.getId()));
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime l1=LocalDateTime.parse(dto.getOneDate()+" 00:00:00", formatter);
+            LocalDateTime l2=LocalDateTime.parse(dto.getTwoDate()+" 00:00:00", formatter);
+            LocalDateTime l3=LocalDateTime.parse(dto.getThreeDate()+" 00:00:00", formatter);
+
+            JodalChasuDTO jodalChasuDTO1=JodalChasuDTO.builder()
+                    .jodalPlanDTO(jodalPlanDTO)
+                    .joNum(Long.valueOf(dto.getOneNum()))
+                    .joDate(l1)
+                    .memberDTO(memberDTO)
+                    .build();
+            jodalChasuService.createJodalChasu(jodalChasuDTO1);
+            JodalChasuDTO jodalChasuDTO2=JodalChasuDTO.builder()
+                    .jodalPlanDTO(jodalPlanDTO)
+                    .joNum(Long.valueOf(dto.getTwoNum()))
+                    .joDate(l2)
+                    .memberDTO(memberDTO)
+                    .build();
+            jodalChasuService.createJodalChasu(jodalChasuDTO2);
+            JodalChasuDTO jodalChasuDTO3=JodalChasuDTO.builder()
+                    .jodalPlanDTO(jodalPlanDTO)
+                    .joNum(Long.valueOf(dto.getThreeNum()))
+                    .joDate(l3)
+                    .memberDTO(memberDTO)
+                    .build();
+            jodalChasuService.createJodalChasu(jodalChasuDTO3);
+        }
         return "redirect:/jodal/list_jodal";
     }
 }

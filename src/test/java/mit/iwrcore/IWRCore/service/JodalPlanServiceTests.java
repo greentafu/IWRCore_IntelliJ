@@ -21,6 +21,7 @@ import org.springframework.test.annotation.Commit;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -82,6 +83,18 @@ public class JodalPlanServiceTests {
     public void test1231(){
         Pageable pageable= PageRequest.of(0,2);
         jodalPlanRepository.nonPlanMaterial(pageable).forEach(System.out::println);
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test2222(){
+        System.out.println(jodalPlanService.newJodalChasu(4L));
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test1111111111(){
+        System.out.println(jodalPlanRepository.stock(1L));
     }
 
 }
