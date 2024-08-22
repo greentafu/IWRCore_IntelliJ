@@ -107,7 +107,7 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
                     .build();
             list.add(quantityDateDTO);
         }
-        list.get(0).setTotalOrder(entityList.get(0).getGumsu().getMake());
+        if(list.size()>0) list.get(0).setTotalOrder(entityList.get(0).getGumsu().getMake());
         return list;
     }
 

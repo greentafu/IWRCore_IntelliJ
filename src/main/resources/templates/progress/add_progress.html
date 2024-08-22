@@ -24,7 +24,7 @@
         <div class="card-body">
           <label class="form-label" style="width: fit-content;">담당자</label>
           <div class="col-md-6">
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" id="person">
           </div>
         </div>
         <hr class="m-0">
@@ -32,7 +32,8 @@
           <label class="form-label" style="width: fit-content;">협력회사</label>
           <div class="row">
             <div class="col-md-6">
-              <input type="text" class="form-control">
+              <input type="number" style="display:none;" id="partnerNo">
+              <input type="text" class="form-control" id="partnerName">
             </div>
             <div class="col-md-4">
               <button
@@ -63,133 +64,13 @@
               </div>
             </div>
           </div>
-          <div class="table-responsive text-nowrap" id="alltable">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>선택</th>
-                  <th>자재</th>
-                  <th>발주수량</th>
-                  <th>입고예정일</th>
-                  <th>전척검수날짜</th>
-                  <th>진척검수 수량</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="table-row">
-                  <td rowspan="5">
-                    <input type="checkbox">
-                  </td>
-                  <td>
-                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
-                  </td>
-                  <td>300</td>
-                  <td>2024-12-07</td>
-                  <td>
-                    <div class="select-box">
-                      <label for="year">년도:</label>
-                      <select class="year-select"></select>
-                      <label for="month">월:</label>
-                      <select class="month-select"></select>
-                      <label for="day">일:</label>
-                      <select class="day-select"></select>
-                    </div>
-                  </td>
-                  <td>
-                    <input type="number">
-                  </td>
-                </tr>
-                <tr class="table-row">
-                  <td>
-                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
-                  </td>
-                  <td>300</td>
-                  <td>2024-12-07</td>
-                  <td>
-                    <div class="select-box">
-                      <label for="year">년도:</label>
-                      <select class="year-select"></select>
-                      <label for="month">월:</label>
-                      <select class="month-select"></select>
-                      <label for="day">일:</label>
-                      <select class="day-select"></select>
-                    </div>
-                  </td>
-                  <td>
-                    <input type="number">
-                  </td>
-                </tr>
-                <tr class="table-row">
-                  <td>
-                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
-                  </td>
-                  <td>300</td>
-                  <td>2024-12-07</td>
-                  <td>
-                    <div class="select-box">
-                      <label for="year">년도:</label>
-                      <select class="year-select"></select>
-                      <label for="month">월:</label>
-                      <select class="month-select"></select>
-                      <label for="day">일:</label>
-                      <select class="day-select"></select>
-                    </div>
-                  </td>
-                  <td>
-                    <input type="number">
-                  </td>
-                </tr>
-                <tr class="table-row">
-                  <td>
-                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
-                  </td>
-                  <td>300</td>
-                  <td>2024-12-07</td>
-                  <td>
-                    <div class="select-box">
-                      <label for="year">년도:</label>
-                      <select class="year-select"></select>
-                      <label for="month">월:</label>
-                      <select class="month-select"></select>
-                      <label for="day">일:</label>
-                      <select class="day-select"></select>
-                    </div>
-                  </td>
-                  <td>
-                    <input type="number">
-                  </td>
-                </tr>
-                <tr class="table-row">
-                  <td>
-                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1주 앞 브레이크</strong>
-                  </td>
-                  <td>300</td>
-                  <td>2024-12-07</td>
-                  <td>
-                    <div class="select-box">
-                      <label for="year">년도:</label>
-                      <select class="year-select"></select>
-                      <label for="month">월:</label>
-                      <select class="month-select"></select>
-                      <label for="day">일:</label>
-                      <select class="day-select"></select>
-                    </div>
-                  </td>
-                  <td>
-                    <input type="number">
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <div class="table-responsive text-nowrap" id="alltable"></div>
         </div>
         <div class="card-header d-flex align-items-center justify-content-between">
           <a th:href="@{/progress/requiring_progress}">
             <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
           </a>
-           <a th:href="@{/progress/requiring_progress}">
-            <button type="button" class="btn btn-primary">등록</button>
-          </a>
+          <button type="button" class="btn btn-primary" onclick="saveGumsu()">등록</button>
         </div>
       </div>
     </div>
@@ -236,7 +117,10 @@
                 <td>[[${partnerList.name}]]</td>
                 <td>[[${partnerListregistrationNumber}]]</td>
                 <td>
-                  <button class="btn btn-sm btn-outline-primary" th:value="${partnerList.pno}" onclick="selectPartner(this)">
+                  <button class="btn btn-sm btn-outline-primary"
+                          th:value="${partnerList.pno}"
+                          th:name="${partnerList.name}"
+                          onclick="selectPartner(this)">
                     선택
                   </button>
                 </td>
@@ -257,6 +141,8 @@
     <script>
       function selectPartner(button){
         var pno=button.value;
+        document.getElementById('partnerName').value= button.name;
+        document.getElementById('partnerNo').value=pno;
         var alltable=document.getElementById('alltable');
         alltable.innerHTML='';
 
@@ -267,34 +153,90 @@
           success:function(data){
             var alltable = document.getElementById('alltable');
 
-            var newTable=document.createElement('table');
             data.forEach(function(tableData){
+              var newBody=document.createElement('table');
+              newBody.classList.add('table', 'table-bordered', 'mb-4');
+
+              var newTable=document.createElement('tbody');
 
               var newRowHead=document.createElement('tr');
-              ['선택', '자재', '발주수량', '진척검수 수량', '진척검수 날짜'].forEach(function(text) {
+              ['선택', '자재', '발주수량', '입고예정일', '진척검수 수량', '진척검수 날짜'].forEach(function(text) {
                 var td = document.createElement('td');
                 td.innerText = text;
                 newRowHead.appendChild(td);
               });
               newTable.appendChild(newRowHead);
 
+              var tempNum=0;
+
               var baljuNo=tableData.baljuDTO.baljuNo;
               var materialName=tableData.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
               var jodalChasuDTOs=tableData.jodalChasuDTOs;
 
-              tableData.jodalChasuDTOs.forEach(x=>{
-                console.log(x);
+              jodalChasuDTOs.forEach(x=>{
+                var newRow = document.createElement('tr');
+
+                if(tempNum==0){
+                  var inputTd = document.createElement('td');
+                  inputTd.rowSpan = 3;
+                  var input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.id = 'checkbox'+baljuNo;
+                  input.class='form-check-input';
+                  inputTd.appendChild(input);
+                  newRow.appendChild(inputTd);
+
+                  var nameTd = document.createElement('td');
+                  nameTd.rowSpan = 3;
+                  nameTd.innerText = materialName;
+                  newRow.appendChild(nameTd);
+
+                  tempNum=1;
+                }
+
+                var numTd = document.createElement('td');
+                numTd.innerText = x.joNum;
+                newRow.appendChild(numTd);
+
+                var dateTd = document.createElement('td');
+                dateTd.innerText = x.joDate.split('T')[0];
+                newRow.appendChild(dateTd);
+
+                var gumNumTd = document.createElement('td');
+                var gumNumInput = document.createElement('input');
+                gumNumInput.type = 'number';
+                gumNumInput.id = 'gumNum'+x.jcnum;
+                gumNumTd.appendChild(gumNumInput);
+                newRow.appendChild(gumNumTd);
+
+                var gumDateTd = document.createElement('td');
+                var gumDateInput = document.createElement('input');
+                gumDateInput.type = 'date';
+                gumDateInput.id = 'gumDate'+x.jcnum;
+                gumDateTd.appendChild(gumDateInput);
+                newRow.appendChild(gumDateTd);
+
+                newTable.appendChild(newRow);
 
               });
 
-
+              newBody.appendChild(newTable);
+              alltable.appendChild(newBody);
 
             });
-            alltable.appendChild(newTable);
-            newTable=document.createElement('table');
 
           }
         });
+
+      }
+
+      function saveGumsu(){
+        var person=document.getElementById('person').value;
+        var partnerNo=document.getElementById('partnerNo').value;
+
+        var conData=[];
+
+
 
       }
 

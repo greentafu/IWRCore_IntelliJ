@@ -119,7 +119,7 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         }
 
         Long totalOrder=0L;
-        Long sum=make;
+        Long sum=(make!=null)?make:0L;
 
         for(int i=0; i<list.size(); i++){
             long entire=list.get(i).getQuantity();
