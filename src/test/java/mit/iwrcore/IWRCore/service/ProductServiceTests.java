@@ -190,5 +190,9 @@ public class ProductServiceTests {
 //        assertFalse(productRepository.findById(1L).isPresent(), "Product should be deleted");
 //    }
 
+    @Test
+    public void test(){
+        System.out.println("@@@@@@@@@@@@"+productRepository.newProductCount());
+    }
 
 }

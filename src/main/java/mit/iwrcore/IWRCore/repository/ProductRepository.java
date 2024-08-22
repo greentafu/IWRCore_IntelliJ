@@ -30,4 +30,7 @@ public interface  ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.mater_check=1")
     Page<Product> findCheckProduct(Pageable pageable);
 
+
+    @Query("select count(p) from Product p where p.mater_check=0")
+    Long newProductCount();
 }

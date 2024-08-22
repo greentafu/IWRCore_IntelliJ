@@ -151,6 +151,12 @@ public class ShipmentServiceTests {
         Pageable pageable=PageRequest.of(0,2);
         System.out.println(shipmentRepository.partnerInvoicePage(pageable, 2L));
     }
+    @Test
+    @Transactional
+    @Commit
+    public void test(){
+        System.out.println("###"+shipmentRepository.newShipment());
+    }
 
 }
 

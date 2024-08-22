@@ -30,4 +30,6 @@ public interface JodalPlanRepository extends JpaRepository<JodalPlan, Long> {
     @Query("select j from JodalPlan j where j.joNo not in (select c.jodalPlan.joNo from Contract c)")
     List<JodalPlan> noneContractJodalPlan();
 
+    @Query("select count(j) from JodalPlan j where j.joNo not in (select jc.jodalPlan.joNo from JodalChasu jc)")
+    Long newNoneJodalPlanCount();
 }

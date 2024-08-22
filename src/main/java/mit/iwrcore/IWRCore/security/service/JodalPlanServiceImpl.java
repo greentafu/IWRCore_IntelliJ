@@ -136,4 +136,10 @@ public class JodalPlanServiceImpl implements JodalPlanService {
         List<JodalPlanDTO> dtoList=entityList.stream().map(this::entityToDTO).toList();
         return dtoList;
     }
+
+    @Override
+    public Long newNoneJodalChasuCount(){
+        Long count=jodalPlanRepository.newNoneJodalPlanCount();
+        return (count!=null)?count:0L;
+    }
 }

@@ -7,9 +7,7 @@ import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthPartnerDTO;
-import mit.iwrcore.IWRCore.security.service.MaterService;
-import mit.iwrcore.IWRCore.security.service.PartCodeService;
-import mit.iwrcore.IWRCore.security.service.ProCodeService;
+import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +24,8 @@ public class LoginController {
     private final PartCodeService partCodeService;
     private final MaterService materService;
     private final ProCodeService proCodeService;
+    private final ProductService productService;
+    private final JodalPlanService jodalPlanService;
 
     @GetMapping("/login")
     public void login(){
@@ -38,8 +38,9 @@ public class LoginController {
         else return "redirect:/login?error";
     }
     @GetMapping("/main")
-    public void main(){
-
+    public void main(Model model){
+        model.addAttribute("newProductCount", productService.newProductCount());
+        model.addAttribute("newNoneChasu", jodalPlanService.newNoneJodalChasuCount());
     }
     @GetMapping("/category")
     public void category(Model model){

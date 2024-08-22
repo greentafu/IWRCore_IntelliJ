@@ -86,4 +86,5 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
             "join Shipment s on (s.invoice.tranNO=i.tranNO) " +
             "where s.invoice is not null and s.balju.contract.partner.pno=:pno")
     Page<Object[]> partnerInvoicePage(Pageable pageable, Long pno);
+
 }

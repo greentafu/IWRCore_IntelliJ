@@ -97,4 +97,8 @@ public class JodalPlanServiceTests {
         System.out.println(jodalPlanRepository.stock(1L));
     }
 
+    @Test
+    public void test333(){
+        System.out.println("###"+jodalPlanRepository.newNoneJodalPlanCount());
+    }
 }

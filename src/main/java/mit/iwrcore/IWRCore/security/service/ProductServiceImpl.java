@@ -31,6 +31,12 @@ public class ProductServiceImpl implements ProductService {
     private MemberService memberService;
 
     @Override
+    public Long newProductCount(){
+        Long count=productRepository.newProductCount();
+        return (count!=null)?count:0L;
+    }
+
+    @Override
     public ProductDTO getProductById(Long productID) {
         return productEntityToDto(productRepository.findProduct(productID));
     }

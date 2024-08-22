@@ -25,4 +25,6 @@ public interface JodalPlanService {
     JodalPlanDTO entityToDTO(JodalPlan entity);
 
     List<JodalPlanDTO> noneContractJodalPlan();
+
+    Long newNoneJodalChasuCount();
 }

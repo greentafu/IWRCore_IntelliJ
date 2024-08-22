@@ -73,7 +73,7 @@
                 <a th:href="@{/production/list_newProduct}">신규 제품 자재</a>
               </h3>
               <span class="fw-semibold d-block mb-1">확인 필요</span>
-              <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 2</small>
+              <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> [[${newProductCount}]]</small>
             </div>
           </div>
         </div>
@@ -89,10 +89,10 @@
               </div>
               <i class="menu-icon tf-icons bx bx-cube-alt"></i>
               <h3 class="card-title text-nowrap mb-1">
-                <a th:href="@{/jodal/jodal_ready}">신규 조달 계획</a>
+                <a th:href="@{/jodal/list_jodal}">신규 조달 계획</a>
               </h3>
               <span class="fw-semibold d-block mb-1">등록 필요</span>
-              <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> 2</small>
+              <small class="text-success fw-semibold" style="font-size: 2.2em;"><i class="bx bx-up-arrow-alt"></i> [[${newNoneChasu}]]</small>
             </div>
           </div>
         </div>

@@ -14,6 +14,8 @@ public interface ProductService {
     //특정 제품 ID로 제품 정보를 가져오는 메서드.
     ProductDTO getProductById(Long productID);
 
+    Long newProductCount();
+
     //제품 목록을 불러오는 메서드.
     PageResultDTO<ProductDTO, Product> getAllProducts(PageRequestDTO requestDTO);
     // 생산계획이 없는 제품 목록
