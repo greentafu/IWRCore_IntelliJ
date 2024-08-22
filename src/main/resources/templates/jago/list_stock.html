@@ -129,7 +129,7 @@
                     </div>
                       <!--다운로드-->
 
-                    <table class="table table-bordered mb-4">
+                    <table id="data-table" class="table table-bordered mb-4">
                       <thead>
                         <tr>
                           <th>자재번호</th>
@@ -330,6 +330,7 @@
                         </tr>
                       </tbody>
                     </table>
+
                     <nav aria-label="Page navigation">
                       <ul class="pagination justify-content-center">
                         <li class="page-item prev">
@@ -401,10 +402,12 @@
             return cells.map(cell => `"${cell.innerText.replace(/"/g, '""')}"`).join(',');
         }).join('\n');
 
+        // BOM 추가 (UTF-8 인코딩을 위한)
+        const bom = '\ufeff';
         const date = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '_');
         const filename = `${date}_stock_export.csv`;
 
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         if (link.download !== undefined) {
             const url = URL.createObjectURL(blob);
@@ -417,4 +420,5 @@
         }
     });
 </script>
+
 </html>

@@ -336,28 +336,30 @@
 </th:block>
 <!-- JavaScript 코드 -->
 <script>
-    document.getElementById('export-btn').addEventListener('click', function () {
-        const table = document.getElementById('data-table');
-        const rows = Array.from(table.querySelectorAll('tr'));
-        const csvContent = rows.map(row => {
-            const cells = Array.from(row.querySelectorAll('th, td'));
-            return cells.map(cell => `"${cell.innerText.replace(/"/g, '""')}"`).join(',');
-        }).join('\n');
+  document.getElementById('export-btn').addEventListener('click', function () {
+      const table = document.getElementById('data-table');
+      const rows = Array.from(table.querySelectorAll('tr'));
+      const csvContent = rows.map(row => {
+          const cells = Array.from(row.querySelectorAll('th, td'));
+          return cells.map(cell => `"${cell.innerText.replace(/"/g, '""')}"`).join(',');
+      }).join('\n');
 
-        const date = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '_');
-        const filename = `${date}_stockM_export.csv`;
+      // BOM 추가 (UTF-8 인코딩을 위한)
+      const bom = '\ufeff';
+      const date = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '_');
+      const filename = `${date}_stockM_export.csv`;
 
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        if (link.download !== undefined) {
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', filename);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    });
+      const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      if (link.download !== undefined) {
+          const url = URL.createObjectURL(blob);
+          link.setAttribute('href', url);
+          link.setAttribute('download', filename);
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  });
 </script>
 </html>

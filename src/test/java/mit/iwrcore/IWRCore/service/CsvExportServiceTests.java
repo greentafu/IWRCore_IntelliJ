@@ -21,11 +21,14 @@ public class CsvExportServiceTests {
         String password = "iwlcore";
 
         // 쿼리
-        String query = "SELECT m.mater_code, m.name, m.mater_scode, m.box_code, " +
-                "CASE " +
-                "    WHEN baljuDone.balju_id IS NOT NULL AND gc.gumsu1 < NOW() THEN '발주완료' " +
-                "    WHEN gc.gumsu1 >= NOW() THEN '발주진행' " +
-                "END AS status " +
+        String query =  "SELECT m.mater_code AS '자재 번호', " +
+                "       m.name AS '자재명', " +
+                "       m.mater_scode AS '카테고리', " +
+                "       m.box_code AS '창고위치', " +
+                "       CASE " +
+                "           WHEN baljuDone.balju_id IS NOT NULL AND gc.gumsu1 < NOW() THEN '발주완료' " +
+                "           WHEN gc.gumsu1 >= NOW() THEN '발주진행' " +
+                "       END AS '발주 상태' " +
                 "FROM " +
                 "    (SELECT g.gumsu_no, g.balju_id " +
                 "     FROM gumsu g " +
@@ -51,15 +54,15 @@ public class CsvExportServiceTests {
              ResultSet resultSet = statement.executeQuery(query);
              FileWriter fileWriter = new FileWriter(csvFilePath);
              CSVPrinter csvPrinter = new CSVPrinter(fileWriter,
-                     CSVFormat.DEFAULT.withHeader("Mater Code", "Name", "Mater Scode", "Box Code", "Status"))) {
+                     CSVFormat.DEFAULT.withHeader("자재 번호", "자재명", "카테고리", "창고위치", "발주 상태"))) {
 
             // 데이터 조회 및 CSV 파일에 기록
             while (resultSet.next()) {
-                String materCode = resultSet.getString("mater_code");
-                String name = resultSet.getString("name");
-                String materScode = resultSet.getString("mater_scode");
-                String boxCode = resultSet.getString("box_code");
-                String status = resultSet.getString("status");
+                String materCode = resultSet.getString("자재 번호");
+                String name = resultSet.getString("자재명");
+                String materScode = resultSet.getString("카테고리");
+                String boxCode = resultSet.getString("창고위치");
+                String status = resultSet.getString("발주 상태");
                 csvPrinter.printRecord(materCode, name, materScode, boxCode, status);
             }
 

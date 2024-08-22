@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.UUID;
 
 @RequestMapping("/material")
@@ -95,8 +96,9 @@ public class MaterialController {
     public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String fileName) {
         try {
             Resource resource = fileService.loadFileAsResource(fileName);
+
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(resource.getFilename(), "UTF-8") + "\"")
                     .body(resource);
         } catch (Exception e) {
             log.error("파일 다운로드 실패", e);
