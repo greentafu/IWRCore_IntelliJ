@@ -39,20 +39,6 @@ public class BoxServiceTests {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Test
     public void testList() {
         // 테스트 데이터를 데이터베이스에 저장
@@ -68,7 +54,7 @@ public class BoxServiceTests {
     @Transactional
     @Commit
     public void listbox(){
-        boxService.list().forEach(System.out::println);
+        System.out.println("############"+boxService.list());
     }
 
 }

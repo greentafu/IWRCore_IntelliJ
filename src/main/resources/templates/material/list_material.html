@@ -140,7 +140,7 @@
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${material_list.dtoList}">
                   <td>[[${list.materCode}]]</td>
-                  <td><strong><a th:href="@{/material/material(materCode=${list.materCode})}">  [[${list.name}]]</a></strong></td>
+                  <td th:id="'materialName'+${list.materCode}"><strong><a th:href="@{/material/material(materCode=${list.materCode})}">  [[${list.name}]]</a></strong></td>
                   <td>[[${list.materSDTO.Sname}]]</td>
                   <td>[[${list.standard}]]</td>
                   <td>[[${list.unit}]]</td>
@@ -152,7 +152,7 @@
                     <a th:href="@{/material/modify_material(materCode=${list.materCode})}">
                       <button class="btn btn-primary">수정</button>
                     </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list.materCode}" onclick="deleteBtn(this)">삭제</button>
                   </td>
                 </tr>
               </tbody>
@@ -201,28 +201,21 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
-            <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-            ></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="deleteText">
             KM-6081 앞바퀴를 삭제합니다.<br/>삭제시 복구가 불가능합니다.</div>
           <div class="modal-footer">
             <button
                     class="btn btn-primary"
                     data-bs-target="#modalToggle2"
-                    data-bs-toggle="modal"
                     data-bs-dismiss="modal"
+                    id="deleteBtn"
+                    onclick="deleteMaterial(this)"
             >
               삭제
             </button>
             <button
                     class="btn btn-primary"
-                    data-bs-target="#modalToggle2"
-                    data-bs-toggle="modal"
                     data-bs-dismiss="modal"
             >
               취소
@@ -234,6 +227,25 @@
     <!--/Modal-->
 
     <!--Script-->
+    <script>
+      function deleteBtn(button){
+        var materCode=button.value;
+        var materialName=document.getElementById('materialName'+materCode).innerText;
+        document.getElementById('deleteText').innerHTML=materCode+" "+materialName+"를 삭제합니다.<br/>삭제시 복구가 불가능합니다.";
+        document.getElementById('deleteBtn').value=materCode;
+      }
+      function deleteMaterial(button){
+        var materCode=button.value;
+        $.ajax({
+          url:'/material/deleteMaterial',
+          method:'GET',
+          data:{materCode:materCode},
+          success:function(response){
+            window.location.reload();
+          }
+        });
+      }
+    </script>
 
     <!--Script-->
 

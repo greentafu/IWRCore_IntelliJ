@@ -9,6 +9,8 @@ import java.util.List;
 public interface BoxService {
     List<BoxDTO> list();
 
+    BoxDTO getBox(Long boxId);
+
     // dto를 entity로
     default Box boxdtoToEntity(BoxDTO dto){
         return Box.builder().boxCode(dto.getBoxcode()).boxName(dto.getBoxname()).build();

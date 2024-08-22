@@ -34,6 +34,7 @@ public class MaterialController {
     private final MaterialService materialService;
     private final MemberService memberService;
     private final MaterService materService;
+    private final BoxService boxService;
 
     @Autowired
     private FileService fileService;
@@ -44,15 +45,21 @@ public class MaterialController {
     }
 
     @GetMapping("/material")
-    public void material() {
+    public void material(@RequestParam Long materCode, Model model) {
+        MaterialDTO materialDTO=materialService.findM(materCode);
+        model.addAttribute("material", materialDTO);
     }
 
     @GetMapping("/modify_material")
-    public void modify_material() {
+    public void modify_material(@RequestParam Long materCode, Model model) {
+        MaterialDTO materialDTO=materialService.findM(materCode);
+        model.addAttribute("material", materialDTO);
+        model.addAttribute("boxList", boxService.list());
     }
 
     @GetMapping("/new_material")
-    public void new_material() {
+    public void new_material(Model model) {
+        model.addAttribute("boxList", boxService.list());
     }
 
     @PostMapping("/register")
@@ -111,7 +118,11 @@ public class MaterialController {
         model.addAttribute("materialDTO", materialDTO);
         return "material"; // Thymeleaf 템플릿 파일명
     }
-
+    @GetMapping("/deleteMaterial")
+    public String deleteMaterial(@RequestParam(required = false) Long materCode){
+        materialService.deleteJa(materCode);
+        return "redirect:/material/list_material";
+    }
 
 }
 

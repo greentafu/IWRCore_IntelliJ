@@ -18,6 +18,10 @@ import java.util.stream.Collectors;
 public class BoxServiceImpl implements BoxService {
     private final BoxRepository boxRepository;
 
+    @Override
+    public BoxDTO getBox(Long boxId){
+        return entityTodto(boxRepository.getReferenceById(boxId));
+    }
 //    public BoxServiceImpl(BoxRepository boxRepository) {
 //        this.boxRepository = boxRepository;
 //    }
@@ -28,6 +32,10 @@ public class BoxServiceImpl implements BoxService {
         return boxes.stream()
                 .map(this::boxTodto)
                 .collect(Collectors.toList());
+    }
+
+    private BoxDTO entityTodto(Box box){
+        return BoxDTO.builder().boxname(box.getBoxName()).boxcode(box.getBoxCode()).build();
     }
 }
 
