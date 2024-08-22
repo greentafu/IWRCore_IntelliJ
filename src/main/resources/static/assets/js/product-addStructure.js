@@ -49,6 +49,7 @@ function addToLowerTable(){
             button.innerText = '삭제';
             button.onclick = function() {
                 newRow.remove(); // Remove the row when the button is clicked
+                initMaterial();
             };
             deleteTd.appendChild(button);
             newRow.appendChild(deleteTd);
@@ -66,4 +67,5 @@ function addToLowerTable(){
             materialSelTable.appendChild(newRow);
         }
     });
+    initMaterial();
 }

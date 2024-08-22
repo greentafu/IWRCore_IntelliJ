@@ -35,6 +35,7 @@ public class SelectboxController {
     private final PartnerService partnerService;
     private final GumsuService gumsuService;
     private final JodalPlanService jodalPlanService;
+    private final MaterialService materialService;
 
     @GetMapping("/getPart")
     public PartCodeListDTO getPart(){
@@ -169,5 +170,10 @@ public class SelectboxController {
     @GetMapping("/noneContractJodalPlan")
     public List<JodalPlanDTO> noneContractJodalPlan(){
         return jodalPlanService.noneContractJodalPlan();
+    }
+
+    @GetMapping("/materialList")
+    public List<MaterialDTO> materialList(){
+        return materialService.materialList();
     }
 }

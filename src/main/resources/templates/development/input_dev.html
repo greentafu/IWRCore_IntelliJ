@@ -115,23 +115,7 @@
                 <div class="card border overflow-hidden mb-4" style="height: 500px">
                   <div id="vertical-example">
                     <table class="table" id="materialList">
-                      <tbody>
-                        <tr th:each="list:${material_list.dtoList}">
-                          <td>
-                            <input type="checkbox" class="form-check-input">
-                          </td>
-                          <td>[[${list.materCode}]]</td>
-                          <td>[[${list.name}]]</td>
-                          <td style="display: none;">[[${list.materSDTO.materMDTO.materLDTO.lname}]]</td>
-                          <td style="display: none;">[[${list.materSDTO.materMDTO.Mname}]]</td>
-                          <td style="display: none;">[[${list.materSDTO.Sname}]]</td>
-                          <td>[[${list.standard}]]</td>
-                          <td>[[${list.unit}]]</td>
-                          <td>[[${list.color}]]</td>
-                          <td style="display: none;">[[${list.boxDTO.boxname}]]</td>
-                          <td style="display: none;">[[${list.file}]]</td>
-                        </tr>
-                      </tbody>
+                      <tbody id="mater"></tbody>
                     </table>
                   </div>
                 </div>
@@ -298,6 +282,75 @@
     <script src="../assets/js/product-addStructure.js"></script>
 
     <script>
+      $(document).ready(function(){
+        initMaterial();
+      });
+
+      function initMaterial(){
+        $.ajax({
+          url:'/select/materialList',
+          method:'GET',
+          success:function(data){
+            var insertTbody=document.getElementById('mater');
+            insertTbody.innerHTML='';
+
+            data.forEach(x=>{
+              var materCode=x.materCode;
+
+              var temp=document.getElementById('quantity'+materCode);
+              if(temp==null){
+                var name=x.name;
+                var Lname=x.materSDTO.materMDTO.materLDTO.lname;
+                var Mname=x.materSDTO.materMDTO.mname;
+                var Sname=x.materSDTO.sname;
+                var standard=x.standard;
+                var unit=x.unit;
+                var color=x.color;
+                var boxName=x.boxDTO.boxname;
+                var file=x.file;
+
+                var newRow = document.createElement('tr');
+
+                var inputTd = document.createElement('td');
+                var input = document.createElement('input');
+                input.type = 'checkbox';
+                input.id = 'checkbox'+materCode;
+                input.class='form-check-input';
+                inputTd.appendChild(input);
+                newRow.appendChild(inputTd);
+
+                [materCode, name].forEach(function(text) {
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+                });
+                [Lname, Mname, Sname].forEach(function(text) {
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  td.style.display = 'none';
+                  newRow.appendChild(td);
+                });
+                [standard, unit, color].forEach(function(text) {
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+                });
+                [boxName, file].forEach(function(text) {
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  td.style.display = 'none';
+                  newRow.appendChild(td);
+                });
+
+                insertTbody.appendChild(newRow);
+              }
+            });
+
+          }
+        });
+
+      }
+
       $('form').on('submit', function(event) {
         event.preventDefault();
       });
