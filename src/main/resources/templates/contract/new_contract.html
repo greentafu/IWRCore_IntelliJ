@@ -20,303 +20,392 @@
     <span id="content">
     <!-- Content -->
 
-          <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">계약서 /</span> 신규 등록</h4>
+      <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">계약서 /</span> 신규 등록</h4>
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card mb-4">
-                  <!-- Account -->
-                  <div class="card-body">
-                    <h5>담당자 정보</h5>
-                    <label for="firstName" class="form-label">담당자</label>
-                      <input class="form-control" type="text" id="firstName" name="firstName"
-                             placeholder="홍길동" autofocus />
-                  </div>
-                  <hr class="m-0">
-                  <div class="card-body">
-                    <div class="mb-3 col-md-6">
-                      <h5>공급자 정보</h5>
-                      <div class="mb-3">
-                        <button
-                                type="button"
-                                class="btn btn-outline-primary"
-                                data-bs-toggle="modal"
-                                data-bs-target="#modalScrollable"
-                        >
-                          공급자 선택
-                        </button>
-                      </div>
-
-                      <label for="firstName" class="form-label">협력업체명</label>
-                      <input class="form-control" type="text" id="firstName" name="firstName"
-                             value="(주)한일전자" autofocus />
-                    </div>
-                    <label for="organization" class="form-label">첨부 파일</label>
-                    <div class="input-group mb-3">
-                      <input
-                              type="file"
-                              class="form-control"
-                              id="inputGroupFile04"
-                              aria-describedby="inputGroupFileAddon04"
-                              aria-label="Upload"
-                      />
-                      <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
-                    </div>
-                  </div>
-                  <hr class="m-0" />
-                  <div class="card-body ㅡ">
-                    <h5>계약 자재 정보</h5>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mb-4">
+              <!-- Account -->
+              <div class="card-body">
+                <h5>담당자 정보</h5>
+                <label class="form-label">담당자</label>
+                <input class="form-control" type="text" id="person" name="firstName"
+                       placeholder="홍길동" autofocus />
+              </div>
+              <hr class="m-0">
+              <div class="card-body">
+                <div class="mb-3 col-md-6">
+                  <h5>공급자 정보</h5>
+                  <div class="mb-3">
                     <button
                             type="button"
-                            class="btn btn-outline-primary mb-4"
+                            class="btn btn-outline-primary"
                             data-bs-toggle="modal"
-                            data-bs-target="#modalScrollable2"
+                            data-bs-target="#modalScrollable"
                     >
-                       자재선택
+                      공급자 선택
                     </button>
-                    <div class="text-nowrap table-responsive">
-                      <table class="table table-bordered mb-4">
-                        <tr>
-                          <th>자재번호</th>
-                          <th>자재명</th>
-                          <th>단가</th>
-                          <th>수량</th>
-                          <th>걸리는 일수</th>
-                          <th>체결일 </th>
-                        </tr>
-                        <tr>
-                          <td>QR-1234</td>
-                          <td>앞브레이크</td>
-                          <td>
-                            <input type="number" style="border: 0;" value="25000">
-                          </td>
-                          <td>
-                            <input type="number" style="border: 0;" value="100">
-                          </td>
-                          <td><input type="number">일</td>
-                          <td>
-                            <input type="date" class="form-control" style="width: 150px;">
-                          </td>
-                        </tr>
-
-                      </table>
-                    </div>
-
-
-                    <div class="d-flex justify-content-between w-100">
-                      <a th:href="@{/contract/list_contract}">
-                        <button type="reset" class="btn btn-outline-secondary">취소</button>
-                      </a>
-                      <a th:href="@{/contract/list_contract}">
-                      <button class="btn btn-primary">등록</button>
-                      </a>
-                    </div>
-
-
-                      <!-- Modal -->
-                  <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                      <div class="modal-content">
-                        <div class="modal-body">
-                          <h5 class="modal-title mb-4" id="modalScrollableTitle">공급자 검색</h5>
-                          <div class="row mb-10 mb-2">
-                            <label class="form-label col-md-2" style="width: fit-content;">협력회사</label>
-                            <div class="col-md-10">
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <select class="form-select form-select-sm">
-                                    <option>전체보기</option>
-                                  </select>
-                                </div>
-                                <div class="col-md-4">
-                                  <select class="form-select form-select-sm">
-                                    <option>전체보기</option>
-                                  </select>
-                                </div>
-                                <div class="col-md-4">
-                                  <select class="form-select form-select-sm">
-                                    <option>전체보기</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div>
-                            <form class="d-flex" onsubmit="return false">
-                              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                              <button class="btn btn-outline-primary" type="submit">Search</button>
-                            </form>
-                          </div>
-                        </div>
-                        <hr class="m-0">
-                        <div class="modal-body" style="height: 350px;">
-                          <table class="table table-hover">
-                            <tr>
-                              <td>(주)한일전자</td>
-                              <td>000-00-00000</td>
-                            </tr>
-                            <tr>
-                              <td>(주)HAN생활공업</td>
-                              <td>000-00-00000</td>
-                            </tr>
-                            <tr>
-                              <td>사주제일</td>
-                              <td>000-00-00000</td>
-                            </tr>
-                          </table>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            닫기
-                          </button>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                      <!--/ Modal-->
-                      <!-- Modal3 -->
-                  <div class="modal fade" id="modalScrollable2" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                      <div class="modal-content" style="width: 500px;">
-                        <div class="modal-body">
-                          <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
-
-                          <div class="row mb-10 mb-2">
-                            <label class="form-label col-md-2" style="width: fit-content;">자재</label>
-                            <div class="col-md-10">
-                              <div class="row">
-                                <div class="col-md-4">
-                                  <select class="form-select form-select-sm">
-                                    <option>전체보기</option>
-                                  </select>
-                                </div>
-                                <div class="col-md-4">
-                                  <select class="form-select form-select-sm">
-                                    <option>전체보기</option>
-                                  </select>
-                                </div>
-                                <div class="col-md-4">
-                                  <select class="form-select form-select-sm">
-                                    <option>전체보기</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div>
-                            <form class="d-flex" onsubmit="return false">
-                              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                              <button class="btn btn-outline-primary" type="submit">Search</button>
-                            </form>
-                          </div>
-                        </div>
-                        <hr class="m-0">
-                        <div class="modal-body" style="height: 350px;">
-                          <button type="button" class="btn btn-primary btn-sm mb-2">모두선택</button>
-                          <div class="table-responsive text-nowrap">
-                            <table class="table table-hover">
-                              <tr>
-                                <th></th>
-                                <th>자재번호</th>
-                                <th>자재명</th>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td></td>
-                                <td>직접입력</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input" checked>
-                                </td>
-                                <td>QR-1234</td>
-                                <td>앞브레이크</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td>QR-1235</td>
-                                <td>뒷브레이크</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td>OC-2765</td>
-                                <td>T바</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td>YX-8125</td>
-                                <td>스티어링튜브</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td>WE-1534</td>
-                                <td>폴딩레버</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td>LB-2795</td>
-                                <td>충전소켓</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td>ZO-3548</td>
-                                <td>배터리</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td>ZA-2154</td>
-                                <td>모터</td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <input type="checkbox" class="form-check-input">
-                                </td>
-                                <td>VG-3012</td>
-                                <td>킥스탠드</td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                            확인
-                          </button>
-                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            닫기
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                      <!--/ Modal3-->
-
-                  </div>
+                  <label class="form-label">협력업체명</label>
+                  <input class="form-control" type="text" id="partnerName"/>
+                  <input class="form-control" type="text" id="partnerNo" style="display:none;"/>
+                </div>
+                <label class="form-label">첨부 파일</label>
+                <div class="input-group mb-3">
+                  <input
+                          type="file"
+                          class="form-control"
+                          id="file"
+                          aria-describedby="inputGroupFileAddon04"
+                          aria-label="Upload"
+                  />
+                  <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+                </div>
+              </div>
+              <hr class="m-0" />
+              <div class="card-body ㅡ">
+                <h5>계약 자재 정보</h5>
+                <button
+                        type="button"
+                        class="btn btn-outline-primary mb-4"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalScrollable2"
+                >
+                  자재선택
+                </button>
+                <div class="text-nowrap table-responsive">
+                  <table class="table table-bordered mb-4">
+                    <tr>
+                      <th>조달계획번호</th>
+                      <th>자재번호</th>
+                      <th>자재명</th>
+                      <th>단가</th>
+                      <th>수량</th>
+                      <th>걸리는 일수</th>
+                      <th>체결일 </th>
+                    </tr>
+                    <tbody id="insertPoint"></tbody>
+                  </table>
+                </div>
+                <div class="d-flex justify-content-between w-100">
+                  <a th:href="@{/contract/list_contract}">
+                    <button type="reset" class="btn btn-outline-secondary">취소</button>
+                  </a>
+                  <button class="btn btn-primary" onclick="saveContract()">등록</button>
                 </div>
               </div>
             </div>
           </div>
-        <!-- Overlay -->
-        <!--Script-->
+        </div>
+      </div>
 
-        <!--Script-->
+      <!-- Overlay -->
+
+      <!--Modal-->
+      <!--Modal1-->
+      <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h5 class="modal-title mb-4" id="modalScrollableTitle">공급자 검색</h5>
+              <div class="row mb-10 mb-2">
+                <label class="form-label col-md-2" style="width: fit-content;">협력회사</label>
+                <div class="col-md-10">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <select class="form-select form-select-sm">
+                        <option>전체보기</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-select form-select-sm">
+                        <option>전체보기</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-select form-select-sm">
+                        <option>전체보기</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <form class="d-flex" onsubmit="return false">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                  <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="modal-body" style="height: 350px;">
+              <table class="table table-hover">
+                <tr th:each="partner:${partner}">
+                  <td>[[${partner.name}]]</td>
+                  <td>[[${partner.registrationNumber}]]</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary" th:value="${partner.pno}" onclick="selPartner(this)">
+                      선택
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/Modal1-->
+      <!--Modal2-->
+      <div class="modal fade" id="modalScrollable2" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content" style="width: 500px;">
+            <div class="modal-body">
+              <h5 class="modal-title mb-4">자재 검색</h5>
+              <div class="row mb-10 mb-2">
+                <label class="form-label col-md-2" style="width: fit-content;">자재</label>
+                <div class="col-md-10">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <select class="form-select form-select-sm">
+                        <option>전체보기</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-select form-select-sm">
+                        <option>전체보기</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <select class="form-select form-select-sm">
+                        <option>전체보기</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <form class="d-flex" onsubmit="return false">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                  <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+            <hr class="m-0">
+            <div class="modal-body" style="height: 350px;">
+              <input type="number" value="0" style="display:none;" id="checkValue">
+              <button type="button" class="btn btn-primary btn-sm mb-2" onclick="selectAllPlan()">모두선택</button>
+              <div class="table-responsive text-nowrap">
+                <table class="table table-hover">
+                  <tr>
+                    <th></th>
+                    <th>조달계획번호</th>
+                    <th>자재번호</th>
+                    <th>자재명</th>
+                  </tr>
+                  <tbody id="noneContract"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addJodalPlan()">
+                추가
+              </button>
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/Modal2-->
+      <!--/Modal-->
+      <!--Script-->
+      <script>
+        $(document).ready(function(){
+          initNoneContract();
+        });
+
+        function selPartner(button){
+          var pno=button.value;
+          $.ajax({
+            url:'/select/anyPartner',
+            method:'GET',
+            data:{pno:pno},
+            success:function(data){
+              document.getElementById('partnerName').value=data.name;
+              document.getElementById('partnerNo').value=data.pno;
+            }
+          });
+        }
+
+        function initNoneContract(){
+          var tbodyArea=document.getElementById('noneContract');
+          $.ajax({
+            url:'/select/noneContractJodalPlan',
+            method:'GET',
+            success:function(data){
+              data.forEach(x=>{
+                var joNo=x.joNo;
+
+                var tempId='inputDate'+joNo;
+                var temp=document.getElementById(tempId);
+                if(temp==null){
+
+                  console.log("temp:", temp);
+
+                  var materCode=x.materialDTO.materCode;
+                  var materName=x.materialDTO.name;
+
+                  var newRow = document.createElement('tr');
+
+                  var inputTd = document.createElement('td');
+                  var input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.id = 'checkbox'+joNo;
+                  input.class='form-check-input';
+                  inputTd.appendChild(input);
+                  newRow.appendChild(inputTd);
+
+                  [joNo, materCode, materName].forEach(function(text){
+                    var td = document.createElement('td');
+                    td.innerText = text;
+                    newRow.appendChild(td);
+                  });
+
+                  tbodyArea.appendChild(newRow);
+
+                }
+
+              });
+            }
+          });
+        }
+
+        let checkValue = 0;
+        function selectAllPlan(){
+          const checkBox=document.querySelectorAll('input[type="checkbox"]');
+          checkBox.forEach(x=>{
+            if(checkValue==0) {x.checked=true;}
+            if(checkValue==1) {x.checked=false;}
+          });
+          checkValue=(checkValue===0)?1:0;
+          document.getElementById('checkValue').value = checkValue;
+        }
+
+        function addJodalPlan(){
+          const planRows=document.querySelectorAll('#noneContract tr');
+          const insertPoint=document.querySelector('#insertPoint');
+
+          planRows.forEach(x=>{
+            const checkbox=x.querySelector('input[type="checkbox"]');
+
+            if(checkbox&&checkbox.checked){
+              const cells=x.querySelectorAll('td');
+              const joNo=cells[1].innerText;
+              const materNo=cells[2].innerText;
+              const materName=cells[3].innerText;
+
+              const newRow = document.createElement('tr');
+
+              [joNo, materNo, materName].forEach(text => {
+                const td = document.createElement('td');
+                td.innerText = text;
+                newRow.appendChild(td);
+              });
+
+              const inputCash = document.createElement('input');
+              inputCash.type = 'number';
+              inputCash.style.border = '0px';
+              inputCash.style.width = '150px';
+              inputCash.id = 'inputCash'+joNo;
+              const cashTd = document.createElement('td');
+              cashTd.appendChild(inputCash);
+              newRow.appendChild(cashTd);
+
+              const inputNum = document.createElement('input');
+              inputNum.type = 'number';
+              inputNum.style.border = '0px';
+              inputNum.style.width = '150px';
+              inputNum.id = 'inputNum'+joNo;
+              const numTd = document.createElement('td');
+              numTd.appendChild(inputNum);
+              newRow.appendChild(numTd);
+
+              const inputDayNum = document.createElement('input');
+              inputDayNum.type = 'number';
+              inputDayNum.style.border = '0px';
+              inputDayNum.style.width = '150px';
+              inputDayNum.id = 'inputDayNum'+joNo;
+              const dayTd = document.createElement('td');
+              dayTd.appendChild(inputDayNum);
+              newRow.appendChild(dayTd);
+
+              const inputDate = document.createElement('input');
+              inputDate.type = 'date';
+              inputDate.style.border = '0px';
+              inputDate.style.width = '150px';
+              inputDate.id = 'inputDate'+joNo;
+              const dateTd = document.createElement('td');
+              dateTd.appendChild(inputDate);
+              newRow.appendChild(dateTd);
+
+              insertPoint.appendChild(newRow);
+            }
+          });
+          initNoneContract();
+
+        }
+
+        function saveContract(){
+          var person=document.getElementById('person').value;
+          var partnerNo=document.getElementById('partnerNo').value;
+          var file=document.getElementById('file').value;
+          var planData=[];
+          console.log("저장시: ", person, partnerNo, file);
+
+          var insertPoint=document.querySelectorAll('#insertPoint tr');
+          insertPoint.forEach(x=>{
+            const cells=x.querySelectorAll('td');
+            const joNo=cells[0].innerText;
+
+            const inputCash=document.getElementById('inputCash'+joNo).value;
+            const inputNum=document.getElementById('inputNum'+joNo).value;
+            const inputDayNum=document.getElementById('inputDayNum'+joNo).value;
+            const inputDate=document.getElementById('inputDate'+joNo).value;
+
+            planData.push({joNo:joNo, inputCash:inputCash, inputNum:inputNum, inputDayNum:inputDayNum, inputDate:inputDate});
+          });
+
+          $.ajax({
+            url:'/contract/saveContract',
+            method:'POST',
+            contentType:'application/json',
+            data: JSON.stringify({
+              person:person,
+              partnerNo:partnerNo,
+              file:file,
+              planData:planData
+            }),
+            success: function(response) {
+              console.log("성공");
+              window.location.href = '/contract/list_contract';
+            },
+            error: function(xhr, status, error) {
+              console.log("실패");
+              window.location.href = '/contract/list_contract';
+            }
+          });
+        }
+
+      </script>
+
+      <!--Script-->
   </span>
 
 </th:block>

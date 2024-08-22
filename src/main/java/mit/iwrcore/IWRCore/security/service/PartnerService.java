@@ -4,6 +4,9 @@ import mit.iwrcore.IWRCore.entity.Partner;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.PartnerDTO;
+
+import java.util.List;
+
 public interface PartnerService {
 
     Partner findPartnerEntity(Long pno, String id, String reg_number);
@@ -17,4 +20,6 @@ public interface PartnerService {
 
     PartnerDTO partnerTodto(Partner entity);
     Partner partnerDtoToEntity(PartnerDTO dto);
+
+    List<PartnerDTO> partnerList();
 }

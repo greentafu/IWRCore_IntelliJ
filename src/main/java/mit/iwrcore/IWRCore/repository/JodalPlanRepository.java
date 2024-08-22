@@ -23,8 +23,11 @@ public interface JodalPlanRepository extends JpaRepository<JodalPlan, Long> {
             "left join Request r on (r.material.materCode=st.material.materCode) and r.reqCheck=1 " +
             "left join Shipment sh on (sh.balju.contract.jodalPlan.material.materCode=st.material.materCode) and sh.receiveCheck=1 " +
             "left join JodalPlan j on (j.material.materCode=st.material.materCode) " +
-            "where pp.proplanNo=:proplanNo " +
+            "where pp.proplanNo=:proplanNo and j.joNo not in (select jc.jodalPlan.joNo from JodalChasu jc) " +
             "group by st")
     List<Object[]> stock(Long proplanNo);
+
+    @Query("select j from JodalPlan j where j.joNo not in (select c.jodalPlan.joNo from Contract c)")
+    List<JodalPlan> noneContractJodalPlan();
 
 }

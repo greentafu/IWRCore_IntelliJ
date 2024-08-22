@@ -23,4 +23,6 @@ public interface JodalPlanService {
 
     JodalPlan dtoToEntity(JodalPlanDTO dto);
     JodalPlanDTO entityToDTO(JodalPlan entity);
+
+    List<JodalPlanDTO> noneContractJodalPlan();
 }

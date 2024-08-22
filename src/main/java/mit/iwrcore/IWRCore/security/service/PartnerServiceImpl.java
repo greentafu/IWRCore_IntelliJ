@@ -173,4 +173,11 @@ public class PartnerServiceImpl implements PartnerService{
         booleanBuilder.and(conditionBuilder1).and(conditionBuilder2);
         return booleanBuilder;
     }
+
+    @Override
+    public List<PartnerDTO> partnerList(){
+        List<Partner> entityList=partnerRepository.findAll();
+        List<PartnerDTO> dtoList=entityList.stream().map(this::partnerTodto).toList();
+        return dtoList;
+    }
 }

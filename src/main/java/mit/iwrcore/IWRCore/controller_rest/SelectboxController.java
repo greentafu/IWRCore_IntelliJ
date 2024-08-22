@@ -34,6 +34,7 @@ public class SelectboxController {
     private final ShipmentService shipmentService;
     private final PartnerService partnerService;
     private final GumsuService gumsuService;
+    private final JodalPlanService jodalPlanService;
 
     @GetMapping("/getPart")
     public PartCodeListDTO getPart(){
@@ -158,5 +159,15 @@ public class SelectboxController {
             }
         }
         return result;
+    }
+
+    @GetMapping("/anyPartner")
+    public PartnerDTO anyPartner(@RequestParam(required = false) Long pno){
+        return partnerService.findPartnerDto(pno, null, null);
+    }
+
+    @GetMapping("/noneContractJodalPlan")
+    public List<JodalPlanDTO> noneContractJodalPlan(){
+        return jodalPlanService.noneContractJodalPlan();
     }
 }
