@@ -13,6 +13,7 @@ import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,17 +37,17 @@ public class ProTeamController {
     private final JodalPlanService jodalPlanService;
 
 
-    @GetMapping("list_pro")
+    @GetMapping("/list_pro")
     public void list_pro(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model){
         model.addAttribute("product_list", productService.getNonPlanProducts(pageRequestDTO));
         model.addAttribute("proplan_list", proplanService.proplanList(pageRequestDTO2));
     }
 
-    @GetMapping("list_request")
+    @GetMapping("/list_request")
     public void list_request(PageRequestDTO requestDTO, Model model){
         model.addAttribute("list", requestService.requestPage(requestDTO));
     }
-    @GetMapping("input_pro")
+    @GetMapping("/input_pro")
     public void input_pro(@RequestParam("manuCode") Long manuCode, Model model) {
 
         model.addAttribute("plan_list", planService.findByProductId(manuCode));
@@ -58,7 +59,7 @@ public class ProTeamController {
         model.addAttribute("product", product);
     }
 
-    @PostMapping("save_plan")
+    @PostMapping("/save_plan")
     public String savePlan(
             @RequestParam("manuCode") Long manuCode,
             @RequestParam(name = "lineA", required = false) Long lineA,
@@ -108,7 +109,7 @@ public class ProTeamController {
         return "redirect:/proteam/input_pro?manuCode=" + manuCode;
     }
 
-    @PostMapping("Psave")
+    @PostMapping("/Psave")
     public String PlanSave(
             @RequestParam("manuCode") Long manuCode,
             @RequestParam("line") List<String> lines,
@@ -143,24 +144,33 @@ public class ProTeamController {
         return "redirect:/proteam/list_pro";
     }
 
-    @GetMapping("input_request")
+    @GetMapping("/input_request")
     public void input_request(){
 
     }
-    @GetMapping("details_plan")
+    @GetMapping("/details_plan")
     public void details_plan(){
 
     }
-    @GetMapping("details_request")
+    @GetMapping("/details_request")
     public void details_request(){
 
     }
-    @GetMapping("modify_plan")
+    @GetMapping("/modify_plan")
     public void modify_plan(){
 
     }
-    @GetMapping("modify_request")
+    @GetMapping("/modify_request")
     public void modify_request(){
+
+    }
+
+    @PostMapping("/delete_proplan")
+    public void delete_proplan(){
+
+    }
+    @PostMapping("/save_request")
+    public void save_request(){
 
     }
    }

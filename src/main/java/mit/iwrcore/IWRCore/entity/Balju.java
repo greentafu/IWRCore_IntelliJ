@@ -2,6 +2,8 @@ package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,15 +19,17 @@ public class Balju extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long baljuNo;       // 발주서 번호
-    private Long baljuNum;      // 수량
-    private LocalDateTime baljuDate;    // 요청일
+    @NotNull
     private String baljuWhere; // 배송장소
     private String baljuPlz;  // 요청사항
     private String filename; // 파일
-    private Long finCheck;
+    @NotNull
+    @Builder.Default
+    private Long finCheck = 0L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름
+    @NotNull
     private Member writer;              // 작성자
 
     @OneToMany(mappedBy = "balju")    // mappedBy 속성 추가
@@ -39,5 +43,6 @@ public class Balju extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")  // 외래 키 컬럼 이름
+    @NotNull
     private Contract contract;  // 연관된 Contract 엔티티
 }

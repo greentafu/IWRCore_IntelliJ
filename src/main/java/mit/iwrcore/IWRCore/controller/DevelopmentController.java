@@ -84,4 +84,8 @@ public class DevelopmentController {
         }
         return "redirect:/development/list_dev";
     }
+    @PostMapping("/delete_product")
+    public void delete_product(){
+
+    }
 }

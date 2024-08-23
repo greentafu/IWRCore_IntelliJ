@@ -27,6 +27,10 @@ public class CategoryCRUD {
         else if(type.equals("Mater")) materService.deleteMaterS(scode);
         else if(type.equals("Pro")) proCodeService.deleteProS(scode);
     }
+    @GetMapping("/addCategory")
+    public void addCategory(){
+
+    }
 
     @GetMapping("/refreshPart")
     public PartCodeListDTO refreshPart(){

@@ -44,7 +44,6 @@ public class JodalPlanServiceImpl implements JodalPlanService {
                     .memberDTO(memberDTO)
                     .proplanDTO(proplanDTO)
                     .materialDTO(x.getMaterialDTO())
-                    .planDate(LocalDateTime.now())
                     .build();
             save(jodalPlanDTO);
         });
@@ -71,8 +70,7 @@ public class JodalPlanServiceImpl implements JodalPlanService {
 
     @Override
     public JodalPlanDTO findById(Long id) {
-        Optional<JodalPlan> jodalPlan = jodalPlanRepository.findById(id);
-        return jodalPlan.map(this::entityToDTO).orElse(null);
+        return (id!=null)?entityToDTO(jodalPlanRepository.findById(id).get()):null;
     }
 
     @Override
@@ -112,7 +110,6 @@ public class JodalPlanServiceImpl implements JodalPlanService {
     public JodalPlan dtoToEntity(JodalPlanDTO dto) {
         return JodalPlan.builder()
                 .joNo(dto.getJoNo())
-                .planDate(dto.getPlanDate())
                 .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
                 .proPlan(proplanService.dtoToEntity(dto.getProplanDTO()))
                 .material(materialService.materdtoToEntity(dto.getMaterialDTO()))
@@ -123,7 +120,6 @@ public class JodalPlanServiceImpl implements JodalPlanService {
     public JodalPlanDTO entityToDTO(JodalPlan entity) {
         return JodalPlanDTO.builder()
                 .joNo(entity.getJoNo())
-                .planDate(entity.getPlanDate())
                 .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .proplanDTO(proplanService.entityToDTO(entity.getProPlan()))
                 .materialDTO(materialService.materTodto(entity.getMaterial()))

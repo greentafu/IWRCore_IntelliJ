@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,20 +21,28 @@ public class Product extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long manuCode;
+    @NotNull
     private String name;
     private String color;
     private String text;
     private String uuid;
+    @NotNull
     private String supervisor;
-    private Long mater_imsi;
-    private Long mater_check;
+    @NotNull
+    @Builder.Default
+    private Long mater_imsi = 0L;
+    @NotNull
+    @Builder.Default
+    private Long mater_check = 0L;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mno")
+    @NotNull
     private Member member;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="proScode")
+    @NotNull
     private ProS proS;
 
     @OneToMany(mappedBy = "product")

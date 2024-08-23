@@ -53,14 +53,6 @@ public class PartnerController {
         requestDTO.setPno(authPartnerDTO.getPno());
         model.addAttribute("invoice_list", shipmentService.partnerInvoicePage(requestDTO));
     }
-    @GetMapping("/add_invoice")
-    public void add_invoice(){
-
-    }
-    @GetMapping("/modify_invoice")
-    public void modify_invoice(){
-
-    }
     @GetMapping("/list_return")
     public void list_return(PageRequestDTO requestDTO, Model model){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();

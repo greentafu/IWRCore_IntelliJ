@@ -79,64 +79,64 @@ public class MemberPartnerTests {
     @Commit
     public void insertPartner(){
         Partner partner1=Partner.builder()
-                .name("협력회사1")
-                .registrationNumber("123-45-67890")
+                .name("소속회사")
+                .registrationNumber("000-00-00000")
                 .location("경기도 수원시")
                 .type("제조업")
                 .sector("금속사출부품")
-                .ceo("대표자1")
+                .ceo("ceo")
                 .telNumber("000-0000-0000")
                 .faxNumber("000-0000-0001")
-                .email("partner1@mail.com")
-                .contacter("담당자1")
-                .contacterNumber("000-1111-1111")
-                .contacterEmail("contacter1@mail.com")
+                .email("company@mail.com")
+                .contacter("담당자")
+                .contacterNumber("000-0000-0000")
+                .contacterEmail("damdang@mail.com")
                 .partS(partCodeService.partSdtoToEntity(partCodeService.findPartS(1L)))
                 .pw("1111")
                 .password(passwordEncoder.encode("1111"))
                 .build();
-        partner1.setPartnerRole(MemberRole.PARTNER);
+        partner1.setPartnerRole(MemberRole.MANAGER);
         partnerRepository.save(partner1);
 
-        Partner partner2=Partner.builder()
-                .name("협력회사2")
-                .registrationNumber("123-45-67890")
-                .location("경기도 망포시")
-                .type("제조업")
-                .sector("금속사출부품")
-                .ceo("대표자1")
-                .telNumber("000-0000-0003")
-                .faxNumber("000-0000-0002")
-                .email("partner1@mail.com")
-                .contacter("담당자2")
-                .contacterNumber("000-2222-2222")
-                .contacterEmail("contacter2@mail.com")
-                .partS(partCodeService.partSdtoToEntity(partCodeService.findPartS(2L)))
-                .pw("1111")
-                .password(passwordEncoder.encode("1111"))
-                .build();
-        partner2.setPartnerRole(MemberRole.PARTNER);
-        partnerRepository.save(partner2);
-
-        Partner partner3=Partner.builder()
-                .name("협력회사3")
-                .registrationNumber("123-45-67890")
-                .location("경기도 화성시")
-                .type("제조업")
-                .sector("금속사출부품")
-                .ceo("대표자13")
-                .telNumber("000-0000-0003")
-                .faxNumber("000-0000-0002")
-                .email("partner1@mail.com")
-                .contacter("담당자3")
-                .contacterNumber("000-3333-3333")
-                .contacterEmail("contacter3@mail.com")
-                .partS(partCodeService.partSdtoToEntity(partCodeService.findPartS(3L)))
-                .pw("1111")
-                .password(passwordEncoder.encode("1111"))
-                .build();
-        partner3.setPartnerRole(MemberRole.PARTNER);
-        partnerRepository.save(partner3);
+//        Partner partner2=Partner.builder()
+//                .name("협력회사2")
+//                .registrationNumber("123-45-67890")
+//                .location("경기도 망포시")
+//                .type("제조업")
+//                .sector("금속사출부품")
+//                .ceo("대표자1")
+//                .telNumber("000-0000-0003")
+//                .faxNumber("000-0000-0002")
+//                .email("partner1@mail.com")
+//                .contacter("담당자2")
+//                .contacterNumber("000-2222-2222")
+//                .contacterEmail("contacter2@mail.com")
+//                .partS(partCodeService.partSdtoToEntity(partCodeService.findPartS(2L)))
+//                .pw("1111")
+//                .password(passwordEncoder.encode("1111"))
+//                .build();
+//        partner2.setPartnerRole(MemberRole.PARTNER);
+//        partnerRepository.save(partner2);
+//
+//        Partner partner3=Partner.builder()
+//                .name("협력회사3")
+//                .registrationNumber("123-45-67890")
+//                .location("경기도 화성시")
+//                .type("제조업")
+//                .sector("금속사출부품")
+//                .ceo("대표자13")
+//                .telNumber("000-0000-0003")
+//                .faxNumber("000-0000-0002")
+//                .email("partner1@mail.com")
+//                .contacter("담당자3")
+//                .contacterNumber("000-3333-3333")
+//                .contacterEmail("contacter3@mail.com")
+//                .partS(partCodeService.partSdtoToEntity(partCodeService.findPartS(3L)))
+//                .pw("1111")
+//                .password(passwordEncoder.encode("1111"))
+//                .build();
+//        partner3.setPartnerRole(MemberRole.PARTNER);
+//        partnerRepository.save(partner3);
     }
 
     @Test

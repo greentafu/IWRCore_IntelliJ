@@ -2,6 +2,8 @@ package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +19,9 @@ public class Invoice extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tranNO;                    // 거래명세서 번호
 
+    @NotNull
     private String plz;                    // 영수.정구 (영수증 여부)
+    @NotNull
     private LocalDateTime dateCreated;      // 작성일
     private String filename;                // 파일
 
@@ -30,6 +34,7 @@ public class Invoice extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")        // 외래 키 컬럼 이름
+    @NotNull
     private Member writer;                  // 작성자
 
 }

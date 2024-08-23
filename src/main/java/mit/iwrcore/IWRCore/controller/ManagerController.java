@@ -9,6 +9,7 @@ import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -54,6 +55,14 @@ public class ManagerController {
         model.addAttribute("materCodeList", lists2);
         ProCodeListDTO list3=proCodeService.findListProAll(null, null, null);
         model.addAttribute("proCodeList", list3);
+    }
+    @PostMapping("/save_member")
+    public void save_member(){
+
+    }
+    @PostMapping("/save_partner")
+    public void save_partner(){
+
     }
 
 }

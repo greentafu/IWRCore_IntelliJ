@@ -96,4 +96,12 @@ public class OrderController {
         }
         return "redirect:/order/list_order";
     }
+    @PostMapping("/delete_order")
+    public void delete_order(){
+
+    }
+    @PostMapping("/urgent")
+    public void urgent(){
+
+    }
 }

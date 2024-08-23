@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,15 +19,22 @@ public class Member extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mno;
+    @NotNull
     private String name;
+    @NotNull
     private String department;
+    @NotNull
     private String phonenumber;
+    @NotNull
     private String id;
+    @NotNull
     private String pw;
+    @NotNull
     private String password;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
+    @NotNull
     private Set<MemberRole> roleSet=new HashSet<>();
 
 

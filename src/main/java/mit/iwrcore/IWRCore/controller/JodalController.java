@@ -173,4 +173,8 @@ public class JodalController {
         }
         return "redirect:/jodal/list_jodal";
     }
+    @GetMapping("/modify_jodal")
+    public void modify_jodal(){
+
+    }
 }

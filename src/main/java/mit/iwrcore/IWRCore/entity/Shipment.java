@@ -2,6 +2,8 @@ package mit.iwrcore.IWRCore.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,10 +18,13 @@ public class Shipment extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shipNO;                // 출고 번호
 
+    @NotNull
     private Long shipNum;               // 출고 수량
     private LocalDateTime receipt;      // 입고 일
     private String text;
-    private Long receiveCheck;
+    @NotNull
+    @Builder.Default
+    private Long receiveCheck = 0L;
     private String bGo;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,5 +39,6 @@ public class Shipment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
+    @NotNull
     private Balju balju;                // 관련된 Order
 }

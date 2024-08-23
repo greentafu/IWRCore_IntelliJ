@@ -44,10 +44,10 @@ public class InvoiceController {
     @GetMapping("/add_invoice")
     public void add_invoice(@RequestParam(required = false) Long shipNO, Model model){
         // 회사 정보 전달(고정)
-        model.addAttribute("company", partnerService.findPartnerDto(19L, null, null));
+        model.addAttribute("company", partnerService.findPartnerDto(1L, null, null));
         if(shipNO!=null){
             Shipment shipment=shipmentService.findShipmentEntity(shipNO);
-            Long pno=shipment.getBalju().getContract().getPartner().getPno();
+            Long pno=(shipNO!=null)?shipment.getBalju().getContract().getPartner().getPno():null;
             model.addAttribute("selectedPartner", pno);
             model.addAttribute("selectedShipNo", shipNO);
         }
@@ -89,6 +89,10 @@ public class InvoiceController {
         }
 
         return "redirect:/invoice/list_invoice";
+    }
+    @PostMapping("/delete_invoice")
+    public void delete_invoice(){
+
     }
 
 }

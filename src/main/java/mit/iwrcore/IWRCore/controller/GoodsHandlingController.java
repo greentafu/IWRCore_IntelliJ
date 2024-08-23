@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class GoodsHandlingController {
     public void view_received(@RequestParam Long shipNO, Model model){
         model.addAttribute("shipment", shipmentService.convertToDTO(shipmentService.findShipmentEntity(shipNO)));
     }
-    @GetMapping("return_received")
+    @GetMapping("/return_received")
     public void return_received(@RequestParam Long shipNo, Model model){
         model.addAttribute("shipment", shipmentService.findShipment(shipNo));
     }
@@ -82,5 +83,9 @@ public class GoodsHandlingController {
         returnsService.addReturns(returnsDTO, memberDTO, shipNo);
 
         return "redirect:/goodshandling/list_received";
+    }
+    @PostMapping("/request_check")
+    public void request_check(){
+
     }
 }

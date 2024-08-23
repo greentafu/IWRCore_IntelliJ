@@ -176,8 +176,10 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public ShipmentReturnDTO findShipment(Long shipNo){
         Shipment shipment=shipmentRepository.findShipment(shipNo);
-        String materialName=shipment.getBalju().getContract().getJodalPlan().getMaterial().getName();
-        return new ShipmentReturnDTO(shipNo, shipment.getShipNum(), materialName);
+        if(shipment!=null){
+            String materialName=shipment.getBalju().getContract().getJodalPlan().getMaterial().getName();
+            return new ShipmentReturnDTO(shipNo, shipment.getShipNum(), materialName);
+        }else return null;
     }
 
     @Override

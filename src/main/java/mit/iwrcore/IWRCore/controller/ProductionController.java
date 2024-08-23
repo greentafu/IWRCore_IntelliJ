@@ -95,4 +95,8 @@ public class ProductionController {
         }
         return "redirect:/production/list_newProduct";
     }
+    @PostMapping("/delete_product")
+    public void delete_product(){
+
+    }
 }

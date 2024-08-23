@@ -85,7 +85,10 @@ public class ContractController {
         }
         return "redirect:/contract/list_contract";
     }
+    @PostMapping("/delete_contract")
+    public void delete_contract(){
 
+    }
 }
 
 

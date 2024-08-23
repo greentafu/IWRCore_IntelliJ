@@ -35,7 +35,8 @@ public class PartnerServiceImpl implements PartnerService{
     }
     @Override
     public PartnerDTO findPartnerDto(Long pno, String id, String reg_number) {
-        return partnerTodto(partnerRepository.findPartner(pno, id, reg_number));
+        Partner partner=partnerRepository.findPartner(pno, id, reg_number);
+        return (partner!=null)?partnerTodto(partner):null;
     }
 
     // 회사 목록 찾기
@@ -177,7 +178,7 @@ public class PartnerServiceImpl implements PartnerService{
     @Override
     public List<PartnerDTO> partnerList(){
         List<Partner> entityList=partnerRepository.findAll();
-        List<PartnerDTO> dtoList=entityList.stream().map(this::partnerTodto).toList();
+        List<PartnerDTO> dtoList=(entityList!=null)?entityList.stream().map(this::partnerTodto).toList():null;
         return dtoList;
     }
 }
