@@ -142,8 +142,8 @@ public class ContractServiceImpl implements ContractService {
         for(Object[] objects:entityList){
             Contract contract=(Contract) objects[0];
             JodalChasu jodalChasu=(JodalChasu) objects[1];
-            ContractDTO contractDTO=convertToDTO(contract);
-            JodalChasuDTO jodalChasuDTO=jodalChasuService.convertToDTO(jodalChasu);
+            ContractDTO contractDTO=(contract!=null)?convertToDTO(contract):null;
+            JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
             contractDTOSet.add(contractDTO);
             jodalChasuDTOSet.add(jodalChasuDTO);
 
