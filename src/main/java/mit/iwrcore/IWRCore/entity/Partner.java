@@ -40,7 +40,6 @@ public class Partner {
     private String contacterNumber;  // 담당자 연락처
     @NotNull
     private String contacterEmail;  // 담당자 이메일
-    @NotNull
     private String id;  // ID
     @NotNull
     private String pw;  // 비밀번호
@@ -54,7 +53,6 @@ public class Partner {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
-    @NotNull
     private Set<MemberRole> roleSet = new HashSet<>();
 
 //    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)  // Contract와의 1대다 관계
@@ -69,6 +67,9 @@ public class Partner {
     }
 
     public void setPartnerRole(MemberRole partnerRole) {
+        if (roleSet == null || this.id.isEmpty()) {
+            roleSet = new HashSet<>();
+        }
         roleSet.clear();
         roleSet.add(partnerRole);
     }

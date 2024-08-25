@@ -12,7 +12,7 @@ public interface MemberService {
 
     PageResultDTO<MemberDTO, Member> findMemberList(PageRequestDTO requestDTO);
 
-    Integer insertMember(MemberDTO dto);
+    Integer insertMember(MemberDTO dto, Long role);
 
     void deleteMember(Long mno);
 

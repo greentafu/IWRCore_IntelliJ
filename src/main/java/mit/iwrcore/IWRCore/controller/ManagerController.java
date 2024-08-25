@@ -1,16 +1,20 @@
 package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
+import mit.iwrcore.IWRCore.entity.Member;
+import mit.iwrcore.IWRCore.entity.MemberRole;
+import mit.iwrcore.IWRCore.repository.MemberRepository;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/manager")
@@ -21,7 +25,11 @@ public class ManagerController {
     private final MaterService materService;
     private final ProCodeService proCodeService;
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
     private final PartnerService partnerService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/list_member")
     public void list_member(PageRequestDTO pageRequestDTO, Model model){
@@ -57,8 +65,16 @@ public class ManagerController {
         model.addAttribute("proCodeList", list3);
     }
     @PostMapping("/save_member")
-    public void save_member(){
-
+    public String save_member(@RequestParam(required = false) Long mno, @RequestParam String name, @RequestParam String phonenumber,
+                            @RequestParam String department, @RequestParam Long role,
+                            @RequestParam(required = false) String id, @RequestParam(required = false) String pw){
+        String temp_pw=(pw!=null)?pw:"1111";
+        MemberDTO memberDTO=MemberDTO.builder()
+                .mno((mno!=null)?mno:null).name(name).phonenumber(phonenumber)
+                .department(department).id((id!=null)?id:null)
+                .pw(temp_pw).password(passwordEncoder.encode(temp_pw)).build();
+        memberService.insertMember(memberDTO, role);
+        return "redirect:/manager/list_member";
     }
     @PostMapping("/save_partner")
     public void save_partner(){

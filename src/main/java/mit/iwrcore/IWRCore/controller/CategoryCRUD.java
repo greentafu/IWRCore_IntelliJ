@@ -9,6 +9,7 @@ import mit.iwrcore.IWRCore.security.service.MaterService;
 import mit.iwrcore.IWRCore.security.service.PartCodeService;
 import mit.iwrcore.IWRCore.security.service.ProCodeService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +29,9 @@ public class CategoryCRUD {
         else if(type.equals("Pro")) proCodeService.deleteProS(scode);
     }
     @GetMapping("/addCategory")
-    public void addCategory(){
-
+    public void addPartCategory(@RequestParam(required = false) Long sel,
+                                @RequestParam(required = false) Long selectL, @RequestParam(required = false) Long inputL){
+        System.out.println("############"+sel+selectL+inputL);
     }
 
     @GetMapping("/refreshPart")

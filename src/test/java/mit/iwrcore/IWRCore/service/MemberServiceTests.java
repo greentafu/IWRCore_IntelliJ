@@ -47,21 +47,6 @@ public class MemberServiceTests {
         System.out.println("=================");
         resultDTO.getPageList().forEach(System.out::println);
     }
-    // 직원 추가
-    @Test
-    @Transactional
-    @Commit
-    public void insertMember(){
-//        System.out.println( "존재아이디"+memberService.insertMember( memberService.findMemberDto(1L, null) ) );
-        MemberDTO dto=MemberDTO.builder()
-                .department("생산부서")
-                .name("생산부서2")
-                .phonenumber("000-0000-5824")
-                .pw("1111")
-                .password(passwordEncoder.encode("1111"))
-                .build();
-        System.out.println("아이디없음"+memberService.insertMember(dto));
-    }
     // 직원 삭제
     @Test
     @Transactional

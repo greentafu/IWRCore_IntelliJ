@@ -78,9 +78,8 @@
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
+                              id="inputPartL"
                               name="phoneNumber"
-                              placeholder="대분류 직접입력"
                               type="text"
                       />
                     </div>
@@ -88,16 +87,14 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectPartM" onchange="updatePartCode('M')"></select>
-                      <select class="select2 form-select" id="selectPartS" onchange="updatePartCode('S')"></select>
                     </div>
                   </div>
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
+                              id="inputPartM"
                               name="phoneNumber"
-                              placeholder="중분류 직접입력"
                               type="text"
                       />
                     </div>
@@ -106,15 +103,14 @@
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
+                              id="inputPartS"
                               name="phoneNumber"
-                              placeholder="소분류 직접입력"
                               type="text"
                       />
                     </div>
                   </div>
                   <div class="col-md-1">
-                    <button class="btn btn-primary" style="width: 80px;" type="button">추가</button>
+                    <button class="btn btn-primary" style="width: 80px;" onclick="savePart(1)" type="button">추가</button>
                   </div>
                 </div>
               </div>
@@ -334,7 +330,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-body">
-              <h5 class="modal-title mb-4" id="modalScrollableTitle">협력회사 카테고리 수정</h5>
+              <h5 class="modal-title mb-4">협력회사 카테고리 수정</h5>
             </div>
             <hr class="m-0">
             <div class="modal-body" style="height: 350px;">
@@ -342,7 +338,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">대분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
+                    <select class="select2 form-select">
                       <option value="">선택</option>
                       <option selected value="Australia">기계부품</option>
                       <option value="Bangladesh">전기부품</option>
@@ -356,7 +352,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="대분류 직접입력"
                             type="text"
@@ -366,7 +361,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">중분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
+                    <select class="select2 form-select">
                       <option value="">선택</option>
                       <option selected value="Australia">프레임 및 관련 부품</option>
                       <option value="Bangladesh">브레이크 시스템</option>
@@ -380,7 +375,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="중분류 직접입력"
                             type="text"
@@ -390,7 +384,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">소분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
+                    <select class="select2 form-select">
                       <option value="">선택</option>
                       <option selected value="Australia">프레임</option>
                       <option value="Bangladesh">핸들바 및 그립</option>
@@ -404,7 +398,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="소분류 직접입력"
                             type="text"
@@ -430,7 +423,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <div class="modal-body">
-              <h5 class="modal-title mb-4" id="modalScrollableTitle">제품 카테고리 수정</h5>
+              <h5 class="modal-title mb-4">제품 카테고리 수정</h5>
             </div>
             <hr class="m-0">
             <div class="modal-body" style="height: 350px;">
@@ -438,7 +431,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">대분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
+                    <select class="select2 form-select">
                       <option value="">선택</option>
                       <option selected value="Australia">자전거</option>
                       <option value="Bangladesh">킥보드</option>
@@ -451,7 +444,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="대분류 직접입력"
                             type="text"
@@ -461,7 +453,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">중분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
+                    <select class="select2 form-select">
                       <option value="">선택</option>
                       <option selected value="Australia">전기자전거</option>
                       <option value="Bangladesh">일반자전거</option>
@@ -476,7 +468,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="중분류 직접입력"
                             type="text"
@@ -486,7 +477,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">소분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
+                    <select class="select2 form-select">
                       <option value="">선택</option>
                       <option selected value="Australia">전기자전거</option>
                       <option value="Bangladesh">도로자전거</option>
@@ -503,7 +494,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="소분류 직접입력"
                             type="text"
@@ -537,7 +527,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">대분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
+                    <select class="select2 form-select">
                       <option value="">선택</option>
                       <option selected value="Australia">프레임</option>
                       <option value="Bangladesh">서스펜션시스템</option>
@@ -551,7 +541,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="대분류 직접입력"
                             type="text"
@@ -561,13 +550,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">중분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
-                      <option value="">선택</option>
-                      <option selected value="Australia">프레임</option>
-                      <option value="Bangladesh">서스펜션 유닛</option>
-                      <option value="Belarus">서스펜션 부품</option>
-                      <option value="Belarus">직접입력</option>
-                    </select>
+                    <select class="select2 form-select"></select>
                   </div>
                 </div>
                 <div class="mb-3 col-md-6">
@@ -575,7 +558,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="중분류 직접입력"
                             type="text"
@@ -585,12 +567,7 @@
                 <div class="mb-3 col-md-6">
                   <label class="form-label" for="phoneNumber">소분류</label>
                   <div class="input-group input-group-merge">
-                    <select class="select2 form-select" id="country">
-                      <option value="">선택</option>
-                      <option selected value="Australia">상부제작</option>
-                      <option value="Bangladesh">하부제작</option>
-                      <option value="Belarus">최종제작</option>
-                    </select>
+                    <select class="select2 form-select" id="country"></select>
                   </div>
                 </div>
                 <div class="mb-3 col-md-6">
@@ -598,7 +575,6 @@
                   <div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
                             name="phoneNumber"
                             placeholder="소분류 직접입력"
                             type="text"
@@ -645,6 +621,27 @@
     <!--Script-->
     <script src="../assets/js/category-crud.js"></script>
       <script>
+        function savePart(sel){
+          const selNum=parseFloat(sel);
+          const selectPartL=parseFloat(document.getElementById('selectPartL').value);
+          const inputPartL=document.getElementById('inputPartL').value;
+          const selectPartM=parseFloat(document.getElementById('selectPartM').value);
+          const inputPartM=document.getElementById('inputPartM').value;
+          const inputPartS=document.getElementById('inputPartS').value;
+
+          console.log(selectPartL, inputPartL, selectPartM, inputPartM, inputPartS);
+
+          $.ajax({
+            url:'/addCategory',
+            method:'GET',
+            data:{sel:selNum, selectL:selectPartL, inputL:inputPartL},
+            success:function(){console.log("간다");}
+          });
+
+        }
+      </script>
+      <!--
+      <script>
         function savePartCode(){
           const selectBoxes=document.querySelectorAll('select');
           selectBoxes.forEach(sel=>{
@@ -669,7 +666,7 @@
           sel.addEventListner('change', savePartCode);
         });
 
-      </script>
+      </script>-->
     <!--Script-->
   </span>
 

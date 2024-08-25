@@ -26,16 +26,15 @@
             <!-- Account -->
             <hr class="my-0"/>
             <div class="card-body">
-              <form id="formAccountSettings" method="POST" onsubmit="return false">
+              <form th:action="@{/manager/save_member}" id="saveMemberForm" method="POST">
                 <div class="row">
                   <div class="mb-3 col-md-6">
                     <label class="form-label">성명</label>
                     <input
                             autofocus
                             class="form-control"
-                            id="name"
                             name="name"
-                            placeholder="홍길동"
+                            id="name"
                             type="text"
                     />
                   </div>
@@ -44,36 +43,33 @@
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
-                              name="phoneNumber"
+                              name="phonenumber"
+                              id="phonenumber"
                               placeholder="000-0000-0000"
                               type="text"
                       />
                     </div>
                   </div>
                   <div class="mb-3 col-md-6">
-                    <label class="form-label" for="country">소속부서</label>
-                    <select class="select2 form-select" id="country">
-                      <option value="">선택</option>
-                      <option value="Australia">자재부서</option>
-                      <option value="Bangladesh">개발부서</option>
-                      <option value="Belarus">생산부서</option>
+                    <label class="form-label">소속부서</label>
+                    <select class="select2 form-select" name="department">
+                      <option value="자재부서">자재부서</option>
+                      <option value="개발부서">개발부서</option>
+                      <option value="생산부서">생산부서</option>
                     </select>
                   </div>
                   <div class="mb-3 col-md-6">
-                    <label class="form-label" for="language">접근권한</label>
-                    <select class="select2 form-select" id="language">
-                      <option value="">선택</option>
-                      <option value="en">관리자</option>
-                      <option value="fr">생산/개발사원</option>
-                      <option value="de">자재사원</option>
+                    <label class="form-label">접근권한</label>
+                    <select class="select2 form-select" name="role">
+                      <option value=0>관리자</option>
+                      <option value=1>생산/개발사원</option>
+                      <option value=2>자재사원</option>
                     </select>
                   </div>
                   <div class="mb-3 col-md-6">
                     <label class="form-label">아이디</label>
                     <input
                             class="form-control"
-                            id="id"
                             name="id"
                             placeholder="ert845dg"
                             type="text"
@@ -83,7 +79,6 @@
                     <label class="form-label">비밀번호</label>
                     <input
                             class="form-control"
-                            id="pw"
                             name="pw"
                             placeholder="awe#g32sdf*"
                             type="text"
@@ -95,7 +90,7 @@
                   <a th:href="@{/manager/list_member}">
                     <button class="btn btn-outline-secondary" type="button">취소</button>
                   </a>
-                  <button type="submit" class="btn btn-primary">등록</button>
+                  <button type="button" class="btn btn-primary" onclick="saveMember()">등록</button>
                 </div>
               </form>
             </div>
@@ -105,12 +100,24 @@
       </div>
     </div>
 
-      <!--Modal-->
+    <!--Modal-->
+    <!--/Modal-->
 
-      <!--/Modal-->
-      <!--Script-->
-
-      <!--Script-->
+    <!--Script-->
+    <script>
+      function saveMember(){
+        var name=document.getElementById('name').value;
+        var phonenumber=document.getElementById('phonenumber').value;
+        if(name.trim()===''){
+          alert('이름을 입력해 주세요.');
+        }else if(phonenumber.trim()===''){
+          alert('핸드폰 번호를 입력해 주세요.');
+        }else {
+          document.getElementById('saveMemberForm').submit();
+        }
+      }
+    </script>
+    <!--Script-->
   </span>
 
 </th:block>

@@ -57,12 +57,24 @@ public class MemberServiceImpl implements MemberService{
     }
     // 직원 삽입(아이디 중복의 경우 0, 성공시 1)
     @Override
-    public Integer insertMember(MemberDTO dto) {
-        if(findMemberEntity(null, dto.getId())!=null){
-            return 0;
+    public Integer insertMember(MemberDTO dto, Long role) {
+        if(dto.getId()!=null){
+            if(findMemberEntity(null, dto.getId())!=null)
+                return 0;
+            else{
+                Member member=memberdtoToEntity(dto);
+                if(role==0) member.changeMemberRole(MemberRole.MANAGER);
+                if(role==1) member.changeMemberRole(MemberRole.MATERIAL_TEAM);
+                if(role==2) member.changeMemberRole(MemberRole.DEV_PROD_TEAM);
+                memberRepository.save(member);
+                return 1;
+            }
         }
         else{
             Member member=memberdtoToEntity(dto);
+            if(role==0) member.changeMemberRole(MemberRole.MANAGER);
+            if(role==1) member.changeMemberRole(MemberRole.MATERIAL_TEAM);
+            if(role==2) member.changeMemberRole(MemberRole.DEV_PROD_TEAM);
             memberRepository.save(member);
             return 1;
         }

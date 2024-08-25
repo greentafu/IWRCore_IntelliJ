@@ -25,7 +25,6 @@ public class Member extends BaseEntity{
     private String department;
     @NotNull
     private String phonenumber;
-    @NotNull
     private String id;
     @NotNull
     private String pw;
@@ -34,13 +33,12 @@ public class Member extends BaseEntity{
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
-    @NotNull
     private Set<MemberRole> roleSet=new HashSet<>();
 
 
     @PostPersist
     public void generateId(){
-        if(this.id==null){
+        if(this.id==null || this.id.isEmpty()){
             String tempId=headId(department)+mno+"_"+phonenumber.substring(9);
             this.id=tempId;
         }
@@ -57,6 +55,9 @@ public class Member extends BaseEntity{
     }
 
     public void changeMemberRole(MemberRole memberRole){
+        if (roleSet == null) {
+            roleSet = new HashSet<>();
+        }
         roleSet.clear();
         roleSet.add(memberRole);
     }
