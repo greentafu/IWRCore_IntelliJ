@@ -30,4 +30,5 @@ public class ProductDTO {
     //외래키설정
     private ProSDTO proSDTO;
     private MemberDTO memberDTO;
+    private List<ProplanDTO> proPlans;
 }

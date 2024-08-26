@@ -34,5 +34,6 @@ public interface ProductService {
 
     Product productDtoToEntity(ProductDTO dto);
     ProductDTO productEntityToDto(Product entity);
+    List<ProductDTO> searchProducts(String query);
 
 }

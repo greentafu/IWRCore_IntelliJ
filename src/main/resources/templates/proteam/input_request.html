@@ -31,7 +31,7 @@
                         <label for="exampleDataList" class="form-label">제품 이름</label>
                         <div class="row">
                           <div class="col-md-4">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="product-name">
                           </div>
                           <button type="button" class="btn btn-outline-primary col-md-1" data-bs-toggle="modal"
                                   data-bs-target="#modalScrollable2">
@@ -49,32 +49,31 @@
 
                       <div class="row mb-3">
                         <h5>출하 요청 정보</h5>
-                        <div class="col-sm-2">
-                          <button type="button" class="btn btn-outline-primary dropdown-toggle"
-                                  data-bs-toggle="dropdown" aria-expanded="false">
-                            라인 선택
-                          </button>
-                          <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="javascript:void(0);">A 라인</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">B 라인</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">C 라인</a></li>
-
-                          </ul>
-                        </div>
-                        <label class="col-sm-1 col-form-label" for="basic-default-email">제품수량 :</label>
+                    <div class="col-sm-2">
+  <button type="button" class="btn btn-outline-primary dropdown-toggle" id="line-select-button" data-bs-toggle="dropdown" aria-expanded="false">
+    라인 선택
+  </button>
+  <ul class="dropdown-menu" id="line-select-menu">
+    <li><a class="dropdown-item" href="javascript:void(0);" data-line="A">A 라인</a></li>
+    <li><a class="dropdown-item" href="javascript:void(0);" data-line="B">B 라인</a></li>
+    <li><a class="dropdown-item" href="javascript:void(0);" data-line="C">C 라인</a></li>
+  </ul>
+</div>
+                          <!-- 제품수량 입력 필드 -->
+                        <label class="col-sm-1 col-form-label" for="product-quantity">제품수량 :</label>
                         <div class="col-sm-1" style="width: 150px;">
                           <div class="input-group input-group-merge">
-                            <input type="number" id="basic-default-email" class="form-control" />
-                            <span class="input-group-text" id="basic-default-email2">개</span>
+                            <input type="number" id="product-quantity" class="form-control" />
+                            <span class="input-group-text" id="product-quantity-unit">개</span>
                           </div>
                         </div>
-                        <label class="col-sm-1 col-form-label" for="basic-default-email">희망일자 :</label>
+
+                          <!-- 희망일자 입력 필드 -->
+                        <label class="col-sm-1 col-form-label" for="desired-date">희망일자 :</label>
                         <div class="col-sm-1" style="width: 150px;">
-                          <input type="date" id="basic-default-email" class="form-control" />
+                          <input type="date" id="desired-date" class="form-control" />
                         </div>
                       </div>
-
-
 
                       <table class="table table-bordered mb-4">
                         <thead>
@@ -87,134 +86,8 @@
                             <th>희망 출하 일자</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>HD-550</td>
-                            <td>핸들</td>
-                            <td>1</td>
-                            <td>850</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>TB-141</td>
-                            <td>T바</td>
-                            <td>1</td>
-                            <td>780</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>DP-405</td>
-                            <td>디스플레이</td>
-                            <td>1</td>
-                            <td>980</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>AT-152
-                            </td>
-                            <td>앞타이어</td>
-                            <td>1</td>
-                            <td>700</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>DT-569</td>
-                            <td>뒤타이어</td>
-                            <td>1</td>
-                            <td>720</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>BT-590</td>
-                            <td>배터리</td>
-                            <td>1</td>
-                            <td>590</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>MT-608</td>
-                            <td>모터</td>
-                            <td>1</td>
-                            <td>600</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>HD-485</td>
-                            <td>후미등</td>
-                            <td>1</td>
-                            <td>780</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>KS-493</td>
-                            <td>킥스탠드</td>
-                            <td>1</td>
-                            <td>900</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>KT-632</td>
-                            <td>컨트롤러</td>
-                            <td>1</td>
-                            <td>700</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>SS-149</td>
-                            <td>슬라이딩 슬리브</td>
-                            <td>1</td>
-                            <td>800</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>AM-823</td>
-                            <td>앞브레이크</td>
-                            <td>1</td>
-                            <td>800</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>BB-124</td>
-                            <td>뒷브레이크</td>
-                            <td>1</td>
-                            <td>700</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
-                          <tr>
-                            <td>ST-694</td>
-                            <td>스티어링 튜브</td>
-                            <td>1</td>
-                            <td>900</td>
-                            <td> <input type="text" class="form-control" id="defaultFormControlInput" placeholder="500"
-                                        aria-describedby="defaultFormControlHelp" /></td>
-                            <td><input type="date" style="border: 0;"></td>
-                          </tr>
+                        <tbody id="product-table-body">
+                          <!-- 동적으로 추가된 행이 여기에 삽입됩니다. -->
                         </tbody>
                       </table>
                       <div class="d-flex justify-content-between w-100">
@@ -231,81 +104,196 @@
               </div>
             </div>
 
-        <!--Modal-->
+         <!-- Modal -->
 <div class="modal fade" id="modalScrollable2" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <div class="modal-content" style="width: fit-content;">
-                  <div class="modal-body">
-                    <h5 class="modal-title mb-4" id="modalScrollableTitle">생산계획 등록 제품</h5>
-
-                    <div class="row mb-10 mb-2">
-                      <label class="form-label col-md-2" style="width: fit-content;">제품</label>
-                      <div class="col-md-10">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content" style="width: fit-content;">
+            <div class="modal-body">
+                <h5 class="modal-title mb-4" id="modalScrollableTitle">생산계획 등록 제품</h5>
+                <div class="row mb-10 mb-2">
+                    <label class="form-label col-md-2" style="width: fit-content;">제품</label>
+                    <div class="col-md-10">
                         <div class="row">
-                          <div class="col-md-4">
-                             <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
-                          </div>
-                          <div class="col-md-4">
-                             <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
-                          </div>
-                          <div class="col-md-4">
-                            <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
-                          </div>
+                            <div class="col-md-4">
+                                <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
+                            </div>
                         </div>
-                      </div>
                     </div>
-
-                    <div>
-                      <form class="d-flex" onsubmit="return false">
+                </div>
+                <div>
+                    <form class="d-flex" onsubmit="return false">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-primary" type="submit">Search</button>
-                      </form>
-                    </div>
-                  </div>
-                  <hr class="m-0">
-                  <div class="modal-body" style="height: 350px;">
-                    <div class="table-responsive text-nowrap">
-                      <table class="table table-hover">
+                        <button class="btn btn-outline-primary" type="submit" id="searchButton">Search</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="m-0">
+            <div class="modal-body" style="height: 350px;">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-hover">
                         <thead>
                         <tr>
-                          <th></th>
-                          <th>제품번호</th>
-                          <th>제품명</th>
-                          <th>생산계획 시작일</th>
-                          <th>생산계획 마감일</th>
-                          <th>생산계획 수량</th>
+                            <th></th>
+                            <th>제품번호</th>
+                            <th>제품명</th>
+                            <th>생산계획 시작일</th>
+                            <th>생산계획 마감일</th>
+                            <th>생산계획 수량</th>
                         </tr>
                         </thead>
-                         <tbody>
-                         <tr th:each="item:${dataList}">
-                          <td>
-                            <input type="radio" name="proudct" class="form-check-input">
-                          </td>
-                          <td>[[${item.productDTO.manucode}]]</td>
-                          <td>[[${item.productDTO.name}]]</td>
-                          <td>[[${item.proplanDTO.startDate}]]</td>
-                          <td>[[${item.proplanDTO.endDate}]]</td>
-                          <td>[[${item.proplanDTO.pronum}]]</td>
-                        </tr>
-                        </table>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                      확인
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                      닫기
-                    </button>
-                  </div>
+                        <tbody id="searchResults">
+                            <!-- 검색 결과는 AJAX를 통해 동적으로 추가됩니다. -->
+                        </tbody>
+                    </table>
                 </div>
-              </div>
             </div>
-           </div>
-        <!--/Modal-->
-        <!--Script-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmButton" data-bs-dismiss="modal">
+                    확인
+                </button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    닫기
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+         <!-- /Modal -->
+         <!--Script-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    var selectedProduct = null;
+    var selectedLine = null;
 
-        <!--Script-->
+    // 검색 버튼 클릭 시
+    $('#searchButton').on('click', function() {
+        var query = $('input[type="search"]').val(); // 검색 입력값 가져오기
+
+        if (!query) {
+            query = 'all'; // 모든 데이터를 요청하는 키워드로 설정
+        }
+
+        $.ajax({
+            url: '/proteam/search', // 검색 요청 URL
+            method: 'GET',
+            data: { query: query },
+            success: function(data) {
+                var resultsContainer = $('#searchResults');
+                resultsContainer.empty(); // 기존 내용 삭제
+
+                // 검색 결과를 HTML로 변환
+                var html = '';
+                data.forEach(function(product) {
+                    product.proPlans.forEach(function(plan) {
+                        html += '<tr>' +
+                                '<td><input type="radio" name="product" class="form-check-input" data-product=\'' + JSON.stringify(product) + '\' data-line="' + plan.line + '"></td>' +
+                                '<td>' + product.manuCode + '</td>' +
+                                '<td>' + product.name + '</td>' +
+                                '<td>' + (plan.startDate ? plan.startDate : 'N/A') + '</td>' +
+                                '<td>' + (plan.endDate ? plan.endDate : 'N/A') + '</td>' +
+                                '<td>' + (plan.pronum ? plan.pronum : 'N/A') + '</td>' +
+                                '</tr>';
+                    });
+                });
+
+                resultsContainer.html(html);
+            },
+            error: function(xhr, status, error) {
+                console.error('검색 중 오류가 발생했습니다:', error);
+                alert('검색 중 오류가 발생했습니다.');
+            }
+        });
+    });
+
+    // 모달에서 제품을 선택할 때
+    $('#searchResults').on('click', 'input[name="product"]', function() {
+        selectedProduct = $(this).data('product'); // JSON 데이터로 저장
+        selectedLine = $(this).data('line'); // planDTO의 line 값을 가져옴
+
+        // 선택된 제품의 line 값으로 버튼 텍스트 업데이트
+        $('#line-select-button').text(selectedLine + ' 라인');
+    });
+
+    // 모달 확인 버튼 클릭 시
+    $('#confirmButton').on('click', function() {
+        if (selectedProduct) {
+            // 선택된 라인에 해당하는 계획을 찾기
+            var selectedPlan = selectedProduct.proPlans.find(plan => plan.line === selectedLine);
+
+            // 제품 수량 및 희망 일자 채우기
+            $('#product-quantity').val(selectedPlan ? selectedPlan.pronum : '');
+            $('#product-name').val(selectedProduct.name);
+
+            // 희망 일자 채우기 (생산 계획의 endDate 값 사용)
+            var endDate = selectedPlan ? new Date(selectedPlan.endDate) : new Date();
+            var year = endDate.getFullYear();
+            var month = endDate.getMonth() + 1;
+            var day = endDate.getDate();
+            var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+            $('#desired-date').val(formattedDate); // endDate를 yyyy-mm-dd 형식으로 변환 후 채우기
+
+            // 자재 및 구조 정보를 가져오는 AJAX 요청
+            $.ajax({
+                url: '/proteam/material-structure', // 자재 및 구조 정보를 가져오는 URL
+                method: 'GET',
+                data: { manuCode: selectedProduct.manuCode }, // 필요한 데이터를 쿼리로 전달
+                success: function(response) {
+                    var materials = response.materials; // 자재 정보 목록
+                    var structures = response.structures; // 구조 정보 목록
+
+                    // 테이블 내용 초기화
+                    var tableBody = $('#product-table-body');
+                    tableBody.empty();
+
+                    // 제품 수량 추출
+                    var productQuantity = parseFloat($('#product-quantity').val()) || 0;
+
+                    // 자재와 구조 정보를 테이블에 추가
+                    structures.forEach(function(structure) {
+                        // 구조에서 자재 정보를 찾아서 매칭
+                        var material = materials.find(mat => mat.materCode === structure.materialDTO.materCode);
+
+                        // 재고 수량 추출
+                        var stockText = $('#product-table-body').find('tr[data-index="' + structure.materialDTO.materCode + '"] td:nth-child(4)').text();
+                        var stock = parseFloat(stockText) || 0;
+
+                        // 출하 요청 수량 계산
+                        var shippingRequestQuantity = structure.quantity * productQuantity;
+
+                        // 각 구조에 대한 테이블 행 생성
+                        var tableRow = `<tr data-index="${structure.materialDTO.materCode}">
+                            <td>${material ? material.materCode : ''}</td> <!-- 자재번호 -->
+                            <td>${material ? material.name : ''}</td> <!-- 자재명 -->
+                            <td>${structure.quantity || ''}</td> <!-- 제품 1개당 소요량 -->
+                            <td>${stock || ''}</td> <!-- 현재 자재 수량 -->
+                            <td>${shippingRequestQuantity || ''}</td> <!-- 출하 요청 수량 -->
+                            <td>${$('#desired-date').val() || ''}</td> <!-- 희망 출하 일자 -->
+                        </tr>`;
+
+                        tableBody.append(tableRow);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('자재 및 구조 정보를 가져오는 중 오류가 발생했습니다:', error);
+                    alert('자재 및 구조 정보를 가져오는 중 오류가 발생했습니다.');
+                }
+            });
+        }
+    });
+});
+
+
+
+
+</script>
+         <!--Script-->
   </span>
 
 </th:block>

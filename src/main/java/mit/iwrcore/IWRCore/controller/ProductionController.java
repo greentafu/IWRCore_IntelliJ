@@ -19,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/production")
 @RequiredArgsConstructor
@@ -98,5 +100,9 @@ public class ProductionController {
     @PostMapping("/delete_product")
     public void delete_product(){
 
+    }
+    @GetMapping("/structures")
+    public List<StructureDTO> getStructures(@RequestParam Long manuCode) {
+        return structureService.findByProduct_ManuCode(manuCode);
     }
 }

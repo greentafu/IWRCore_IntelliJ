@@ -216,7 +216,7 @@
                         document.querySelectorAll('tr[data-index]').forEach(row => {
                             const index = row.getAttribute('data-index');
 
-                            // 자재 수량 추출
+                            // 요청자재 수량 추출
                             const quantityText = row.querySelector('td:nth-child(3)').innerText;
                             const quantity = parseFloat(quantityText) || 0;
 
