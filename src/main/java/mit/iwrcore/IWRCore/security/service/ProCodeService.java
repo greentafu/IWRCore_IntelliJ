@@ -13,9 +13,9 @@ import java.util.List;
 public interface ProCodeService {
 
     // 회사 분류 삽입
-    void insertProL(ProLDTO dto);
-    void insertProM(ProMDTO dto);
-    void insertProS(ProSDTO dto);
+    ProLDTO insertProL(ProLDTO dto);
+    ProMDTO insertProM(ProMDTO dto);
+    ProSDTO insertProS(ProSDTO dto);
 
     // 회사 분류 삭제
     void deleteProL(Long lcode);
