@@ -54,6 +54,26 @@ function initPro1(){
                         .prop('selected', proS.proScode == data.s)
                 );
             });
+
+            document.getElementById('selectProL').addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const selectedValue = selectedOption.textContent;
+                const inputField = document.getElementById('inputProL');
+                inputField.value = selectedValue;
+            });
+            document.getElementById('selectProM').addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const selectedValue = selectedOption.textContent;
+                const inputField = document.getElementById('inputProM');
+                inputField.value = selectedValue;
+            });
+            document.getElementById('selectProS').addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const selectedValue = selectedOption.textContent;
+                const inputField = document.getElementById('inputProS');
+                inputField.value = selectedValue;
+            });
+
         }
     });
 

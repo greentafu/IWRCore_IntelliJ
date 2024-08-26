@@ -61,15 +61,27 @@ public class PartnerServiceImpl implements PartnerService{
     // 새로운 회사 계정 생성시 사업자등록번호 중복은 1, 아이디 중복은 2, 성공시에는 0
     @Override
     public Integer insertPartner(PartnerDTO dto) {
-        Partner partner_id=findPartnerEntity(null, dto.getId(), null);
-        Partner partner_reg=findPartnerEntity(null, null, dto.getRegistrationNumber());
-        if(partner_reg!=null){
-            return 1;
-        }else if(partner_id!=null){
-            return 2;
+        if(dto.getId()!=null){
+            if(findPartnerDto(null, dto.getId(), null)!=null)
+                return 2;
+            else if(findPartnerEntity(null, null, dto.getRegistrationNumber())!=null){
+                return 1;
+            }else{
+                Partner partner=partnerDtoToEntity(dto);
+                partner.setPartnerRole(MemberRole.PARTNER);
+                partnerRepository.save(partner);
+                return 0;
+            }
         }
-        partnerRepository.save(partnerDtoToEntity(dto));
-        return 0;
+        else{
+            if(findPartnerEntity(null, null, dto.getRegistrationNumber())!=null){
+                return 1;
+            }
+            Partner partner=partnerDtoToEntity(dto);
+            partner.setPartnerRole(MemberRole.PARTNER);
+            partnerRepository.save(partner);
+            return 0;
+        }
     }
 
     @Override

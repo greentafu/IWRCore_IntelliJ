@@ -8,6 +8,8 @@ import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
+import mit.iwrcore.IWRCore.security.dto.PartDTO.PartSDTO;
+import mit.iwrcore.IWRCore.security.dto.PartnerDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +78,25 @@ public class ManagerController {
         memberService.insertMember(memberDTO, role);
         return "redirect:/manager/list_member";
     }
-    @PostMapping("/save_partner")
-    public void save_partner(){
-
+    @GetMapping ("/save_partner")
+    public String save_partner(@RequestParam(required = false) Long pno, @RequestParam(required = false) String name, @RequestParam(required = false) String registerNum,
+                             @RequestParam(required = false) String ceo, @RequestParam(required = false) String location, @RequestParam(required = false) String type,
+                             @RequestParam(required = false) String sector, @RequestParam(required = false) String phonenumber, @RequestParam(required = false) String faxnumber,
+                             @RequestParam(required = false) String email, @RequestParam(required = false) Long selectPartS, @RequestParam(required = false) String cname,
+                             @RequestParam(required = false) String cnumber, @RequestParam(required = false) String cmail, @RequestParam(required = false) String id,
+                             @RequestParam(required = false) String pw){
+        Long temp_pno=(pno!=null)?pno:null;
+        String temp_pw=(pw!=null)?pw:"1111";
+        PartSDTO partSDTO=partCodeService.findPartS(selectPartS);
+        PartnerDTO partnerDTO=PartnerDTO.builder()
+                .pno(temp_pno).name(name).registrationNumber(registerNum)
+                .ceo(ceo).location(location).type(type).sector(sector)
+                .telNumber(phonenumber).faxNumber(faxnumber).email(email)
+                .partSDTO(partSDTO)
+                .contacter(cname).contacterNumber(cnumber).contacterEmail(cmail)
+                .id((id!=null)?id:null).pw(temp_pw).password(passwordEncoder.encode(temp_pw)).build();
+        partnerService.insertPartner(partnerDTO);
+        return "redirect:/manager/list_partner";
     }
 
 }
