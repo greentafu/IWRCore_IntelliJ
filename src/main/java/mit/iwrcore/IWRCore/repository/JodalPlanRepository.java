@@ -37,7 +37,8 @@ public interface JodalPlanRepository extends JpaRepository<JodalPlan, Long> {
     @EntityGraph(attributePaths = {"proPlan"})
     @Query("select j, p from JodalPlan j " +
             "join Product p on (j.proPlan.product.manuCode=p.manuCode) " +
-            "where j.joNo not in (select c.jodalPlan.joNo from Contract c)")
+            "where j.joNo not in (select c.jodalPlan.joNo from Contract c) " +
+            "and j.joNo in (select jc.jodalPlan.joNo from JodalChasu jc)")
     List<Object[]> noneContractJodalPlan();
 
     @Query("select count(j) from JodalPlan j where j.joNo not in (select jc.jodalPlan.joNo from JodalChasu jc)")

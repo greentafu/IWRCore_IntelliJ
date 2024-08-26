@@ -93,6 +93,7 @@ public class JodalChasuServiceImpl implements JodalChasuService {
     public List<QuantityDateDTO> partnerMainJodal(Long jodalplanId, LocalDateTime baljuDate, Long make) {
         List<JodalChasu> entityList=jodalChasuRepository.getJodalChausFromPlan(jodalplanId);
         List<QuantityDateDTO> list=new ArrayList<>();
+
         for(JodalChasu jodalChasu:entityList){
             QuantityDateDTO quantityDateDTO= QuantityDateDTO.builder()
                     .quantity(jodalChasu.getJoNum())

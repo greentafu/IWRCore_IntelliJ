@@ -278,4 +278,9 @@ public class ShipmentServiceImpl implements ShipmentService {
         Page<Object[]> entityPage=shipmentRepository.partnerInvoicePage(pageable, requestDTO.getPno());
         return new PageResultDTO<>(entityPage, this::invoicePartnerToDTO);
     }
+
+    @Override
+    public Long allShipmnetNum(Long joNo){
+        return shipmentRepository.allShipNum(joNo);
+    }
 }

@@ -129,11 +129,15 @@ public class ContractServiceImpl implements ContractService {
 
     // 협력회사용 계약서 목록
     @Override
-    public PageResultDTO<ContractDTO, Contract> partnerContractList(PageRequestDTO requestDTO) {
+    public PageResultDTO<ContractDTO, Object[]> partnerContractList(PageRequestDTO requestDTO) {
         Pageable pageable=requestDTO.getPageable(Sort.by("conNo").descending());
-        Page<Contract> entityPage=contractRepository.partnerContractList(pageable, requestDTO.getPno());
-        Function<Contract, ContractDTO> fn=(entity->convertToDTO(entity));
-        return new PageResultDTO<>(entityPage, fn);
+        Page<Object[]> entityPage=contractRepository.partnerContractList(pageable, requestDTO.getPno());
+        return new PageResultDTO<>(entityPage, this::exContractDTO);
+    }
+    private ContractDTO exContractDTO(Object[] objects){
+        Contract contract=(Contract) objects[0];
+        ContractDTO contractDTO=(contract!=null)? convertToDTO(contract):null;
+        return contractDTO;
     }
 
     @Override

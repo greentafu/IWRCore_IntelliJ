@@ -105,4 +105,8 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
 //            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
 //            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo)")
 //    Page<Object[]> deliverMaterial(Pageable pageable);
+
+
+    @Query("select sum(s.shipNum) from Shipment s where s.balju.contract.jodalPlan.joNo=:joNo")
+    Long allShipNum(Long joNo);
 }

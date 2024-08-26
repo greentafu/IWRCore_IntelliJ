@@ -40,7 +40,7 @@ public interface ContractService {
     PageResultDTO<ContractJodalChasyDTO, Object[]> couldContractMaterial(PageRequestDTO requestDTO);
 
     // 협력회사용 계약서목록
-    PageResultDTO<ContractDTO, Contract> partnerContractList(PageRequestDTO requestDTO);
+    PageResultDTO<ContractDTO, Object[]> partnerContractList(PageRequestDTO requestDTO);
 
     // 발주해야 하는 계약목록(협력회사로 묶음)
     List<NewOrderDTO> newOrderContract(Long pno);
