@@ -175,7 +175,7 @@
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
+                              id="inputProL"
                               name="phoneNumber"
                               placeholder="대분류 직접입력"
                               type="text"
@@ -185,14 +185,13 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectProM" onchange="updateProCode('M')"></select>
-                      <select class="select2 form-select" id="selectProS" onchange="updateProCode('S')"></select>
                     </div>
                           </div>
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
+                              id="inputProM"
                               name="phoneNumber"
                               placeholder="중분류 직접입력"
                               type="text"
@@ -202,7 +201,7 @@
                   <div class="col-md-10"><div class="input-group input-group-merge">
                     <input
                             class="form-control"
-                            id="phoneNumber"
+                            id="inputProS"
                             name="phoneNumber"
                             placeholder="소분류 직접입력"
                             type="text"
@@ -210,7 +209,7 @@
                   </div>
                   </div>
                   <div class="col-md-1">
-                    <button class="btn btn-primary" style="width: 80px;" type="button">추가</button>
+                    <button class="btn btn-primary" style="width: 80px;" onclick="savePart(2)" type="button">추가</button>
                   </div>
                 </div>
               </div>
@@ -277,8 +276,7 @@
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
-                              name="phoneNumber"
+                              id="inputMaterL"
                               placeholder="대분류 직접입력"
                               type="text"
                       />
@@ -287,15 +285,13 @@
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <select class="select2 form-select" id="selectMaterM" onchange="updateMaterCode('M')"></select>
-                      <select class="select2 form-select" id="selectMaterS" onchange="updateMaterCode('S')"></select>
                     </div>
                   </div>
                   <div class="col-md-6 mb-1">
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
-                              name="phoneNumber"
+                              id="inputMaterM"
                               placeholder="중분류 직접입력"
                               type="text"
                       />
@@ -305,15 +301,14 @@
                     <div class="input-group input-group-merge">
                       <input
                               class="form-control"
-                              id="phoneNumber"
-                              name="phoneNumber"
+                              id="inputMaterS"
                               placeholder="소분류 직접입력"
                               type="text"
                       />
                     </div>
                   </div>
                   <div class="col-md-1">
-                    <button class="btn btn-primary" style="width: 80px;" type="button">추가</button>
+                    <button class="btn btn-primary" style="width: 80px;" onclick="savePart(3)" type="button">추가</button>
                   </div>
                 </div>
               </div>
@@ -623,21 +618,56 @@
       <script>
         function savePart(sel){
           const selNum=parseFloat(sel);
-          const selectPartL=parseFloat(document.getElementById('selectPartL').value);
-          const inputPartL=document.getElementById('inputPartL').value;
-          const selectPartM=parseFloat(document.getElementById('selectPartM').value);
-          const inputPartM=document.getElementById('inputPartM').value;
-          const inputPartS=document.getElementById('inputPartS').value;
+          console.log("##",selNum);
 
-          console.log(selectPartL, inputPartL, selectPartM, inputPartM, inputPartS);
+          if(selNum===1){
+            const selectPartL=parseFloat(document.getElementById('selectPartL').value);
+            const selectL=(isNaN(parseFloat(selectPartL)) || selectPartL === '')?'':selectPartL;
+            const inputPartL=document.getElementById('inputPartL').value;
+            const selectPartM=parseFloat(document.getElementById('selectPartM').value);
+            const selectM=(isNaN(parseFloat(selectPartM)) || selectPartM === '')?'':selectPartM;
+            const inputPartM=document.getElementById('inputPartM').value;
+            const inputPartS=document.getElementById('inputPartS').value;
 
-          $.ajax({
-            url:'/addCategory',
-            method:'GET',
-            data:{sel:selNum, selectL:selectPartL, inputL:inputPartL},
-            success:function(){console.log("간다");}
-          });
+            $.ajax({
+              url:'/addCategory',
+              method:'GET',
+              data:{sel:selNum, selectL:selectL, inputL:inputPartL, selectM:selectM, inputM:inputPartM, inputS:inputPartS},
+              success:function(){location.reload();}
+            });
+          }
+          if(selNum===2){
+            const selectProL=parseFloat(document.getElementById('selectProL').value);
+            const selectL=(isNaN(parseFloat(selectProL)) || selectProL === '')?'':selectProL;
+            const inputProL=document.getElementById('inputProL').value;
+            const selectProM=parseFloat(document.getElementById('selectProM').value);
+            const selectM=(isNaN(parseFloat(selectProM)) || selectProM === '')?'':selectProM;
+            const inputProM=document.getElementById('inputProM').value;
+            const inputProS=document.getElementById('inputProS').value;
 
+            $.ajax({
+              url:'/addCategory',
+              method:'GET',
+              data:{sel:selNum, selectL:selectL, inputL:inputProL, selectM:selectM, inputM:inputProM, inputS:inputProS},
+              success:function(){location.reload();}
+            });
+          }
+          if(selNum===3){
+            const selectMaterL=parseFloat(document.getElementById('selectMaterL').value);
+            const selectL=(isNaN(parseFloat(selectMaterL)) || selectMaterL === '')?'':selectMaterL;
+            const inputMaterL=document.getElementById('inputMaterL').value;
+            const selectMaterM=parseFloat(document.getElementById('selectMaterM').value);
+            const selectM=(isNaN(parseFloat(selectMaterM)) || selectMaterM === '')?'':selectMaterM;
+            const inputMaterM=document.getElementById('inputMaterM').value;
+            const inputMaterS=document.getElementById('inputMaterS').value;
+
+            $.ajax({
+              url:'/addCategory',
+              method:'GET',
+              data:{sel:selNum, selectL:selectL, inputL:inputMaterL, selectM:selectM, inputM:inputMaterM, inputS:inputMaterS},
+              success:function(){location.reload();}
+            });
+          }
         }
       </script>
       <!--

@@ -28,22 +28,25 @@ public class PartCodeServiceImpl implements PartCodeService{
 
     // 회사 분류 삽입
     @Override
-    public void insertPartL(PartLDTO dto) {
+    public PartLDTO insertPartL(PartLDTO dto) {
         log.info("협력회사 대분류 삽입");
         PartL partL=partLdtoToEntity(dto);
-        lCodeRepository.save(partL);
+        PartL saved=lCodeRepository.save(partL);
+        return partLTodto(saved);
     }
     @Override
-    public void insertPartM(PartMDTO dto) {
+    public PartMDTO insertPartM(PartMDTO dto) {
         log.info("협력회사 중분류 삽입");
         PartM partM=partMdtoToEntity(dto);
-        mCodeRepository.save(partM);
+        PartM saved=mCodeRepository.save(partM);
+        return partMTOdto(saved);
     }
     @Override
-    public void insertPartS(PartSDTO dto) {
+    public PartSDTO insertPartS(PartSDTO dto) {
         log.info("협력회사 소분류 삽입");
         PartS partS=partSdtoToEntity(dto);
-        sCodeRepository.save(partS);
+        PartS saved=sCodeRepository.save(partS);
+        return partSTodto(saved);
     }
 
     // 회사 분류 삭제

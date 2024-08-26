@@ -28,22 +28,22 @@ public class ProCodeServiceImpl implements ProCodeService{
 
     // 회사 분류 삽입
     @Override
-    public void insertProL(ProLDTO dto) {
-        log.info("제품 대분류 삽입");
+    public ProLDTO insertProL(ProLDTO dto) {
         ProL proL=proLdtoToEntity(dto);
-        lCodeRepository.save(proL);
+        ProL savedL=lCodeRepository.save(proL);
+        return proLTodto(savedL);
     }
     @Override
-    public void insertProM(ProMDTO dto) {
-        log.info("제품 중분류 삽입");
+    public ProMDTO insertProM(ProMDTO dto) {
         ProM proM=proMdtoToEntity(dto);
-        mCodeRepository.save(proM);
+        ProM saved=mCodeRepository.save(proM);
+        return proMTodto(saved);
     }
     @Override
-    public void insertProS(ProSDTO dto) {
-        log.info("제품 소분류 삽입");
+    public ProSDTO insertProS(ProSDTO dto) {
         ProS proS=proSdtoToEntity(dto);
-        sCodeRepository.save(proS);
+        ProS saved=sCodeRepository.save(proS);
+        return proSTodto(saved);
     }
 
     // 회사 분류 삭제

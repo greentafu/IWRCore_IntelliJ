@@ -26,22 +26,22 @@ public class MaterServiceImpl implements MaterService{
     private final MaterSRepository materSRepository;
 
     @Override
-    public void insertML(MaterLDTO dto){
-        log.info("자재 대분류 삽입");
+    public MaterLDTO insertML(MaterLDTO dto){
         MaterL materL=materLdtoToEntity(dto);
-        materLRepository.save(materL);
+        MaterL savedL=materLRepository.save(materL);
+        return materLTodto(savedL);
     }
     @Override
-    public void insertMM(MaterMDTO dto){
-        log.info("자재 중분류 삽입");
+    public MaterMDTO insertMM(MaterMDTO dto){
         MaterM materM=materMdtoToEntity(dto);
-        materMRepository.save(materM);
+        MaterM saved=materMRepository.save(materM);
+        return materMTodto(saved);
     }
     @Override
-    public void insertMS(MaterSDTO dto){
-        log.info("자재 소분류 삽입");
+    public MaterSDTO insertMS(MaterSDTO dto){
         MaterS materS=materSdtoToEntity(dto);
-        materSRepository.save(materS);
+        MaterS saved=materSRepository.save(materS);
+        return materSTodto(saved);
     }
     @Override
     public void deleteMaterL(Long lcode){materLRepository.deleteById(lcode);}

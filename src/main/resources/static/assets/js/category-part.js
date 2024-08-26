@@ -52,6 +52,9 @@ function initPart1(){
                         .text(partS.sname)
                 );
             });
+
+            addSelectChangeListeners();
+
         }
     });
 
@@ -145,6 +148,8 @@ function updatePartCode(changedSelect){
                 );
             });
 
+            addSelectChangeListeners();
+
         }
     });
 
@@ -204,6 +209,53 @@ function updatePartCode2(changedSelect){
         }
     });
 
+}
+
+// input
+function addSelectChangeListeners() {
+    $('#selectPartL').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputPartL').val(selectedValue);
+
+        const selectMValue = '';
+        $('#inputPartM').val(selectMValue);
+        const selectSValue = '';
+        $('#inputPartS').val(selectSValue);
+    });
+
+    $('#selectPartM').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputPartM').val(selectedValue);
+
+        const selectedL=document.getElementById('selectPartL');
+        const selectedOptionL = selectedL.options[selectedL.selectedIndex];
+        const selectLText = selectedOptionL.textContent;
+        console.log("selectL:", selectLText);
+        $('#inputPartL').val(selectLText);
+
+        const selectSValue = '';
+        $('#inputPartS').val(selectSValue);
+    });
+
+    $('#selectPartS').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputPartS').val(selectedValue);
+
+        const selectedL=document.getElementById('selectPartL');
+        const selectedOptionL = selectedL.options[selectedL.selectedIndex];
+        const selectLText = selectedOptionL.textContent;
+        console.log("selectL:", selectLText);
+        $('#inputPartL').val(selectLText);
+
+        const selectedM=document.getElementById('selectPartM');
+        const selectedOptionM = selectedM.options[selectedM.selectedIndex];
+        const selectMText = selectedOptionM.textContent;
+        console.log("selectM:", selectMText);
+        $('#inputPartM').val(selectMText);
+    });
 }
 
 // 초기화면1(검색)

@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface MaterService {
     // 회사 분류 삽입/수정
-    void insertML(MaterLDTO dto);
-    void insertMM(MaterMDTO dto);
-    void insertMS(MaterSDTO dto);
+    MaterLDTO insertML(MaterLDTO dto);
+    MaterMDTO insertMM(MaterMDTO dto);
+    MaterSDTO insertMS(MaterSDTO dto);
 
     // 회사 분류 삭제
     void deleteMaterL(Long lcode);

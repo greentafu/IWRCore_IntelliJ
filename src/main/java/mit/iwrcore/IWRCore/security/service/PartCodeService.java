@@ -13,9 +13,9 @@ import java.util.List;
 public interface PartCodeService {
 
     // 회사 분류 삽입
-    void insertPartL(PartLDTO dto);
-    void insertPartM(PartMDTO dto);
-    void insertPartS(PartSDTO dto);
+    PartLDTO insertPartL(PartLDTO dto);
+    PartMDTO insertPartM(PartMDTO dto);
+    PartSDTO insertPartS(PartSDTO dto);
 
     // 회사 분류 삭제
     void deletePartL(Long lcode);
