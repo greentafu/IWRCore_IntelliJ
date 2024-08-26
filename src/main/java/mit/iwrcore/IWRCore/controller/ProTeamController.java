@@ -3,14 +3,11 @@ package mit.iwrcore.IWRCore.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.Product;
+import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
-import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.PlanDTO;
-import mit.iwrcore.IWRCore.security.dto.ProductDTO;
-import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +20,11 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 ;
 
 @Controller
@@ -38,6 +39,8 @@ public class ProTeamController {
     private final PlanService planService;
     private final MemberService memberService;
     private final JodalPlanService jodalPlanService;
+    private final MaterialService materialService;
+    private final StructureService structureService;
 
 
     @GetMapping("/list_pro")
@@ -202,7 +205,33 @@ public class ProTeamController {
         }
 
         return ResponseEntity.ok(products);
-    }
+    }  @GetMapping("/material-structure")
+    public ResponseEntity<Map<String, Object>> getMaterialStructure(@RequestParam("manuCode") Long manuCode) {
+        // 제품 정보 조회
+        ProductDTO product = productService.getProductById(manuCode);
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
 
+        // 구조 정보 조회
+        List<StructureDTO> structures = structureService.findByProduct_ManuCode(manuCode);
+        if (structures.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // 자재 정보 조회
+        List<MaterialDTO> materials = structures.stream()
+                .map(StructureDTO::getMaterialDTO) // 자재 DTO 추출
+                .distinct() // 중복 제거
+                .collect(Collectors.toList());
+
+        // 응답 데이터 생성
+        Map<String, Object> response = new HashMap<>();
+        response.put("product", product);
+        response.put("materials", materials); // MaterialDTO 목록을 직접 사용
+        response.put("structures", structures);
+
+        return ResponseEntity.ok(response);
+    }
 
 }

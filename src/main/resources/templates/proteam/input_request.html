@@ -170,7 +170,7 @@
 <script>
 $(document).ready(function() {
     var selectedProduct = null;
-    var selectedLine = null; // 기본값을 설정하지 않음
+    var selectedLine = null;
 
     // 검색 버튼 클릭 시
     $('#searchButton').on('click', function() {
@@ -213,8 +213,8 @@ $(document).ready(function() {
     });
 
     // 모달에서 제품을 선택할 때
- $('#searchResults').on('click', 'input[name="product"]', function() {
-    selectedProduct = $(this).data('product'); // JSON 데이터로 저장
+    $('#searchResults').on('click', 'input[name="product"]', function() {
+        selectedProduct = $(this).data('product'); // JSON 데이터로 저장
         selectedLine = $(this).data('line'); // planDTO의 line 값을 가져옴
 
         // 선택된 제품의 line 값으로 버튼 텍스트 업데이트
@@ -224,34 +224,73 @@ $(document).ready(function() {
     // 모달 확인 버튼 클릭 시
     $('#confirmButton').on('click', function() {
         if (selectedProduct) {
-            // 제품수량 채우기
-            $('#product-quantity').val(selectedProduct.proPlans[0].pronum);
+            // 선택된 라인에 해당하는 계획을 찾기
+            var selectedPlan = selectedProduct.proPlans.find(plan => plan.line === selectedLine);
 
-           // 희망일자 채우기 (생산 계획의 endDate 값 사용)
-            var endDate = new Date(selectedProduct.proPlans[0].endDate);
+            // 제품 수량 및 희망 일자 채우기
+            $('#product-quantity').val(selectedPlan ? selectedPlan.pronum : '');
+            $('#product-name').val(selectedProduct.name);
+
+            // 희망 일자 채우기 (생산 계획의 endDate 값 사용)
+            var endDate = selectedPlan ? new Date(selectedPlan.endDate) : new Date();
             var year = endDate.getFullYear();
             var month = endDate.getMonth() + 1;
             var day = endDate.getDate();
             var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
             $('#desired-date').val(formattedDate); // endDate를 yyyy-mm-dd 형식으로 변환 후 채우기
 
+            // 자재 및 구조 정보를 가져오는 AJAX 요청
+            $.ajax({
+                url: '/proteam/material-structure', // 자재 및 구조 정보를 가져오는 URL
+                method: 'GET',
+                data: { manuCode: selectedProduct.manuCode }, // 필요한 데이터를 쿼리로 전달
+                success: function(response) {
+                    var materials = response.materials; // 자재 정보 목록
+                    var structures = response.structures; // 구조 정보 목록
 
+                    // 테이블 내용 초기화
+                    var tableBody = $('#product-table-body');
+                    tableBody.empty();
 
-                // 테이블 내용 업데이트
-        var tableRow = `<tr>
-             <td>${selectedProduct.materialDTO.materCode || ''}</td> <!-- MaterialDTO의 materCode 사용 -->
-            <td>${selectedProduct.name || ''}</td>
-            <td>${selectedProduct.proPlans[0].quantity || ''}</td>
-            <td>${selectedProduct.currentStock || ''}</td>
-            <td><input type="text" class="form-control" value="${selectedProduct.requestQuantity || ''}" aria-describedby="defaultFormControlHelp" /></td>
-            <td><input type="date" value="${selectedProduct.requestDate ? selectedProduct.requestDate.split('T')[0] : ''}" style="border: 0;"></td>
-        </tr>`;
+                    // 제품 수량 추출
+                    var productQuantity = parseFloat($('#product-quantity').val()) || 0;
 
-        // 기존 테이블 내용 유지하면서 새로운 행 추가
-        $('#product-table-body').append(tableRow);
-    }
+                    // 자재와 구조 정보를 테이블에 추가
+                    structures.forEach(function(structure) {
+                        // 구조에서 자재 정보를 찾아서 매칭
+                        var material = materials.find(mat => mat.materCode === structure.materialDTO.materCode);
+
+                        // 재고 수량 추출
+                        var stockText = $('#product-table-body').find('tr[data-index="' + structure.materialDTO.materCode + '"] td:nth-child(4)').text();
+                        var stock = parseFloat(stockText) || 0;
+
+                        // 출하 요청 수량 계산
+                        var shippingRequestQuantity = structure.quantity * productQuantity;
+
+                        // 각 구조에 대한 테이블 행 생성
+                        var tableRow = `<tr data-index="${structure.materialDTO.materCode}">
+                            <td>${material ? material.materCode : ''}</td> <!-- 자재번호 -->
+                            <td>${material ? material.name : ''}</td> <!-- 자재명 -->
+                            <td>${structure.quantity || ''}</td> <!-- 제품 1개당 소요량 -->
+                            <td>${stock || ''}</td> <!-- 현재 자재 수량 -->
+                            <td>${shippingRequestQuantity || ''}</td> <!-- 출하 요청 수량 -->
+                            <td>${$('#desired-date').val() || ''}</td> <!-- 희망 출하 일자 -->
+                        </tr>`;
+
+                        tableBody.append(tableRow);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('자재 및 구조 정보를 가져오는 중 오류가 발생했습니다:', error);
+                    alert('자재 및 구조 정보를 가져오는 중 오류가 발생했습니다.');
+                }
+            });
+        }
     });
 });
+
+
+
 
 </script>
          <!--Script-->
