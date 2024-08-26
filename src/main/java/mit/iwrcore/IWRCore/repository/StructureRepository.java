@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface StructureRepository extends JpaRepository<Structure,Long> {
     // 제품 ID로 구조 목록을 조회
-    @Query("select s from Structure s where s.product.manuCode=:manuCode")
-    List<Structure> findByProduct_ManuCode(Long manuCode);
+    @Query("select s, p from Structure s " +
+            "join Product p on (s.product.manuCode=p.manuCode) " +
+            "where s.product.manuCode=:manuCode")
+    List<Object[]> findByProduct_ManuCode(Long manuCode);
 }

@@ -1,5 +1,6 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.Material;
 import mit.iwrcore.IWRCore.entity.ProPlan;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -61,6 +63,19 @@ public class ProplanServiceImpl implements ProplanService{
         Function<ProPlan, ProplanDTO> fn=(entity->entityToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
     }
+    @Override
+    public PageResultDTO<ProplanDTO, Object[]> proplanList2(PageRequestDTO2 requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("proplanNo").descending());
+        Page<Object[]> entityPage=proPlanRepository.findproPlanList(pageable);
+        return new PageResultDTO<>(entityPage, this::exProplan);
+    }
+    private ProplanDTO exProplan(Object[] objects){
+        ProPlan proPlan=(ProPlan) objects[0];
+        ProplanDTO proplanDTO=(proPlan!=null)?entityToDTO(proPlan):null;
+        return proplanDTO;
+    }
+
+
 
 //    @Override
 //    public List<ProplanDTO> findByPlanId(Long planId) {
@@ -96,6 +111,7 @@ public class ProplanServiceImpl implements ProplanService{
                 .endDate(entity.getEndDate())
                 .line(entity.getLine())
                 .details(entity.getDetails())
+                .regDate(entity.getRegDate())
                 .productDTO(productService.productEntityToDto(entity.getProduct()))
                 .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .build();

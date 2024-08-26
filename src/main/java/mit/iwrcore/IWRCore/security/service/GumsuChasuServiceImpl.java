@@ -58,10 +58,10 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     }
 
     @Override
-    public GumsuChasuDTO createGumsuChasu(GumsuChasuDTO gumsuChasuDTO) {
+    public void createGumsuChasu(GumsuChasuDTO gumsuChasuDTO, Gumsu gumsu) {
         GumsuChasu gumsuChasu = convertToEntity(gumsuChasuDTO);
-        GumsuChasu savedGumsuChasu = gumsuChasuRepository.save(gumsuChasu);
-        return convertToDTO(savedGumsuChasu);
+        gumsuChasu.setGumsu(gumsu);
+        gumsuChasuRepository.save(gumsuChasu);
     }
 
     @Override

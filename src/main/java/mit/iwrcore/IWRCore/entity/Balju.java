@@ -19,6 +19,7 @@ public class Balju extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long baljuNo;       // 발주서 번호
+    private Long baljuNum;
     @NotNull
     private String baljuWhere; // 배송장소
     private String baljuPlz;  // 요청사항

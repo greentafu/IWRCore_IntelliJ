@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,11 +46,22 @@ public class PlanServiceImpl implements PlanService{
 
     @Override
     public List<PlanDTO> findByProductId(Long productId) {
-        List<Plan> plans = planRepository.findByProduct_ManuCode(productId);
-        return plans.stream()
-                .map(this::entityToDTO)
-                .collect(Collectors.toList());
+//        List<Plan> plans = planRepository.findByProduct_ManuCode(productId);
+//        return plans.stream()
+//                .map(this::entityToDTO)
+//                .collect(Collectors.toList());
+
+        List<Object[]> list=planRepository.findPlan(productId);
+        List<PlanDTO> dtoList=list.stream().map(this::exPlan).toList();
+        return dtoList;
+
     }
+    private PlanDTO exPlan(Object[] objects){
+        Plan plan=(Plan) objects[0];
+        PlanDTO planDTO=(plan!=null)? entityToDTO(plan):null;
+        return planDTO;
+    }
+
 
     @Override
     public Plan dtoToEntity(PlanDTO dto) {

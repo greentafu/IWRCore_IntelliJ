@@ -115,19 +115,17 @@
                       <th>자재번호</th>
                       <th>자재명</th>
                       <th>수량</th>
-                      <th>조달 예정일</th>
                       <th>계약서 등록</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr th:each="list2:${yesPlan_list.dtoList}">
-                      <td>[[${list2.jodalPlanDTO.proplanDTO.productDTO.name}]]</td>
-                      <td>[[${list2.jodalPlanDTO.materialDTO.materCode}]]</td>
-                      <td>[[${list2.jodalPlanDTO.materialDTO.name}]]</td>
-                      <td>[[${list2.jodalPlanDTO.proplanDTO.pronum}]]</td>
-                      <td>[[${#temporals.format(list2.jodalChasuDTO.joDate, 'yyyy-MM-dd')}]]</td>
+                      <td>[[${list2.proplanDTO.productDTO.name}]]</td>
+                      <td>[[${list2.materialDTO.materCode}]]</td>
+                      <td>[[${list2.materialDTO.name}]]</td>
+                      <td>[[${list2.proplanDTO.pronum}]]</td>
                       <td>
-                        <a th:href="@{/contract/new_contract(joNo=${list2.jodalPlanDTO.joNo})}">
+                        <a th:href="@{/contract/new_contract(joNo=${list2.joNo})}">
                           <button type="button" class="btn btn-primary">계약서 등록</button>
                         </a>
                       </td>

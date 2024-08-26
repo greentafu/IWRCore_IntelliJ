@@ -17,6 +17,7 @@ public class ProplanDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String line;
+    private LocalDateTime regDate;
 //    private Long productId;
     private String details;
     private ProductDTO productDTO;

@@ -53,7 +53,8 @@ function initPart1(){
                 );
             });
 
-            addSelectChangeListeners();
+            const tf=document.getElementById('inputPartL');
+            if(tf) addSelectChangeListeners();
 
         }
     });
@@ -148,7 +149,8 @@ function updatePartCode(changedSelect){
                 );
             });
 
-            addSelectChangeListeners();
+            const tf=document.getElementById('inputPartL');
+            if(tf) addSelectChangeListeners();
 
         }
     });

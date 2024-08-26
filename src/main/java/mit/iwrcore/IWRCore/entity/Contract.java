@@ -28,7 +28,7 @@ public class Contract extends BaseEntity {
     @NotNull
     private LocalDateTime conDate;  // 체결일
     private String filename; // 파일
-    @NotNull
+
     private String who;      // 담당자
 
     @ManyToOne(fetch = FetchType.LAZY)

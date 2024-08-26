@@ -92,12 +92,12 @@
               </thead>
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${product_list.dtoList}">
-                  <td>--</td>
+                  <td>[[${#temporals.format(list.regDate, 'yyyy-MM-dd')}]]</td>
                   <td>[[${list.manuCode}]]</td>
                   <td><strong><a th:href="@{/development/detail_dev(manuCode=${list.manuCode})}"> [[${list.name}]]</a></strong></td>
                   <td>[[${list.color}]]</td>
                   <td>
-                    <a th:href="@{/production/modify_manufacture(manuCode=${list.manuCode})}">
+                    <a th:href="@{/development/modify_dev(manuCode=${list.manuCode})}">
                       <button class="btn btn-primary">수정</button>
                     </a>
                     <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>

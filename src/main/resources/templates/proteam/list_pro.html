@@ -83,7 +83,7 @@
               </thead>
               <tbody class="table-border-bottom-0">
                 <tr th:each="plist:${product_list.dtoList}">
-                  <td>--</td>
+                  <td>[[${#temporals.format(plist.regDate, 'yyyy-MM-dd')}]]</td>
                   <td>[[${plist.manuCode}]]</td>
                   <td><a th:href="@{/development/detail_dev(manuCode=${plist.manuCode})}">[[${plist.name}]]</a></td>
                   <td>[[${plist.color}]]</td>
@@ -189,7 +189,7 @@
               </thead>
               <tbody>
                 <tr th:each="list:${proplan_list.dtoList}">
-                  <td>--</td>
+                  <td>[[${#temporals.format(list.regDate, 'yyyy-MM-dd')}]]</td>
                   <td><i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>[[${list.proplanNo}]]</strong></td>
                   <td><a th:href="@{/proteam/details_plan}">[[${list.productDTO.manuCode}]]</a></td>
                   <td>[[${list.productDTO.name}]]</td>

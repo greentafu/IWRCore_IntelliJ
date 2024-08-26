@@ -21,7 +21,7 @@ public interface  ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllProduct(Pageable pageable);
 
     // 생산계획 없는 제품 리스트
-    @Query(value = "select p from Product p where p.manuCode not in (select pp.product.manuCode from ProPlan pp)")
+    @Query(value = "select p from Product p where p.manuCode not in (select pp.product.manuCode from ProPlan pp) and p.mater_imsi=1 and p.mater_check=1")
     Page<Product> findNonPlanProduct(Pageable pageable);
     // 임시저장 했으나 최종확인은 하지 않은 제품 리스트
     @Query("select p from Product p where p.mater_imsi=1 and p.mater_check=0")
@@ -31,6 +31,6 @@ public interface  ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findCheckProduct(Pageable pageable);
 
 
-    @Query("select count(p) from Product p where p.mater_check=0")
+    @Query("select count(p) from Product p where p.mater_imsi=1 and p.mater_check=0")
     Long newProductCount();
 }

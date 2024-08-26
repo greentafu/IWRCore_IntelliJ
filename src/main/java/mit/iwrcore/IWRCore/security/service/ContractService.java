@@ -2,11 +2,13 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Contract;
 import mit.iwrcore.IWRCore.security.dto.ContractDTO;
+import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -42,4 +44,5 @@ public interface ContractService {
 
     // 발주해야 하는 계약목록(협력회사로 묶음)
     List<NewOrderDTO> newOrderContract(Long pno);
+
 }

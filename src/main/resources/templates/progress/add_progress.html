@@ -234,9 +234,53 @@
         var person=document.getElementById('person').value;
         var partnerNo=document.getElementById('partnerNo').value;
 
-        var conData=[];
+        const allTables = document.querySelectorAll('#alltable table');
+
+        const allData=[];
+
+        allTables.forEach(table=>{
+          const tableData={};
+
+          const checkbox=table.querySelector('input[type="checkbox"]');
+          if(checkbox&&checkbox.checked){
+            const tdData=[];
+            var baseId="checkbox";
+            var baljuNo=checkbox.id.substring(baseId.length);
+
+            const all=table.querySelectorAll('[id^="gumNum"]');
+            all.forEach(x=>{
+              var baseId2="gumNum";
+              var saveGumNum=x.value;
+              const tempNum=x.id.substring(baseId2.length);
+              var saveGumDate=document.getElementById('gumDate'+tempNum).value;
+
+              tdData.push({ gumNum: saveGumNum, gumDate: saveGumDate });
+
+            });
+
+            tableData.baljuNo = baljuNo;
+            tableData.person=person;
+            tableData.partnerNo=partnerNo;
+            tableData.tdData = tdData;
 
 
+            allData.push(tableData);
+
+          }
+
+        });
+
+        console.log(allData);
+
+        $.ajax({
+          url:'/progress/save_gumsu',
+          method:'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(allData),
+          success:function(data){
+            window.location.href = '/progress/requiring_progress';
+          }
+        });
 
       }
 

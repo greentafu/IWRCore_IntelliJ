@@ -82,7 +82,10 @@ public class JodalPlanServiceTests {
     @Commit
     public void test1231(){
         Pageable pageable= PageRequest.of(0,2);
-        jodalPlanRepository.nonPlanMaterial(pageable).forEach(System.out::println);
+        PageRequestDTO requestDTO=PageRequestDTO.builder().size(2).page(1).build();
+//        jodalPlanRepository.nonPlanMaterial2(pageable).forEach(System.out::println);
+//        System.out.println(jodalPlanRepository.noContract(pageable));
+        System.out.println(jodalPlanService.noContract(requestDTO));
     }
     @Test
     @Transactional
@@ -99,6 +102,15 @@ public class JodalPlanServiceTests {
 
     @Test
     public void test333(){
-        System.out.println("###"+jodalPlanRepository.newNoneJodalPlanCount());
+        System.out.println("###"+jodalPlanRepository.noneContractJodalPlan());
+    }
+    @Test
+    @Transactional
+    @Commit
+    public void test13131(){
+//        System.out.println(jodalPlanService.newJodalChasu(1L));
+//        System.out.println(jodalPlanService.findById(1L));
+        JodalPlan jodalPlan=(JodalPlan) jodalPlanRepository.getJodalPlan(1L).get(0)[0];
+        System.out.println(jodalPlanService.entityToDTO(jodalPlan));
     }
 }

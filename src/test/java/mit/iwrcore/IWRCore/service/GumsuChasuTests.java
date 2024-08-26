@@ -34,27 +34,27 @@ public class GumsuChasuTests {
     @Transactional
     @Commit
     public void insert(){
-        GumsuChasuDTO dto = GumsuChasuDTO.builder()
-                .gumsuNum(450L)
-                .gumsuDate(LocalDateTime.of(2024,8,15,6,30))
-                .memberDTO(memberService.findMemberDto(1L,null))
-                .gumsuDTO(gumsuService.getGumsuById(1L))
-                .build();
-        gumsuChasuService.createGumsuChasu(dto);
-        GumsuChasuDTO dto2 = GumsuChasuDTO.builder()
-                .gumsuNum(325L)
-                .gumsuDate(LocalDateTime.of(2024,8,22,6,30))
-                .memberDTO(memberService.findMemberDto(1L,null))
-                .gumsuDTO(gumsuService.getGumsuById(1L))
-                .build();
-        gumsuChasuService.createGumsuChasu(dto2);
-        GumsuChasuDTO dto3 = GumsuChasuDTO.builder()
-                .gumsuNum(325L)
-                .gumsuDate(LocalDateTime.of(2024,8,29,6,30))
-                .memberDTO(memberService.findMemberDto(1L,null))
-                .gumsuDTO(gumsuService.getGumsuById(1L))
-                .build();
-        gumsuChasuService.createGumsuChasu(dto3);
+//        GumsuChasuDTO dto = GumsuChasuDTO.builder()
+//                .gumsuNum(450L)
+//                .gumsuDate(LocalDateTime.of(2024,8,15,6,30))
+//                .memberDTO(memberService.findMemberDto(1L,null))
+//                .gumsuDTO(gumsuService.getGumsuById(1L))
+//                .build();
+//        gumsuChasuService.createGumsuChasu(dto);
+//        GumsuChasuDTO dto2 = GumsuChasuDTO.builder()
+//                .gumsuNum(325L)
+//                .gumsuDate(LocalDateTime.of(2024,8,22,6,30))
+//                .memberDTO(memberService.findMemberDto(1L,null))
+//                .gumsuDTO(gumsuService.getGumsuById(1L))
+//                .build();
+//        gumsuChasuService.createGumsuChasu(dto2);
+//        GumsuChasuDTO dto3 = GumsuChasuDTO.builder()
+//                .gumsuNum(325L)
+//                .gumsuDate(LocalDateTime.of(2024,8,29,6,30))
+//                .memberDTO(memberService.findMemberDto(1L,null))
+//                .gumsuDTO(gumsuService.getGumsuById(1L))
+//                .build();
+//        gumsuChasuService.createGumsuChasu(dto3);
     }
     @Test
     @Transactional

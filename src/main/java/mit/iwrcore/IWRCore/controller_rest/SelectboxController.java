@@ -169,6 +169,8 @@ public class SelectboxController {
 
     @GetMapping("/noneContractJodalPlan")
     public List<JodalPlanDTO> noneContractJodalPlan(){
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("########################"+jodalPlanService.noneContractJodalPlan());
         return jodalPlanService.noneContractJodalPlan();
     }
 
@@ -176,4 +178,5 @@ public class SelectboxController {
     public List<MaterialDTO> materialList(){
         return materialService.materialList();
     }
+
 }

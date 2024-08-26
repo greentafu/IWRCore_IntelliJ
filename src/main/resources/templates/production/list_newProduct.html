@@ -84,7 +84,7 @@
               </thead>
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${product_list.dtoList}">
-                  <td>--</td>
+                  <td>[[${#temporals.format(list.regDate, 'yyyy-MM-dd')}]]</td>
                   <td>[[${list.manuCode}]]</td>
                   <td>[[${list.name}]]</td>
                   <td>[[${list.color}]]</td>

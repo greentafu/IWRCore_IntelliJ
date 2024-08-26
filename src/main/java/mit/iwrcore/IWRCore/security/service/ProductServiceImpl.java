@@ -134,6 +134,7 @@ public class ProductServiceImpl implements ProductService {
                 .supervisor(entity.getSupervisor())
                 .mater_imsi(entity.getMater_imsi())
                 .mater_check(entity.getMater_check())
+                .regDate(entity.getRegDate())
                 .proSDTO(proCodeService.proSTodto(entity.getProS()))
                 .memberDTO(memberService.memberTodto(entity.getMember()))
                 .build();

@@ -18,14 +18,16 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
     List<Shipment> getShipmentByBalju(Long baljuNo);
 
     @EntityGraph(attributePaths = {"balju", "returns", "invoice"})
-    @Query("select s, g, sss.totalsum, r.reNO, s.balju.contract from Shipment s " +
+    @Query("select s, g, sss.totalsum, r.reNO, s.balju.contract, p, pp from Shipment s " +
             "left join Gumsu g on (s.balju.baljuNo=g.balju.baljuNo) " +
             "left join (select ss.balju.baljuNo as baljuNo1, sum(ss.shipNum) as totalsum " +
                     "from Shipment ss " +
                     "where ss.receiveCheck=1 " +
                     "group by ss.balju.baljuNo) as sss " +
             "on (s.balju.baljuNo=sss.baljuNo1) " +
-            "left join Returns r on (s.shipNO=r.shipment.shipNO)")
+            "left join Returns r on (s.shipNO=r.shipment.shipNO) " +
+            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
+            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo)")
     Page<Object[]> shipmentPage(Pageable pageable);
 
     @Modifying

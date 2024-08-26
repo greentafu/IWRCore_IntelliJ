@@ -11,32 +11,34 @@
 <th:block th:replace="~{/layout/devlayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
-    <title>제품 신규 등록</title>
-      <!--Style-->
+    <title>제품 정보 수정</title>
+    <!--Style-->
 
-      <!--/Style-->
+    <!--/Style-->
   </span>
 
   <span id="content">
     <div class="container-xxl flex-grow-1 container-p-y">
       <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">개발부서 /</span> 제품 신규 등록</h4>
-
       <form>
         <div class="card">
           <div class="card-body">
             <h5>제품 정보</h5>
+            <div id="productCode" style="display:none;">[[${product.manuCode}]]</div>
             <label class="form-label">담당자</label>
             <input
                     type="text"
                     class="form-control"
                     id="person"
                     placeholder="실명 작성"
+                    th:value=${product.supervisor}
             />
             <label class="form-label">제품명</label>
             <input
                     class="form-control"
                     id="productName"
                     placeholder="등록할 제품 명"
+                    th:value=${product.name}
             />
             <label class="form-label">카테고리 선택</label>
             <div class="col">
@@ -48,7 +50,9 @@
                   <select class="form-select mb-1" id="selectProM" onchange="updateProCode('M')"></select>
                 </div>
                 <div class="col-md-2">
-                  <select class="form-select mb-1" id="selectProS" onchange="updateProCode('S')"></select>
+                  <select class="form-select mb-1" id="selectProS" onchange="updateProCode('S')">
+                    <option th:value="${product.proSDTO.proScode}" selected></option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -57,17 +61,17 @@
               <div class="col-md-2">
                 <select class="form-select" id="selColor">
                   <option value="">직접입력</option>
-                  <option value="빨강">빨강</option>
-                  <option value="검정">검정</option>
-                  <option value="초록">초록</option>
-                  <option value="노랑">노랑</option>
-                  <option value="파랑">파랑</option>
-                  <option value="하양">하양</option>
-                  <option value="회색">회색</option>
+                  <option value="빨강" th:selected="${product.color}=='빨강'">빨강</option>
+                  <option value="검정" th:selected="${product.color}=='검정'">검정</option>
+                  <option value="초록" th:selected="${product.color}=='초록'">초록</option>
+                  <option value="노랑" th:selected="${product.color}=='노랑'">노랑</option>
+                  <option value="파랑" th:selected="${product.color}=='파랑'">파랑</option>
+                  <option value="하양" th:selected="${product.color}=='하양'">하양</option>
+                  <option value="회색" th:selected="${product.color}=='회색'">회색</option>
                 </select>
               </div>
               <div class="col-md-2">
-                <input type="text" class="form-control" id="proColor">
+                <input type="text" class="form-control" id="proColor" th:value="${product.color}">
               </div>
             </div>
             <label class="form-label">제품 도안</label>
@@ -81,7 +85,7 @@
               <button class="btn btn-outline-primary" type="button">업로드</button>
             </div>
             <label class="form-label">비고</label>
-            <textarea class="form-control" rows="5" id="proText"></textarea>
+            <textarea class="form-control" rows="5" id="proText" th:text=${product.text}></textarea>
           </div>
           <!--/ Card-->
           <hr class="m-0">
@@ -115,7 +119,23 @@
                 <div class="card border overflow-hidden mb-4" style="height: 500px">
                   <div id="vertical-example">
                     <table class="table" id="materialList">
-                      <tbody id="mater"></tbody>
+                      <tbody>
+                        <tr th:each="list:${material_list.dtoList}">
+                          <td>
+                            <input type="checkbox" class="form-check-input">
+                          </td>
+                          <td>[[${list.materCode}]]</td>
+                          <td>[[${list.name}]]</td>
+                          <td style="display: none;">[[${list.materSDTO.materMDTO.materLDTO.lname}]]</td>
+                          <td style="display: none;">[[${list.materSDTO.materMDTO.Mname}]]</td>
+                          <td style="display: none;">[[${list.materSDTO.Sname}]]</td>
+                          <td>[[${list.standard}]]</td>
+                          <td>[[${list.unit}]]</td>
+                          <td>[[${list.color}]]</td>
+                          <td style="display: none;">[[${list.boxDTO.boxname}]]</td>
+                          <td style="display: none;">[[${list.file}]]</td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                 </div>
@@ -153,7 +173,28 @@
                     <th style="width: 10px;">삭제</th>
                   </tr>
                 </thead>
-                <tbody id="materialSel"></tbody>
+                <tbody id="materialSel">
+                  <tr th:each="structure:${structure_list}">
+                    <td>[[${structure.materialDTO.materCode}]]</td>
+                    <td>[[${structure.materialDTO.name}]]</td>
+                    <td>
+                      <input type="number" style="border:0;" th:id="'quantity'+${structure.materialDTO.materCode}" th:value="${structure.quantity}">
+                    </td>
+                    <td>[[${structure.materialDTO.materSDTO.materMDTO.materLDTO.lname}]]</td>
+                    <td>[[${structure.materialDTO.materSDTO.materMDTO.Mname}]]</td>
+                    <td>[[${structure.materialDTO.materSDTO.Sname}]]</td>
+                    <td>[[${structure.materialDTO.standard}]]</td>
+                    <td>[[${structure.materialDTO.unit}]]</td>
+                    <td>[[${structure.materialDTO.color}]]</td>
+                    <td>[[${structure.materialDTO.boxDTO.boxname}]]</td>
+                    <td>[[${structure.materialDTO.file}]]</td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-secondary">삭제</button>
+                    </td>
+                    <td style="display:none;">[[${structure.materialDTO.boxDTO.boxcode}]]</td>
+                    <td style="display:none;">[[${structure.sno}]]</td>
+                  </tr>
+                </tbody>
               </table>
             </div>
             <div class="d-flex justify-content-between w-100">
@@ -161,11 +202,8 @@
                 <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
               </a>
               <div class="text-end mb-4">
-
-                  <button type="button" class="btn btn-outline-primary" onclick="saveToLowerTable(0)">임시저장</button>
-
-                  <button class="btn btn-primary" onclick="saveToLowerTable(1)">등록</button>
-
+                <button type="button" class="btn btn-outline-primary" onclick="saveToLowerTable(0)">임시저장</button>
+                <button class="btn btn-primary" onclick="saveToLowerTable(1)">등록</button>
               </div>
             </div>
           </div>
@@ -267,7 +305,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" th:onclick="|location.href='@{/development/list_dev}'|">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
               취소
             </button>
             <button type="button" class="btn btn-primary">등록</button>
@@ -356,6 +394,7 @@
       });
 
       function saveToLowerTable(whatButton){
+        const manuCode=$('#productCode').text();
         const person=$('#person').val();
         const productName=$('#productName').val();
         const selectProS=$('#selectProS').val();
@@ -386,6 +425,7 @@
           method:'POST',
           contentType:'application/json',
           data: JSON.stringify({
+            manuCode:manuCode,
             person:person,
             productName:productName,
             selectProS:parseFloat(selectProS),
@@ -407,8 +447,7 @@
 
       }
     </script>
-
-   <!--Script-->
+    <!--Script-->
   </span>
 
 </th:block>

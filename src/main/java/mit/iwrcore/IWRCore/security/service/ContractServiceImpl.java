@@ -72,7 +72,9 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractDTO getContractById(Long id) {
-        return contractRepository.findById(id).map(this::convertToDTO).get();
+        List<Object[]> list=contractRepository.findContract(id);
+        Contract contract=(Contract) list.get(0)[0];
+        return convertToDTO(contract);
     }
 
     @Override
@@ -117,9 +119,11 @@ public class ContractServiceImpl implements ContractService {
         JodalPlan jodalPlan=(JodalPlan) objects[0];
         Contract contract=(Contract) objects[1];
         JodalChasu jodalChasu=(JodalChasu) objects[2];
-        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)?jodalPlanService.entityToDTO(jodalPlan):null;
+
         ContractDTO contractDTO=(contract!=null)?convertToDTO(contract):null;
+        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)?jodalPlanService.entityToDTO(jodalPlan):null;
         JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
+
         return new ContractJodalChasyDTO(jodalPlanDTO, contractDTO, jodalChasuDTO);
     }
 
@@ -162,6 +166,7 @@ public class ContractServiceImpl implements ContractService {
         }
         return newOrderDTOList;
     }
+
 }
 
 

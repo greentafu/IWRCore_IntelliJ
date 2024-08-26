@@ -54,25 +54,8 @@ function initPro1(){
                         .prop('selected', proS.proScode == data.s)
                 );
             });
-
-            document.getElementById('selectProL').addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-                const selectedValue = selectedOption.textContent;
-                const inputField = document.getElementById('inputProL');
-                inputField.value = selectedValue;
-            });
-            document.getElementById('selectProM').addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-                const selectedValue = selectedOption.textContent;
-                const inputField = document.getElementById('inputProM');
-                inputField.value = selectedValue;
-            });
-            document.getElementById('selectProS').addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-                const selectedValue = selectedOption.textContent;
-                const inputField = document.getElementById('inputProS');
-                inputField.value = selectedValue;
-            });
+            const tf=document.getElementById('inputProL');
+            if(tf) addSelectChangeListenersP();
 
         }
     });
@@ -168,6 +151,8 @@ function updateProCode(changedSelect){
                         .prop('selected', proS.proScode == data.s)
                 );
             });
+            const tf=document.getElementById('inputProL');
+            if(tf) addSelectChangeListenersP();
 
         }
     });
@@ -228,6 +213,53 @@ function updateProCode2(changedSelect){
         }
     });
 
+}
+
+// input
+function addSelectChangeListenersP() {
+    $('#selectProL').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputProL').val(selectedValue);
+
+        const selectMValue = '';
+        $('#inputProM').val(selectMValue);
+        const selectSValue = '';
+        $('#inputProS').val(selectSValue);
+    });
+
+    $('#selectProM').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputProM').val(selectedValue);
+
+        const selectedL=document.getElementById('selectProL');
+        const selectedOptionL = selectedL.options[selectedL.selectedIndex];
+        const selectLText = selectedOptionL.textContent;
+        console.log("selectL:", selectLText);
+        $('#inputProL').val(selectLText);
+
+        const selectSValue = '';
+        $('#inputProS').val(selectSValue);
+    });
+
+    $('#selectProS').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputProS').val(selectedValue);
+
+        const selectedL=document.getElementById('selectProL');
+        const selectedOptionL = selectedL.options[selectedL.selectedIndex];
+        const selectLText = selectedOptionL.textContent;
+        console.log("selectL:", selectLText);
+        $('#inputProL').val(selectLText);
+
+        const selectedM=document.getElementById('selectProM');
+        const selectedOptionM = selectedM.options[selectedM.selectedIndex];
+        const selectMText = selectedOptionM.textContent;
+        console.log("selectM:", selectMText);
+        $('#inputProM').val(selectMText);
+    });
 }
 
 // 초기화면1(검색)
