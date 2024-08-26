@@ -19,8 +19,7 @@ public class ProPlan extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long proplanNo;       // 생산계획 번호
     @NotNull
-    @Builder.Default
-    private Long pronum = 0L;         // 수량
+    private Long pronum;         // 수량
     private String filename;     // 파일
     @NotNull
     private LocalDateTime startDate;  // 시작일

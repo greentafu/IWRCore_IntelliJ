@@ -25,8 +25,7 @@ public class Balju extends BaseEntity {
     private String baljuPlz;  // 요청사항
     private String filename; // 파일
     @NotNull
-    @Builder.Default
-    private Long finCheck = 0L;
+    private Long finCheck;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름

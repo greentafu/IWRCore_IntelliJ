@@ -60,12 +60,17 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
-    @Query("select s, s.balju.contract from Shipment s where s.receiveCheck=1 and s.invoice is null")
+    @Query("select s, s.balju.contract, p, pp from Shipment s " +
+            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
+            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo) " +
+            "where s.receiveCheck=1 and s.invoice is null")
     Page<Object[]> noneInvoiceShipment(Pageable pageable);
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
-    @Query("select s, s.balju.contract from Shipment s " +
+    @Query("select s, s.balju.contract, p, pp from Shipment s " +
+            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
+            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo) " +
             "where s.receiveCheck=1 and s.invoice is null and s.balju.contract.partner.pno=:pno")
     List<Object[]> couldInvoice(Long pno);
 
@@ -77,16 +82,27 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
-    @Query("select distinct i, s.balju.contract.partner from Invoice i " +
+    @Query("select distinct i, s.balju.contract.partner, p, pp from Invoice i " +
             "join Shipment s on (s.invoice.tranNO=i.tranNO) " +
+            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
+            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo) " +
             "where s.invoice is not null")
     Page<Object[]> finInvoicePage(Pageable pageable);
 
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
-    @Query("select distinct i, s.balju.contract.partner from Invoice i " +
+    @Query("select distinct i, s.balju.contract.partner, p, pp from Invoice i " +
             "join Shipment s on (s.invoice.tranNO=i.tranNO) " +
+            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
+            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo) " +
             "where s.invoice is not null and s.balju.contract.partner.pno=:pno")
     Page<Object[]> partnerInvoicePage(Pageable pageable, Long pno);
 
+//    @Transactional
+//    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+//    @Query("select s, s.balju.contract.partner, p, pp from Invoice i " +
+//            "join Shipment s on (s.invoice.tranNO=i.tranNO) " +
+//            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
+//            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo)")
+//    Page<Object[]> deliverMaterial(Pageable pageable);
 }

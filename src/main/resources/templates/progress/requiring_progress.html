@@ -117,8 +117,8 @@
               </thead>
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${list.dtoList}">
-                  <td>--</td>
                   <td>[[${list.baljuDTO.baljuNo}]]</td>
+                  <td>--</td>
                   <td>[[${list.baljuDTO.contractDTO.partnerDTO.name}]]</td>
                   <td>
                     <a th:href="@{/order/download_order(baljuNo=${list.baljuDTO.baljuNo})}">[[${list.baljuDTO.filename}]]</a>

@@ -82,11 +82,13 @@ public class DevelopmentController {
 
         ProSDTO proSDTO=proCodeService.findProS(saveProductDTO.getSelectProS());
         productDTO.setProSDTO(proSDTO);
-
+        System.out.println("@@@@@@#############"+productDTO);
         ProductDTO savedProductDTO=productService.addProduct(productDTO);
+        System.out.println("@@@@@@"+savedProductDTO);
 
         for(MaterQuantityDTO materQuantityDTO:saveProductDTO.getMaterQuantityDTOs()){
             MaterialDTO materialDTO=materialService.findM(materQuantityDTO.getCode());
+            System.out.println("#####"+materialDTO);
 
             StructureDTO structureDTO=StructureDTO.builder()
                     .productDTO(savedProductDTO)

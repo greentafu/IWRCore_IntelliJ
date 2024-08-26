@@ -23,8 +23,7 @@ public class Shipment extends BaseEntity {
     private LocalDateTime receipt;      // 입고 일
     private String text;
     @NotNull
-    @Builder.Default
-    private Long receiveCheck = 0L;
+    private Long receiveCheck;
     private String bGo;
 
     @ManyToOne(fetch = FetchType.LAZY)

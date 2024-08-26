@@ -24,8 +24,7 @@ public class Request extends BaseEntity {
     private LocalDateTime eventDate;
     private String text;
     @NotNull
-    @Builder.Default
-    private Long reqCheck = 0L;
+    private Long reqCheck;
     @NotNull
     private String line;
 
