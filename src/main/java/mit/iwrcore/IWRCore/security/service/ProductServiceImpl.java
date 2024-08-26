@@ -7,13 +7,16 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProductDTO;
 import mit.iwrcore.IWRCore.repository.ProductRepository;
+import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -116,6 +119,7 @@ public class ProductServiceImpl implements ProductService {
                 .mater_check(dto.getMater_check())
                 .proS(proCodeService.proSdtoToEntity(dto.getProSDTO()))
                 .member(memberService.memberdtoToEntity(dto.getMemberDTO()))
+
                 .build();
     }
 
@@ -136,7 +140,33 @@ public class ProductServiceImpl implements ProductService {
                 .mater_check(entity.getMater_check())
                 .proSDTO(proCodeService.proSTodto(entity.getProS()))
                 .memberDTO(memberService.memberTodto(entity.getMember()))
+                .proPlans(entity.getProPlans().stream()
+                        .map(proPlan -> ProplanDTO.builder()
+                                .proplanNo(proPlan.getProplanNo())
+                                .pronum(proPlan.getPronum())
+                                .filename(proPlan.getFilename())
+                                .startDate(proPlan.getStartDate())
+                                .endDate(proPlan.getEndDate())
+                                .line(proPlan.getLine())
+                                .details(proPlan.getDetails())
+                                .build())
+                        .collect(Collectors.toList()))
                 .build();
     }
+    @Override
+    public List<ProductDTO> searchProducts(String query) {
+        List<Product> products;
+        if (query == null || query.trim().isEmpty()) {
+            products = productRepository.findAll();
+        } else {
+            products = productRepository.searchProducts(query);
+        }
+        return products.stream()
+                .map(this::productEntityToDto)
+                .collect(Collectors.toList());
+    }
+
 
 }
+
+

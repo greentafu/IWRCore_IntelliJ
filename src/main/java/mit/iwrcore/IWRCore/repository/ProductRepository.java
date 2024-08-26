@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -33,4 +34,8 @@ public interface  ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select count(p) from Product p where p.mater_check=0")
     Long newProductCount();
+    // 제품 번호 또는 이름으로 검색하는 메서드 추가
+    @Query("select p from Product p where lower(cast(p.manuCode as string)) like lower(concat('%', :query, '%')) or lower(p.name) like lower(concat('%', :query, '%'))")
+    List<Product> searchProducts(@Param("query") String query);
+
 }
