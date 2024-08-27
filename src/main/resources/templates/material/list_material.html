@@ -133,7 +133,6 @@
                       <option>C창고</option>
                     </select>
                   </th>
-                  <th>해당제품</th>
                   <th>수정/삭제</th>
                 </tr>
               </thead>
@@ -147,7 +146,6 @@
                   <td>[[${list.color}]]</td>
                   <td>[[${list.boxDTO.boxname}]]</td>
                   <!--<a th:href="@{${material.filepath}}">다운받기</a>-->
-                  <td>--</td>
                   <td>
                     <a th:href="@{/material/modify_material(materCode=${list.materCode})}">
                       <button class="btn btn-primary">수정</button>

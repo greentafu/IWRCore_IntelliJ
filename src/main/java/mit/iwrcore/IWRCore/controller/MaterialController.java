@@ -70,7 +70,7 @@ public class MaterialController {
         MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
 
         materialDTO.setMemberDTO(memberDTO);
-        materialDTO.setBoxDTO(BoxDTO.builder().boxcode(1L).build()); // 박스 찾는 것 필요
+        materialDTO.setBoxDTO(BoxDTO.builder().boxcode(boxService.getBox(box).getBoxcode()).build()); // 박스 찾는 것 필요
         materialDTO.setMaterSDTO(materService.findMaterS(materS));
 
         // 파일 저장

@@ -57,24 +57,8 @@ function initMater1(){
                 );
             });
 
-            document.getElementById('selectMaterL').addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-                const selectedValue = selectedOption.textContent;
-                const inputField = document.getElementById('inputMaterL');
-                inputField.value = selectedValue;
-            });
-            document.getElementById('selectMaterM').addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-                const selectedValue = selectedOption.textContent;
-                const inputField = document.getElementById('inputMaterM');
-                inputField.value = selectedValue;
-            });
-            document.getElementById('selectMaterS').addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-                const selectedValue = selectedOption.textContent;
-                const inputField = document.getElementById('inputMaterS');
-                inputField.value = selectedValue;
-            });
+            const tf=document.getElementById('inputMaterL');
+            if(tf) addSelectChangeListenersM();
 
         }
     });
@@ -170,7 +154,8 @@ function updateMaterCode(changedSelect){
                         .prop('selected', materS.materScode == data.s)
                 );
             });
-
+            const tf=document.getElementById('inputMaterL');
+            if(tf) addSelectChangeListenersM();
         }
     });
 
@@ -230,6 +215,53 @@ function updateMaterCode2(changedSelect){
         }
     });
 
+}
+
+// input
+function addSelectChangeListenersM() {
+    $('#selectMaterL').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputMaterL').val(selectedValue);
+
+        const selectMValue = '';
+        $('#inputMaterM').val(selectMValue);
+        const selectSValue = '';
+        $('#inputMaterS').val(selectSValue);
+    });
+
+    $('#selectMaterM').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputMaterM').val(selectedValue);
+
+        const selectedL=document.getElementById('selectMaterL');
+        const selectedOptionL = selectedL.options[selectedL.selectedIndex];
+        const selectLText = selectedOptionL.textContent;
+        console.log("selectL:", selectLText);
+        $('#inputMaterL').val(selectLText);
+
+        const selectSValue = '';
+        $('#inputMaterS').val(selectSValue);
+    });
+
+    $('#selectMaterS').off('change').on('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const selectedValue = selectedOption.textContent;
+        $('#inputMaterS').val(selectedValue);
+
+        const selectedL=document.getElementById('selectMaterL');
+        const selectedOptionL = selectedL.options[selectedL.selectedIndex];
+        const selectLText = selectedOptionL.textContent;
+        console.log("selectL:", selectLText);
+        $('#inputMaterL').val(selectLText);
+
+        const selectedM=document.getElementById('selectMaterM');
+        const selectedOptionM = selectedM.options[selectedM.selectedIndex];
+        const selectMText = selectedOptionM.textContent;
+        console.log("selectM:", selectMText);
+        $('#inputMaterM').val(selectMText);
+    });
 }
 // 초기화면1(검색)
 function searchMaterCode(materL1, materM1, materS1){

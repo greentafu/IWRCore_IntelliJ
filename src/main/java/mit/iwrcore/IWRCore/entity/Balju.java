@@ -19,13 +19,13 @@ public class Balju extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long baljuNo;       // 발주서 번호
+    private Long baljuNum;
     @NotNull
     private String baljuWhere; // 배송장소
     private String baljuPlz;  // 요청사항
     private String filename; // 파일
     @NotNull
-    @Builder.Default
-    private Long finCheck = 0L;
+    private Long finCheck;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")    // 외래 키 컬럼 이름

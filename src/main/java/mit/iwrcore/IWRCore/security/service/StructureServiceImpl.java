@@ -54,9 +54,13 @@ public class StructureServiceImpl implements StructureService {
 
     @Override
     public List<StructureDTO> findByProduct_ManuCode(Long manuCode) {
-        List<StructureDTO> dtoList=new ArrayList<>();
-        structureRepository.findByProduct_ManuCode(manuCode).forEach(x->dtoList.add(structureTodto(x)));
-        return dtoList;
+        List<Object[]> list=structureRepository.findByProduct_ManuCode(manuCode);
+        return list.stream().map(this::exStruct).toList();
+    }
+    private StructureDTO exStruct(Object[] objects){
+        Structure structure=(Structure) objects[0];
+        StructureDTO structureDTO=(structure!=null)?structureTodto(structure):null;
+        return structureDTO;
     }
 
     // dto를 entity로

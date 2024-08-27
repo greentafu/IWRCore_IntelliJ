@@ -17,216 +17,214 @@
       <!--/Style-->
   </span>
 
-    <span id="content">
+  <span id="content">
     <!-- Content -->
 
-      <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">계약서 /</span> 신규 등록</h4>
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card mb-4">
-              <!-- Account -->
-              <div class="card-body">
-                <h5>담당자 정보</h5>
-                <label class="form-label">담당자</label>
-                <input class="form-control" type="text" id="person" name="firstName"
-                       placeholder="홍길동" autofocus />
-              </div>
-              <hr class="m-0">
-              <div class="card-body">
-                <div class="mb-3 col-md-6">
-                  <h5>공급자 정보</h5>
-                  <div class="mb-3">
-                    <button
-                            type="button"
-                            class="btn btn-outline-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalScrollable"
-                    >
-                      공급자 선택
-                    </button>
-                  </div>
-                  <label class="form-label">협력업체명</label>
-                  <input class="form-control" type="text" id="partnerName"/>
-                  <input class="form-control" type="text" id="partnerNo" style="display:none;"/>
-                </div>
-                <label class="form-label">첨부 파일</label>
-                <div class="input-group mb-3">
-                  <input
-                          type="file"
-                          class="form-control"
-                          id="file"
-                          aria-describedby="inputGroupFileAddon04"
-                          aria-label="Upload"
-                  />
-                  <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
-                </div>
-              </div>
-              <hr class="m-0" />
-              <div class="card-body ㅡ">
-                <h5>계약 자재 정보</h5>
-                <button
-                        type="button"
-                        class="btn btn-outline-primary mb-4"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalScrollable2"
-                >
-                  자재선택
-                </button>
-                <div class="text-nowrap table-responsive">
-                  <table class="table table-bordered mb-4">
-                    <tr>
-                      <th>조달계획번호</th>
-                      <th>자재번호</th>
-                      <th>자재명</th>
-                      <th>단가</th>
-                      <th>수량</th>
-                      <th>걸리는 일수</th>
-                      <th>체결일 </th>
-                    </tr>
-                    <tbody id="insertPoint"></tbody>
-                  </table>
-                </div>
-                <div class="d-flex justify-content-between w-100">
-                  <a th:href="@{/contract/list_contract}">
-                    <button type="reset" class="btn btn-outline-secondary">취소</button>
-                  </a>
-                  <button class="btn btn-primary" onclick="saveContract()">등록</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Overlay -->
-
-      <!--Modal-->
-      <!--Modal1-->
-      <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <h5 class="modal-title mb-4" id="modalScrollableTitle">공급자 검색</h5>
-              <div class="row mb-10 mb-2">
-                <label class="form-label col-md-2" style="width: fit-content;">협력회사</label>
-                <div class="col-md-10">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <select class="form-select form-select-sm">
-                        <option>전체보기</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <select class="form-select form-select-sm">
-                        <option>전체보기</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <select class="form-select form-select-sm">
-                        <option>전체보기</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <form class="d-flex" onsubmit="return false">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                  <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
-              </div>
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">계약서 /</span> 신규 등록</h4>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <!-- Account -->
+            <div class="card-body">
+              <h5>담당자 정보</h5>
+              <label class="form-label">담당자</label>
+              <input class="form-control" type="text" id="person" name="firstName" placeholder="홍길동" autofocus />
             </div>
             <hr class="m-0">
-            <div class="modal-body" style="height: 350px;">
-              <table class="table table-hover">
-                <tr th:each="partner:${partner}">
-                  <td>[[${partner.name}]]</td>
-                  <td>[[${partner.registrationNumber}]]</td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-primary" th:value="${partner.pno}" onclick="selPartner(this)">
-                      선택
-                    </button>
-                  </td>
-                </tr>
-              </table>
+            <div class="card-body">
+              <div class="mb-3 col-md-6">
+                <h5>공급자 정보</h5>
+                <div class="mb-3">
+                  <button
+                          type="button"
+                          class="btn btn-outline-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalScrollable"
+                  >
+                    공급자 선택
+                  </button>
+                </div>
+                <label class="form-label">협력업체명</label>
+                <input class="form-control" type="text" id="partnerName"/>
+                <input class="form-control" type="text" id="partnerNo" style="display:none;"/>
+              </div>
+              <label class="form-label">첨부 파일</label>
+              <div class="input-group mb-3">
+                <input
+                        type="file"
+                        class="form-control"
+                        id="file"
+                        aria-describedby="inputGroupFileAddon04"
+                        aria-label="Upload"
+                />
+                <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
+              </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                닫기
+            <hr class="m-0" />
+            <div class="card-body ㅡ">
+              <h5>계약 자재 정보</h5>
+              <button
+                      type="button"
+                      class="btn btn-outline-primary mb-4"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalScrollable2"
+              >
+                자재선택
               </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--/Modal1-->
-      <!--Modal2-->
-      <div class="modal fade" id="modalScrollable2" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-          <div class="modal-content" style="width: 500px;">
-            <div class="modal-body">
-              <h5 class="modal-title mb-4">자재 검색</h5>
-              <div class="row mb-10 mb-2">
-                <label class="form-label col-md-2" style="width: fit-content;">자재</label>
-                <div class="col-md-10">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <select class="form-select form-select-sm">
-                        <option>전체보기</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <select class="form-select form-select-sm">
-                        <option>전체보기</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <select class="form-select form-select-sm">
-                        <option>전체보기</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <form class="d-flex" onsubmit="return false">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                  <button class="btn btn-outline-primary" type="submit">Search</button>
-                </form>
-              </div>
-            </div>
-            <hr class="m-0">
-            <div class="modal-body" style="height: 350px;">
-              <input type="number" value="0" style="display:none;" id="checkValue">
-              <button type="button" class="btn btn-primary btn-sm mb-2" onclick="selectAllPlan()">모두선택</button>
-              <div class="table-responsive text-nowrap">
-                <table class="table table-hover">
+              <div class="text-nowrap table-responsive">
+                <table class="table table-bordered mb-4">
                   <tr>
-                    <th></th>
                     <th>조달계획번호</th>
                     <th>자재번호</th>
                     <th>자재명</th>
+                    <th>단가</th>
+                    <th>수량</th>
+                    <th>걸리는 일수</th>
+                    <th>체결일 </th>
                   </tr>
-                  <tbody id="noneContract"></tbody>
+                  <tbody id="insertPoint"></tbody>
                 </table>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addJodalPlan()">
-                추가
-              </button>
-              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                닫기
-              </button>
+              <div class="d-flex justify-content-between w-100">
+                <a th:href="@{/contract/list_contract}">
+                  <button type="reset" class="btn btn-outline-secondary">취소</button>
+                </a>
+                <button class="btn btn-primary" onclick="saveContract()">등록</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <!--/Modal2-->
-      <!--/Modal-->
-      <!--Script-->
-      <script>
+    </div>
+
+    <!-- Overlay -->
+
+    <!--Modal-->
+    <!--Modal1-->
+    <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5 class="modal-title mb-4" id="modalScrollableTitle">공급자 검색</h5>
+            <div class="row mb-10 mb-2">
+              <label class="form-label col-md-2" style="width: fit-content;">협력회사</label>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <form class="d-flex" onsubmit="return false">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+          <hr class="m-0">
+          <div class="modal-body" style="height: 350px;">
+            <table class="table table-hover">
+              <tr th:each="partner:${partner}">
+                <td>[[${partner.name}]]</td>
+                <td>[[${partner.registrationNumber}]]</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary" th:value="${partner.pno}" onclick="selPartner(this)">
+                    선택
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/Modal1-->
+    <!--Modal2-->
+    <div class="modal fade" id="modalScrollable2" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content" style="width: 500px;">
+          <div class="modal-body">
+            <h5 class="modal-title mb-4">자재 검색</h5>
+            <div class="row mb-10 mb-2">
+              <label class="form-label col-md-2" style="width: fit-content;">자재</label>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <select class="form-select form-select-sm">
+                      <option>전체보기</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <form class="d-flex" onsubmit="return false">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+              </form>
+            </div>
+          </div>
+          <hr class="m-0">
+          <div class="modal-body" style="height: 350px;">
+            <input type="number" value="0" style="display:none;" id="checkValue">
+            <button type="button" class="btn btn-primary btn-sm mb-2" onclick="selectAllPlan()">모두선택</button>
+            <div class="table-responsive text-nowrap">
+              <table class="table table-hover">
+                <tr>
+                  <th></th>
+                  <th>조달계획번호</th>
+                  <th>자재번호</th>
+                  <th>자재명</th>
+                </tr>
+                <tbody id="noneContract"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="addJodalPlan()">
+              추가
+            </button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/Modal2-->
+    <!--/Modal-->
+    <!--Script-->
+    <script>
         $(document).ready(function(){
           initNoneContract();
         });

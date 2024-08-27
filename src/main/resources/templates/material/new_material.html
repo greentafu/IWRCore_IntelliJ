@@ -52,30 +52,24 @@
                 <div class="col-md-3">
                   <div class="row">
                     <select class="form-select col-form-label" style="width: fit-content;"
-                            aria-label="Default select example" id="selectPartL" onchange="updatePartCode('L')">
-                    </select>&nbsp;
-                    <input type="text" class="form-control col-md-2" id="writeCategory1"
-                           name="selboxDirectMeasure" hidden>
+                            aria-label="Default select example" id="selectMaterL" onchange="updateMaterCode('L')">
+                    </select>
                   </div>
                 </div>
                 <label class="col-form-label" style="width: 85px;">중분류 : </label>
                 <div class="col-md-3">
                   <div class="row">
                     <select class="form-select col-form-label" style="width: fit-content;"
-                            aria-label="Default select example" id="selectPartM" onchange="updatePartCode('M')">
-                    </select>&nbsp;
-                    <input type="text" class="form-control col-md-10" id="writeCategory2"
-                           name="selboxDirectMeasure" hidden>
+                            aria-label="Default select example" id="selectMaterM" onchange="updateMaterCode('M')">
+                    </select>
                   </div>
                 </div>
                 <label class="col-form-label" style="width: 85px;">소분류 : </label>
                 <div class="col-md-3">
                   <div class="row">
                     <select class="form-select col-form-label" style="width: fit-content;" name="materS"
-                            aria-label="Default select example" id="selectPartS" onchange="updatePartCode('S')">
-                    </select>&nbsp;
-                    <input type="text" class="form-control col-md-10" id="writeCategory3"
-                           name="selboxDirectMeasure" hidden>
+                            aria-label="Default select example" id="selectMaterS" onchange="updateMaterCode('S')">
+                    </select>
                   </div>
                 </div>
               </div>
@@ -152,10 +146,10 @@
     <script>
       function saveMaterial(){
         var materialName=document.getElementById('materialName').value;
-        var selectPartS=document.getElementById('selectPartS').value;
+        var selectMaterS=document.getElementById('selectMaterS').value;
         if(materialName.trim()===''){
           alert('제품명을 입력해 주세요.');
-        }else if(selectPartS.trim()===''){
+        }else if(selectMaterS.trim()===''){
           alert('카테고리를 선택해 주세요');
         }else {
           document.getElementById('materialForm').submit();

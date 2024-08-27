@@ -6,8 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Objects;
 
 public interface ProplanRepository extends JpaRepository<ProPlan, Long> {
 
@@ -15,4 +17,9 @@ public interface ProplanRepository extends JpaRepository<ProPlan, Long> {
     List<ProPlan> proPlanList(Pageable pageable);
 
     List<ProPlan> findByProplanNo(Long proplanNo);
+
+    @Query("select p, pr from ProPlan p join Product pr on (p.product.manuCode=pr.manuCode)")
+    Page<Object[]> findproPlanList(Pageable pageable);
+
+
 }

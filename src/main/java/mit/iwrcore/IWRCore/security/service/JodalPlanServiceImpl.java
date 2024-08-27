@@ -70,7 +70,12 @@ public class JodalPlanServiceImpl implements JodalPlanService {
 
     @Override
     public JodalPlanDTO findById(Long id) {
-        return (id!=null)?entityToDTO(jodalPlanRepository.findById(id).get()):null;
+        JodalPlanDTO jodalPlanDTO=null;
+        if(id!=null) {
+            JodalPlan jodalPlan=(JodalPlan) jodalPlanRepository.getJodalPlan(id).get(0)[0];
+            jodalPlanDTO=entityToDTO(jodalPlan);
+        }
+        return jodalPlanDTO;
     }
 
     @Override
@@ -105,6 +110,17 @@ public class JodalPlanServiceImpl implements JodalPlanService {
         Function<JodalPlan, JodalPlanDTO> fn = (entity -> entityToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
     }
+    @Override
+    public PageResultDTO<JodalPlanDTO, Object[]> nonJodalplanMaterial2(PageRequestDTO requestDTO){
+        Pageable pageable = requestDTO.getPageable(Sort.by("joNo").descending());
+        Page<Object[]> entityPage = jodalPlanRepository.nonPlanMaterial2(pageable);
+        return new PageResultDTO<>(entityPage, this::exJodalPlan);
+    }
+    private JodalPlanDTO exJodalPlan(Object[] objects){
+        JodalPlan jodalPlan=(JodalPlan) objects[0];
+        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)?entityToDTO(jodalPlan):null;
+        return jodalPlanDTO;
+    }
 
     @Override
     public JodalPlan dtoToEntity(JodalPlanDTO dto) {
@@ -128,14 +144,26 @@ public class JodalPlanServiceImpl implements JodalPlanService {
 
     @Override
     public List<JodalPlanDTO> noneContractJodalPlan(){
-        List<JodalPlan> entityList=jodalPlanRepository.noneContractJodalPlan();
-        List<JodalPlanDTO> dtoList=entityList.stream().map(this::entityToDTO).toList();
+        List<Object[]> entityList=jodalPlanRepository.noneContractJodalPlan();
+        List<JodalPlanDTO> dtoList=entityList.stream().map(this::exJodalPlanDTO).toList();
         return dtoList;
+    }
+    private JodalPlanDTO exJodalPlanDTO(Object[] objects){
+        JodalPlan jodalPlan=(JodalPlan) objects[0];
+        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)? entityToDTO(jodalPlan):null;
+        return jodalPlanDTO;
     }
 
     @Override
     public Long newNoneJodalChasuCount(){
         Long count=jodalPlanRepository.newNoneJodalPlanCount();
         return (count!=null)?count:0L;
+    }
+
+    @Override
+    public PageResultDTO<JodalPlanDTO, Object[]> noContract(PageRequestDTO requestDTO){
+        Pageable pageable = requestDTO.getPageable(Sort.by("joNo").descending());
+        Page<Object[]> entityPage = jodalPlanRepository.noContract(pageable);
+        return new PageResultDTO<>(entityPage, this::exJodalPlanDTO);
     }
 }

@@ -36,6 +36,7 @@ public class BaljuServiceImpl implements BaljuService {
     public Balju convertToEntity(BaljuDTO dto) {
         return Balju.builder()
                 .baljuNo(dto.getBaljuNo())
+                .baljuNum(dto.getBaljuNum())
                 .baljuWhere(dto.getBaljuWhere())
                 .baljuPlz(dto.getBaljuPlz())
                 .filename(dto.getFilename())
@@ -50,6 +51,7 @@ public class BaljuServiceImpl implements BaljuService {
     public BaljuDTO convertToDTO(Balju entity) {
         return BaljuDTO.builder()
                 .baljuNo(entity.getBaljuNo())
+                .baljuNum(entity.getBaljuNum())
                 .baljuWhere(entity.getBaljuWhere())
                 .baljuPlz(entity.getBaljuPlz())
                 .filename(entity.getFilename())

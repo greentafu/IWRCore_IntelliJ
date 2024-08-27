@@ -1,5 +1,6 @@
 package mit.iwrcore.IWRCore.security.service;
 
+import mit.iwrcore.IWRCore.entity.Gumsu;
 import mit.iwrcore.IWRCore.entity.GumsuChasu;
 import mit.iwrcore.IWRCore.security.dto.GumsuChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
@@ -20,7 +21,7 @@ public interface GumsuChasuService {
     GumsuChasuDTO convertToDTO(GumsuChasu entity);
 
     // 기타 CRUD 메서드
-    GumsuChasuDTO createGumsuChasu(GumsuChasuDTO gumsuChasuDTO);
+    void createGumsuChasu(GumsuChasuDTO gumsuChasuDTO, Gumsu gumsu);
 
     GumsuChasuDTO getGumsuChasuById(Long id);
 

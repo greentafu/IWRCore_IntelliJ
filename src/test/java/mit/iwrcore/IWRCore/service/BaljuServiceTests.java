@@ -116,7 +116,8 @@ public class BaljuServiceTests {
     public void test22222(){
 //        PageRequestDTO2 requestDTO2=PageRequestDTO2.builder().size2(2).page2(1).build();
 //        System.out.println(baljuService.finBaljuPage(requestDTO2));
-        System.out.println(baljuService.getBaljuById(1L));
+        PageRequestDTO2 requestDTO=PageRequestDTO2.builder().size2(2).page2(1).build();
+        System.out.println(baljuService.finBaljuPage(requestDTO));
     }
 
 }

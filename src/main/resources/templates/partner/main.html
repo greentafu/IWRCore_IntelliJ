@@ -32,23 +32,23 @@
           </a>
           <div class="demo-inline-spacing">
 
-            <th:block th:if="${list.returns}!=null and ${list.returns}!=1">
+            <th:block th:if="${list.returns}!=null">
               <button type="button" class="btn btn-sm btn-primary" th:onclick="|location.href='@{/partner/view_return(reNO=${list.returns})}'|">
                 <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
               </button>
             </th:block>
-            <th:block th:if="${list.returns}==null or ${list.returns}==1">
+            <th:block th:if="${list.returns}==null">
               <button type="button" class="btn btn-sm btn-outline-primary">
                 <span class="tf-icons bx bx-redo"></span>&nbsp; 반품처리
               </button>
             </th:block>
 
-            <th:block th:if="${list.emergency}!=null and ${list.emergency}!=1">
+            <th:block th:if="${list.emergency}!=null">
               <button type="button" class="btn btn-sm btn-primary" th:onclick="|location.href='@{/partner/list_urgent}'|">
                 <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
               </button>
             </th:block>
-            <th:block th:if="${list.emergency}==null or ${list.emergency}==1">
+            <th:block th:if="${list.emergency}==null">
               <button type="button" class="btn btn-sm btn-outline-primary">
                 <span class="tf-icons bx bx-task"></span>&nbsp; 긴급납품
               </button>

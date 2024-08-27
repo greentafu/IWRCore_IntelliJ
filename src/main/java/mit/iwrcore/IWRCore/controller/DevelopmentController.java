@@ -18,10 +18,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/development")
@@ -38,7 +37,8 @@ public class DevelopmentController {
 
     @GetMapping("/input_dev")
     public void input_dev(PageRequestDTO pageRequestDTO, Model model){
-        pageRequestDTO.setSize((int)materialRepository.count());
+        Integer size=(int)materialRepository.count();
+        pageRequestDTO.setSize((size!=null)?((size>=1)?size:1):1);
         model.addAttribute("material_list", materialService.findMaterialAll(pageRequestDTO));
     }
     @GetMapping("/list_dev")
@@ -49,9 +49,17 @@ public class DevelopmentController {
     public void detail_dev(){
 
     }
+    @GetMapping("/modify_dev")
+    public void modify_dev(@RequestParam Long manuCode, PageRequestDTO pageRequestDTO, Model model){
+        pageRequestDTO.setSize((int)materialRepository.count());
+        model.addAttribute("material_list", materialService.findMaterialAll(pageRequestDTO));
+        model.addAttribute("product", productService.getProductById(manuCode));
+        model.addAttribute("structure_list", structureService.findByProduct_ManuCode(manuCode));
+    }
     @PostMapping("/saveProduct")
     public String saveProduct(@RequestBody SaveProductDTO saveProductDTO){
         ProductDTO productDTO=ProductDTO.builder()
+                .manuCode((saveProductDTO.getManuCode()!=null)? saveProductDTO.getManuCode():null)
                 .name(saveProductDTO.getProductName())
                 .color(saveProductDTO.getProColor())
                 .text(saveProductDTO.getProText())
@@ -62,6 +70,11 @@ public class DevelopmentController {
                 .build();
         if(saveProductDTO.getSel()==1) productDTO.setMater_imsi(1L);
 
+        if(saveProductDTO.getManuCode()!=null){
+            List<StructureDTO> list=structureService.findByProduct_ManuCode(saveProductDTO.getManuCode());
+            list.forEach(x->structureService.deleteById(x.getSno()));
+        }
+
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         AuthMemberDTO authMemberDTO=(AuthMemberDTO) authentication.getPrincipal();
         MemberDTO memberDTO=memberService.findMemberDto(authMemberDTO.getMno(), null);
@@ -69,11 +82,13 @@ public class DevelopmentController {
 
         ProSDTO proSDTO=proCodeService.findProS(saveProductDTO.getSelectProS());
         productDTO.setProSDTO(proSDTO);
-
+        System.out.println("@@@@@@#############"+productDTO);
         ProductDTO savedProductDTO=productService.addProduct(productDTO);
+        System.out.println("@@@@@@"+savedProductDTO);
 
         for(MaterQuantityDTO materQuantityDTO:saveProductDTO.getMaterQuantityDTOs()){
             MaterialDTO materialDTO=materialService.findM(materQuantityDTO.getCode());
+            System.out.println("#####"+materialDTO);
 
             StructureDTO structureDTO=StructureDTO.builder()
                     .productDTO(savedProductDTO)

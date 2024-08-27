@@ -45,7 +45,7 @@ public class JodalController {
     @GetMapping("/list_jodal")
     public void list_jodal(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model) {
 
-        model.addAttribute("nonPlan_list", jodalPlanService.nonJodalplanMaterial(pageRequestDTO));
+        model.addAttribute("nonPlan_list", jodalPlanService.nonJodalplanMaterial2(pageRequestDTO));
         model.addAttribute("yesPlan_list", contractService.yesJodalplanMaterial(pageRequestDTO2));
     }
 
@@ -141,8 +141,12 @@ public class JodalController {
         AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
         MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
 
+        System.out.println("##########################"+list);
+
         for(SaveJodalChasuDTO dto:list){
             JodalPlanDTO jodalPlanDTO=jodalPlanService.findById(Long.valueOf(dto.getId()));
+            System.out.println("#########"+dto);
+            System.out.println("@@@@@@@@@@@"+jodalPlanDTO);
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime l1=LocalDateTime.parse(dto.getOneDate()+" 00:00:00", formatter);

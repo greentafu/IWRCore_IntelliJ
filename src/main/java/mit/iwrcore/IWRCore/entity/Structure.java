@@ -29,6 +29,5 @@ public class Structure {
     private Product product;
 
     @NotNull
-    @Builder.Default
-    private long quantity= 0L;
+    private long quantity;
 }

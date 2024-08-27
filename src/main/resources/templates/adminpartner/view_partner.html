@@ -26,235 +26,213 @@
             <!-- Account -->
             <hr class="my-0" />
             <div class="card-body">
-              <form id="formAccountSettings" method="POST" onsubmit="return false">
-                <div class="row">
-                  <div class="mb-3 col-md-6">
-                    <label for="firstName" class="form-label">협력회사번호</label>
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="firstName" class="form-label">협력회사번호</label>
+                  <input
+                          class="form-control"
+                          type="text"
+                          name="firstName"
+                          th:value="${partner.pno}"
+                          readonly
+                  />
+                  </div>
+                </div>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label for="firstName" class="form-label">상호</label>
+                  <input
+                          class="form-control"
+                          type="text"
+                          id="firstName"
+                          name="firstName"
+                          th:value="${partner.name}"
+                          readonly
+                  />
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">사업자 등록번호</label>
+                  <div class="input-group input-group-merge">
                     <input
-                            class="form-control"
                             type="text"
-                            id="firstName"
-                            name="firstName"
-                            value="60841"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.registrationNumber}"
                             readonly
                     />
                   </div>
                 </div>
-              </form>
-            </div>
-            <hr class="m-0">
-            <div class="card-body">
-              <form id="formAccountSettings" method="POST" onsubmit="return false">
-                <div class="row">
-                  <div class="mb-3 col-md-6">
-                    <label for="firstName" class="form-label">상호</label>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">대표</label>
+                  <div class="input-group input-group-merge">
                     <input
-                            class="form-control"
                             type="text"
-                            id="firstName"
-                            name="firstName"
-                            value="(주)HAN생활공업"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.ceo}"
                             readonly
                     />
                   </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">사업자 등록번호</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="000-00-00000"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">대표</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="김대표"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">사업장 소재지</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="경기도 화성시 납양읍 활초리 26-1길"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">업태</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="제조업"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">종목</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="금속사출부품"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">전화번호</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="000-000-0000"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">팩스번호</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="000-000-0000"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">메일주소</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="asd1234@mail.com"
-                              readonly
-                      />
-                    </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">사업장 소재지</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.location}"
+                            readonly
+                    />
                   </div>
                 </div>
-              </form>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">업태</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.type}"
+                            readonly
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">종목</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.sector}"
+                            readonly
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">전화번호</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.telNumber}"
+                            readonly
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">팩스번호</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.faxNumber}"
+                            readonly
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label" for="phoneNumber">메일주소</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.email}"
+                            readonly
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
             <hr class="m-0">
             <div class="card-body">
-              <form id="formAccountSettings" method="POST" onsubmit="return false">
-                <div class="row">
-                  <div class="mb-3 col-md-4">
-                    <label class="form-label" for="phoneNumber">대분류</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="기계부품"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-4">
-                    <label class="form-label" for="phoneNumber">중분류</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="프레임 및 관련부품"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-4">
-                    <label class="form-label" for="phoneNumber">소분류</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              placeholder="프레임"
-                              readonly
-                      />
-                    </div>
+              <div class="row">
+                <div class="mb-3 col-md-4">
+                  <label class="form-label" for="phoneNumber">대분류</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.partSDTO.partMDTO.partLDTO.Lname}"
+                            readonly
+                    />
                   </div>
                 </div>
-              </form>
+                <div class="mb-3 col-md-4">
+                  <label class="form-label" for="phoneNumber">중분류</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.partSDTO.partMDTO.Mname}"
+                            readonly
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-4">
+                  <label class="form-label" for="phoneNumber">소분류</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.partSDTO.Sname}"
+                            readonly
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
             <hr class="m-0">
             <div class="card-body">
-              <form id="formAccountSettings" method="POST" onsubmit="return false">
-                <div class="row">
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">담당자 이름</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="김담당"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">담당자 전화번호</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="000-000-0000"
-                              readonly
-                      />
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">담당자 이메일</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              value="ljj@mail.com"
-                              readonly
-                      />
-                    </div>
+              <div class="row">
+                <div class="mb-3 col-md-4">
+                  <label class="form-label" for="phoneNumber">담당자 이름</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.contacter}"
+                            readonly
+                    />
                   </div>
                 </div>
-              </form>
+                <div class="mb-3 col-md-4">
+                  <label class="form-label" for="phoneNumber">담당자 전화번호</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.contacterNumber}"
+                            readonly
+                    />
+                  </div>
+                </div>
+                <div class="mb-3 col-md-4">
+                  <label class="form-label" for="phoneNumber">담당자 이메일</label>
+                  <div class="input-group input-group-merge">
+                    <input
+                            type="text"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            class="form-control"
+                            th:value="${partner.contacterEmail}"
+                            readonly
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
             <hr class="m-0" />
             <div class="card-body">

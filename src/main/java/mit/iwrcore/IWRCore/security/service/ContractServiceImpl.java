@@ -72,7 +72,9 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractDTO getContractById(Long id) {
-        return contractRepository.findById(id).map(this::convertToDTO).get();
+        List<Object[]> list=contractRepository.findContract(id);
+        Contract contract=(Contract) list.get(0)[0];
+        return convertToDTO(contract);
     }
 
     @Override
@@ -117,19 +119,25 @@ public class ContractServiceImpl implements ContractService {
         JodalPlan jodalPlan=(JodalPlan) objects[0];
         Contract contract=(Contract) objects[1];
         JodalChasu jodalChasu=(JodalChasu) objects[2];
-        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)?jodalPlanService.entityToDTO(jodalPlan):null;
+
         ContractDTO contractDTO=(contract!=null)?convertToDTO(contract):null;
+        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)?jodalPlanService.entityToDTO(jodalPlan):null;
         JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
+
         return new ContractJodalChasyDTO(jodalPlanDTO, contractDTO, jodalChasuDTO);
     }
 
     // 협력회사용 계약서 목록
     @Override
-    public PageResultDTO<ContractDTO, Contract> partnerContractList(PageRequestDTO requestDTO) {
+    public PageResultDTO<ContractDTO, Object[]> partnerContractList(PageRequestDTO requestDTO) {
         Pageable pageable=requestDTO.getPageable(Sort.by("conNo").descending());
-        Page<Contract> entityPage=contractRepository.partnerContractList(pageable, requestDTO.getPno());
-        Function<Contract, ContractDTO> fn=(entity->convertToDTO(entity));
-        return new PageResultDTO<>(entityPage, fn);
+        Page<Object[]> entityPage=contractRepository.partnerContractList(pageable, requestDTO.getPno());
+        return new PageResultDTO<>(entityPage, this::exContractDTO);
+    }
+    private ContractDTO exContractDTO(Object[] objects){
+        Contract contract=(Contract) objects[0];
+        ContractDTO contractDTO=(contract!=null)? convertToDTO(contract):null;
+        return contractDTO;
     }
 
     @Override
@@ -162,6 +170,7 @@ public class ContractServiceImpl implements ContractService {
         }
         return newOrderDTOList;
     }
+
 }
 
 

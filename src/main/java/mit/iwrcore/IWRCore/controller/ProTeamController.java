@@ -48,7 +48,7 @@ public class ProTeamController {
     @GetMapping("/list_pro")
     public void list_pro(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model) {
         model.addAttribute("product_list", productService.getNonPlanProducts(pageRequestDTO));
-        model.addAttribute("proplan_list", proplanService.proplanList(pageRequestDTO2));
+        model.addAttribute("proplan_list", proplanService.proplanList2(pageRequestDTO2));
     }
 
     @GetMapping("/list_request")

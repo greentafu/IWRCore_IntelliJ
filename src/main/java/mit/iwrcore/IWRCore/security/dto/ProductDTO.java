@@ -7,6 +7,7 @@ import mit.iwrcore.IWRCore.entity.ProS;
 import mit.iwrcore.IWRCore.entity.Structure;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class ProductDTO {
     private String supervisor;
     private Long mater_imsi;
     private Long mater_check;
+    private LocalDateTime regDate;
     //외래키설정
     private ProSDTO proSDTO;
     private MemberDTO memberDTO;

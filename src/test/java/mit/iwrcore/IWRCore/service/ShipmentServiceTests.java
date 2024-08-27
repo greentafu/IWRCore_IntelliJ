@@ -149,7 +149,7 @@ public class ShipmentServiceTests {
     @Commit
     public void test12(){
         Pageable pageable=PageRequest.of(0,2);
-        System.out.println(shipmentRepository.partnerInvoicePage(pageable, 2L));
+        System.out.println(shipmentService.allShipmnetNum(1L));
     }
 
 }

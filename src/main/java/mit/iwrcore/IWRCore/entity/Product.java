@@ -26,14 +26,11 @@ public class Product extends BaseEntity{
     private String color;
     private String text;
     private String uuid;
-    @NotNull
     private String supervisor;
     @NotNull
-    @Builder.Default
-    private Long mater_imsi = 0L;
+    private Long mater_imsi;
     @NotNull
-    @Builder.Default
-    private Long mater_check = 0L;
+    private Long mater_check;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mno")

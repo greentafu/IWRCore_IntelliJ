@@ -45,7 +45,8 @@ public class ContractController {
     }
     @GetMapping("/list_contract")
     public void list_contract(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model){
-        model.addAttribute("yesPlan_list", contractService.couldContractMaterial(pageRequestDTO));
+        model.addAttribute("yesPlan_list", jodalPlanService.noContract(pageRequestDTO));
+//        model.addAttribute("yesPlan_list", contractService.couldContractMaterial(pageRequestDTO));
         model.addAttribute("finContract_list", baljuService.finishedContract(pageRequestDTO2));
     }
     @GetMapping("/modify_contract")

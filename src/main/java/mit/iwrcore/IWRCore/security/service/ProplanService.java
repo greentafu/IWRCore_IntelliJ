@@ -11,6 +11,7 @@ public interface ProplanService {
     void deleteById(Long id);
     ProplanDTO findById(Long id);
     PageResultDTO<ProplanDTO, ProPlan> proplanList(PageRequestDTO2 requestDTO);
+    PageResultDTO<ProplanDTO, Object[]> proplanList2(PageRequestDTO2 requestDTO);
 //    List<ProplanDTO> findByPlanId(Long planId);
 
     ProPlan dtoToEntity(ProplanDTO dto);

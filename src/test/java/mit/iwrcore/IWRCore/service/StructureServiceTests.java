@@ -153,6 +153,12 @@ public class StructureServiceTests {
 //        // Log or manual verification
 //        System.out.println("Found Structures: " + result);
 //    }
+    @Test
+    @Transactional
+    @Commit
+    public void test132131(){
+        System.out.println(structureService.findByProduct_ManuCode(3L));
+    }
 }
 
 

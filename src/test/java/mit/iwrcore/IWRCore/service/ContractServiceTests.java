@@ -103,14 +103,13 @@ public class ContractServiceTests {
     @Transactional
     @Commit
     public void test111(){
-        PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).pno(2L).build();
-        System.out.println(contractService.partnerContractList(requestDTO));
+        System.out.println(contractRepository.findContract(1L));
     }
     @Test
-    @Transactional
-    @Commit
     public void test5566(){
-        System.out.println(contractService.newOrderContract(2L));
+        PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).build();
+        Pageable pageable= PageRequest.of(0,2);
+//        System.out.println(contractRepository.noContractPage(pageable));
     }
 
 }

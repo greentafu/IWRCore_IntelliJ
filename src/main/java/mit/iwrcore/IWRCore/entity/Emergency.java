@@ -24,8 +24,7 @@ public class Emergency extends BaseEntity {
     @NotNull
     private String who;       // 담당자
     @NotNull
-    @Builder.Default
-    private Long emcheck = 0L;    // 확인여부 (boolean 타입)
+    private Long emcheck;    // 확인여부 (boolean 타입)
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")  // 외래 키 컬럼 이름

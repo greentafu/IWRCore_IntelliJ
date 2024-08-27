@@ -7,6 +7,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 
 import java.util.List;
+import java.util.Objects;
 
 public interface JodalPlanService {
     void saveFromProplan(ProplanDTO proplanDTO, MemberDTO memberDTO);
@@ -17,6 +18,7 @@ public interface JodalPlanService {
 
     // 조달차수 없는(조달계획 필요한) 자재
     PageResultDTO<JodalPlanDTO, JodalPlan> nonJodalplanMaterial(PageRequestDTO requestDTO);
+    PageResultDTO<JodalPlanDTO, Object[]> nonJodalplanMaterial2(PageRequestDTO requestDTO);
 
     List<ProPlanSturctureDTO> newJodalChasu(Long proplanNo);
 
@@ -27,4 +29,6 @@ public interface JodalPlanService {
     List<JodalPlanDTO> noneContractJodalPlan();
 
     Long newNoneJodalChasuCount();
+
+    PageResultDTO<JodalPlanDTO, Object[]> noContract(PageRequestDTO requestDTO);
 }

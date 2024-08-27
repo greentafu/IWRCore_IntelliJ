@@ -60,7 +60,7 @@ public class Partner {
 
     @PostPersist
     public void generateId() {
-        if (this.id == null) {
+        if (this.id==null || this.id.isEmpty()) {
             String temp = "partner" + pno + "_" + registrationNumber.substring(7);
             this.id = temp;
         }

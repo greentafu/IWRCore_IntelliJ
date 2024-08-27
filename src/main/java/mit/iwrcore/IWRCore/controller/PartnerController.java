@@ -131,6 +131,7 @@ public class PartnerController {
 
             List<EmergencyDTO> emergencyDTOs=emergencyService.getEmergencyByBalju(baljuDTO.getBaljuNo());
             List<ReturnsDTO> returnsDTOs=returnsService.getReturnsList(baljuDTO.getBaljuNo());
+            List<ShipmentDTO> shipmentDTOs=shipmentService.getShipmentByBalju(baljuDTO.getBaljuNo());
 
             PartnerMainDTO partnerMainDTO=PartnerMainDTO.builder()
                     .baljuDTO(baljuDTO)
