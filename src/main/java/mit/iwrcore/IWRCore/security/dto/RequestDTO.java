@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class RequestDTO {
-    private Long requstCode;
+    private Long requestCode;
     private Long requestNum;
     private LocalDateTime eventDate;
     private String text;

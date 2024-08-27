@@ -31,7 +31,7 @@ public class RequestServiceImpl implements RequestService{
     @Override
     public Request convertToEntity(RequestDTO dto) {
         return Request.builder()
-                .requstCode(dto.getRequstCode())
+                .requstCode(dto.getRequestCode())
                 .requestNum(dto.getRequestNum())
                 .eventDate(dto.getEventDate())
                 .text(dto.getText())
@@ -46,7 +46,7 @@ public class RequestServiceImpl implements RequestService{
     @Override
     public RequestDTO convertToDTO(Request entity) {
         return RequestDTO.builder()
-                .requstCode(entity.getRequstCode())
+                .requestCode(entity.getRequstCode())
                 .requestNum(entity.getRequestNum())
                 .eventDate(entity.getEventDate())
                 .text(entity.getText())

@@ -2,7 +2,8 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import mit.iwrcore.IWRCore.entity.Product;
+import mit.iwrcore.IWRCore.entity.*;
+import mit.iwrcore.IWRCore.repository.RequestRepository;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
@@ -41,6 +42,7 @@ public class ProTeamController {
     private final JodalPlanService jodalPlanService;
     private final MaterialService materialService;
     private final StructureService structureService;
+    private final RequestRepository requestRepository;
 
 
     @GetMapping("/list_pro")
@@ -232,6 +234,35 @@ public class ProTeamController {
         response.put("structures", structures);
 
         return ResponseEntity.ok(response);
+    }
+    @PostMapping("/submitRequest")
+    public ResponseEntity<Void> submitRequest(@RequestBody List<RequestDTO> requestDTOs) {
+        for (RequestDTO requestDTO : requestDTOs) {
+            Request request = new Request();
+
+            request.setRequestNum(requestDTO.getRequestNum());
+            request.setEventDate(requestDTO.getEventDate());
+            request.setText(requestDTO.getText());
+            request.setReqCheck(requestDTO.getReqCheck());
+            request.setLine(requestDTO.getLine());
+
+            // Material 엔티티로 변환
+            Material material = materialService.materdtoToEntity(requestDTO.getMaterialDTO());
+            request.setMaterial(material);
+
+            // ProPlan 엔티티로 변환
+            ProPlan proPlan = proplanService.dtoToEntity(requestDTO.getProplanDTO());
+            request.setProPlan(proPlan);
+
+            // Member 엔티티로 변환
+            Member member = memberService.memberdtoToEntity(requestDTO.getMemberDTO());
+            request.setWriter(member);
+
+            // Request 엔티티 저장
+            requestRepository.save(request);
+        }
+
+        return ResponseEntity.ok().build();
     }
 
 }
