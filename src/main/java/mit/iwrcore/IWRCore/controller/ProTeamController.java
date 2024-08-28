@@ -192,9 +192,14 @@ public class ProTeamController {
 
     }
 
-    @PostMapping("/delete_proplan")
-    public void delete_proplan() {
-
+    @GetMapping("/delete_proplan")
+    public String delete_proplan(@RequestParam(required = false) Long proplanNo) {
+        List<JodalPlanDTO> jodalPlanDTOs=jodalPlanService.findJodalPlanByProPlan(proplanNo);
+        if(jodalPlanDTOs!=null){
+            jodalPlanDTOs.forEach(x->jodalPlanService.deleteById(x.getJoNo()));
+        }
+        proplanService.deleteById(proplanNo);
+        return "redirect:/proteam/list_pro";
     }
 
     @PostMapping("/save_request")

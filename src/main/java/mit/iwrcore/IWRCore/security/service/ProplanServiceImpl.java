@@ -72,8 +72,8 @@ public class ProplanServiceImpl implements ProplanService{
     }
     private ProPlanContractNumDTO exProplan(Object[] objects){
         ProPlan proPlan=(ProPlan) objects[0];
-        Long jcnum=(Long) objects[1];
-        Long contractNum=(Long) objects[2];
+        Long jcnum=(Long) objects[2];
+        Long contractNum=(Long) objects[1];
         ProplanDTO proplanDTO=(proPlan!=null)?entityToDTO(proPlan):null;
         return new ProPlanContractNumDTO(proplanDTO, (jcnum!=null)?jcnum:0L, (contractNum!=null)?contractNum:0L);
     }

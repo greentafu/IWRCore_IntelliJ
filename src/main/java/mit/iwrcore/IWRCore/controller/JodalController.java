@@ -13,6 +13,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.StructureDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -60,9 +61,13 @@ public class JodalController {
         model.addAttribute("joNo", joNo);
 
 
-        model.addAttribute("structure_list", jodalPlanService.newJodalChasu(jodalPlanDTO.getProplanDTO().getProplanNo()));
 
+        List<ProPlanSturctureDTO> list=jodalPlanService.newJodalChasu(jodalPlanDTO.getProplanDTO().getProplanNo());
+        model.addAttribute("structure_list", list);
 
+        LocalDateTime startDate=list.get(0).getProplanDTO().getStartDate();
+        LocalDateTime minusDate=startDate.minusDays(3L);
+        model.addAttribute("baseDate", minusDate);
     }
 
     @PostMapping("/save")

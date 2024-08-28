@@ -193,7 +193,7 @@
                   <td id="manuName"><a th:href="@{/proteam/details_plan(manuCode=${list.proplanDTO.productDTO.manuCode})}">[[${list.proplanDTO.productDTO.name}]]</a></td>
                   <td id="period">[[${#temporals.format(list.proplanDTO.startDate, 'yyyy-MM-dd')}]]~[[${#temporals.format(list.proplanDTO.endDate, 'yyyy-MM-dd')}]]</td>
                   <td id="pronum">[[${list.proplanDTO.pronum}]]</td>
-                  <td>
+                  <td id="progress">
                     <th:block th:if="${list.jcNum==0 && list.contractNum==0}">진행 예정</th:block>
                     <th:block th:if="${list.jcNum!=0 && list.contractNum==0}">조달계획 수립</th:block>
                     <th:block th:if="${list.contractNum!=0}">계약 체결</th:block>
@@ -274,48 +274,29 @@
         var manuCode=document.getElementById('manuCode').innerText;
         var manuName=document.getElementById('manuName').innerText;
         var period=document.getElementById('period').innerText;
-        var period=document.getElementById('pronum').innerText;
+        var pronum=document.getElementById('pronum').innerText;
+        var progress=document.getElementById('progress').innerText;
 
-        var productName=document.getElementById('productName'+manuCode).innerText;
-        $.ajax({
-          url:'/select/checkProPlan',
-          method:'GET',
-          data:{manuCode:manuCode},
-          success:function(data){
-            if(data==0){
-              document.getElementById('deleteText').innerHTML=manuCode+" "+productName+"를 삭제합니다.<br/>삭제시 복구가 불가능합니다.";
-              document.getElementById('deleteBtn').value=manuCode;
-            }
-            if(data==1){
-              document.getElementById('deleteText').innerHTML="생산계획이 등록된 제품입니다. 삭제가 불가능합니다.";
-            }
-          }
-        });
-
+        if(progress!='계약 체결'){
+          document.getElementById('deleteText').innerHTML=manuName+"("+manuCode+")"+"의 생산계획(생산량:"+pronum+", 생산기간: "+period+")을 <br/>삭제합니다.<br/>삭제시 복구가 불가능합니다.";
+          document.getElementById('deleteBtn').value=proplanNo;
+        }
+        if(progress=='계약 체결'){
+          document.getElementById('deleteText').innerHTML=manuName+"("+manuCode+")"+"의 생산계획(생산량:"+pronum+", 생산기간: "+period+")의 <br/>계약이 체결되었습니다.<br/>삭제가 불가능합니다.";
+        }
 
       }
-      function deleteProduct(button){
-        var manuCode=button.value;
+      function deleteProPlan(button){
+        var proplanNo=button.value;
         $.ajax({
-          url:'/development/delete_product',
+          url:'/proteam/delete_proplan',
           method:'GET',
-          data:{manuCode:manuCode},
+          data:{proplanNo:proplanNo},
           success:function(response){
             window.location.reload();
           }
         });
       }
-    </script>
-      <script>
-        function showConfirmation() {
-          var result = confirm('삭제 하시겠습니까?');
-        }
-        function showCompletionMessage(action) {
-          alert('이미 완료된 작업입니다.');
-        }
-        function showCompletionMessage2(action) {
-          alert('이미 진행중인 작업입니다.');
-        }
     </script>
     <!--Script-->
   </span>

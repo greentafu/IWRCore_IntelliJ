@@ -166,4 +166,11 @@ public class JodalPlanServiceImpl implements JodalPlanService {
         Page<Object[]> entityPage = jodalPlanRepository.noContract(pageable);
         return new PageResultDTO<>(entityPage, this::exJodalPlanDTO);
     }
+
+    @Override
+    public List<JodalPlanDTO> findJodalPlanByProPlan(Long proplanNo){
+        List<JodalPlan> entityList=jodalPlanRepository.findByProPlanProplanNo(proplanNo);
+        List<JodalPlanDTO> dtoList=entityList.stream().map(this::entityToDTO).toList();
+        return dtoList;
+    }
 }

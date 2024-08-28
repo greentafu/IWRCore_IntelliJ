@@ -31,4 +31,6 @@ public interface JodalPlanService {
     Long newNoneJodalChasuCount();
 
     PageResultDTO<JodalPlanDTO, Object[]> noContract(PageRequestDTO requestDTO);
+
+    List<JodalPlanDTO> findJodalPlanByProPlan(Long proplanNo);
 }

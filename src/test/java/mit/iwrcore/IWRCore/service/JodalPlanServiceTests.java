@@ -91,7 +91,7 @@ public class JodalPlanServiceTests {
     @Transactional
     @Commit
     public void test2222(){
-        System.out.println(jodalPlanService.newJodalChasu(4L));
+        System.out.println(jodalPlanRepository.getJodalPlanByProPlan(2L));
     }
     @Test
     @Transactional
