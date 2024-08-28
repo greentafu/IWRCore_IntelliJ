@@ -109,4 +109,5 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
 
     @Query("select sum(s.shipNum) from Shipment s where s.balju.contract.jodalPlan.joNo=:joNo")
     Long allShipNum(Long joNo);
+    List<Shipment> findByReceiveCheck(Long receiveCheck);
 }

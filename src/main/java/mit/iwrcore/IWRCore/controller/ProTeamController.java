@@ -11,6 +11,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +44,7 @@ public class ProTeamController {
     private final MaterialService materialService;
     private final StructureService structureService;
     private final RequestRepository requestRepository;
+    private final ShipmentService shipmentService;
 
 
     @GetMapping("/list_pro")
@@ -198,74 +200,120 @@ public class ProTeamController {
     public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam(value = "query", defaultValue = "") String query) {
         List<ProductDTO> products;
 
-        if (query.isEmpty() || "all".equals(query)) {
-            // 모든 제품을 가져오는 메서드에서 PageResultDTO<ProductDTO, Product>를 가져옴
-            PageResultDTO<ProductDTO, Product> pageResult = productService.getAllProducts(new PageRequestDTO());
+        try {
+            if (query.isEmpty() || "all".equals(query)) {
+                // 모든 제품을 가져오는 메서드에서 PageResultDTO<ProductDTO, Product>를 가져옴
+                PageResultDTO<ProductDTO, Product> pageResult = productService.getAllProducts(new PageRequestDTO());
 
-            // ProductDTO 리스트를 직접 가져옴 (ProPlans는 이미 getAllProducts에서 설정됨)
-            products = pageResult.getDtoList();
-        } else {
-            // 검색 결과를 가져오는 메서드에서 결과를 List<ProductDTO>로 변환
-            products = productService.searchProducts(query);
+                // ProductDTO 리스트를 직접 가져옴 (ProPlans는 이미 getAllProducts에서 설정됨)
+                products = pageResult.getDtoList();
+            } else {
+                // 검색 결과를 가져오는 메서드에서 결과를 List<ProductDTO>로 변환
+                products = productService.searchProducts(query);
+            }
+
+            if (products.isEmpty()) {
+                return ResponseEntity.noContent().build(); // 데이터가 없는 경우
+            }
+
+            return ResponseEntity.ok(products);
+        } catch (Exception e) {
+            // 예외 처리
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-
-        return ResponseEntity.ok(products);
-    } @GetMapping("/material-structure")
-    public ResponseEntity<Map<String, Object>> getMaterialStructure(@RequestParam("manuCode") Long manuCode) {
-        // 제품 정보 조회
-        ProductDTO product = productService.getProductById(manuCode);
-        if (product == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        // 구조 정보 조회
-        List<StructureDTO> structures = structureService.findByProduct_ManuCode(manuCode);
-        if (structures.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        // 자재 정보 조회
-        List<MaterialDTO> materials = structures.stream()
-                .map(StructureDTO::getMaterialDTO) // 자재 DTO 추출
-                .distinct() // 중복 제거
-                .collect(Collectors.toList());
-
-        // 응답 데이터 생성
-        Map<String, Object> response = new HashMap<>();
-        response.put("product", product);
-        response.put("materials", materials); // MaterialDTO 목록을 직접 사용
-        response.put("structures", structures);
-
-        return ResponseEntity.ok(response);
     }
+    @GetMapping("/material-structure")
+    public ResponseEntity<Map<String, Object>> getMaterialStructure(@RequestParam("manuCode") Long manuCode) {
+        try {
+            // 제품 정보 조회
+            ProductDTO product = productService.getProductById(manuCode);
+            if (product == null) {
+                return ResponseEntity.notFound().build(); // 제품이 없는 경우
+            }
+
+            // 구조 정보 조회
+            List<StructureDTO> structures = structureService.findByProduct_ManuCode(manuCode);
+            if (structures.isEmpty()) {
+                return ResponseEntity.noContent().build(); // 구조 정보가 없는 경우
+            }
+
+            // 자재 정보 조회
+            List<MaterialDTO> materials = structures.stream()
+                    .map(StructureDTO::getMaterialDTO) // 자재 DTO 추출
+                    .distinct() // 중복 제거
+                    .collect(Collectors.toList());
+
+            // 응답 데이터 생성
+            Map<String, Object> response = new HashMap<>();
+            response.put("product", product);
+            response.put("materials", materials); // MaterialDTO 목록을 직접 사용
+            response.put("structures", structures);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            // 예외 처리
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+
     @PostMapping("/submitRequest")
     public ResponseEntity<Void> submitRequest(@RequestBody List<RequestDTO> requestDTOs) {
+        System.out.println("@@@@@@@@@@@@@@@@@"+requestDTOs);
+
+        // 인증된 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
+        MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
+        Member writer = memberService.memberdtoToEntity(memberDTO);
+
         for (RequestDTO requestDTO : requestDTOs) {
-            Request request = new Request();
+            try {
+                // Request 엔티티 생성 및 필수 정보 설정
+                Request request = new Request();
+                request.setWriter(writer);
+                request.setRequestNum(requestDTO.getRequestNum());
+                request.setEventDate(requestDTO.getEventDate());
+                request.setText(requestDTO.getText());
+                request.setReqCheck(requestDTO.getReqCheck());
+                request.setLine(requestDTO.getLine());
 
-            request.setRequestNum(requestDTO.getRequestNum());
-            request.setEventDate(requestDTO.getEventDate());
-            request.setText(requestDTO.getText());
-            request.setReqCheck(requestDTO.getReqCheck());
-            request.setLine(requestDTO.getLine());
+                // Material 변환 및 설정
+                if (requestDTO.getMaterialDTO() != null) {
+                    Material material = materialService.materdtoToEntity(requestDTO.getMaterialDTO());
+                    request.setMaterial(material);
+                } else {
+                    // MaterialDTO가 없으면 null을 설정하거나 예외 처리
+                    request.setMaterial(null);
+                }
 
-            // Material 엔티티로 변환
-            Material material = materialService.materdtoToEntity(requestDTO.getMaterialDTO());
-            request.setMaterial(material);
+                // ProPlan 변환 및 설정
+                if (requestDTO.getProplanDTO() != null) {
+                    ProPlan proPlan = proplanService.dtoToEntity(requestDTO.getProplanDTO());
+                    request.setProPlan(proPlan);
+                } else {
+                    // ProplanDTO가 없으면 null을 설정하거나 예외 처리
+                    request.setProPlan(null);
+                }
 
-            // ProPlan 엔티티로 변환
-            ProPlan proPlan = proplanService.dtoToEntity(requestDTO.getProplanDTO());
-            request.setProPlan(proPlan);
+                // Request 엔티티를 데이터베이스에 저장
+                requestRepository.save(request);
 
-            // Member 엔티티로 변환
-            Member member = memberService.memberdtoToEntity(requestDTO.getMemberDTO());
-            request.setWriter(member);
-
-            // Request 엔티티 저장
-            requestRepository.save(request);
+            } catch (Exception e) {
+                // 예외 처리: 변환 또는 저장 과정에서 오류 발생 시
+                log.error("RequestDTO 처리 중 오류 발생: ", e);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         }
 
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/material-stock")
+    public ResponseEntity<Long> getMaterialStock(@RequestParam String materialCode) {
+        Long stock = shipmentService.calculateCurrentStock(materialCode);
+        return ResponseEntity.ok(stock);
+    }
 }

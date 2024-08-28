@@ -21,7 +21,7 @@ public class Request extends BaseEntity {
     @NotNull
     private Long requestNum;
     @NotNull
-    private LocalDateTime eventDate;
+    private LocalDate eventDate;
     private String text;
     @NotNull
     private Long reqCheck;

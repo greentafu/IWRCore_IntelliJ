@@ -9,7 +9,6 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -32,7 +31,7 @@ public class ShipmentServiceImpl implements ShipmentService {
     private final ReturnsRepository returnsRepository;
     private final GumsuService gumsuService;
     private final PartnerService partnerService;
-
+    private final RequestRepository requestRepository;
     @Override
     @Transactional
     public void updateShipmentWithReturns(Long shipmentId, Long returnsId) {
@@ -282,5 +281,31 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public Long allShipmnetNum(Long joNo){
         return shipmentRepository.allShipNum(joNo);
+    }
+    @Override
+    public Long calculateCurrentStock(String materialCode) {
+        // ReceiveCheck가 1인 출고를 가져옵니다.
+        List<Shipment> shipments = shipmentRepository.findByReceiveCheck(1L);
+
+        // RequestCheck가 1인 요청을 가져옵니다.
+        List<Request> requests = requestRepository.findByReqCheck(1L);
+
+        // 자재별 출고 수량
+        Long totalShipped = shipments.stream()
+                .filter(shipment -> shipment.getBalju() != null
+                        && shipment.getBalju().getContract() != null
+                        && shipment.getBalju().getContract().getJodalPlan() != null
+                        && shipment.getBalju().getContract().getJodalPlan().getMaterial().getMaterCode().equals(materialCode))
+                .mapToLong(Shipment::getShipNum)
+                .sum();
+
+        // 자재별 요청 수량
+        Long totalRequested = requests.stream()
+                .filter(request -> request.getMaterial() != null
+                        && request.getMaterial().getMaterCode().equals(materialCode))
+                .mapToLong(Request::getRequestNum)
+                .sum();
+
+        return totalShipped - totalRequested;
     }
 }

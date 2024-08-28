@@ -94,7 +94,7 @@
                          <a th:href="@{/proteam/list_request}">
                           <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
                         </a>
-                         <button class="btn btn-primary" id="submitbutton">출하 요청</button>
+                         <button type="submit" class="btn btn-primary" id="submitbutton">출하 요청</button>
 
                       </div>
                     </div>
@@ -169,38 +169,33 @@
 <script>
 $(document).ready(function() {
     $('#searchButton').on('click', function() {
-        var query = $('input[type="search"]').val(); // 검색 입력값 가져오기
-
+        var query = $('input[type="search"]').val().trim();
         if (!query) {
-            query = 'all'; // 모든 데이터를 요청하는 키워드로 설정
+            query = 'all';
         }
 
         $.ajax({
-            url: '/proteam/search', // 검색 요청 URL
+            url: '/proteam/search',
             method: 'GET',
             data: { query: query },
             success: function(data) {
                 var resultsContainer = $('#searchResults');
-                resultsContainer.empty(); // 기존 내용 삭제
-
-                // 검색 결과를 HTML로 변환
+                resultsContainer.empty();
                 var html = '';
                 if (Array.isArray(data)) {
                     data.forEach(function(product) {
-                        // Check if proPlans is an array
                         if (Array.isArray(product.proPlans) && product.proPlans.length > 0) {
                             product.proPlans.forEach(function(plan) {
                                 html += '<tr>' +
                                         '<td><input type="radio" name="product" class="form-check-input" data-product=\'' + JSON.stringify(product) + '\' data-line="' + plan.line + '"></td>' +
                                         '<td>' + product.manuCode + '</td>' +
                                         '<td>' + product.name + '</td>' +
-                                        '<td>' + (plan.startDate ? plan.startDate : 'N/A') + '</td>' +
-                                        '<td>' + (plan.endDate ? plan.endDate : 'N/A') + '</td>' +
-                                        '<td>' + (plan.pronum ? plan.pronum : 'N/A') + '</td>' +
+                                        '<td>' + (plan.startDate || 'N/A') + '</td>' +
+                                        '<td>' + (plan.endDate || 'N/A') + '</td>' +
+                                        '<td>' + (plan.pronum || 'N/A') + '</td>' +
                                         '</tr>';
                             });
                         } else {
-                            // If proPlans is empty, still add product details without plans
                             html += '<tr>' +
                                     '<td><input type="radio" name="product" class="form-check-input" data-product=\'' + JSON.stringify(product) + '\' data-line="N/A"></td>' +
                                     '<td>' + product.manuCode + '</td>' +
@@ -215,7 +210,7 @@ $(document).ready(function() {
                     console.error('응답 데이터가 배열이 아닙니다:', data);
                 }
 
-                resultsContainer.html(html); // 결과를 테이블에 추가
+                resultsContainer.html(html);
             },
             error: function(xhr, status, error) {
                 console.error('검색 중 오류가 발생했습니다:', error);
@@ -223,86 +218,72 @@ $(document).ready(function() {
             }
         });
     });
-
-    // 모달에서 제품을 선택할 때
+    let selectedProduct = null;
     $('#searchResults').on('click', 'input[name="product"]', function() {
-        selectedProduct = $(this).data('product'); // JSON 데이터로 저장
-        selectedLine = $(this).data('line'); // planDTO의 line 값을 가져옴
-
-        // 선택된 제품의 line 값으로 버튼 텍스트 업데이트
+        selectedProduct = $(this).data('product');
+        selectedLine = $(this).data('line');
         $('#line-select-button').text(selectedLine + ' 라인');
     });
 
-    // 모달 확인 버튼 클릭 시
     $('#confirmButton').on('click', function() {
         if (selectedProduct) {
-            // 선택된 라인에 해당하는 계획을 찾기
             selectedPlan = selectedProduct.proPlans.find(plan => plan.line === selectedLine);
-
-            // 제품 수량 및 희망 일자 채우기
             $('#product-quantity').val(selectedPlan ? selectedPlan.pronum : '');
             $('#product-name').val(selectedProduct.name);
 
-            // 희망 일자 채우기 (생산 계획의 endDate 값 사용)
             var endDate = selectedPlan ? new Date(selectedPlan.endDate) : new Date();
-            var year = endDate.getFullYear();
-            var month = endDate.getMonth() + 1;
-            var day = endDate.getDate();
-            var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
-            $('#desired-date').val(formattedDate); // endDate를 yyyy-mm-dd 형식으로 변환 후 채우기
+            var formattedDate = endDate.toISOString().split('T')[0];
+            $('#desired-date').val(formattedDate);
+$.ajax({
+    url: '/proteam/material-structure',
+    method: 'GET',
+    data: { manuCode: selectedProduct.manuCode },
+    success: function(response) {
+        var materials = response.materials;
+        var structures = response.structures;
 
-            // 자재 및 구조 정보를 가져오는 AJAX 요청
-            $.ajax({
-                url: '/proteam/material-structure', // 자재 및 구조 정보를 가져오는 URL
-                method: 'GET',
-                data: { manuCode: selectedProduct.manuCode }, // 필요한 데이터를 쿼리로 전달
-                success: function(response) {
-                    var materials = response.materials; // 자재 정보 목록
-                    var structures = response.structures; // 구조 정보 목록
+        // 테이블 내용 초기화
+        var tableBody = $('#product-table-body');
+        tableBody.empty();
 
-                    // 테이블 내용 초기화
-                    var tableBody = $('#product-table-body');
-                    tableBody.empty();
+        // 제품 수량 추출
+        var productQuantity = parseFloat($('#product-quantity').val()) || 0;
 
-                    // 제품 수량 추출
-                    var productQuantity = parseFloat($('#product-quantity').val()) || 0;
+        // 자재와 구조 정보를 테이블에 추가
+        structures.forEach(function(structure) {
+            // 구조에서 자재 정보를 찾아서 매칭
+            var material = materials.find(mat => mat.materCode === structure.materialDTO.materCode);
 
-                    // 자재와 구조 정보를 테이블에 추가
-                    structures.forEach(function(structure) {
-                        // 구조에서 자재 정보를 찾아서 매칭
-                        var material = materials.find(mat => mat.materCode === structure.materialDTO.materCode);
+            var stock = structure.stockQuantity || 0; // 구조에서 자재 수량을 직접 가져옴
 
-                        var stock = structure.stockQuantity || 0; // structure에서 자재 수량을 직접 가져옴
+            // 출하 요청 수량 계산
+            var shippingRequestQuantity = structure.quantity * productQuantity;
 
-                        // 출하 요청 수량 계산
-                        var shippingRequestQuantity = structure.quantity * productQuantity;
+            // 부족 수량 계산
+            var shortage = stock - shippingRequestQuantity;
 
-                        // 부족 수량 계산
-                        var shortage = stock - shippingRequestQuantity;
+            // 각 구조에 대한 테이블 행 생성
+            var tableRow = `<tr data-index="${structure.materialDTO.materCode}">
+                <td>${material ? material.materCode : ''}</td>
+                <td>${material ? material.name : ''}</td>
+                <td>${structure.quantity || ''}</td>
+                <td>${stock || ''}</td>
+                <td>${shippingRequestQuantity || ''}</td>
+                <td>${shortage || ''}</td>
+            </tr>`;
 
-                        // 각 구조에 대한 테이블 행 생성
-                        var tableRow = `<tr data-index="${structure.materialDTO.materCode}">
-                            <td>${material ? material.materCode : ''}</td> <!-- 자재번호 -->
-                            <td>${material ? material.name : ''}</td> <!-- 자재명 -->
-                            <td>${structure.quantity || ''}</td> <!-- 제품 1개당 소요량 -->
-                            <td>${stock || ''}</td> <!-- 현재 자재 수량 -->
-                            <td>${shippingRequestQuantity || ''}</td> <!-- 출하 요청 수량 -->
-                            <td>${shortage || ''}</td> <!-- 부족 수량 -->
-                        </tr>`;
-
-                        // 테이블에 행 추가
-                        tableBody.append(tableRow);
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error('자재 및 구조 정보를 가져오는 중 오류가 발생했습니다:', error);
-                    alert('자재 및 구조 정보를 가져오는 중 오류가 발생했습니다.');
+            // 테이블에 행 추가
+            tableBody.append(tableRow);
+        });
+    },
+    error: function(xhr, status, error) {
+        console.error('자재 및 구조 정보를 가져오는 중 오류가 발생했습니다:', error);
+        alert('자재 및 구조 정보를 가져오는 중 오류가 발생했습니다.');
                 }
             });
         }
     });
 
-    // 제품 수량 변경 시 테이블 자동 업데이트
     $('#product-quantity').on('input', function() {
         var productQuantity = parseFloat($('#product-quantity').val()) || 0;
         $('#product-table-body tr').each(function() {
@@ -310,73 +291,63 @@ $(document).ready(function() {
             var quantityPerProduct = parseFloat($row.find('td:nth-child(3)').text()) || 0;
             var stock = parseFloat($row.find('td:nth-child(4)').text()) || 0;
 
-            // 출하 요청 수량 계산
             var shippingRequestQuantity = quantityPerProduct * productQuantity;
 
-            // 부족 수량 계산
             var shortage = stock - shippingRequestQuantity;
 
-            // 업데이트된 수량으로 테이블 행 수정
             $row.find('td:nth-child(5)').text(shippingRequestQuantity);
             $row.find('td:nth-child(6)').text(shortage);
         });
     });
+$('#submitbutton').on('click', function(event) {
+    event.preventDefault(); // 기본 폼 제출 방지
 
-    // 출하 요청 버튼 클릭 시
-    $('#submitbutton').on('click', function() {
-        const requestData = [];
+    const requestData = [];
 
-        // 테이블의 각 행을 순회하며 데이터를 수집
-        $('#product-table-body tr').each(function() {
-            const $row = $(this);
-            const requestNum = parseFloat($row.find('td:nth-child(5)').text()) || 0; // 출하 요청 수량
-            const eventDate = $('#desired-date').val(); // 희망 일자
-            const shortage = parseFloat($row.find('td:nth-child(6)').text()) || 0; // 부족 수량
-            const text = shortage < 0 ? `${Math.abs(shortage)}개 부족` : ''; // 부족 수량이 음수일 때만 텍스트 생성
-            const line = $('#line-select-button').text().trim(); // 라인 선택
-            const materialCode = $row.data('index'); // 자재 번호
+    $('#product-table-body tr').each(function() {
+        const $row = $(this);
+        const requestNum = parseFloat($row.find('td:nth-child(5)').text()) || 0;
+        const eventDate = $('#desired-date').val();
+        const shortage = parseFloat($row.find('td:nth-child(6)').text()) || 0;
+        const text = shortage < 0 ? `${Math.abs(shortage)}개 부족` : '';
+        const line = $('#line-select-button').text().trim();
+        const materialCode = $row.data('index');
 
-            if (!selectedPlan) {
-                alert('선택된 생산 계획이 없습니다.');
-                return;
-            }
+        if (!selectedPlan) {
+            alert('선택된 생산 계획이 없습니다.');
+            return;
+        }
 
-            const requestItem = {
-                requestNum: requestNum,
-                eventDate: eventDate,
-                text: text,
-                reqCheck: 0, // 초기값 0으로 설정
-                line: line,
-                materialDTO: { materCode: materialCode }, // 자재 DTO에 코드만 전달
-                proplanDTO: { proPlanCode: selectedPlan.proPlanCode }, // 선택된 생산 계획 코드
-                memberDTO: { memberId: memberId } // 현재 사용자의 ID를 전달
-            };
+        const requestItem = {
+            requestNum: requestNum,
+            eventDate: eventDate,
+            text: text,
+            reqCheck: 0,
+            line: line,
+            materialDTO: { materCode: materialCode },
+            proplanDTO: { proPlanCode: selectedPlan.proPlanCode }
+        };
 
-            requestData.push(requestItem);
-        });
+        requestData.push(requestItem);
+    });
 
-        // AJAX 요청을 통해 서버로 데이터 전송
-        $.ajax({
-            url: '/proteam/submitRequest',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(requestData),
-            success: function(response) {
-                alert('출하 요청이 성공적으로 전송되었습니다.');
-                window.location.href = '/proteam/list_request'; // 요청 후 목록으로 이동
-            },
-            error: function(xhr, status, error) {
-                console.error('출하 요청 전송 중 오류가 발생했습니다:', error);
-                alert('출하 요청 전송 중 오류가 발생했습니다.');
+    $.ajax({
+        type: 'POST',
+        url: '/proteam/submitRequest',
+        contentType: 'application/json',
+        data: JSON.stringify(requestData),
+        success: function(response) {
+            alert('요청이 성공적으로 처리되었습니다.');
+        },
+        error: function(xhr, status, error) {
+            console.error('요청 처리 중 오류 발생:', error);
+            alert('요청 처리 중 오류가 발생했습니다.');
             }
         });
     });
 });
 
-
-
-
-     </script>
+</script>
          <!--Script-->
   </span>
 

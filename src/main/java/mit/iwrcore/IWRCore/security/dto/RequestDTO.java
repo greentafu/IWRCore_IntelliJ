@@ -1,5 +1,6 @@
 package mit.iwrcore.IWRCore.security.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 public class RequestDTO {
     private Long requestCode;
     private Long requestNum;
-    private LocalDateTime eventDate;
+    private LocalDate eventDate;
     private String text;
     private Long reqCheck;
     private String line;

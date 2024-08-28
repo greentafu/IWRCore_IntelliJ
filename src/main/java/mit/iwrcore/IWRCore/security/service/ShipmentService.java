@@ -63,4 +63,6 @@ public interface ShipmentService {
     PageResultDTO<InvoicePartnerDTO, Object[]> partnerInvoicePage(PageRequestDTO requestDTO);
 
     Long allShipmnetNum(Long joNo);
+
+    Long calculateCurrentStock(String materialCode);
 }
