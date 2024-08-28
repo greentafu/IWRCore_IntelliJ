@@ -200,6 +200,6 @@ public class ProplanServiceTests {
     @Test
     public void testFindByPlanId() {
         Pageable pageable=PageRequest.of(0,2);
-        System.out.println(proPlanRepository.findproPlanList2(pageable));
+
     }
 }

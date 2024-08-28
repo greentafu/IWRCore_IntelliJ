@@ -11,6 +11,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import mit.iwrcore.IWRCore.security.dto.StructureDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanContractNumDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -64,15 +65,17 @@ public class ProplanServiceImpl implements ProplanService{
         return new PageResultDTO<>(entityPage, fn);
     }
     @Override
-    public PageResultDTO<ProplanDTO, Object[]> proplanList2(PageRequestDTO2 requestDTO){
+    public PageResultDTO<ProPlanContractNumDTO, Object[]> proplanList2(PageRequestDTO2 requestDTO){
         Pageable pageable=requestDTO.getPageable(Sort.by("proplanNo").descending());
         Page<Object[]> entityPage=proPlanRepository.findproPlanList(pageable);
         return new PageResultDTO<>(entityPage, this::exProplan);
     }
-    private ProplanDTO exProplan(Object[] objects){
+    private ProPlanContractNumDTO exProplan(Object[] objects){
         ProPlan proPlan=(ProPlan) objects[0];
+        Long jcnum=(Long) objects[1];
+        Long contractNum=(Long) objects[2];
         ProplanDTO proplanDTO=(proPlan!=null)?entityToDTO(proPlan):null;
-        return proplanDTO;
+        return new ProPlanContractNumDTO(proplanDTO, (jcnum!=null)?jcnum:0L, (contractNum!=null)?contractNum:0L);
     }
 
 

@@ -10,4 +10,10 @@ public class ProPlanContractNumDTO {
     private ProplanDTO proplanDTO;
     private Long jcNum;
     private Long contractNum;
+
+    public ProPlanContractNumDTO(ProplanDTO proplanDTO, Long jcNum, Long contractNum){
+        this.proplanDTO=proplanDTO;
+        this.jcNum=jcNum;
+        this.contractNum=contractNum;
+    }
 }
