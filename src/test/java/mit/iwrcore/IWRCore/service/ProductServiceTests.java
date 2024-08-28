@@ -109,12 +109,13 @@ public class ProductServiceTests {
 ////        productService.addProduct(dto3);
 //        productService.updateProduct(dto3);
 //    }
-//    @Test
-//    @Transactional
-//    @Commit
-//    public void deleteTest(){
+    @Test
+    @Transactional
+    @Commit
+    public void deleteTest(){
 //        productService.deleteProduct(5L);
-//    }
+        productRepository.deleteById(9L);
+    }
     @Test
     @Transactional
     @Commit

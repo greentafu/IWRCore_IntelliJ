@@ -19,7 +19,7 @@
 
   <span id="content">
     <div class="container-xxl flex-grow-1 container-p-y">
-      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">개발부서 /</span> 제품 신규 등록</h4>
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">개발부서 /</span> 제품 정보 수정</h4>
       <form>
         <div class="card">
           <div class="card-body">
@@ -59,7 +59,7 @@
             <label class="form-label">색상</label>
             <div class="row">
               <div class="col-md-2">
-                <select class="form-select" id="selColor">
+                <select class="form-select" id="selColor2">
                   <option value="">직접입력</option>
                   <option value="빨강" th:selected="${product.color}=='빨강'">빨강</option>
                   <option value="검정" th:selected="${product.color}=='검정'">검정</option>
@@ -71,7 +71,7 @@
                 </select>
               </div>
               <div class="col-md-2">
-                <input type="text" class="form-control" id="proColor" th:value="${product.color}">
+                <input type="text" class="form-control" id="proColor2" th:value="${product.color}">
               </div>
             </div>
             <label class="form-label">제품 도안</label>
@@ -94,13 +94,13 @@
             <label class="form-label">기존 자재 검색</label>
             <div class="row mb-2">
               <div class="col-md-2">
-                <select class="form-select mb-1" id="selectMaterL" onchange="updateMaterCode('L')"></select>
+                <select class="form-select mb-1" id="selectMaterL2" onchange="updateMaterCode2('L')"></select>
               </div>
               <div class="col-md-2">
-                <select class="form-select mb-1" id="selectMaterM" onchange="updateMaterCode('M')"></select>
+                <select class="form-select mb-1" id="selectMaterM2" onchange="updateMaterCode2('M')"></select>
               </div>
               <div class="col-md-2">
-                <select class="form-select mb-1" id="selectMaterS" onchange="updateMaterCode('S')"></select>
+                <select class="form-select mb-1" id="selectMaterS2" onchange="updateMaterCode2('S')"></select>
               </div>
               <div class="col-md-6">
                 <div class="row">
@@ -119,22 +119,8 @@
                 <div class="card border overflow-hidden mb-4" style="height: 500px">
                   <div id="vertical-example">
                     <table class="table" id="materialList">
-                      <tbody>
-                        <tr th:each="list:${material_list.dtoList}">
-                          <td>
-                            <input type="checkbox" class="form-check-input">
-                          </td>
-                          <td>[[${list.materCode}]]</td>
-                          <td>[[${list.name}]]</td>
-                          <td style="display: none;">[[${list.materSDTO.materMDTO.materLDTO.lname}]]</td>
-                          <td style="display: none;">[[${list.materSDTO.materMDTO.Mname}]]</td>
-                          <td style="display: none;">[[${list.materSDTO.Sname}]]</td>
-                          <td>[[${list.standard}]]</td>
-                          <td>[[${list.unit}]]</td>
-                          <td>[[${list.color}]]</td>
-                          <td style="display: none;">[[${list.boxDTO.boxname}]]</td>
-                          <td style="display: none;">[[${list.file}]]</td>
-                        </tr>
+                      <tbody id="mater">
+                        <tr th:each="list:${material_list.dtoList}"></tr>
                       </tbody>
                     </table>
                   </div>
@@ -173,33 +159,12 @@
                     <th style="width: 10px;">삭제</th>
                   </tr>
                 </thead>
-                <tbody id="materialSel">
-                  <tr th:each="structure:${structure_list}">
-                    <td>[[${structure.materialDTO.materCode}]]</td>
-                    <td>[[${structure.materialDTO.name}]]</td>
-                    <td>
-                      <input type="number" style="border:0;" th:id="'quantity'+${structure.materialDTO.materCode}" th:value="${structure.quantity}">
-                    </td>
-                    <td>[[${structure.materialDTO.materSDTO.materMDTO.materLDTO.lname}]]</td>
-                    <td>[[${structure.materialDTO.materSDTO.materMDTO.Mname}]]</td>
-                    <td>[[${structure.materialDTO.materSDTO.Sname}]]</td>
-                    <td>[[${structure.materialDTO.standard}]]</td>
-                    <td>[[${structure.materialDTO.unit}]]</td>
-                    <td>[[${structure.materialDTO.color}]]</td>
-                    <td>[[${structure.materialDTO.boxDTO.boxname}]]</td>
-                    <td>[[${structure.materialDTO.file}]]</td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-secondary">삭제</button>
-                    </td>
-                    <td style="display:none;">[[${structure.materialDTO.boxDTO.boxcode}]]</td>
-                    <td style="display:none;">[[${structure.sno}]]</td>
-                  </tr>
-                </tbody>
+                <tbody id="materialSel"></tbody>
               </table>
             </div>
             <div class="d-flex justify-content-between w-100">
               <a th:href="@{/development/list_dev}">
-                <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+                <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
               </a>
               <div class="text-end mb-4">
                 <button type="button" class="btn btn-outline-primary" onclick="saveToLowerTable(0)">임시저장</button>
@@ -216,75 +181,74 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel4">신규 자재 등록</h5>
-            <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-            ></button>
           </div>
           <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">담당자</label>
-              <input type="text" class="form-control">
-              <label class="form-label">자재명</label>
-              <input type="text" class="form-control">
-              <label class="form-label">첨부 파일</label>
-              <div class="input-group mb-4">
-                <input
-                        type="file"
-                        class="form-control"
-                        id="inputGroupFile04"
-                        aria-describedby="inputGroupFileAddon04"
-                        aria-label="Upload"
-                />
-                <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">업로드</button>
-              </div>
+            <h5>자재 정보</h5>
+            <label class="form-label">자재명</label>
+            <input type="text" class="form-control" name="newMaterialName" id="materialName">
+            <!--자재 파일 업로드-->
+            <label class="form-label">첨부 파일</label>
+            <div class="input-group mb-4">
+              <input type="file" class="form-control" id="inputGroupFile045" name="uploadFiles"
+                     aria-describedby="inputGroupFileAddon04" aria-label="Upload"/>
+              <!--<button type="button" class="btn btn-outline-primary" id="uploadButton">파일 업로드</button>-->
             </div>
+            <!--/자재 파일 업로드-->
+            <div
+                    class="card shadow-none border border-secondary mb-3"
+                    style="min-height: 100px;">
+            </div>
+            <!-- Form controls -->
             <div class="row mb-3">
-              <label fclass="col-form-label" style="width: 85px;">대분류 : </label>
+              <label class="col-form-label" style="width: 85px;">대분류 : </label>
               <div class="col-md-3">
                 <div class="row">
-                  <select class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" id="selectMaterL2" onchange="updateMaterCode2('L')"></select>&nbsp;
-                  <input type="text" class="form-control col-md-2" id="writeCategory1" name="selboxDirectMeasure" hidden>
+                  <select class="form-select col-form-label" style="width: fit-content;"
+                          aria-label="Default select example" id="selectMaterL" onchange="updateMaterCode('L')">
+                  </select>
                 </div>
               </div>
               <label class="col-form-label" style="width: 85px;">중분류 : </label>
               <div class="col-md-3">
                 <div class="row">
-                  <select class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" id="selectMaterM2" onchange="updateMaterCode2('M')"></select>&nbsp;
-                  <input type="text" class="form-control col-md-10" id="writeCategory2" name="selboxDirectMeasure" hidden>
+                  <select class="form-select col-form-label" style="width: fit-content;"
+                          aria-label="Default select example" id="selectMaterM" onchange="updateMaterCode('M')">
+                  </select>
                 </div>
               </div>
               <label class="col-form-label" style="width: 85px;">소분류 : </label>
               <div class="col-md-3">
                 <div class="row">
-                  <select class="form-select col-form-label" style="width: fit-content;" aria-label="Default select example" id="selectMaterS2" onchange="updateMaterCode2('S')"></select>&nbsp;
-                  <input type="text" class="form-control col-md-10" id="writeCategory3" name="selboxDirectMeasure" hidden>
+                  <select class="form-select col-form-label" style="width: fit-content;" name="materS"
+                          aria-label="Default select example" id="selectMaterS" onchange="updateMaterCode('S')">
+                  </select>
                 </div>
               </div>
             </div>
             <div class="row mb-4">
-              <label for="exampleFormControlInput1" class="col-form-label" style="width: 60px;">규격 : </label>
+              <label class="col-form-label" style="width: 60px;">규격 : </label>
               <input
-                      type="email"
-                      id="exampleFormControlInput1"
+                      type="text"
+                      id="standard"
                       class="form-control col-md-10"
                       style="width: 30%;"
+                      name="standard"
               />
             </div>
             <div class="row mb-3">
               <label class="col-form-label" style="width: 60px;">단위 : </label>
               <div class="col-md-10">
                 <div class="row mb-3">
-                  <select id="selectMeasure" class="col-form-label form-select" style="width: fit-content;" aria-label="Default select example" onchange="directMeasure(this.value)">
-                    <option selected>mm</option>
-                    <option value="1">m</option>
-                    <option value="2">㎡</option>
-                    <option value="3">kg</option>
-                    <option value="direct">직접입력</option>
+                  <select id="selUnit" class="col-form-label form-select" style="width: fit-content;"
+                          aria-label="Default select example" name="unit">
+                    <option value="">직접입력</option>
+                    <option value="mm">mm</option>
+                    <option value="m">m</option>
+                    <option value="㎡">㎡</option>
+                    <option value="kg">kg</option>
                   </select>&nbsp;
-                  <input type="text" class="col-md-10 form-control" style="width: 30%;" id="writeMeasure" name="selboxDirectMeasure" hidden>
+                  <input type="text" class="col-md-10 form-control" style="width: 30%;" id="proUnit"
+                         name="selboxDirectMeasure">
                 </div>
               </div>
             </div>
@@ -292,23 +256,27 @@
               <label class="col-form-label" style="width: 60px;">색상 : </label>
               <div class="col-md-10">
                 <div class="row mb-3">
-                  <select id="selectColor" class="col-form-label form-select" style="width: fit-content;" aria-label="Default select example" onchange="directColor(this.value)">
-                    <option selected>빨강</option>
-                    <option value="1">파랑</option>
-                    <option value="2">초록</option>
-                    <option value="3">검정</option>
-                    <option value="direct">직접입력</option>
+                  <select id="selColor" class="col-form-label form-select" style="width: fit-content;"
+                          name="color"
+                          aria-label="Default select example">
+                    <option value="">직접입력</option>
+                    <option value="빨강">빨강</option>
+                    <option value="검정">검정</option>
+                    <option value="초록">초록</option>
+                    <option value="노랑">노랑</option>
+                    <option value="파랑">파랑</option>
+                    <option value="하양">하양</option>
+                    <option value="회색">회색</option>
                   </select>&nbsp;
-                  <input type="text" class="col-md-10 form-control" style="width: 30%;" id="writeColor" name="selboxDirectColor" hidden>
+                  <input type="text" class="col-md-10 form-control" style="width: 30%;" id="proColor"
+                         name="selboxDirectColor">
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              취소
-            </button>
-            <button type="button" class="btn btn-primary">등록</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">닫기</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="saveMaterial2()">등록</button>
           </div>
         </div>
       </div>
@@ -321,7 +289,11 @@
 
     <script>
       $(document).ready(function(){
-        initMaterial();
+        initStructure();
+
+        setTimeout(function() {
+          initMaterial();
+        }, 200);
       });
 
       function initMaterial(){
@@ -388,6 +360,87 @@
         });
 
       }
+      function initStructure(){
+        const manuCode=$('#productCode').text();
+        $.ajax({
+          url:'/select/selectedController',
+          method:'GET',
+          data:{manuCode:manuCode},
+          success:function(data){
+            console.log(data);
+            const materialSelTable=document.querySelector('#materialSel');
+
+            data.forEach(x=>{
+
+              const code=x.materialDTO.materCode;
+              const name=x.materialDTO.name;
+              const matL=x.materialDTO.materSDTO.materMDTO.materLDTO.lname;
+              const matM=x.materialDTO.materSDTO.materMDTO.mname;
+              const matS=x.materialDTO.materSDTO.sname;
+              const standard=x.materialDTO.standard;
+              const unit=x.materialDTO.unit;
+              const color=x.materialDTO.color;
+              const box=x.materialDTO.boxDTO.boxname;
+              const file=x.materialDTO.file;
+              const quantity=x.quantity
+
+              const newRow = document.createElement('tr');
+
+              [code, name].forEach(text => {
+                  const td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+              });
+
+              const inputTd = document.createElement('td');
+              const input = document.createElement('input');
+              input.type = 'number';
+              input.min='0';
+              input.style.border = '0px';
+              input.style.width = '80px';
+              input.id = `quantity${code}`;
+              input.value=quantity;
+              inputTd.appendChild(input);
+              newRow.appendChild(inputTd);
+
+              [matL, matM, matS, standard, unit, color, box, file].forEach(text => {
+                  const td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+              });
+
+              const deleteTd = document.createElement('td');
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'btn btn-sm btn-secondary';
+              button.innerText = '삭제';
+              button.onclick = function() {
+                  newRow.remove(); // Remove the row when the button is clicked
+                  initMaterial();
+              };
+              deleteTd.appendChild(button);
+              newRow.appendChild(deleteTd);
+
+              const tdEmpty = document.createElement('td');
+              tdEmpty.innerText = '';
+              tdEmpty.style.display = 'none';
+              newRow.appendChild(tdEmpty);
+
+              const tdEmpty1 = document.createElement('td');
+              tdEmpty1.innerText = '';
+              tdEmpty1.style.display = 'none';
+              newRow.appendChild(tdEmpty1);
+
+              materialSelTable.appendChild(newRow);
+
+            });
+
+
+          }
+        });
+
+      }
+
 
       $('form').on('submit', function(event) {
         event.preventDefault();
@@ -398,7 +451,7 @@
         const person=$('#person').val();
         const productName=$('#productName').val();
         const selectProS=$('#selectProS').val();
-        const proColor=$('#proColor').val();
+        const proColor=$('#proColor2').val();
         const proFile=$('#proFile').val();
         const proText=$('#proText').val();
         const sel=whatButton;
@@ -442,6 +495,30 @@
           error: function(xhr, status, error) {
             console.log("실패");
             window.location.href = '/development/list_dev';
+          }
+        });
+
+      }
+
+      function saveMaterial2(){
+        const name=document.getElementById('materialName').value;
+        const file=document.getElementById('inputGroupFile045').value;
+        const materS=document.getElementById('selectMaterS').value;
+        const standard=document.getElementById('standard').value;
+        const unit=document.getElementById('proUnit').value;
+        const color=document.getElementById('proColor').value;
+        $.ajax({
+          url:'/material/saveSimpleMaterial',
+          method:'GET',
+          data:{name:name, file:file, materS:materS, standard:standard, unit:unit, color:color},
+          success:function(data){
+            initMaterial();
+            document.getElementById('materialName').value='';
+            document.getElementById('inputGroupFile045').value='';
+            document.getElementById('selectMaterS').value='';
+            document.getElementById('standard').value='';
+            document.getElementById('proUnit').value='';
+            document.getElementById('proColor').value='';
           }
         });
 

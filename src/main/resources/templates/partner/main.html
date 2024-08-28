@@ -23,13 +23,16 @@
       <!--카드-->
       <div class="card mb-4" th:each="list:${main_list}">
         <div class="d-flex justify-content-between w-100">
-          <a th:href="@{/partner/view_product(baljuNo=${list.baljuDTO.baljuNo})}">
-            <h5 class="card-header">
-              <button type="button" class="btn btn-outline-primary btn-lg">
-                [[${list.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]
-              </button>
-            </h5>
-          </a>
+          <th:block th:if="${list.gumsuList}!=null">
+            <a th:href="@{/partner/view_product(baljuNo=${list.baljuDTO.baljuNo})}">
+              <h5 class="card-header">
+                <button type="button" class="btn btn-outline-primary btn-lg">
+                  [[${list.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]
+                </button>
+              </h5>
+            </a>
+          </th:block>
+
           <div class="demo-inline-spacing">
 
             <th:block th:if="${list.returns}!=null">

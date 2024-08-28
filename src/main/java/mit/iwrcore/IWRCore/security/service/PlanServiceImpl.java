@@ -46,15 +46,9 @@ public class PlanServiceImpl implements PlanService{
 
     @Override
     public List<PlanDTO> findByProductId(Long productId) {
-//        List<Plan> plans = planRepository.findByProduct_ManuCode(productId);
-//        return plans.stream()
-//                .map(this::entityToDTO)
-//                .collect(Collectors.toList());
-
-        List<Object[]> list=planRepository.findPlan(productId);
-        List<PlanDTO> dtoList=list.stream().map(this::exPlan).toList();
+        List<Plan> plans = planRepository.findByProduct_ManuCode(productId);
+        List<PlanDTO> dtoList=plans.stream().map(this::entityToDTO).toList();
         return dtoList;
-
     }
     private PlanDTO exPlan(Object[] objects){
         Plan plan=(Plan) objects[0];

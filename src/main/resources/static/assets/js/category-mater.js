@@ -1,13 +1,13 @@
 $(document).ready(function(){
-    var Lcode = $('#preMaterL').text();
-    var Mcode = $('#preMaterM').text();
-    var Scode = $('#preMaterS').text();
+    var Lcode = $('#selectMaterL').val();
+    var Mcode = $('#selectMaterM').val();
+    var Scode = $('#selectMaterS').val();
 
     Lcode=(Lcode==="")?null:Lcode;
     Mcode=(Mcode==="")?null:Mcode;
     Scode=(Scode==="")?null:Scode;
 
-    console.log(Lcode+"/"+Mcode+"/"+Scode);
+    console.log("######"+Lcode+"/"+Mcode+"/"+Scode);
 
     if(Lcode===null && Mcode===null && Scode===null){
         console.log("비었다")

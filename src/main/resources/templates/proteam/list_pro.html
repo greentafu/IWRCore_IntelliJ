@@ -171,7 +171,6 @@
               <thead>
                 <tr>
                   <th>요청 일자</th>
-                  <th>요청 번호</th>
                   <th>제품 번호</th>
                   <th>제품명</th>
                   <th>생산 기간</th>
@@ -189,16 +188,19 @@
               </thead>
               <tbody>
                 <tr th:each="list:${proplan_list.dtoList}">
-                  <td>[[${#temporals.format(list.regDate, 'yyyy-MM-dd')}]]</td>
-                  <td><i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>[[${list.proplanNo}]]</strong></td>
-                  <td><a th:href="@{/proteam/details_plan}">[[${list.productDTO.manuCode}]]</a></td>
-                  <td>[[${list.productDTO.name}]]</td>
-                  <td>[[${#temporals.format(list.startDate, 'yyyy-MM-dd')}]]~[[${#temporals.format(list.endDate, 'yyyy-MM-dd')}]]</td>
-                  <td>[[${list.pronum}]]</td>
-                  <td>--</td>
+                  <td>[[${#temporals.format(list.proplanDTO.regDate, 'yyyy-MM-dd')}]]</td>
+                  <td id="manuCode">[[${list.proplanDTO.productDTO.manuCode}]]</td>
+                  <td id="manuName"><a th:href="@{/proteam/details_plan(manuCode=${list.proplanDTO.productDTO.manuCode})}">[[${list.proplanDTO.productDTO.name}]]</a></td>
+                  <td id="period">[[${#temporals.format(list.proplanDTO.startDate, 'yyyy-MM-dd')}]]~[[${#temporals.format(list.proplanDTO.endDate, 'yyyy-MM-dd')}]]</td>
+                  <td id="pronum">[[${list.proplanDTO.pronum}]]</td>
                   <td>
-                    <button th:onclick="|location.href='@{/proteam/modify_plan}'|" class="btn  btn-primary">수정</button>
-                    <button class="btn btn-secondary" onclick="showConfirmation()">삭제</button>
+                    <th:block th:if="${list.jcNum==0 && list.contractNum==0}">진행 예정</th:block>
+                    <th:block th:if="${list.jcNum!=0 && list.contractNum==0}">조달계획 수립</th:block>
+                    <th:block th:if="${list.contractNum!=0}">계약 체결</th:block>
+                  </td>
+                  <td>
+                    <button th:onclick="|location.href='@{/proteam/modify_plan(proplanNo=${list.proplanDTO.proplanNo})}'|" class="btn  btn-primary">수정</button>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list.proplanDTO.proplanNo}" onclick="deleteBtn(this)">삭제</button>
                   </td>
                 </tr>
               </tbody>
@@ -227,10 +229,83 @@
       </div>
      <!--/ Bordered Table -->
     </div>
-    <!--Modal-->
 
+    <!--Modal-->
+    <div
+            class="modal fade"
+            id="modalToggle"
+            aria-labelledby="modalToggleLabel"
+            tabindex="-1"
+            style="display: none"
+            aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
+          </div>
+          <div class="modal-body" id="deleteText"></div>
+          <div class="modal-footer">
+            <button
+                    class="btn btn-primary"
+                    data-bs-target="#modalToggle2"
+                    data-bs-dismiss="modal"
+                    id="deleteBtn"
+                    onclick="deleteProPlan(this)"
+            >
+              삭제
+            </button>
+            <button
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!--/Modal-->
+
     <!--Script-->
+    <script>
+      function deleteBtn(button){
+        var proplanNo=button.value;
+        var manuCode=document.getElementById('manuCode').innerText;
+        var manuName=document.getElementById('manuName').innerText;
+        var period=document.getElementById('period').innerText;
+        var period=document.getElementById('pronum').innerText;
+
+        var productName=document.getElementById('productName'+manuCode).innerText;
+        $.ajax({
+          url:'/select/checkProPlan',
+          method:'GET',
+          data:{manuCode:manuCode},
+          success:function(data){
+            if(data==0){
+              document.getElementById('deleteText').innerHTML=manuCode+" "+productName+"를 삭제합니다.<br/>삭제시 복구가 불가능합니다.";
+              document.getElementById('deleteBtn').value=manuCode;
+            }
+            if(data==1){
+              document.getElementById('deleteText').innerHTML="생산계획이 등록된 제품입니다. 삭제가 불가능합니다.";
+            }
+          }
+        });
+
+
+      }
+      function deleteProduct(button){
+        var manuCode=button.value;
+        $.ajax({
+          url:'/development/delete_product',
+          method:'GET',
+          data:{manuCode:manuCode},
+          success:function(response){
+            window.location.reload();
+          }
+        });
+      }
+    </script>
       <script>
         function showConfirmation() {
           var result = confirm('삭제 하시겠습니까?');

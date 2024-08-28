@@ -43,7 +43,11 @@ public class ProductionController {
     }
 
     @GetMapping("/modify_manufacture")
-    public void modify_manufacture() {
+    public void modify_manufacture(@RequestParam Long manuCode, PageRequestDTO pageRequestDTO, Model model) {
+        pageRequestDTO.setSize((int)materialRepository.count());
+        model.addAttribute("material_list", materialService.findMaterialAll(pageRequestDTO));
+        model.addAttribute("product", productService.getProductById(manuCode));
+        model.addAttribute("structure_list", structureService.findByProduct_ManuCode(manuCode));
     }
 
     @GetMapping("/manufacture")
