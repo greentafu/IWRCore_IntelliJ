@@ -30,8 +30,9 @@ public class MemberServiceTests {
     public void findMember(){
 //        System.out.println(memberService.findMember(1L, null));
 //        System.out.println(memberService.findMember(null, "mate1_1234"));
-        System.out.println(memberService.findMemberEntity(1L, null));
-        System.out.println(memberService.findMemberDto(1L, null));
+//        System.out.println(memberService.findMemberEntity(1L, null));
+//        System.out.println(memberService.findMemberDto(1L, null));
+        System.out.println(memberRepository.findAll().size());
     }
     // 직원 리스트
     @Test
