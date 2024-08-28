@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -47,9 +48,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PageResultDTO<ProductDTO, Product> getAllProducts(PageRequestDTO requestDTO) {
-        Pageable pageable=requestDTO.getPageable(Sort.by("manuCode").descending());
-        Page<Product> entityPage=productRepository.findAll(pageable);
-        Function<Product, ProductDTO> fn=(entity->productEntityToDto(entity));
+        Pageable pageable = requestDTO.getPageable(Sort.by("manuCode").descending());
+        Page<Product> entityPage = productRepository.findAll(pageable);
+
+        // Product 엔티티를 ProductDTO로 변환하는 함수
+        Function<Product, ProductDTO> fn = (entity -> {
+            ProductDTO dto = productEntityToDto(entity);
+            List<ProplanDTO> proPlans = convertProPlans(entity);
+            dto.setProPlans(proPlans);
+            return dto;
+        });
+
         return new PageResultDTO<>(entityPage, fn);
     }
 
@@ -142,33 +151,45 @@ public class ProductServiceImpl implements ProductService {
                 .regDate(entity.getRegDate())
                 .proSDTO(proCodeService.proSTodto(entity.getProS()))
                 .memberDTO(memberService.memberTodto(entity.getMember()))
-//                .proPlans(entity.getProPlans().stream()
-//                        .map(proPlan -> ProplanDTO.builder()
-//                                .proplanNo(proPlan.getProplanNo())
-//                                .pronum(proPlan.getPronum())
-//                                .filename(proPlan.getFilename())
-//                                .startDate(proPlan.getStartDate())
-//                                .endDate(proPlan.getEndDate())
-//                                .line(proPlan.getLine())
-//                                .details(proPlan.getDetails())
-//                                .build())
-//                        .collect(Collectors.toList()))
                 .build();
+    }
+    @Override
+    public List<ProplanDTO> convertProPlans(Product entity) {
+        if (entity == null || entity.getProPlans() == null) {
+            return Collections.emptyList(); // proPlans가 null일 경우 빈 리스트 반환
+        }
+        return entity.getProPlans().stream()
+                .map(proPlan -> ProplanDTO.builder()
+                        .proplanNo(proPlan.getProplanNo())
+                        .pronum(proPlan.getPronum())
+                        .filename(proPlan.getFilename())
+                        .startDate(proPlan.getStartDate())
+                        .endDate(proPlan.getEndDate())
+                        .line(proPlan.getLine())
+                        .details(proPlan.getDetails())
+                        .build())
+                .collect(Collectors.toList());
     }
     @Override
     public List<ProductDTO> searchProducts(String query) {
         List<Product> products;
         if (query == null || query.trim().isEmpty()) {
-            products = productRepository.findAll();
+            products = productRepository.findAll(); // 모든 제품 가져오기
         } else {
-            products = productRepository.searchProducts(query);
+            products = productRepository.searchProducts(query); // 검색 결과 가져오기
         }
+
+        // Product 리스트를 ProductDTO 리스트로 변환
         return products.stream()
-                .map(this::productEntityToDto)
+                .map(productEntity -> {
+                    ProductDTO productDTO = productEntityToDto(productEntity);
+                    // ProPlans 추가
+                    List<ProplanDTO> proPlans = convertProPlans(productEntity);
+                    productDTO.setProPlans(proPlans);
+                    return productDTO;
+                })
                 .collect(Collectors.toList());
     }
-
-
-}
+    }
 
 
