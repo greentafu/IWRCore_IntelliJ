@@ -94,21 +94,23 @@
                 <tr th:each="list:${product_list.dtoList}">
                   <td>[[${#temporals.format(list.regDate, 'yyyy-MM-dd')}]]</td>
                   <td>[[${list.manuCode}]]</td>
-                  <td><strong><a th:href="@{/development/detail_dev(manuCode=${list.manuCode})}"> [[${list.name}]]</a></strong></td>
+                  <td th:id="'productName'+${list.manuCode}"><strong><a th:href="@{/development/detail_dev(manuCode=${list.manuCode})}"> [[${list.name}]]</a></strong></td>
                   <td>[[${list.color}]]</td>
                   <td>
-                    <a th:href="@{/development/modify_dev(manuCode=${list.manuCode})}">
-                      <button class="btn btn-primary">수정</button>
-                    </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                    <th:block th:if="${list.mater_check}==1">
+                      <button class="btn btn-outline-primary">수정</button>
+                      <button class="btn btn-outline-secondary">삭제</button>
+                    </th:block>
+                    <th:block th:if="${list.mater_check}==0">
+                      <a th:href="@{/development/modify_dev(manuCode=${list.manuCode})}">
+                        <button class="btn btn-primary">수정</button>
+                      </a>
+                      <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list.manuCode}" onclick="deleteBtn(this)">삭제</button>
+                    </th:block>
                   </td>
                   <td>
-                    <th:block th:if="${list.mater_imsi}==0">
-                      <button class="btn btn-primary">자재 등록</button>
-                    </th:block>
-                    <th:block th:if="${list.mater_imsi}==1">
-                      <button class="btn btn-secondary">등록 완료</button>
-                    </th:block>
+                    <th:block th:if="${list.mater_imsi}==0"><span style="color: red;">임시 저장</span></th:block>
+                    <th:block th:if="${list.mater_imsi}==1">등록 완료</th:block>
                   </td>
                 </tr>
               </tbody>
@@ -155,28 +157,20 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
-            <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-            ></button>
           </div>
-          <div class="modal-body">
-            KM-6081 전기자전거(RED)를 삭제합니다.<br/>삭제시 복구가 불가능합니다.</div>
+          <div class="modal-body" id="deleteText"></div>
           <div class="modal-footer">
             <button
                     class="btn btn-primary"
                     data-bs-target="#modalToggle2"
-                    data-bs-toggle="modal"
                     data-bs-dismiss="modal"
+                    id="deleteBtn"
+                    onclick="deleteProduct(this)"
             >
               삭제
             </button>
             <button
                     class="btn btn-primary"
-                    data-bs-target="#modalToggle2"
-                    data-bs-toggle="modal"
                     data-bs-dismiss="modal"
             >
               취소
@@ -187,6 +181,25 @@
     </div>
     <!--/Modal-->
     <!--Script-->
+      <script>
+      function deleteBtn(button){
+        var manuCode=button.value;
+        var productName=document.getElementById('productName'+manuCode).innerText;
+        document.getElementById('deleteText').innerHTML=manuCode+" "+productName+"를 삭제합니다.<br/>삭제시 복구가 불가능합니다.";
+        document.getElementById('deleteBtn').value=manuCode;
+      }
+      function deleteProduct(button){
+        var manuCode=button.value;
+        $.ajax({
+          url:'/development/delete_product',
+          method:'GET',
+          data:{manuCode:manuCode},
+          success:function(response){
+            window.location.reload();
+          }
+        });
+      }
+    </script>
 
     <!--Script-->
   </span>

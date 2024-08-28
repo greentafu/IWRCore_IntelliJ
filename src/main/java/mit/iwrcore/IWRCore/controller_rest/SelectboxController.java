@@ -36,6 +36,8 @@ public class SelectboxController {
     private final GumsuService gumsuService;
     private final JodalPlanService jodalPlanService;
     private final MaterialService materialService;
+    private final StructureService structureService;
+    private final ProplanService proplanService;
 
     @GetMapping("/getPart")
     public PartCodeListDTO getPart(){
@@ -179,4 +181,16 @@ public class SelectboxController {
         return materialService.materialList();
     }
 
+    @GetMapping("/selectedController")
+    public List<StructureDTO> selectedController(@RequestParam(required = false) String manuCode){
+        Long code=Long.valueOf(manuCode);
+        List<StructureDTO> dtoList=structureService.findByProduct_ManuCode(code);
+        System.out.println(dtoList);
+        return dtoList;
+    }
+
+    @GetMapping("/checkProPlan")
+    public Long checkProPlan(@RequestParam(required = false) Long manuCode){
+        return proplanService.checkProPlan(manuCode);
+    }
 }

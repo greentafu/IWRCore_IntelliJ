@@ -197,23 +197,8 @@ public class ProplanServiceTests {
 //        System.out.println("Result from findById: " + result);
 //
 //    }
-//    @Test
-//    public void testFindByPlanId() {
-//        // Given
-//        Product product = new Product();
-//        product.setManuCode(1L);
-//        productRepository.save(product);
-//
-//        ProPlan proPlan = new ProPlan();
-//        proPlan.setProplanNo(1L);
-//        proPlan.setProduct(product);
-//        proPlanRepository.save(proPlan);
-//
-//        // When
-//        List<ProplanDTO> results = proplanService.findByPlanId(1L);
-//        System.out.println("Results from findByPlanId: " + results);
-//
-//        // Data retrieved from the database
-//        // Verify manually in the database
-//    }
+    @Test
+    public void testFindByPlanId() {
+        System.out.println(proPlanRepository.checkProPlan(3L));
+    }
 }

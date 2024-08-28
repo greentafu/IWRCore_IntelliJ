@@ -69,8 +69,8 @@ public class planServiceTests {
     @Transactional
     @Commit
     public void testList(){
-//        planRepository.findByProduct_ManuCode(1L).forEach(System.out::println);
-        planService.findByProductId(3L).forEach(System.out::println);
+        planRepository.findByProduct_ManuCode(3L).forEach(System.out::println);
+//        planService.findByProductId(2L).forEach(System.out::println);
 //        System.out.println(planRepository.findPlan(3L));
     }
 

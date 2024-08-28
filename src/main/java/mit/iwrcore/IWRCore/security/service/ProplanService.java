@@ -17,4 +17,6 @@ public interface ProplanService {
     ProPlan dtoToEntity(ProplanDTO dto);
     ProplanDTO entityToDTO(ProPlan entity);
 
+    Long checkProPlan(Long manuCode);
+
 }

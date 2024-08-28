@@ -21,5 +21,8 @@ public interface ProplanRepository extends JpaRepository<ProPlan, Long> {
     @Query("select p, pr from ProPlan p join Product pr on (p.product.manuCode=pr.manuCode)")
     Page<Object[]> findproPlanList(Pageable pageable);
 
+    @Query("select count(p) from ProPlan p where p.product.manuCode=:manuCode")
+    Long checkProPlan(Long manuCode);
+
 
 }

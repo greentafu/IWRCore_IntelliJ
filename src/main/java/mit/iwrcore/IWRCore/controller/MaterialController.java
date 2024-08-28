@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.Material;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.BoxDTO;
+import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterSDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterialDTO;
 import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
@@ -122,6 +123,30 @@ public class MaterialController {
     public String deleteMaterial(@RequestParam(required = false) Long materCode){
         materialService.deleteJa(materCode);
         return "redirect:/material/list_material";
+    }
+    @GetMapping("/saveSimpleMaterial")
+    public String saveSimpleMaterial(@RequestParam(required = false) String name, @RequestParam(required = false) String file,
+                                   @RequestParam(required = false) Long materS, @RequestParam(required = false) String standard,
+                                   @RequestParam(required = false) String unit, @RequestParam(required = false) String color){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
+        MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
+
+        MaterSDTO materSDTO=materService.findMaterS(materS);
+        BoxDTO boxDTO=boxService.getBox(1L);
+
+        MaterialDTO materialDTO=MaterialDTO.builder()
+                .name(name)
+                .file((file!="")?file:null)
+                .materSDTO(materSDTO)
+                .standard(standard)
+                .unit(unit)
+                .color(color)
+                .memberDTO(memberDTO)
+                .boxDTO(boxDTO)
+                .build();
+        materialService.insertj(materialDTO);
+        return "redirect:/development/input_dev";
     }
 
 }

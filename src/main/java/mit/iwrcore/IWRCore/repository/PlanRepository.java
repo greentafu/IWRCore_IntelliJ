@@ -9,9 +9,4 @@ import java.util.List;
 
 public interface PlanRepository extends JpaRepository<Plan, Long> {
     List<Plan> findByProduct_ManuCode(Long manuCode);
-
-    @Query("select p, pr from Plan p join Product pr on(p.product.manuCode=pr.manuCode)")
-    List<Object[]> findPlan(Long manuCode);
-
-
 }

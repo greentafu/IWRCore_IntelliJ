@@ -117,5 +117,10 @@ public class ProplanServiceImpl implements ProplanService{
                 .build();
         return dto;
     }
+
+    @Override
+    public Long checkProPlan(Long manuCode){
+        return proPlanRepository.checkProPlan(manuCode);
+    }
 }
 

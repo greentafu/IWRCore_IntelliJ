@@ -69,6 +69,10 @@ public class DevelopmentController {
                 .mater_check(0L)
                 .build();
         if(saveProductDTO.getSel()==1) productDTO.setMater_imsi(1L);
+        if(saveProductDTO.getSel()==2) {
+            productDTO.setMater_imsi(1L);
+            productDTO.setMater_check(1L);
+        }
 
         if(saveProductDTO.getManuCode()!=null){
             List<StructureDTO> list=structureService.findByProduct_ManuCode(saveProductDTO.getManuCode());
@@ -99,8 +103,12 @@ public class DevelopmentController {
         }
         return "redirect:/development/list_dev";
     }
-    @PostMapping("/delete_product")
-    public void delete_product(){
-
+    @GetMapping("/delete_product")
+    public String delete_product(@RequestParam(required = false) Long manuCode){
+        System.out.println("@@@@@@@@@@@@@@@@@@@@"+manuCode);
+        List<StructureDTO> structureDTOList=structureService.findByProduct_ManuCode(manuCode);
+        structureDTOList.forEach(x->structureService.deleteById(x.getSno()));
+        productService.deleteProduct(manuCode);
+        return "redirect:/development/list_dev";
     }
 }

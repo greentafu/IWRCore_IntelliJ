@@ -28,6 +28,8 @@
             <!-- Outline Dropdowns -->
             <div class="card-body">
               <h5>자재 정보</h5>
+              <label class="form-label">자재번호</label>
+              <input type="text" class="form-control" name="materCode" id="materialNo" th:value="${material.materCode}" readonly>
               <label class="form-label">자재명</label>
               <input type="text" class="form-control" name="name" id="materialName" th:value="${material.name}">
               <!--자재 파일 업로드-->
@@ -52,31 +54,25 @@
                 <div class="col-md-3">
                   <div class="row">
                     <select class="form-select col-form-label" style="width: fit-content;"
-                            aria-label="Default select example" id="selectPartL" onchange="updatePartCode('L')">
-                    </select>&nbsp;
-                    <input type="text" class="form-control col-md-2" id="writeCategory1"
-                           name="selboxDirectMeasure" hidden>
+                            aria-label="Default select example" id="selectMaterL" onchange="updateMaterCode('L')">
+                    </select>
                   </div>
                 </div>
                 <label class="col-form-label" style="width: 85px;">중분류 : </label>
                 <div class="col-md-3">
                   <div class="row">
                     <select class="form-select col-form-label" style="width: fit-content;"
-                            aria-label="Default select example" id="selectPartM" onchange="updatePartCode('M')">
-                    </select>&nbsp;
-                    <input type="text" class="form-control col-md-10" id="writeCategory2"
-                           name="selboxDirectMeasure" hidden>
+                            aria-label="Default select example" id="selectMaterM" onchange="updateMaterCode('M')">
+                    </select>
                   </div>
                 </div>
                 <label class="col-form-label" style="width: 85px;">소분류 : </label>
                 <div class="col-md-3">
                   <div class="row">
                     <select class="form-select col-form-label" style="width: fit-content;" name="materS"
-                            aria-label="Default select example" id="selectPartS" onchange="updatePartCode('S')"
-                    >
-                    </select>&nbsp;
-                    <input type="text" class="form-control col-md-10" id="writeCategory3"
-                           name="selboxDirectMeasure" hidden>
+                            id="selectMaterS" onchange="updateMaterCode('S')">
+                      <option th:value="${material.materSDTO.materScode}" selected></option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -104,7 +100,7 @@
                       <option value="kg">kg</option>
                     </select>&nbsp;
                     <input type="text" class="col-md-10 form-control" style="width: 30%;" id="proUnit"
-                           name="selboxDirectMeasure">
+                           name="selboxDirectMeasure" th:value="${material.unit}">
                   </div>
                 </div>
               </div>
@@ -116,16 +112,16 @@
                             name="color"
                             aria-label="Default select example">
                       <option value="">직접입력</option>
-                      <option value="빨강">빨강</option>
-                      <option value="검정">검정</option>
-                      <option value="초록">초록</option>
-                      <option value="노랑">노랑</option>
-                      <option value="파랑">파랑</option>
-                      <option value="하양">하양</option>
-                      <option value="회색">회색</option>
+                      <option value="빨강" th:selected="${material.color}=='빨강'">빨강</option>
+                      <option value="검정" th:selected="${material.color}=='검정'">검정</option>
+                      <option value="초록" th:selected="${material.color}=='초록'">초록</option>
+                      <option value="노랑" th:selected="${material.color}=='노랑'">노랑</option>
+                      <option value="파랑" th:selected="${material.color}=='파랑'">파랑</option>
+                      <option value="하양" th:selected="${material.color}=='하양'">하양</option>
+                      <option value="회색" th:selected="${material.color}=='회색'">회색</option>
                     </select>&nbsp;
                     <input type="text" class="col-md-10 form-control" style="width: 30%;" id="proColor"
-                           name="selboxDirectColor">
+                           name="selboxDirectColor" th:value="${material.color}">
                   </div>
                 </div>
               </div>
@@ -133,14 +129,17 @@
                 <label for="exampleFormControlInput1" class="col-form-label" style="width: 90px;">창고위치 : </label>
                 <div class="col-md-3">
                   <select class="form-select col-md-3" name="box">
-                    <option th:each="box:${boxList}" th:value="${box.boxcode}">[[${box.boxname}]]</option>
+                    <option th:each="box:${boxList}" th:value="${box.boxcode}"
+                            th:selected="${box.boxcode}==${material.boxDTO.boxcode}">
+                      [[${box.boxname}]]
+                    </option>
                   </select>
                 </div>
               </div>
               <div class="d-flex justify-content-between w-100">
                 <button type="button" class="btn btn-outline-secondary"
                         th:onclick="|location.href='@{/material/list_material}'|">뒤로가기</button>
-                <button type="button" class="btn btn-primary" id="saveBtn" onclick="saveMaterial()">등록</button>
+                <button type="button" class="btn btn-primary" id="saveBtn" onclick="saveMaterial()">수정</button>
               </div>
             </div>
           </form>
@@ -153,10 +152,10 @@
     <script>
       function saveMaterial(){
         var materialName=document.getElementById('materialName').value;
-        var selectPartS=document.getElementById('selectPartS').value;
+        var selectMaterS=document.getElementById('selectMaterS').value;
         if(materialName.trim()===''){
           alert('제품명을 입력해 주세요.');
-        }else if(selectPartS.trim()===''){
+        }else if(selectMaterS.trim()===''){
           alert('카테고리를 선택해 주세요');
         }else {
           document.getElementById('materialForm').submit();

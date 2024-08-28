@@ -79,21 +79,23 @@
                   <th>대분류</th>
                   <th>중분류</th>
                   <th>소분류</th>
+                  <th>색상</th>
                   <th>수정/삭제</th>
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${product_list.dtoList}">
                   <td>[[${list.manuCode}]]</td>
-                  <td><strong><a th:href="@{/production/manufacture(manuCode=${list.manuCode})}">[[${list.name}]]</a></strong></td>
+                  <td th:id="'productName'+${list.manuCode}"><strong><a th:href="@{/production/manufacture(manuCode=${list.manuCode})}">[[${list.name}]]</a></strong></td>
                   <td>[[${list.proSDTO.ProMDTO.proLDTO.Lname}]]</td>
                   <td>[[${list.proSDTO.ProMDTO.Mname}]]</td>
                   <td>[[${list.proSDTO.Sname}]]</td>
+                  <td>[[${list.color}]]</td>
                   <td>
                     <a th:href="@{/production/modify_manufacture(manuCode=${list.manuCode})}">
                       <button class="btn btn-primary">수정</button>
                     </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list.manuCode}" onclick="deleteBtn(this)">삭제</button>
                   </td>
                 </tr>
               </tbody>
@@ -140,30 +142,22 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
-            <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-            ></button>
           </div>
-          <div class="modal-body">
-            KM-6081 전기자전거(RED)를 삭제합니다.<br/>삭제시 복구가 불가능합니다.</div>
+          <div class="modal-body" id="deleteText"></div>
           <div class="modal-footer">
             <button
                     class="btn btn-primary"
                     data-bs-target="#modalToggle2"
-                    data-bs-toggle="modal"
                     data-bs-dismiss="modal"
+                    id="deleteBtn"
+                    onclick="deleteProduct(this)"
             >
               삭제
             </button>
             <button
                     class="btn btn-primary"
-                    data-bs-target="#modalToggle2"
-                    data-bs-toggle="modal"
                     data-bs-dismiss="modal"
-                          >
+            >
               취소
             </button>
           </div>
@@ -171,9 +165,40 @@
       </div>
     </div>
     <!--/Modal-->
-
     <!--Script-->
+      <script>
+      function deleteBtn(button){
+        var manuCode=button.value;
+        var productName=document.getElementById('productName'+manuCode).innerText;
+        $.ajax({
+          url:'/select/checkProPlan',
+          method:'GET',
+          data:{manuCode:manuCode},
+          success:function(data){
+            if(data==0){
+              document.getElementById('deleteText').innerHTML=manuCode+" "+productName+"를 삭제합니다.<br/>삭제시 복구가 불가능합니다.";
+              document.getElementById('deleteBtn').value=manuCode;
+            }
+            if(data==1){
+              document.getElementById('deleteText').innerHTML="생산계획이 등록된 제품입니다. 삭제가 불가능합니다.";
+            }
+          }
+        });
 
+
+      }
+      function deleteProduct(button){
+        var manuCode=button.value;
+        $.ajax({
+          url:'/development/delete_product',
+          method:'GET',
+          data:{manuCode:manuCode},
+          success:function(response){
+            window.location.reload();
+          }
+        });
+      }
+    </script>
     <!--Script-->
   </span>
 
