@@ -199,6 +199,7 @@ public class ProplanServiceTests {
 //    }
     @Test
     public void testFindByPlanId() {
-        System.out.println(proPlanRepository.checkProPlan(3L));
+        Pageable pageable=PageRequest.of(0,2);
+        System.out.println(proPlanRepository.findproPlanList2(pageable));
     }
 }

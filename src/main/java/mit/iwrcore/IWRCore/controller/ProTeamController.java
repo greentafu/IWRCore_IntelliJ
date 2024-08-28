@@ -126,6 +126,7 @@ public class ProTeamController {
 
     @PostMapping("/Psave")
     public String PlanSave(
+            @RequestParam(required = false) Long proplanNo,
             @RequestParam("manuCode") Long manuCode,
             @RequestParam("line") List<String> lines,
             @RequestParam("pronum") Long pronum,
@@ -140,6 +141,7 @@ public class ProTeamController {
 
         // DTO 객체 생성 및 설정
         ProplanDTO dto = ProplanDTO.builder()
+                .proplanNo((proplanNo!=null)?proplanNo:null)
                 .productDTO(productService.getProductById(manuCode))
                 .pronum(pronum)
                 .startDate(startDate.atStartOfDay()) // LocalDate를 LocalDateTime으로 변환
@@ -153,7 +155,7 @@ public class ProTeamController {
         ProplanDTO proplanDTO = proplanService.save(dto);
 
         // JodalPlanService 호출
-        jodalPlanService.saveFromProplan(proplanDTO, memberDTO);
+        if(proplanNo==null) jodalPlanService.saveFromProplan(proplanDTO, memberDTO);
 
         // 리디렉션
         return "redirect:/proteam/list_pro";
@@ -175,8 +177,12 @@ public class ProTeamController {
     }
 
     @GetMapping("/modify_plan")
-    public void modify_plan() {
-
+    public void modify_plan(Long proplanNo, Model model) {
+        ProplanDTO proplanDTO=proplanService.findById(proplanNo);
+        Long manuCode=proplanDTO.getProductDTO().getManuCode();
+        model.addAttribute("plan_list", planService.findByProductId(manuCode));
+        model.addAttribute("product", proplanDTO.getProductDTO());
+        model.addAttribute("proplan", proplanDTO);
     }
 
     @GetMapping("/modify_request")
