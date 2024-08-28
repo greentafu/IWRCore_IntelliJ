@@ -4,6 +4,7 @@ import mit.iwrcore.IWRCore.entity.Product;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.ProductDTO;
+import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 
 import java.util.List;
 
@@ -35,5 +36,6 @@ public interface ProductService {
     Product productDtoToEntity(ProductDTO dto);
     ProductDTO productEntityToDto(Product entity);
     List<ProductDTO> searchProducts(String query);
+    List<ProplanDTO> convertProPlans(Product entity);
 
 }

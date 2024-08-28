@@ -168,11 +168,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    var selectedProduct = null;
-    var selectedLine = null;
-    var selectedPlan = null; // 선택된 생산 계획 객체
-
-    // 검색 버튼 클릭 시
     $('#searchButton').on('click', function() {
         var query = $('input[type="search"]').val(); // 검색 입력값 가져오기
 
@@ -190,20 +185,37 @@ $(document).ready(function() {
 
                 // 검색 결과를 HTML로 변환
                 var html = '';
-                data.forEach(function(product) {
-                    product.proPlans.forEach(function(plan) {
-                        html += '<tr>' +
-                                '<td><input type="radio" name="product" class="form-check-input" data-product=\'' + JSON.stringify(product) + '\' data-line="' + plan.line + '"></td>' +
-                                '<td>' + product.manuCode + '</td>' +
-                                '<td>' + product.name + '</td>' +
-                                '<td>' + (plan.startDate ? plan.startDate : 'N/A') + '</td>' +
-                                '<td>' + (plan.endDate ? plan.endDate : 'N/A') + '</td>' +
-                                '<td>' + (plan.pronum ? plan.pronum : 'N/A') + '</td>' +
-                                '</tr>';
+                if (Array.isArray(data)) {
+                    data.forEach(function(product) {
+                        // Check if proPlans is an array
+                        if (Array.isArray(product.proPlans) && product.proPlans.length > 0) {
+                            product.proPlans.forEach(function(plan) {
+                                html += '<tr>' +
+                                        '<td><input type="radio" name="product" class="form-check-input" data-product=\'' + JSON.stringify(product) + '\' data-line="' + plan.line + '"></td>' +
+                                        '<td>' + product.manuCode + '</td>' +
+                                        '<td>' + product.name + '</td>' +
+                                        '<td>' + (plan.startDate ? plan.startDate : 'N/A') + '</td>' +
+                                        '<td>' + (plan.endDate ? plan.endDate : 'N/A') + '</td>' +
+                                        '<td>' + (plan.pronum ? plan.pronum : 'N/A') + '</td>' +
+                                        '</tr>';
+                            });
+                        } else {
+                            // If proPlans is empty, still add product details without plans
+                            html += '<tr>' +
+                                    '<td><input type="radio" name="product" class="form-check-input" data-product=\'' + JSON.stringify(product) + '\' data-line="N/A"></td>' +
+                                    '<td>' + product.manuCode + '</td>' +
+                                    '<td>' + product.name + '</td>' +
+                                    '<td>N/A</td>' +
+                                    '<td>N/A</td>' +
+                                    '<td>N/A</td>' +
+                                    '</tr>';
+                        }
                     });
-                });
+                } else {
+                    console.error('응답 데이터가 배열이 아닙니다:', data);
+                }
 
-                resultsContainer.html(html);
+                resultsContainer.html(html); // 결과를 테이블에 추가
             },
             error: function(xhr, status, error) {
                 console.error('검색 중 오류가 발생했습니다:', error);

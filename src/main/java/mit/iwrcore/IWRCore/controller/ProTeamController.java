@@ -199,15 +199,18 @@ public class ProTeamController {
         List<ProductDTO> products;
 
         if (query.isEmpty() || "all".equals(query)) {
-            // 모든 제품을 가져오는 메서드에서 결과를 List로 변환
+            // 모든 제품을 가져오는 메서드에서 PageResultDTO<ProductDTO, Product>를 가져옴
             PageResultDTO<ProductDTO, Product> pageResult = productService.getAllProducts(new PageRequestDTO());
+
+            // ProductDTO 리스트를 직접 가져옴 (ProPlans는 이미 getAllProducts에서 설정됨)
             products = pageResult.getDtoList();
         } else {
-            products = productService.searchProducts(query); // 검색 결과를 가져오는 메서드
+            // 검색 결과를 가져오는 메서드에서 결과를 List<ProductDTO>로 변환
+            products = productService.searchProducts(query);
         }
 
         return ResponseEntity.ok(products);
-    }  @GetMapping("/material-structure")
+    } @GetMapping("/material-structure")
     public ResponseEntity<Map<String, Object>> getMaterialStructure(@RequestParam("manuCode") Long manuCode) {
         // 제품 정보 조회
         ProductDTO product = productService.getProductById(manuCode);
