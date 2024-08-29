@@ -61,43 +61,64 @@
                            </tr>
                         </thead>
                         <tbody id="contentTbody">
-                           <tr th:each="list:${structure_list}">
-                              <td>
-                                 <input type="checkbox" class="form-check-input"
-                                        th:id="'btn'+${list.jodalPlanDTO.joNo}">
+                           <tr th:each="list:${structure_list}" th:style="${list.jodalChasuDateDTOList != null ? 'background-color: beige' : ''}">
+                              <th:block th:if="${list.jodalChasuDateDTOList != null}">
+                                 <td></td>
+                              </th:block>
+                              <th:block th:if="${list.jodalChasuDateDTOList == null}">
+                                 <td>
+                                    <input type="checkbox" class="form-check-input"
+                                           th:id="'btn'+${list.jodalPlanDTO.joNo}">
+                                 </td>
+                              </th:block>
+                              <td>[[${list.structureDTO.materialDTO.materCode}]]</td>
+                              <td>[[${list.structureDTO.materialDTO.name}]]</td>
+                              <td th:id="'totalNum'+${list.jodalPlanDTO.joNo}">
+                                 [[${list.structureDTO.quantity*list.proplanDTO.pronum}]]
                               </td>
-                                 <td>[[${list.structureDTO.materialDTO.materCode}]]</td>
-                                 <td>[[${list.structureDTO.materialDTO.name}]]</td>
-                                 <td th:id="'totalNum'+${list.jodalPlanDTO.joNo}">
-                                     [[${list.structureDTO.quantity*list.proplanDTO.pronum}]]
-                                 </td>
-                                 <td th:id="'stockNum'+${list.jodalPlanDTO.joNo}">
-                                     [[${list.sumShip-list.sumRequest}]]
+                              <td th:id="'stockNum'+${list.jodalPlanDTO.joNo}">
+                                 [[${list.sumShip-list.sumRequest}]]
+                              </td>
+                              <th:block th:if="${list.jodalChasuDateDTOList != null}">
+                                 <td>[[${list.jodalChasuDateDTOList[0].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[0].joDate}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[1].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[1].joDate}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[2].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[2].joDate}]]</td>
+                              </th:block>
+                              <th:block th:if="${list.jodalChasuDateDTOList == null}">
+                                 <td>
+                                    <input type="number" style="border: 0; width: 70px;"
+                                           th:id="'oneNum'+${list.jodalPlanDTO.joNo}"
+                                    >
                                  </td>
                                  <td>
-                                     <input type="number" style="border: 0; width: 70px;"
-                                         th:id="'oneNum'+${list.jodalPlanDTO.joNo}">
+                                    <input type="date"  style="border: 0; width: 100px;"
+                                           th:id="'oneDate'+${list.jodalPlanDTO.joNo}"
+                                    >
                                  </td>
                                  <td>
-                                     <input type="date"  style="border: 0; width: 100px;"
-                                            th:id="'oneDate'+${list.jodalPlanDTO.joNo}">
+                                    <input type="number" style="border: 0; width: 70px;"
+                                           th:id="'twoNum'+${list.jodalPlanDTO.joNo}"
+                                    >
                                  </td>
                                  <td>
-                                     <input type="number" style="border: 0; width: 70px;"
-                                            th:id="'twoNum'+${list.jodalPlanDTO.joNo}">
+                                    <input type="date"  style="border: 0; width: 100px;"
+                                           th:id="'twoDate'+${list.jodalPlanDTO.joNo}"
+                                    >
                                  </td>
                                  <td>
-                                     <input type="date"  style="border: 0; width: 100px;"
-                                            th:id="'twoDate'+${list.jodalPlanDTO.joNo}">
+                                    <input type="number" style="border: 0; width: 70px;"
+                                           th:id="'threeNum'+${list.jodalPlanDTO.joNo}"
+                                    >
                                  </td>
                                  <td>
-                                     <input type="number" style="border: 0; width: 70px;"
-                                            th:id="'threeNum'+${list.jodalPlanDTO.joNo}">
+                                    <input type="date"  style="border: 0; width: 100px;"
+                                           th:id="'threeDate'+${list.jodalPlanDTO.joNo}"
+                                    >
                                  </td>
-                                 <td>
-                                     <input type="date"  style="border: 0; width: 100px;"
-                                            th:id="'threeDate'+${list.jodalPlanDTO.joNo}">
-                                 </td>
+                              </th:block>
                               <td style="display:none;">[[${list.jodalPlanDTO.joNo}]]</td>
                            </tr>
                         </tbody>
