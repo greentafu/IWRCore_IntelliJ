@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.JodalChasu;
 import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
 
 import java.time.LocalDateTime;
@@ -31,4 +32,7 @@ public interface JodalChasuService {
 //    void deleteById(Long id);
 //    JodalChasuDTO findById(Long id);
 //    List<JodalChasuDTO> findByJodalPlanId(Long jodalPlanId);
+    List<ProPlanSturctureDTO> modifyJodalChasu(Long proplanNo);
+
+    List<JodalChasuDTO> findJCfromJP(Long joNo);
 }

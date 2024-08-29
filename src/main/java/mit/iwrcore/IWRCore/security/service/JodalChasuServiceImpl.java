@@ -4,9 +4,15 @@ import jakarta.transaction.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.JodalChasu;
+import mit.iwrcore.IWRCore.entity.JodalPlan;
+import mit.iwrcore.IWRCore.entity.Structure;
 import mit.iwrcore.IWRCore.repository.JodalChasuRepository;
 
 import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
+import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
+import mit.iwrcore.IWRCore.security.dto.StructureDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.QuantityDateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +32,7 @@ public class JodalChasuServiceImpl implements JodalChasuService {
     private final JodalChasuRepository jodalChasuRepository;
     private final MemberService memberService;
     private final JodalPlanService jodalPlanService;
+    private final StructureService structureService;
 
     @Override
     public JodalChasuDTO convertToDTO(JodalChasu entity) {
@@ -142,5 +149,35 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         list.get(0).setTotalOrder(totalOrder);
 
         return list;
+    }
+    @Override
+    public List<ProPlanSturctureDTO> modifyJodalChasu(Long proplanNo) {
+        List<Object[]> list = jodalChasuRepository.modifyJodalChasu(proplanNo);
+        List<ProPlanSturctureDTO> dtoList = list.stream().map(this::proPlanSturctureToDTO).toList();
+        return dtoList;
+    }
+    private ProPlanSturctureDTO proPlanSturctureToDTO(Object[] objects) {
+        JodalPlan jodalPlan = (JodalPlan) objects[0];
+        Structure structure = (Structure) objects[1];
+        Long tempSumRequest = (Long) objects[2];
+        Long tempSumShip = (Long) objects[3];
+        JodalChasu jodalChasu=(JodalChasu) objects[4];
+
+        StructureDTO structureDTO = (structure != null) ? structureService.structureTodto(structure) : null;
+        Long sumRequest = (tempSumRequest != null) ? tempSumRequest : 0L;
+        Long sumShip = (tempSumShip != null) ? tempSumShip : 0L;
+        JodalPlanDTO jodalPlanDTO = (jodalPlan != null) ? jodalPlanService.entityToDTO(jodalPlan) : null;
+        System.out.println(jodalPlanDTO);
+        ProplanDTO proplanDTO = (jodalPlanDTO != null) ? jodalPlanDTO.getProplanDTO() : null;
+        JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?convertToDTO(jodalChasu):null;
+
+        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, jodalChasuDTO);
+    }
+
+    @Override
+    public List<JodalChasuDTO> findJCfromJP(Long joNo){
+        List<JodalChasu> entityList=jodalChasuRepository.findJCfromJP(joNo);
+        List<JodalChasuDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
+        return dtoList;
     }
 }

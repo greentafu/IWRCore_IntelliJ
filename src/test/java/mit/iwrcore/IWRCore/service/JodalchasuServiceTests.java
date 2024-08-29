@@ -99,6 +99,6 @@ public class JodalchasuServiceTests {
     @Transactional
     @Commit
     public void test132131(){
-        System.out.println(jodalChasuRepository.getJodalChausFromPlan(1L));
+        System.out.println(jodalChasuRepository.findJCfromJP(19L));
     }
 }

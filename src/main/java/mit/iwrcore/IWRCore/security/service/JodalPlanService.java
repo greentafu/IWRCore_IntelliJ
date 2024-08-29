@@ -23,7 +23,6 @@ public interface JodalPlanService {
 
     List<ProPlanSturctureDTO> newJodalChasu(Long proplanNo);
 
-
     JodalPlan dtoToEntity(JodalPlanDTO dto);
     JodalPlanDTO entityToDTO(JodalPlan entity);
 

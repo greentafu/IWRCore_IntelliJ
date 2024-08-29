@@ -8,6 +8,7 @@ import mit.iwrcore.IWRCore.repository.JodalPlanRepository;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalChasuDateDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalPlanJodalChsuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -95,10 +97,10 @@ public class JodalPlanServiceImpl implements JodalPlanService {
         Long sumRequest = (tempSumRequest != null) ? tempSumRequest : 0L;
         Long sumShip = (tempSumShip != null) ? tempSumShip : 0L;
         JodalPlanDTO jodalPlanDTO = (jodalPlan != null) ? entityToDTO(jodalPlan) : null;
-
+        System.out.println(jodalPlanDTO);
         ProplanDTO proplanDTO = (jodalPlanDTO != null) ? jodalPlanDTO.getProplanDTO() : null;
 
-        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO);
+        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, null);
     }
 
 
