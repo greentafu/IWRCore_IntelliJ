@@ -46,8 +46,9 @@ public class OrderController {
         model.addAttribute("didBalju_list", baljuService.finBaljuPage(pageRequestDTO2));
     }
     @GetMapping("/modify_order2")
-    public void modify_order2(){
-
+    public void modify_order2(Long baljuNo, Model model){
+        BaljuDTO baljuDTO=baljuService.getBaljuById(baljuNo);
+        model.addAttribute("contract_list", baljuService.modifyBalju(baljuDTO.getContractDTO().getPartnerDTO().getPno()));
     }
     @GetMapping("/new_order")
     public void new_order(@RequestParam(required = false) Long conNo, Model model){

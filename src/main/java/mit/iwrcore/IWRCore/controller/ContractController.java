@@ -45,13 +45,12 @@ public class ContractController {
     }
     @GetMapping("/list_contract")
     public void list_contract(PageRequestDTO pageRequestDTO, PageRequestDTO2 pageRequestDTO2, Model model){
-        model.addAttribute("yesPlan_list", jodalPlanService.noContract(pageRequestDTO));
-//        model.addAttribute("yesPlan_list", contractService.couldContractMaterial(pageRequestDTO));
+        model.addAttribute("yesPlan_list", contractService.couldContractMaterial(pageRequestDTO));
         model.addAttribute("finContract_list", baljuService.finishedContract(pageRequestDTO2));
     }
     @GetMapping("/modify_contract")
-    public void modify_contract(){
-
+    public void modify_contract(Long conNo, Model model){
+        model.addAttribute("contract", contractService.getContractById(conNo));
     }
 
     @PostMapping("/saveContract")
@@ -87,8 +86,27 @@ public class ContractController {
         return "redirect:/contract/list_contract";
     }
     @PostMapping("/delete_contract")
-    public void delete_contract(){
+    public String delete_contract(@RequestParam(required = false) Long conNo){
+        contractService.deleteContract(conNo);
+        return "redirect:/contract/list_contract";
+    }
+    @PostMapping("/rewrite_contract")
+    public String rewrite_contract(@RequestParam Long conNo, @RequestParam Long conNum, @RequestParam Long money,
+                                   @RequestParam Long howDate, @RequestParam String conDate, @RequestParam String filename,
+                                   @RequestParam String who){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime localDateTime=LocalDateTime.parse(conDate+" 00:00:00", formatter);
 
+        ContractDTO contractDTO=contractService.getContractById(conNo);
+        contractDTO.setConNum(conNum);
+        contractDTO.setMoney(money);
+        contractDTO.setHowDate(howDate);
+        contractDTO.setConDate(localDateTime);
+        contractDTO.setFilename((filename!="")?filename:null);
+        contractDTO.setWho(who);
+
+        contractService.createContract(contractDTO);
+        return "redirect:/contract/list_contract";
     }
 }
 

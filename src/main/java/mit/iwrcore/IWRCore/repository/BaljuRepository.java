@@ -62,4 +62,10 @@ public interface BaljuRepository extends JpaRepository<Balju, Long> {
             "left join ProPlan pro on (pro.proplanNo=b.contract.jodalPlan.proPlan.proplanNo) " +
             "where b.baljuNo=:baljuNo")
     List<Object[]> findBaljuFromNo(Long baljuNo);
+
+    @Query("select c, jc, b from Contract c " +
+            "left join Balju b on (c.conNo=b.contract.conNo) " +
+            "left join JodalChasu jc on (c.jodalPlan.joNo=jc.jodalPlan.joNo) " +
+            "where b.baljuNo is not null and b.finCheck=0 and c.partner.pno=:pno")
+    List<Object[]> modifyBalju(Long pno);
 }

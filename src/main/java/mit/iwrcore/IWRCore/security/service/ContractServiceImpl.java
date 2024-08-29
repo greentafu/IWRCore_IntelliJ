@@ -71,9 +71,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractDTO getContractById(Long id) {
-        List<Object[]> list=contractRepository.findContract(id);
-        Contract contract=(Contract) list.get(0)[0];
-        return convertToDTO(contract);
+        return convertToDTO(contractRepository.getReferenceById(id));
     }
 
     @Override
@@ -163,7 +161,7 @@ public class ContractServiceImpl implements ContractService {
                         .sorted(Comparator.comparing(JodalChasuDTO::getJcnum))
                         .collect(Collectors.toList());
 
-                NewOrderDTO newOrderDTO=new NewOrderDTO(saveContractDTO, sortedJodalChsasuList);
+                NewOrderDTO newOrderDTO=new NewOrderDTO(saveContractDTO, sortedJodalChsasuList, null);
                 newOrderDTOList.add(newOrderDTO);
                 contractDTOSet.clear();
                 jodalChasuDTOSet.clear();

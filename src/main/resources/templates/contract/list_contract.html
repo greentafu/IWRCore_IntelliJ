@@ -17,200 +17,201 @@
       <!--/Style-->
   </span>
 
-    <span id="content">
-      <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">계약서 /</span> 계약서 목록</h4>
-        <!--추가-->
-        <!-- Hoverable Table rows -->
-        <div class="card mb-4">
-          <!--검색-->
-          <div class="card-body">
-            <h5>계약서 작성 필요 조달계획내역</h5>
-            <div class="card border">
-              <div class="table-responsive text-nowrap">
-                <table class="table">
-                  <tr>
-                    <th class="bg-label-primary">제품</th>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">대분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
-                        </div>
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">계약서 /</span> 계약서 목록</h4>
+      <!--추가-->
+      <!-- Hoverable Table rows -->
+      <div class="card mb-4">
+        <!--검색-->
+        <div class="card-body">
+          <h5>계약서 작성 필요 조달계획내역</h5>
+          <div class="card border">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <th class="bg-label-primary">제품</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectProL" onchange="updateProCode('L')"></select>
                       </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">중분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
-                        </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectProM" onchange="updateProCode('M')"></select>
                       </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">소분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
-                        </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectProS" onchange="updateProCode('S')"></select>
                       </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <div class="col-md-9">
-                          <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                        </div>
-                        <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
                       </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="bg-label-primary">자재</th>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">대분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectMaterL" onchange="updateMaterCode('L')"></select>
-                        </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="bg-label-primary">자재</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectMaterL" onchange="updateMaterCode('L')"></select>
                       </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">중분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectMaterM" onchange="updateMaterCode('M')"></select>
-                        </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectMaterM" onchange="updateMaterCode('M')"></select>
                       </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">소분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectMaterS" onchange="updateMaterCode('S')"></select>
-                        </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectMaterS" onchange="updateMaterCode('S')"></select>
                       </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <div class="col-md-9">
-                          <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                        </div>
-                        <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
                       </div>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!--/검색-->
-          <div class="table-responsive text-nowrap">
-            <!-- Outline Dropdowns -->
-            <div class="card-body">
-              <div class="table-responsive text-nowrap">
-                <table class="table table-bordered mb-4">
-                  <thead>
-                    <tr>
-                      <th>제품 이름</th>
-                      <th>자재번호</th>
-                      <th>자재명</th>
-                      <th>수량</th>
-                      <th>계약서 등록</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr th:each="list2:${yesPlan_list.dtoList}">
-                      <td>[[${list2.proplanDTO.productDTO.name}]]</td>
-                      <td>[[${list2.materialDTO.materCode}]]</td>
-                      <td>[[${list2.materialDTO.name}]]</td>
-                      <td>[[${list2.proplanDTO.pronum}]]</td>
-                      <td>
-                        <a th:href="@{/contract/new_contract(joNo=${list2.joNo})}">
-                          <button type="button" class="btn btn-primary">계약서 등록</button>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="mt-3 text-end mb-4">
-                <a th:href="@{/contract/new_contract}">
-                  <button type="button" class="btn btn-primary">등록</button>
-                </a>
-              </div>
-              <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                  <th:block th:if="${yesPlan_list.prev}">
-                    <li class="page-item prev">
-                      <a class="page-link" th:href="@{/contract/list_contract(page=${yesPlan_list.start}-1)}">
-                        <i class="tf-icon bx bx-chevrons-left"></i>
-                      </a>
-                    </li>
-                  </th:block>
-                  <th:block th:each="pagenum:${yesPlan_list.pageList}">
-                    <li class="page-item " th:classappend="${yesPlan_list.page}==${pagenum}? active">
-                      <a class="page-link" th:href="@{/contract/list_contract(page=${pagenum})}">
-                        [[${pagenum}]]
-                      </a>
-                    </li>
-                  </th:block>
-                  <th:block th:if="${yesPlan_list.next}">
-                    <li class="page-item next">
-                      <a class="page-link" th:href="@{/contract/list_contract(page=${yesPlan_list.end}+1)}">
-                        <i class="tf-icon bx bx-chevrons-right"></i>
-                      </a>
-                    </li>
-                  </th:block>
-                </ul>
-              </nav>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
-
-        <!--/추가-->
-        <!-- Hoverable Table rows -->
-        <div class="card">
-          <!--검색-->
+        <!--/검색-->
+        <div class="table-responsive text-nowrap">
+          <!-- Outline Dropdowns -->
           <div class="card-body">
-            <h5>계약서 작성 완료 조달계획내역</h5>
-            <div class="card border">
-              <div class="table-responsive text-nowrap">
-                <table class="table">
+            <div class="table-responsive text-nowrap">
+              <table class="table table-bordered mb-4">
+                <thead>
                   <tr>
-                    <th class="bg-label-primary">협력회사</th>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">대분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectPartL2" onchange="updatePartCode2('L')"></select>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">중분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectPartM2" onchange="updatePartCode2('M')"></select>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <span class="col-md-3">소분류</span>
-                        <div class="col">
-                          <select class="form-select form-select-sm" id="selectPartS2" onchange="updatePartCode2('S')"></select>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="row">
-                        <div class="col-md-9">
-                          <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
-                        </div>
-                        <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
-                       </div>
-                     </td>
+                    <th>제품 이름</th>
+                    <th>자재번호</th>
+                    <th>자재명</th>
+                    <th>조달계획 수량</th>
+                    <th>최초조달 예정일</th>
+                    <th>계약서 등록</th>
                   </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="list2:${yesPlan_list.dtoList}">
+                    <td>[[${list2.jodalPlanDTO.proplanDTO.productDTO.name}]]</td>
+                    <td>[[${list2.jodalPlanDTO.materialDTO.materCode}]]</td>
+                    <td>[[${list2.jodalPlanDTO.materialDTO.name}]]</td>
+                    <td>[[${list2.allNum}]]</td>
+                    <td>[[${#temporals.format(list2.jodalChasuDTO.joDate, 'yyyy-MM-dd')}]]</td>
+                    <td>
+                      <a th:href="@{/contract/new_contract(joNo=${list2.jodalPlanDTO.joNo})}">
+                        <button type="button" class="btn btn-primary">계약서 등록</button>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-3 text-end mb-4">
+              <a th:href="@{/contract/new_contract}">
+                <button type="button" class="btn btn-primary">등록</button>
+              </a>
+            </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <th:block th:if="${yesPlan_list.prev}">
+                  <li class="page-item prev">
+                    <a class="page-link" th:href="@{/contract/list_contract(page=${yesPlan_list.start}-1)}">
+                      <i class="tf-icon bx bx-chevrons-left"></i>
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:each="pagenum:${yesPlan_list.pageList}">
+                  <li class="page-item " th:classappend="${yesPlan_list.page}==${pagenum}? active">
+                    <a class="page-link" th:href="@{/contract/list_contract(page=${pagenum})}">
+                      [[${pagenum}]]
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:if="${yesPlan_list.next}">
+                  <li class="page-item next">
+                    <a class="page-link" th:href="@{/contract/list_contract(page=${yesPlan_list.end}+1)}">
+                      <i class="tf-icon bx bx-chevrons-right"></i>
+                    </a>
+                  </li>
+                </th:block>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!--/추가-->
+      <!-- Hoverable Table rows -->
+      <div class="card">
+        <!--검색-->
+        <div class="card-body">
+          <h5>계약서 작성 완료 조달계획내역</h5>
+          <div class="card border">
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <tr>
+                  <th class="bg-label-primary">협력회사</th>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">대분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectPartL2" onchange="updatePartCode2('L')"></select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">중분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectPartM2" onchange="updatePartCode2('M')"></select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <span class="col-md-3">소분류</span>
+                      <div class="col">
+                        <select class="form-select form-select-sm" id="selectPartS2" onchange="updatePartCode2('S')"></select>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="col-md-9">
+                        <input type="text" class="form-control" style="height: 32px; font-size: 12px;">
+                      </div>
+                      <button type="button" class="col-md-3 btn btn-sm btn-outline-primary" style="width: 70px;">검색</button>
+                    </div>
+                  </td>
+                </tr>
                 <tr>
                   <th class="bg-label-primary">제품</th>
                   <td>
@@ -282,105 +283,161 @@
                   </td>
                 </tr>
               </table>
-              </div>
-            </div>
-          </div>
-          <!--/검색-->
-          <div class="table-responsive text-nowrap">
-            <!-- Outline Dropdowns -->
-            <div class="card-body"> <!--card의 본문 내용을 담음-->
-              <table class="table table-hover mb-4">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>협력업체명</th>
-                    <th>계약서 파일명</th>
-                    <th>자재명</th>
-                    <th>수량</th>
-                    <th>등록일</th>
-                    <th>다운로드</th>
-                    <th>수정/삭제</th>
-                    <th>
-                      <select class="form-select form-select-sm" style="width: fit-content;">
-                        <option>전체 발주상태</option>
-                        <option>발주요청</option>
-                        <option>발주완료</option>
-                      </select>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                  <tr th:each="list2:${finContract_list.dtoList}">
-                    <td>[[${list2.contractDTO.conNo}]]</td>
-                    <td>[[${list2.contractDTO.partnerDTO.name}]]</td>
-                    <td>[[${list2.contractDTO.filename}]]</td>
-                    <td>[[${list2.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
-                    <td>[[${list2.contractDTO.jodalPlanDTO.proplanDTO.pronum}]]</td>
-                    <td>--</td>
-                    <td>
-                      <button type="button" class="btn btn-sm btn-outline-primary">
-                        <span class="bx bx-arrow-to-bottom"></span>
-                      </button>
-                    </td>
-                    <td>
-                      <a th:href="@{/contract/modify_contract}">
-                        <button class="btn btn-primary">수정</button>
-                      </a>
-                      <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
-                    </td>
-                    <td>
-                      <th:block th:if="${list2.baljuDTO==null}">
-                        <a th:href="@{/order/new_order2(conNo=${list2.contractDTO.conNo})}">
-                          <button class="btn btn-primary">발주 요청</button>
-                        </a>
-                      </th:block>
-                      <th:block th:if="${list2.baljuDTO!=null}">
-                        <a th:href="@{/order/download_order(baljuNo=${list2.baljuDTO.baljuNo})}">
-                          <button class="btn btn-secondary">발주 완료</button>
-                        </a>
-                      </th:block>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- Modal Backdrop -->
-              <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                  <th:block th:if="${finContract_list.prev}">
-                    <li class="page-item prev">
-                      <a class="page-link" th:href="@{/contract/list_contract(page2=${finContract_list.start}-1)}">
-                        <i class="tf-icon bx bx-chevrons-left"></i>
-                      </a>
-                    </li>
-                  </th:block>
-                  <th:block th:each="pagenum:${finContract_list.pageList}">
-                    <li class="page-item " th:classappend="${finContract_list.page}==${pagenum}? active">
-                      <a class="page-link" th:href="@{/contract/list_contract(page2=${pagenum})}">
-                        [[${pagenum}]]
-                      </a>
-                    </li>
-                  </th:block>
-                  <th:block th:if="${finContract_list.next}">
-                    <li class="page-item next">
-                      <a class="page-link" th:href="@{/contract/list_contract(page2=${finContract_list.end}+1)}">
-                        <i class="tf-icon bx bx-chevrons-right"></i>
-                      </a>
-                    </li>
-                  </th:block>
-                </ul>
-              </nav>
             </div>
           </div>
         </div>
-        <!--/ Bootstrap modals -->
+        <!--/검색-->
+        <div class="table-responsive text-nowrap">
+          <!-- Outline Dropdowns -->
+          <div class="card-body"> <!--card의 본문 내용을 담음-->
+            <table class="table table-hover mb-4">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>협력업체명</th>
+                  <th>계약서 파일명</th>
+                  <th>자재명</th>
+                  <th>수량</th>
+                  <th>등록일</th>
+                  <th>다운로드</th>
+                  <th>수정/삭제</th>
+                  <th>
+                    <select class="form-select form-select-sm" style="width: fit-content;">
+                      <option>전체 발주상태</option>
+                      <option>발주요청</option>
+                      <option>발주완료</option>
+                    </select>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                <tr th:each="list2:${finContract_list.dtoList}">
+                  <td>[[${list2.contractDTO.conNo}]]</td>
+                  <td th:id="'partnerName'+${list2.contractDTO.conNo}">[[${list2.contractDTO.partnerDTO.name}]]</td>
+                  <td>[[${list2.contractDTO.filename}]]</td>
+                  <td th:id="'materialName'+${list2.contractDTO.conNo}">[[${list2.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
+                  <td th:id="'conNum'+${list2.contractDTO.conNo}">[[${list2.contractDTO.conNum}]]</td>
+                  <td th:id="'regDate'+${list2.contractDTO.conNo}">[[${#temporals.format(list2.contractDTO.regDate, 'yyyy-MM-dd')}]]</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-primary">
+                      <span class="bx bx-arrow-to-bottom"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <a th:href="@{/contract/modify_contract(conNo=${list2.contractDTO.conNo})}">
+                      <button class="btn btn-primary">수정</button>
+                    </a>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list2.contractDTO.conNo}" onclick="deleteBtn(this)">삭제</button>
+                  </td>
+                  <td>
+                    <th:block th:if="${list2.baljuDTO==null}">
+                      <a th:href="@{/order/new_order2(conNo=${list2.contractDTO.conNo})}">
+                        <button class="btn btn-primary">발주 요청</button>
+                      </a>
+                    </th:block>
+                    <th:block th:if="${list2.baljuDTO!=null}">
+                      <a th:href="@{/order/download_order(baljuNo=${list2.baljuDTO.baljuNo})}">
+                        <button class="btn btn-secondary">발주 완료</button>
+                      </a>
+                    </th:block>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Modal Backdrop -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <th:block th:if="${finContract_list.prev}">
+                  <li class="page-item prev">
+                    <a class="page-link" th:href="@{/contract/list_contract(page2=${finContract_list.start}-1)}">
+                      <i class="tf-icon bx bx-chevrons-left"></i>
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:each="pagenum:${finContract_list.pageList}">
+                  <li class="page-item " th:classappend="${finContract_list.page}==${pagenum}? active">
+                    <a class="page-link" th:href="@{/contract/list_contract(page2=${pagenum})}">
+                      [[${pagenum}]]
+                    </a>
+                  </li>
+                </th:block>
+                <th:block th:if="${finContract_list.next}">
+                  <li class="page-item next">
+                    <a class="page-link" th:href="@{/contract/list_contract(page2=${finContract_list.end}+1)}">
+                      <i class="tf-icon bx bx-chevrons-right"></i>
+                    </a>
+                  </li>
+                </th:block>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
+      <!--/ Bootstrap modals -->
+    </div>
 
-        <!--Modal-->
+    <!--Modal-->
+    <div
+            class="modal fade"
+            id="modalToggle"
+            aria-labelledby="modalToggleLabel"
+            tabindex="-1"
+            style="display: none"
+            aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
+          </div>
+          <div class="modal-body" id="deleteText"></div>
+          <div class="modal-footer">
+            <button
+                    class="btn btn-primary"
+                    data-bs-target="#modalToggle2"
+                    data-bs-dismiss="modal"
+                    id="deleteBtn"
+                    onclick="deleteContract(this)"
+            >
+              삭제
+            </button>
+            <button
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/Modal-->
+    <!--Script-->
+    <script>
+      function deleteBtn(button){
+        var conNo=button.value;
 
-        <!--/Modal-->
-        <!--Script-->
+        const partnerName=document.getElementById('partnerName'+conNo).innerText;
+        const materialName=document.getElementById('materialName'+conNo).innerText;
+        const conNum=document.getElementById('conNum'+conNo).innerText;
+        const regDate=document.getElementById('regDate'+conNo).innerText;
 
-        <!--Script-->
+        document.getElementById('deleteText').innerHTML=partnerName+"와의 "+materialName+"계약(수량: "+conNum+", 계약일: "+regDate+")을 삭제합니다.<br/>삭제시 복구가 불가능합니다.";
+        document.getElementById('deleteBtn').value=conNo;
+      }
+      function deleteContract(button){
+        var conNo=button.value;
+        $.ajax({
+          url:'/contract/delete_contract',
+          method:'POST',
+          data:{conNo:conNo},
+          success:function(response){
+            window.location.reload();
+          }
+        });
+      }
+    </script>
+    <!--Script-->
   </span>
 
 </th:block>

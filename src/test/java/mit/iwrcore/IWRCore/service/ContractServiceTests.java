@@ -83,7 +83,8 @@ public class ContractServiceTests {
     @Transactional
     @Commit
     public void test123(){
-        contractService.getAllContracts().forEach(System.out::println);
+        Pageable pageable=PageRequest.of(0,5);
+
     }
     @Test
     @Transactional
@@ -98,12 +99,6 @@ public class ContractServiceTests {
     public void test12345(){
         PageRequestDTO2 pageRequestDTO=PageRequestDTO2.builder().size2(2).page2(1).build();
         System.out.println(contractService.yesJodalplanMaterial(pageRequestDTO));
-    }
-    @Test
-    @Transactional
-    @Commit
-    public void test111(){
-        System.out.println(contractRepository.findContract(1L));
     }
     @Test
     public void test5566(){

@@ -8,13 +8,14 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -23,9 +24,11 @@ import java.util.stream.Collectors;
 
 
 public class BaljuServiceImpl implements BaljuService {
+
     private final BaljuRepository baljuRepository; // Balju 엔티티를 위한 리포지토리
     private final MemberService memberService; // Member 엔티티를 위한 리포지토리
     private final ContractService contractService; // Contract 엔티티를 위한 리포지토리
+    private final JodalChasuService jodalChasuService;
 
 
     // DTO를 엔티티로 변환
@@ -152,5 +155,42 @@ public class BaljuServiceImpl implements BaljuService {
         Balju balju=(Balju) objects[0];
         BaljuDTO baljuDTO=(balju!=null)?convertToDTO(balju):null;
         return baljuDTO;
+    }
+
+    @Override
+    public List<NewOrderDTO> modifyBalju(Long pno){
+        List<Object[]> entityList=baljuRepository.modifyBalju(pno);
+        List<NewOrderDTO> newOrderDTOList=new ArrayList<>();
+        Set<ContractDTO> contractDTOSet=new HashSet<>();
+        Set<JodalChasuDTO> jodalChasuDTOSet=new HashSet<>();
+        Set<BaljuDTO> baljuDTOSet=new HashSet<>();
+
+        for(Object[] objects:entityList){
+            Contract contract=(Contract) objects[0];
+            JodalChasu jodalChasu=(JodalChasu) objects[1];
+            Balju balju=(Balju) objects[2];
+            ContractDTO contractDTO=(contract!=null)?contractService.convertToDTO(contract):null;
+            JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
+            BaljuDTO baljuDTO=(balju!=null)?convertToDTO(balju):null;
+            contractDTOSet.add(contractDTO);
+            jodalChasuDTOSet.add(jodalChasuDTO);
+            baljuDTOSet.add(baljuDTO);
+
+            if(jodalChasuDTOSet.size()==3){
+                ContractDTO saveContractDTO=contractDTOSet.stream().toList().get(0);
+                List<JodalChasuDTO> saveJodalChasuDTOList=jodalChasuDTOSet.stream().toList();
+                List<JodalChasuDTO> sortedJodalChsasuList=saveJodalChasuDTOList.stream()
+                        .sorted(Comparator.comparing(JodalChasuDTO::getJcnum))
+                        .collect(Collectors.toList());
+                BaljuDTO saveBaljuDTO=baljuDTOSet.stream().toList().get(0);
+
+                NewOrderDTO newOrderDTO=new NewOrderDTO(saveContractDTO, sortedJodalChsasuList, saveBaljuDTO);
+                newOrderDTOList.add(newOrderDTO);
+                contractDTOSet.clear();
+                jodalChasuDTOSet.clear();
+                baljuDTOSet.clear();
+            }
+        }
+        return newOrderDTOList;
     }
 }
