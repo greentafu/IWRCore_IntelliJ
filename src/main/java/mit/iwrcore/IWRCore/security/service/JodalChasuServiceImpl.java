@@ -162,6 +162,9 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         Long tempSumRequest = (Long) objects[2];
         Long tempSumShip = (Long) objects[3];
         JodalChasu jodalChasu=(JodalChasu) objects[4];
+        Long countContract=(Long) objects[5];
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@"+jodalPlan.getJoNo()+":"+countContract);
 
         StructureDTO structureDTO = (structure != null) ? structureService.structureTodto(structure) : null;
         Long sumRequest = (tempSumRequest != null) ? tempSumRequest : 0L;
@@ -170,8 +173,9 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         System.out.println(jodalPlanDTO);
         ProplanDTO proplanDTO = (jodalPlanDTO != null) ? jodalPlanDTO.getProplanDTO() : null;
         JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?convertToDTO(jodalChasu):null;
+        Long sumContract=(countContract!=null)?countContract:0L;
 
-        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, jodalChasuDTO);
+        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, jodalChasuDTO, sumContract);
     }
 
     @Override

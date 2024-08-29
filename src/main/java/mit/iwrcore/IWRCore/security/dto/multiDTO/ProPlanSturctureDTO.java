@@ -19,14 +19,16 @@ public class ProPlanSturctureDTO {
     private Long sumShip;
     private JodalPlanDTO jodalPlanDTO;
     private JodalChasuDTO jodalChasuDTO;
+    private Long countContract;
 
     public ProPlanSturctureDTO(ProplanDTO proplanDTO, StructureDTO structureDTO, Long sumRequest, Long sumShip,
-                               JodalPlanDTO jodalPlanDTO, JodalChasuDTO jodalChasuDTO){
+                               JodalPlanDTO jodalPlanDTO, JodalChasuDTO jodalChasuDTO, Long countContract){
         this.proplanDTO=proplanDTO;
         this.structureDTO=structureDTO;
         this.sumRequest=sumRequest;
         this.sumShip=sumShip;
         this.jodalPlanDTO=jodalPlanDTO;
         this.jodalChasuDTO=jodalChasuDTO;
+        this.countContract=countContract;
     }
 }

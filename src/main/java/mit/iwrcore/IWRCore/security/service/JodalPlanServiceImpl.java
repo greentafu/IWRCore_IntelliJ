@@ -100,7 +100,7 @@ public class JodalPlanServiceImpl implements JodalPlanService {
         System.out.println(jodalPlanDTO);
         ProplanDTO proplanDTO = (jodalPlanDTO != null) ? jodalPlanDTO.getProplanDTO() : null;
 
-        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, null);
+        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, null, null);
     }
 
 

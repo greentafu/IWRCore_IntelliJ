@@ -61,7 +61,8 @@
                            </tr>
                         </thead>
                         <tbody id="contentTbody">
-                           <tr th:each="list:${structure_list}" th:style="${list.jodalChasuDateDTOList != null ? 'background-color: beige' : ''}">
+                           <tr th:each="list:${structure_list}"
+                               th:style="${(list.jodalChasuDateDTOList != null ? 'background-color: beige' : '')+(list.jodalPlanDTO.joNo == jodalPlan.joNo ? 'border: solid 3px' : '')}">
                               <th:block th:if="${list.jodalChasuDateDTOList != null}">
                                  <td></td>
                               </th:block>

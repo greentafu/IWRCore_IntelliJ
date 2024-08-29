@@ -83,7 +83,7 @@ public class JodalController {
                 tempJoNo=item.getJodalPlanDTO().getJoNo();
             }else if(tempJoNo!=item.getJodalPlanDTO().getJoNo()){
                 dtoList.add(new ProPlanSturcture2DTO(tempProPlanDTO, tempStructureDTO, tempSumRequest,
-                        tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null));
+                        tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null, null));
                 tempDtoList.clear();
                 tempJoNo=item.getJodalPlanDTO().getJoNo();
             }
@@ -104,7 +104,7 @@ public class JodalController {
 
             if(tempsize==realsize){
                 dtoList.add(new ProPlanSturcture2DTO(tempProPlanDTO, tempStructureDTO, tempSumRequest,
-                        tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null));
+                        tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null, null));
             }
         }
 
@@ -253,6 +253,7 @@ public class JodalController {
         Long tempSumShip=0L;
         JodalPlanDTO tempJodalPlanDTO=null;
         List<JodalChasuDateDTO> tempDtoList=new ArrayList<>();
+        Long tempCountContract=0L;
 
         // 반복문
         for(ProPlanSturctureDTO item:list){
@@ -261,7 +262,7 @@ public class JodalController {
                 tempJoNo=item.getJodalPlanDTO().getJoNo();
             }else if(tempJoNo!=item.getJodalPlanDTO().getJoNo()){
                 dtoList.add(new ProPlanSturcture2DTO(tempProPlanDTO, tempStructureDTO, tempSumRequest,
-                                                    tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null));
+                                                    tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null, tempCountContract));
                 tempDtoList.clear();
                 tempJoNo=item.getJodalPlanDTO().getJoNo();
             }
@@ -270,6 +271,7 @@ public class JodalController {
             tempSumRequest= item.getSumRequest();
             tempSumShip= item.getSumShip();
             tempJodalPlanDTO=item.getJodalPlanDTO();
+            tempCountContract=item.getCountContract();
 
             if(item.getJodalChasuDTO()!=null){
                 Long jcnum=item.getJodalChasuDTO().getJcnum();
@@ -282,7 +284,7 @@ public class JodalController {
 
             if(tempsize==realsize){
                 dtoList.add(new ProPlanSturcture2DTO(tempProPlanDTO, tempStructureDTO, tempSumRequest,
-                                                    tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null));
+                                                    tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null, tempCountContract));
             }
         }
 

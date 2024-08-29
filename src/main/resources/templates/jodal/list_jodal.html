@@ -282,7 +282,7 @@
                         <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list2.jodalPlanDTO.joNo}" onclick="deleteBtn(this)">취소</button>
                       </th:block>
                       <th:block th:if="${list2.contractDTO}!=null">
-                        <button class="btn btn-outline-primary">수정</button>
+                        <button th:onclick="|location.href='@{/jodal/modify_jodal(joNo=${list2.jodalPlanDTO.joNo})}'|" class="btn btn-outline-primary">수정</button>
                         <button class="btn btn-outline-secondary">취소</button>
                       </th:block>
                     </td>

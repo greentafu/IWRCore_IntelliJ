@@ -63,11 +63,12 @@
                            </tr>
                         </thead>
                         <tbody id="contentTbody">
-                           <tr th:each="list:${structure_list}" th:style="${list.jodalChasuDateDTOList == null ? 'background-color: beige' : ''}">
-                              <th:block th:if="${list.jodalChasuDateDTOList == null}">
+                           <tr th:each="list:${structure_list}"
+                               th:style="${(list.jodalChasuDateDTOList == null || list.countContract != 0 ? 'background-color: beige' : '')+(list.jodalPlanDTO.joNo == jodalPlan.joNo ? 'border: solid 3px' : '')}">
+                              <th:block th:if="${list.jodalChasuDateDTOList == null || list.countContract != 0}">
                                  <td></td>
                               </th:block>
-                              <th:block th:if="${list.jodalChasuDateDTOList != null}">
+                              <th:block th:if="${list.jodalChasuDateDTOList != null && list.countContract == 0}">
                                  <td>
                                     <input type="checkbox" class="form-check-input"
                                            th:id="'btn'+${list.jodalPlanDTO.joNo}">
@@ -81,7 +82,7 @@
                               <td th:id="'stockNum'+${list.jodalPlanDTO.joNo}">
                                  [[${list.sumShip-list.sumRequest}]]
                               </td>
-                              <th:block th:if="${list.jodalChasuDateDTOList == null}">
+                              <th:block th:if="${list.jodalChasuDateDTOList == null && list.countContract == 0}">
                                  <td></td>
                                  <td></td>
                                  <td></td>
@@ -89,7 +90,15 @@
                                  <td></td>
                                  <td></td>
                               </th:block>
-                              <th:block th:if="${list.jodalChasuDateDTOList != null}">
+                              <th:block th:if="${list.countContract != 0}">
+                                 <td>[[${list.jodalChasuDateDTOList[0].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[0].joDate}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[1].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[1].joDate}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[2].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[2].joDate}]]</td>
+                              </th:block>
+                              <th:block th:if="${list.jodalChasuDateDTOList != null && list.countContract == 0}">
                                  <td>
                                     <input type="number" style="border: 0; width: 70px;"
                                            th:id="'oneNum'+${list.jodalPlanDTO.joNo}"
@@ -136,7 +145,7 @@
                      <a th:href="@{/jodal/list_jodal}">
                         <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
                      </a>
-                     <button type="button" class="btn btn-primary" onclick="saveChasu()">등록</button>
+                     <button type="button" class="btn btn-primary" onclick="saveChasu()">수정</button>
                   </div>
                </form>
             </div>
