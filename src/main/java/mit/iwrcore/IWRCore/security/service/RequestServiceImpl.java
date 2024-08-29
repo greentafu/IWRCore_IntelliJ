@@ -1,12 +1,10 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
-import mit.iwrcore.IWRCore.entity.ProPlan;
 import mit.iwrcore.IWRCore.entity.Request;
 import mit.iwrcore.IWRCore.repository.RequestRepository;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import mit.iwrcore.IWRCore.security.dto.RequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -103,4 +100,12 @@ public class RequestServiceImpl implements RequestService{
         Function<Request, RequestDTO> fn=(entity->convertToDTO(entity));
         return new PageResultDTO<>(entityPage, fn);
     }
+    @Override
+    public List<RequestDTO> getRequestsByReqCheck(long reqCheck) {
+        return requestRepository.findByReqCheck(reqCheck)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
 }

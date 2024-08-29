@@ -20,4 +20,6 @@ public interface RequestService {
     List<RequestDTO> getAllRequests();
 
     PageResultDTO<RequestDTO, Request> requestPage(PageRequestDTO requestDTO);
+
+    List<RequestDTO> getRequestsByReqCheck(long reqCheck);
 }

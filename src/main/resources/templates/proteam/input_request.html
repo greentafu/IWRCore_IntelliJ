@@ -94,7 +94,7 @@
                          <a th:href="@{/proteam/list_request}">
                           <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
                         </a>
-                         <button type="submit" class="btn btn-primary" id="submitbutton">출하 요청</button>
+                         <button type="button" class="btn btn-primary" id="submitbutton">출하 요청</button>
 
                       </div>
                     </div>
@@ -239,8 +239,9 @@ $.ajax({
     method: 'GET',
     data: { manuCode: selectedProduct.manuCode },
     success: function(response) {
-        var materials = response.materials;
-        var structures = response.structures;
+        var materials = response.materials || [];  // 자재 정보
+        var structures = response.structures || [];  // 구조 정보
+        var materialStockMap = response.materialStocks || {}; // 자재별 재고 정보
 
         // 테이블 내용 초기화
         var tableBody = $('#product-table-body');
@@ -254,22 +255,34 @@ $.ajax({
             // 구조에서 자재 정보를 찾아서 매칭
             var material = materials.find(mat => mat.materCode === structure.materialDTO.materCode);
 
-            var stock = structure.stockQuantity || 0; // 구조에서 자재 수량을 직접 가져옴
+            // material이 없을 경우에 대한 예외 처리
+            if (!material) {
+                console.warn('Material not found for structure:', structure);
+                return;  // 다음 반복으로 넘어감
+            }
+
+            // materialStockMap에서 현재 자재의 재고 수량을 가져옴
+            var stock = materialStockMap[material.materCode] || 0;
 
             // 출하 요청 수량 계산
             var shippingRequestQuantity = structure.quantity * productQuantity;
 
             // 부족 수량 계산
-            var shortage = stock - shippingRequestQuantity;
+            var shortage = shippingRequestQuantity - stock; // 재고가 부족한 경우에 부족 수량은 양수로 나타나야 합니다.
+
+            // 부족 수량이 음수일 경우 0으로 설정
+            if (shortage < 0) {
+                shortage = 0;
+            }
 
             // 각 구조에 대한 테이블 행 생성
-            var tableRow = `<tr data-index="${structure.materialDTO.materCode}">
-                <td>${material ? material.materCode : ''}</td>
-                <td>${material ? material.name : ''}</td>
-                <td>${structure.quantity || ''}</td>
-                <td>${stock || ''}</td>
-                <td>${shippingRequestQuantity || ''}</td>
-                <td>${shortage || ''}</td>
+            var tableRow = `<tr data-index="${material.materCode}">
+                <td>${material.materCode || '0'}</td>
+                <td>${material.name || 'N/A'}</td>
+                <td>${structure.quantity || '0'}</td>
+                <td>${stock || '0'}</td>
+                <td>${shippingRequestQuantity || '0'}</td>
+                <td>${shortage || '0'}</td>
             </tr>`;
 
             // 테이블에 행 추가
@@ -304,6 +317,7 @@ $('#submitbutton').on('click', function(event) {
 
     const requestData = [];
 
+    // 테이블에서 각 자재 행에 대해 데이터 수집
     $('#product-table-body tr').each(function() {
         const $row = $(this);
         const requestNum = parseFloat($row.find('td:nth-child(5)').text()) || 0;
@@ -313,24 +327,27 @@ $('#submitbutton').on('click', function(event) {
         const line = $('#line-select-button').text().trim();
         const materialCode = $row.data('index');
 
+        // selectedPlan이 선택되지 않았을 경우, 알림을 보여줌
         if (!selectedPlan) {
             alert('선택된 생산 계획이 없습니다.');
-            return;
+            return false;  // 루프 중단
         }
 
+        // 요청 데이터 객체 생성
         const requestItem = {
             requestNum: requestNum,
             eventDate: eventDate,
             text: text,
-            reqCheck: 0,
+            reqCheck: 0,  // 이 값이 하드코딩되어 있는 이유를 확인해야 합니다
             line: line,
             materialDTO: { materCode: materialCode },
-            proplanDTO: { proPlanCode: selectedPlan.proPlanCode }
+            proplanDTO: { proplanNo: selectedPlan.proplanNo }  // proPlanCode -> proplanNo로 변경 (일치하도록 수정)
         };
 
         requestData.push(requestItem);
     });
 
+    // AJAX 요청 보내기
     $.ajax({
         type: 'POST',
         url: '/proteam/submitRequest',

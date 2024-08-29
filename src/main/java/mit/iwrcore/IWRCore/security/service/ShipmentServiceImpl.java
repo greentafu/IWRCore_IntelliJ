@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.security.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.*;
 import mit.iwrcore.IWRCore.security.dto.*;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class ShipmentServiceImpl implements ShipmentService {
@@ -100,6 +101,7 @@ public class ShipmentServiceImpl implements ShipmentService {
                 .memberDTO(entity.getWriter()!=null ? memberService.memberTodto(entity.getWriter()) : null)
                 .build();
     }
+
 
     @Override
     @Transactional
@@ -283,29 +285,15 @@ public class ShipmentServiceImpl implements ShipmentService {
         return shipmentRepository.allShipNum(joNo);
     }
     @Override
-    public Long calculateCurrentStock(String materialCode) {
-        // ReceiveCheck가 1인 출고를 가져옵니다.
-        List<Shipment> shipments = shipmentRepository.findByReceiveCheck(1L);
+    public List<ShipmentDTO> getShipmentsByReceiveCheck(long receiveCheck) {
+        List<Shipment> shipments = shipmentRepository.findByReceiveCheckWithDetails(receiveCheck);
 
-        // RequestCheck가 1인 요청을 가져옵니다.
-        List<Request> requests = requestRepository.findByReqCheck(1L);
+        List<ShipmentDTO> shipmentDTOs = shipments.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
 
-        // 자재별 출고 수량
-        Long totalShipped = shipments.stream()
-                .filter(shipment -> shipment.getBalju() != null
-                        && shipment.getBalju().getContract() != null
-                        && shipment.getBalju().getContract().getJodalPlan() != null
-                        && shipment.getBalju().getContract().getJodalPlan().getMaterial().getMaterCode().equals(materialCode))
-                .mapToLong(Shipment::getShipNum)
-                .sum();
-
-        // 자재별 요청 수량
-        Long totalRequested = requests.stream()
-                .filter(request -> request.getMaterial() != null
-                        && request.getMaterial().getMaterCode().equals(materialCode))
-                .mapToLong(Request::getRequestNum)
-                .sum();
-
-        return totalShipped - totalRequested;
+        log.info("Converted Shipment Entities to DTOs: {}", shipmentDTOs);
+        return shipmentDTOs;
     }
+
 }

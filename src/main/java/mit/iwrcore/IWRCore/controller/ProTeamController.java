@@ -255,24 +255,50 @@ public class ProTeamController {
                     .distinct() // 중복 제거
                     .collect(Collectors.toList());
 
+            // 자재별 재고 계산을 위한 Map 생성 (materialCode -> stock)
+            Map<Long, Long> materialStockMap = new HashMap<>();
+
+            // 1. receiveCheck가 1인 모든 Shipment 가져오기
+            List<ShipmentDTO> shipments = shipmentService.getShipmentsByReceiveCheck(1);
+            log.info("Received Shipments with receiveCheck 1: {}", shipments);
+
+            // 2. reqCheck가 1인 모든 Request 가져오기
+            List<RequestDTO> requests = requestService.getRequestsByReqCheck(1);
+            log.info("Received Requests with reqCheck 1: {}", requests);
+
+            // Shipment 데이터를 통해 초기 재고 설정
+            for (ShipmentDTO shipment : shipments) {
+                Long materialCode = shipment.getBaljuDTO().getContractDTO().getJodalPlanDTO().getMaterialDTO().getMaterCode();
+                log.info("Processing Shipment: Material Code: {}, Ship Num: {}", materialCode, shipment.getShipNum());
+                materialStockMap.put(materialCode, materialStockMap.getOrDefault(materialCode, 0L) + shipment.getShipNum());
+            }
+
+            // Request 데이터를 통해 재고 감소
+            for (RequestDTO request : requests) {
+                Long materialCode = request.getMaterialDTO().getMaterCode();
+                log.info("Processing Request: Material Code: {}, Request Num: {}", materialCode, request.getRequestNum());
+                materialStockMap.put(materialCode, materialStockMap.getOrDefault(materialCode, 0L) - request.getRequestNum());
+            }
+
+            log.info("Final Material Stock Map: {}", materialStockMap);
+
             // 응답 데이터 생성
             Map<String, Object> response = new HashMap<>();
             response.put("product", product);
             response.put("materials", materials); // MaterialDTO 목록을 직접 사용
             response.put("structures", structures);
+            response.put("materialStocks", materialStockMap); // 자재별 재고 정보 추가
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            // 예외 처리
-            e.printStackTrace();
+            log.error("Error in getMaterialStructure: ", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
-
     @PostMapping("/submitRequest")
     public ResponseEntity<Void> submitRequest(@RequestBody List<RequestDTO> requestDTOs) {
-        System.out.println("@@@@@@@@@@@@@@@@@"+requestDTOs);
+        log.info("Received RequestDTOs: {}", requestDTOs);
 
         // 인증된 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -280,8 +306,8 @@ public class ProTeamController {
         MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
         Member writer = memberService.memberdtoToEntity(memberDTO);
 
-        for (RequestDTO requestDTO : requestDTOs) {
-            try {
+        try {
+            for (RequestDTO requestDTO : requestDTOs) {
                 // Request 엔티티 생성 및 필수 정보 설정
                 Request request = new Request();
                 request.setWriter(writer);
@@ -291,40 +317,48 @@ public class ProTeamController {
                 request.setReqCheck(requestDTO.getReqCheck());
                 request.setLine(requestDTO.getLine());
 
-                // Material 변환 및 설정
-                if (requestDTO.getMaterialDTO() != null) {
-                    Material material = materialService.materdtoToEntity(requestDTO.getMaterialDTO());
-                    request.setMaterial(material);
+                // Material 변환 및 설정 - materCode만 사용
+                if (requestDTO.getMaterialDTO() != null && requestDTO.getMaterialDTO().getMaterCode() != null) {
+                    // MaterialDTO를 Material로 변환
+                    MaterialDTO materialDTO = materialService.findM(requestDTO.getMaterialDTO().getMaterCode());
+                    Material material = materialService.materdtoToEntity(materialDTO); // DTO를 엔티티로 변환
+                    if (material != null) {
+                        request.setMaterial(material);
+                    } else {
+                        log.warn("Material conversion failed for MaterialDTO: {}", requestDTO.getMaterialDTO());
+                    }
                 } else {
-                    // MaterialDTO가 없으면 null을 설정하거나 예외 처리
-                    request.setMaterial(null);
+                    log.warn("MaterialDTO is null or materCode is missing for requestDTO: {}", requestDTO);
                 }
 
-                // ProPlan 변환 및 설정
-                if (requestDTO.getProplanDTO() != null) {
-                    ProPlan proPlan = proplanService.dtoToEntity(requestDTO.getProplanDTO());
-                    request.setProPlan(proPlan);
+                // ProPlan 변환 및 설정 - proplanNo만 사용
+                if (requestDTO.getProplanDTO() != null && requestDTO.getProplanDTO().getProplanNo() != null) {
+                    // ProplanDTO를 ProPlan으로 변환
+                    ProplanDTO proplanDTO = proplanService.findById(requestDTO.getProplanDTO().getProplanNo());
+                    ProPlan proPlan = proplanService.dtoToEntity(proplanDTO); // DTO를 엔티티로 변환
+                    if (proPlan != null) {
+                        request.setProPlan(proPlan);
+                    } else {
+                        log.warn("ProPlan conversion failed for ProplanDTO: {}", requestDTO.getProplanDTO());
+                    }
                 } else {
-                    // ProplanDTO가 없으면 null을 설정하거나 예외 처리
-                    request.setProPlan(null);
+                    log.warn("ProplanDTO is null or proplanNo is missing for requestDTO: {}", requestDTO);
                 }
 
                 // Request 엔티티를 데이터베이스에 저장
                 requestRepository.save(request);
-
-            } catch (Exception e) {
-                // 예외 처리: 변환 또는 저장 과정에서 오류 발생 시
-                log.error("RequestDTO 처리 중 오류 발생: ", e);
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error("Error processing RequestDTO: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/material-stock")
-    public ResponseEntity<Long> getMaterialStock(@RequestParam String materialCode) {
-        Long stock = shipmentService.calculateCurrentStock(materialCode);
-        return ResponseEntity.ok(stock);
-    }
+
+
+
+
 }
+
+

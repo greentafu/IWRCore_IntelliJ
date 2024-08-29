@@ -109,5 +109,11 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
 
     @Query("select sum(s.shipNum) from Shipment s where s.balju.contract.jodalPlan.joNo=:joNo")
     Long allShipNum(Long joNo);
-    List<Shipment> findByReceiveCheck(Long receiveCheck);
+    @Query("SELECT s FROM Shipment s " +
+            "JOIN FETCH s.balju b " +
+            "JOIN FETCH b.contract c " +
+            "JOIN FETCH c.jodalPlan jp " +
+            "JOIN FETCH jp.material m " +
+            "WHERE s.receiveCheck = :receiveCheck")
+    List<Shipment> findByReceiveCheckWithDetails(Long receiveCheck);
 }
