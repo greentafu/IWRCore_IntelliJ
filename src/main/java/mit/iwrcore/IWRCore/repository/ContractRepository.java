@@ -25,12 +25,12 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "group by j")
     Page<Object[]> yesplanMaterial(Pageable pageable);
 
-    @Query("select j, c, jc, p from JodalPlan j " +
+    @Query("select j, c, jc, sum(jc.joNum) from JodalPlan j " +
             "left join Contract c on (j.joNo=c.jodalPlan.joNo) " +
             "left join JodalChasu jc on (j.joNo=jc.jodalPlan.joNo) " +
-            "left join Product p on (c.jodalPlan.proPlan.product.manuCode=p.manuCode) " +
             "where jc.jcnum = (select min(jc2.jcnum) from JodalChasu jc2 where jc2.jodalPlan.joNo = j.joNo) " +
-            "and j.joNo not in (select c2.jodalPlan.joNo from Contract c2)")
+            "and j.joNo not in (select cc.jodalPlan.joNo from Contract cc) " +
+            "group by j")
     Page<Object[]> couldContractMaterial(Pageable pageable);
 
     @Query("select c, p, pp from Contract c " +

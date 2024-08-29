@@ -83,7 +83,8 @@ public class ContractServiceTests {
     @Transactional
     @Commit
     public void test123(){
-        contractService.getAllContracts().forEach(System.out::println);
+        Pageable pageable=PageRequest.of(0,5);
+
     }
     @Test
     @Transactional
