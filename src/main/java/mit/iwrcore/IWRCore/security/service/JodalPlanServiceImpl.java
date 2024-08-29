@@ -8,6 +8,8 @@ import mit.iwrcore.IWRCore.repository.JodalPlanRepository;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalChasuDateDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalPlanJodalChsuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -80,26 +83,26 @@ public class JodalPlanServiceImpl implements JodalPlanService {
 
     @Override
     public List<ProPlanSturctureDTO> newJodalChasu(Long proplanNo) {
-        List<Object[]> list = jodalPlanRepository.stock(proplanNo);
+        List<Object[]> list = jodalPlanRepository.stock2(proplanNo);
         List<ProPlanSturctureDTO> dtoList = list.stream().map(this::proPlanSturctureToDTO).toList();
         return dtoList;
     }
-
     private ProPlanSturctureDTO proPlanSturctureToDTO(Object[] objects) {
-        ProPlan proPlan = (ProPlan) objects[0];
+        JodalPlan jodalPlan = (JodalPlan) objects[0];
         Structure structure = (Structure) objects[1];
         Long tempSumRequest = (Long) objects[2];
         Long tempSumShip = (Long) objects[3];
-        JodalPlan jodalPlan = (JodalPlan) objects[4];
 
-        ProplanDTO proplanDTO = (proPlan != null) ? proplanService.entityToDTO(proPlan) : null;
         StructureDTO structureDTO = (structure != null) ? structureService.structureTodto(structure) : null;
         Long sumRequest = (tempSumRequest != null) ? tempSumRequest : 0L;
         Long sumShip = (tempSumShip != null) ? tempSumShip : 0L;
         JodalPlanDTO jodalPlanDTO = (jodalPlan != null) ? entityToDTO(jodalPlan) : null;
+        System.out.println(jodalPlanDTO);
+        ProplanDTO proplanDTO = (jodalPlanDTO != null) ? jodalPlanDTO.getProplanDTO() : null;
 
-        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO);
+        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, null);
     }
+
 
 
     // 조달차수 없는(조달계획 필요한) 자재
@@ -166,4 +169,28 @@ public class JodalPlanServiceImpl implements JodalPlanService {
         Page<Object[]> entityPage = jodalPlanRepository.noContract(pageable);
         return new PageResultDTO<>(entityPage, this::exJodalPlanDTO);
     }
+
+    @Override
+    public List<JodalPlanDTO> findJodalPlanByProPlan(Long proplanNo){
+        List<JodalPlan> entityList=jodalPlanRepository.findByProPlanProplanNo(proplanNo);
+        List<JodalPlanDTO> dtoList=entityList.stream().map(this::entityToDTO).toList();
+        return dtoList;
+    }
+
+    @Override
+    public List<JodalPlanJodalChsuDTO> noneContract(){
+        List<Object[]> entityList=jodalPlanRepository.noneContractJodalPlan();
+        List<JodalPlanJodalChsuDTO> dtoList=entityList.stream().map(this::exJodalPlanJodalChsuDTO).toList();
+        return dtoList;
+    }
+    private JodalPlanJodalChsuDTO exJodalPlanJodalChsuDTO(Object[] objects){
+        JodalPlan jodalPlan=(JodalPlan) objects[0];
+        Long allJodalChasuNum=(Long) objects[1];
+
+        JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)? entityToDTO(jodalPlan):null;
+        System.out.println(jodalPlanDTO);
+        Long allNum=(allJodalChasuNum!=null)?allJodalChasuNum:0L;
+        return new JodalPlanJodalChsuDTO(jodalPlanDTO, allNum);
+    }
+
 }

@@ -17,6 +17,7 @@ import mit.iwrcore.IWRCore.security.dto.ProDTO.ProLDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProMDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuJodalChasuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalPlanJodalChsuDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -170,10 +171,8 @@ public class SelectboxController {
     }
 
     @GetMapping("/noneContractJodalPlan")
-    public List<JodalPlanDTO> noneContractJodalPlan(){
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("########################"+jodalPlanService.noneContractJodalPlan());
-        return jodalPlanService.noneContractJodalPlan();
+    public List<JodalPlanJodalChsuDTO> noneContractJodalPlan(){
+        return jodalPlanService.noneContract();
     }
 
     @GetMapping("/materialList")

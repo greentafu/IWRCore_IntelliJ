@@ -1,6 +1,5 @@
 package mit.iwrcore.IWRCore.security.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.*;
 import mit.iwrcore.IWRCore.repository.BaljuRepository;
@@ -9,7 +8,6 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 

@@ -3,16 +3,16 @@ package mit.iwrcore.IWRCore.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.entity.JodalPlan;
+import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.AjaxDTO.SaveJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
-import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
-import mit.iwrcore.IWRCore.security.dto.StructureDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalChasuDateDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturcture2DTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -51,18 +51,65 @@ public class JodalController {
 
     @GetMapping("/jodal_ready")
     public void jodalReady(@RequestParam("manufactureCode") Long manuCode, @RequestParam(required = false) Long joNo, Model model) {
-        List<StructureDTO> structureList = structureService.findByProduct_ManuCode(manuCode);
-        JodalPlanDTO jodalPlanDTO = jodalPlanService.findById(joNo);
 
+        JodalPlanDTO jodalPlanDTO=jodalPlanService.findById(joNo);
+        model.addAttribute("jodalPlan", jodalPlanDTO);
 
-        model.addAttribute("structureList", structureList);
-        model.addAttribute("manuCode", manuCode);
-        model.addAttribute("joNo", joNo);
+        List<ProPlanSturctureDTO> list=jodalChasuService.modifyJodalChasu(jodalPlanDTO.getProplanDTO().getProplanNo());
 
+        LocalDateTime startDate=list.get(0).getProplanDTO().getStartDate();
+        LocalDateTime minusDate=startDate.minusDays(3L);
+        model.addAttribute("baseDate", minusDate);
 
-        model.addAttribute("structure_list", jodalPlanService.newJodalChasu(jodalPlanDTO.getProplanDTO().getProplanNo()));
+        // 최종적으로 보낼 list
+        List<ProPlanSturcture2DTO> dtoList=new ArrayList<>();
 
+        // 임시저장용
+        int realsize=list.size();
+        int tempsize=0;
+        Long tempJoNo=0L;
 
+        ProplanDTO tempProPlanDTO=null;
+        StructureDTO tempStructureDTO=null;
+        Long tempSumRequest=0L;
+        Long tempSumShip=0L;
+        JodalPlanDTO tempJodalPlanDTO=null;
+        List<JodalChasuDateDTO> tempDtoList=new ArrayList<>();
+
+        // 반복문
+        for(ProPlanSturctureDTO item:list){
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@"+item.getJodalChasuDTO());
+            if(tempJoNo==0L) {
+                tempJoNo=item.getJodalPlanDTO().getJoNo();
+            }else if(tempJoNo!=item.getJodalPlanDTO().getJoNo()){
+                dtoList.add(new ProPlanSturcture2DTO(tempProPlanDTO, tempStructureDTO, tempSumRequest,
+                        tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null));
+                tempDtoList.clear();
+                tempJoNo=item.getJodalPlanDTO().getJoNo();
+            }
+            tempProPlanDTO=item.getProplanDTO();
+            tempStructureDTO=item.getStructureDTO();
+            tempSumRequest= item.getSumRequest();
+            tempSumShip= item.getSumShip();
+            tempJodalPlanDTO=item.getJodalPlanDTO();
+
+            if(item.getJodalChasuDTO()!=null){
+                Long jcnum=item.getJodalChasuDTO().getJcnum();
+                Long juNum=item.getJodalChasuDTO().getJoNum();
+                String joDate=item.getJodalChasuDTO().getJoDate().toString().split("T")[0];
+                tempDtoList.add(new JodalChasuDateDTO(jcnum, juNum, joDate));
+            }
+
+            tempsize+=1;
+
+            if(tempsize==realsize){
+                dtoList.add(new ProPlanSturcture2DTO(tempProPlanDTO, tempStructureDTO, tempSumRequest,
+                        tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null));
+            }
+        }
+
+        model.addAttribute("structure_list", dtoList);
+        System.out.println(dtoList);
     }
 
     @PostMapping("/save")
@@ -145,8 +192,9 @@ public class JodalController {
 
         for(SaveJodalChasuDTO dto:list){
             JodalPlanDTO jodalPlanDTO=jodalPlanService.findById(Long.valueOf(dto.getId()));
-            System.out.println("#########"+dto);
-            System.out.println("@@@@@@@@@@@"+jodalPlanDTO);
+
+            List<JodalChasuDTO> jodalChasuDTOs=jodalChasuService.findJCfromJP(jodalPlanDTO.getJoNo());
+            System.out.println("@@@@@@@@@@@@@@"+jodalChasuDTOs);
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime l1=LocalDateTime.parse(dto.getOneDate()+" 00:00:00", formatter);
@@ -154,6 +202,7 @@ public class JodalController {
             LocalDateTime l3=LocalDateTime.parse(dto.getThreeDate()+" 00:00:00", formatter);
 
             JodalChasuDTO jodalChasuDTO1=JodalChasuDTO.builder()
+                    .jcnum((jodalChasuDTOs.size()!=0)?jodalChasuDTOs.get(0).getJcnum():null)
                     .jodalPlanDTO(jodalPlanDTO)
                     .joNum(Long.valueOf(dto.getOneNum()))
                     .joDate(l1)
@@ -161,6 +210,7 @@ public class JodalController {
                     .build();
             jodalChasuService.createJodalChasu(jodalChasuDTO1);
             JodalChasuDTO jodalChasuDTO2=JodalChasuDTO.builder()
+                    .jcnum((jodalChasuDTOs.size()!=0)?jodalChasuDTOs.get(1).getJcnum():null)
                     .jodalPlanDTO(jodalPlanDTO)
                     .joNum(Long.valueOf(dto.getTwoNum()))
                     .joDate(l2)
@@ -168,6 +218,7 @@ public class JodalController {
                     .build();
             jodalChasuService.createJodalChasu(jodalChasuDTO2);
             JodalChasuDTO jodalChasuDTO3=JodalChasuDTO.builder()
+                    .jcnum((jodalChasuDTOs.size()!=0)?jodalChasuDTOs.get(2).getJcnum():null)
                     .jodalPlanDTO(jodalPlanDTO)
                     .joNum(Long.valueOf(dto.getThreeNum()))
                     .joDate(l3)
@@ -178,7 +229,72 @@ public class JodalController {
         return "redirect:/jodal/list_jodal";
     }
     @GetMapping("/modify_jodal")
-    public void modify_jodal(){
+    public void modify_jodal(Long joNo, Model model){
+        JodalPlanDTO jodalPlanDTO=jodalPlanService.findById(joNo);
+        model.addAttribute("jodalPlan", jodalPlanDTO);
+
+        List<ProPlanSturctureDTO> list=jodalChasuService.modifyJodalChasu(jodalPlanDTO.getProplanDTO().getProplanNo());
+
+        LocalDateTime startDate=list.get(0).getProplanDTO().getStartDate();
+        LocalDateTime minusDate=startDate.minusDays(3L);
+        model.addAttribute("baseDate", minusDate);
+
+        // 최종적으로 보낼 list
+        List<ProPlanSturcture2DTO> dtoList=new ArrayList<>();
+
+        // 임시저장용
+        int realsize=list.size();
+        int tempsize=0;
+        Long tempJoNo=0L;
+
+        ProplanDTO tempProPlanDTO=null;
+        StructureDTO tempStructureDTO=null;
+        Long tempSumRequest=0L;
+        Long tempSumShip=0L;
+        JodalPlanDTO tempJodalPlanDTO=null;
+        List<JodalChasuDateDTO> tempDtoList=new ArrayList<>();
+
+        // 반복문
+        for(ProPlanSturctureDTO item:list){
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@"+item.getJodalChasuDTO());
+            if(tempJoNo==0L) {
+                tempJoNo=item.getJodalPlanDTO().getJoNo();
+            }else if(tempJoNo!=item.getJodalPlanDTO().getJoNo()){
+                dtoList.add(new ProPlanSturcture2DTO(tempProPlanDTO, tempStructureDTO, tempSumRequest,
+                                                    tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null));
+                tempDtoList.clear();
+                tempJoNo=item.getJodalPlanDTO().getJoNo();
+            }
+            tempProPlanDTO=item.getProplanDTO();
+            tempStructureDTO=item.getStructureDTO();
+            tempSumRequest= item.getSumRequest();
+            tempSumShip= item.getSumShip();
+            tempJodalPlanDTO=item.getJodalPlanDTO();
+
+            if(item.getJodalChasuDTO()!=null){
+                Long jcnum=item.getJodalChasuDTO().getJcnum();
+                Long juNum=item.getJodalChasuDTO().getJoNum();
+                String joDate=item.getJodalChasuDTO().getJoDate().toString().split("T")[0];
+                tempDtoList.add(new JodalChasuDateDTO(jcnum, juNum, joDate));
+            }
+
+            tempsize+=1;
+
+            if(tempsize==realsize){
+                dtoList.add(new ProPlanSturcture2DTO(tempProPlanDTO, tempStructureDTO, tempSumRequest,
+                                                    tempSumShip, tempJodalPlanDTO, (tempDtoList.size()!=0)?new ArrayList<>(tempDtoList):null));
+            }
+        }
+
+        model.addAttribute("structure_list", dtoList);
+        System.out.println(dtoList);
+
 
     }
+    @GetMapping("/delete_jodalchasu")
+    public String delete_jodalchasu(@RequestParam(required = false) Long joNo){
+        jodalChasuService.deleteJodalChasuByPlan(joNo);
+        return "redirect:/jodal/list_jodal";
+    }
+
 }

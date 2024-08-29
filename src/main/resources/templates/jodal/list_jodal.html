@@ -126,11 +126,11 @@
                     <td>[[${list1.materialDTO.name}]]</td>
                     <td>[[${list1.proplanDTO.pronum}]]</td>
                     <td>[[${#temporals.format(list1.proplanDTO.startDate, 'yyyy-MM-dd')}]]~[[${#temporals.format(list1.proplanDTO.endDate, 'yyyy-MM-dd')}]]</td>
-                   <td>
-    <a th:href="@{/jodal/jodal_ready(joNo=${list1.joNo}, manufactureCode=${list1.proplanDTO.productDTO.manuCode})}">
-    <button type="button" class="btn btn-primary">조달계획 등록</button>
-</a>
-</td>
+                    <td>
+                      <a th:href="@{/jodal/jodal_ready(joNo=${list1.joNo}, manufactureCode=${list1.proplanDTO.productDTO.manuCode})}">
+                        <button type="button" class="btn btn-primary">조달계획 등록</button>
+                      </a>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -257,7 +257,7 @@
                     <th>제품 이름</th>
                     <th>자재번호</th>
                     <th>자재명</th>
-                    <th>수량</th>
+                    <th>조달계획 수량</th>
                     <th>최초조달 예정일</th>
                     <th>수정/취소</th>
                     <th>
@@ -271,14 +271,20 @@
                 </thead>
                 <tbody>
                   <tr th:each="list2:${yesPlan_list.dtoList}">
-                    <td>[[${list2.jodalPlanDTO.proplanDTO.productDTO.name}]]</td>
-                    <td>[[${list2.jodalPlanDTO.materialDTO.materCode}]]</td>
-                    <td>[[${list2.jodalPlanDTO.materialDTO.name}]]</td>
-                    <td>[[${list2.jodalPlanDTO.proplanDTO.pronum}]]</td>
-                    <td>[[${#temporals.format(list2.jodalChasuDTO.joDate, 'yyyy-MM-dd')}]]</td>
+                    <td th:id="'productName'+${list2.jodalPlanDTO.joNo}">[[${list2.jodalPlanDTO.proplanDTO.productDTO.name}]]</td>
+                    <td th:id="'materialCode'+${list2.jodalPlanDTO.joNo}">[[${list2.jodalPlanDTO.materialDTO.materCode}]]</td>
+                    <td th:id="'materialName'+${list2.jodalPlanDTO.joNo}">[[${list2.jodalPlanDTO.materialDTO.name}]]</td>
+                    <td th:id="'num'+${list2.jodalPlanDTO.joNo}">[[${list2.allNum}]]</td>
+                    <td th:id="'period'+${list2.jodalPlanDTO.joNo}">[[${#temporals.format(list2.jodalChasuDTO.joDate, 'yyyy-MM-dd')}]]</td>
                     <td>
-                      <button th:onclick="|location.href='@{/jodal/modify_jodal(joNo=${list2.jodalPlanDTO.joNo})}'|" class="btn btn-primary">수정</button>
-                      <button class="btn btn-secondary" onclick="showConfirmation()">취소</button>
+                      <th:block th:if="${list2.contractDTO}==null">
+                        <button th:onclick="|location.href='@{/jodal/modify_jodal(joNo=${list2.jodalPlanDTO.joNo})}'|" class="btn btn-primary">수정</button>
+                        <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list2.jodalPlanDTO.joNo}" onclick="deleteBtn(this)">취소</button>
+                      </th:block>
+                      <th:block th:if="${list2.contractDTO}!=null">
+                        <button class="btn btn-outline-primary">수정</button>
+                        <button class="btn btn-outline-secondary">취소</button>
+                      </th:block>
                     </td>
                     <td>
                       <th:block th:if="${list2.contractDTO}==null">
@@ -327,14 +333,68 @@
     </div>
 
     <!--Modal-->
+    <div
+            class="modal fade"
+            id="modalToggle"
+            aria-labelledby="modalToggleLabel"
+            tabindex="-1"
+            style="display: none"
+            aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
+          </div>
+          <div class="modal-body" id="deleteText"></div>
+          <div class="modal-footer">
+            <button
+                    class="btn btn-primary"
+                    data-bs-target="#modalToggle2"
+                    data-bs-dismiss="modal"
+                    id="deleteBtn"
+                    onclick="deleteJodalChasu(this)"
+            >
+              삭제
+            </button>
+            <button
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--/Modal-->
 
     <!--Script-->
     <script>
-    function showConfirmation() {
-      var result = confirm('취소 하시겠습니까?');
-    }
+      function deleteBtn(button){
+        var joNo=button.value;
+
+        var productName=document.getElementById('productName'+joNo).innerText;
+        var materialCode=document.getElementById('materialCode'+joNo).innerText;
+        var materialName=document.getElementById('materialName'+joNo).innerText;
+        var num=document.getElementById('num'+joNo).innerText;
+        var period=document.getElementById('period'+joNo).innerText;
+
+        document.getElementById('deleteText').innerHTML=materialName+"(자재코드: "+materialCode+", 수량: "+num+", 기간: "+period+")의 조달계획을 삭제합니다.<br/>삭제시 복구가 불가능합니다.";
+        document.getElementById('deleteBtn').value=joNo;
+      }
+      function deleteJodalChasu(button){
+        var joNo=button.value;
+        $.ajax({
+          url:'/jodal/delete_jodalchasu',
+          method:'GET',
+          data:{joNo:joNo},
+          success:function(response){
+            window.location.reload();
+          }
+        });
+      }
     </script>
     <!--Script-->
   </span>

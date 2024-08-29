@@ -20,6 +20,7 @@ import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -90,20 +91,11 @@ public class JodalPlanServiceTests {
     @Test
     @Transactional
     @Commit
-    public void test2222(){
-        System.out.println(jodalPlanService.newJodalChasu(4L));
-    }
-    @Test
-    @Transactional
-    @Commit
     public void test1111111111(){
-        System.out.println(jodalPlanRepository.stock(1L));
+        List<Object[]> list=jodalPlanRepository.stock2(1L);
+        list.forEach(System.out::println);
     }
 
-    @Test
-    public void test333(){
-        System.out.println("###"+jodalPlanRepository.noneContractJodalPlan());
-    }
     @Test
     @Transactional
     @Commit

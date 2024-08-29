@@ -3,244 +3,272 @@
 
 <th:block th:replace="~{layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
 
-    <span id="head">
-        <title>자재 관리/ 조달 계획 필요 자재</title>
-    </span>
+   <span id="head">
+      <title>자재 관리/ 조달 계획 필요 자재</title>
+   </span>
 
-    <span id="content">
-        <!-- Content -->
-        <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">자재 관리 /</span> 조달 계획 수립
-            </h4>
-
-            <div class="card mb-4">
-                <div class="card-body">
-                    <!-- Buttons for Auto-fill and Bulk Date Registration -->
-                    <div class="row mb-4">
-                        <button id="auto-fill-button" type="button"
-                                class="col-md-2 btn btn-outline-primary" style="width: fit-content;"
-                                onclick="autoFillNum()"
-                        >
-                            수량 자동입력
-                        </button>&nbsp;
-                        <div class="col-md-10">
-                            <div class="row">
-                                <input id="days-input" type="number"
-                                       class="form-control col-md-2" placeholder="각 항목 간격 (일)"
-                                       style="width: 300px;">&nbsp;
-                                <button id="bulk-date-button" type="button" class="btn btn-outline-primary col-md-2"
-                                        style="width: fit-content;" onclick="autoFillDate()">
-                                    예정일 일괄 등록
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Form for Saving Procurement Plan -->
-                    <form action="/jodal/save" method="post">
-                        <input type="hidden" name="joNo" th:value="${joNo}">
-                        <div class="text-nowrap table-responsive">
-                            <table class="table table-bordered mb-4">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>자재번호</th>
-                                        <th>자재명</th>
-                                        <th>요청수량</th>
-                                        <th>재고수량</th>
-                                        <th>1차수량</th>
-                                        <th>1차예정일</th>
-                                        <th>2차수량</th>
-                                        <th>2차예정일</th>
-                                        <th>3차수량</th>
-                                        <th>3차예정일</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="contentTbody">
-                                    <tr th:each="list:${structure_list}">
-                                        <td>
-                                            <input type="checkbox" class="form-check-input"
-                                                   th:id="'btn'+${list.jodalPlanDTO.joNo}">
-                                        </td>
-                                        <td>[[${list.structureDTO.materialDTO.materCode}]]</td>
-                                        <td>[[${list.structureDTO.materialDTO.name}]]</td>
-                                        <td th:id="'totalNum'+${list.jodalPlanDTO.joNo}">
-                                            [[${list.structureDTO.quantity*list.proplanDTO.pronum}]]
-                                        </td>
-                                        <td th:id="'stockNum'+${list.jodalPlanDTO.joNo}">
-                                            [[${list.sumShip-list.sumRequest}]]
-                                        </td>
-                                        <td>
-                                            <input type="number" style="border: 0; width: 70px;"
-                                                   th:id="'oneNum'+${list.jodalPlanDTO.joNo}">
-                                        </td>
-                                        <td>
-                                            <input type="date"  style="border: 0; width: 100px;"
-                                                   th:id="'oneDate'+${list.jodalPlanDTO.joNo}">
-                                        </td>
-                                        <td>
-                                            <input type="number" style="border: 0; width: 70px;"
-                                                   th:id="'twoNum'+${list.jodalPlanDTO.joNo}">
-                                        </td>
-                                        <td>
-                                            <input type="date"  style="border: 0; width: 100px;"
-                                                   th:id="'twoDate'+${list.jodalPlanDTO.joNo}">
-                                        </td>
-                                        <td>
-                                            <input type="number" style="border: 0; width: 70px;"
-                                                   th:id="'threeNum'+${list.jodalPlanDTO.joNo}">
-                                        </td>
-                                        <td>
-                                            <input type="date"  style="border: 0; width: 100px;"
-                                                   th:id="'threeDate'+${list.jodalPlanDTO.joNo}">
-                                        </td>
-                                        <td style="display:none;">[[${list.jodalPlanDTO.joNo}]]</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <a th:href="@{/jodal/list_jodal}">
-                                <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
-                            </a>
-                            <button type="button" class="btn btn-primary" onclick="saveChasu()">등록</button>
-                        </div>
-                    </form>
-                </div>
+   <span id="content">
+      <!-- Content -->
+      <div class="container-xxl flex-grow-1 container-p-y">
+         <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">자재 관리 /</span> 조달 계획 수립
+         </h4>
+         <div class="card mb-4">
+            <div class="card-body">&nbsp;
+               <div class="row mb-4">
+                  <div class="col-md-2">
+                     <button id="auto-fill-button" type="button"
+                             class="btn btn-outline-primary" style="width: fit-content;"
+                             onclick="autoFillNum()"
+                     >
+                        수량 자동입력
+                     </button>&nbsp;
+                  </div>
+                  <div class="col-md-10">
+                     <div class="row">
+                        <input id="baseDate" type="date" class="form-control col-md-2"
+                               placeholder="조달계획 시작일" style=" width: 200px;">&nbsp;
+                        <span style="width: fit-content;" class="col-md-1">일 기준</span>
+                        <input id="days-input" type="number" class="form-control col-md-2"
+                               placeholder="각 항목 간격 (일)" style="width: 200px;">&nbsp;
+                        <button id="bulk-date-button" type="button" class="btn btn-outline-primary col-md-2"
+                                style="width: fit-content;" onclick="autoFillDate()">
+                           예정일 일괄 등록
+                        </button>
+                     </div>
+                  </div>
+               </div>
+               <form action="/jodal/save" method="post">
+                  <input type="hidden" name="joNo" th:value="${joNo}">
+                  <h5>생산제품: [[${structure_list[0].proplanDTO.productDTO.name}]]([[${structure_list[0].proplanDTO.productDTO.manuCode}]])</h5>
+                  <h5>생산예정일: [[${#temporals.format(structure_list[0].proplanDTO.startDate, 'yyyy-MM-dd')}]]~[[${#temporals.format(structure_list[0].proplanDTO.endDate, 'yyyy-MM-dd')}]]</h5>
+                  <div style="display:none;" id="proStart">[[${#temporals.format(baseDate, 'yyyy-MM-dd')}]]</div>
+                  <div class="text-nowrap table-responsive">
+                     <table class="table table-bordered mb-4">
+                        <thead>
+                           <tr>
+                              <th></th>
+                              <th>자재번호</th>
+                              <th>자재명</th>
+                              <th>요청수량</th>
+                              <th>재고수량</th>
+                              <th>1차수량</th>
+                              <th>1차예정일</th>
+                              <th>2차수량</th>
+                              <th>2차예정일</th>
+                              <th>3차수량</th>
+                              <th>3차예정일</th>
+                           </tr>
+                        </thead>
+                        <tbody id="contentTbody">
+                           <tr th:each="list:${structure_list}" th:style="${list.jodalChasuDateDTOList != null ? 'background-color: beige' : ''}">
+                              <th:block th:if="${list.jodalChasuDateDTOList != null}">
+                                 <td></td>
+                              </th:block>
+                              <th:block th:if="${list.jodalChasuDateDTOList == null}">
+                                 <td>
+                                    <input type="checkbox" class="form-check-input"
+                                           th:id="'btn'+${list.jodalPlanDTO.joNo}">
+                                 </td>
+                              </th:block>
+                              <td>[[${list.structureDTO.materialDTO.materCode}]]</td>
+                              <td>[[${list.structureDTO.materialDTO.name}]]</td>
+                              <td th:id="'totalNum'+${list.jodalPlanDTO.joNo}">
+                                 [[${list.structureDTO.quantity*list.proplanDTO.pronum}]]
+                              </td>
+                              <td th:id="'stockNum'+${list.jodalPlanDTO.joNo}">
+                                 [[${list.sumShip-list.sumRequest}]]
+                              </td>
+                              <th:block th:if="${list.jodalChasuDateDTOList != null}">
+                                 <td>[[${list.jodalChasuDateDTOList[0].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[0].joDate}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[1].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[1].joDate}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[2].juNum}]]</td>
+                                 <td>[[${list.jodalChasuDateDTOList[2].joDate}]]</td>
+                              </th:block>
+                              <th:block th:if="${list.jodalChasuDateDTOList == null}">
+                                 <td>
+                                    <input type="number" style="border: 0; width: 70px;"
+                                           th:id="'oneNum'+${list.jodalPlanDTO.joNo}"
+                                    >
+                                 </td>
+                                 <td>
+                                    <input type="date"  style="border: 0; width: 100px;"
+                                           th:id="'oneDate'+${list.jodalPlanDTO.joNo}"
+                                    >
+                                 </td>
+                                 <td>
+                                    <input type="number" style="border: 0; width: 70px;"
+                                           th:id="'twoNum'+${list.jodalPlanDTO.joNo}"
+                                    >
+                                 </td>
+                                 <td>
+                                    <input type="date"  style="border: 0; width: 100px;"
+                                           th:id="'twoDate'+${list.jodalPlanDTO.joNo}"
+                                    >
+                                 </td>
+                                 <td>
+                                    <input type="number" style="border: 0; width: 70px;"
+                                           th:id="'threeNum'+${list.jodalPlanDTO.joNo}"
+                                    >
+                                 </td>
+                                 <td>
+                                    <input type="date"  style="border: 0; width: 100px;"
+                                           th:id="'threeDate'+${list.jodalPlanDTO.joNo}"
+                                    >
+                                 </td>
+                              </th:block>
+                              <td style="display:none;">[[${list.jodalPlanDTO.joNo}]]</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="d-flex justify-content-between w-100">
+                     <a th:href="@{/jodal/list_jodal}">
+                        <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+                     </a>
+                     <button type="button" class="btn btn-primary" onclick="saveChasu()">등록</button>
+                  </div>
+               </form>
             </div>
+         </div>
+      </div>
 
-            <!-- Script Section -->
-            <script>
-                function autoFillNum(){
-                    const all=document.querySelectorAll('[id^="oneNum"]');
-                    all.forEach(x=>{
-                        var xId=x.id;
-                        var xNo=xId.substr(6);
+      <!--script-->
+      <script>
+         $(document).ready(function(){
+            const startdate=document.getElementById('proStart').innerText;
+            const date=startdate.split('T')[0];
+            document.getElementById('baseDate').value=date;
+         });
 
-                        var totalNum=document.getElementById('totalNum'+xNo).innerText;
-                        var stockNum=document.getElementById('stockNum'+xNo).innerText;
+         function autoFillNum(){
+            const all=document.querySelectorAll('[id^="oneNum"]');
+            all.forEach(x=>{
+               var xId=x.id;
+               var xNo=xId.substr(6);
 
-                        var division1=Math.floor((totalNum-stockNum)/3);
-                        var division2=(totalNum-stockNum)-(division1*2);
+               var totalNum=document.getElementById('totalNum'+xNo).innerText;
+               var stockNum=document.getElementById('stockNum'+xNo).innerText;
 
-                        document.getElementById('oneNum'+xNo).value=division1;
-                        document.getElementById('twoNum'+xNo).value=division1;
-                        document.getElementById('threeNum'+xNo).value=division2;
-                    });
-                }
+               var division1=Math.floor((totalNum-stockNum)/3);
+               var division2=(totalNum-stockNum)-(division1*2);
 
-                function autoFillDate(){
-                const all=document.querySelectorAll('[id^="oneNum"]');
-                    all.forEach(x=>{
-                        var xId=x.id;
-                        var xNo=xId.substr(6);
+               document.getElementById('oneNum'+xNo).value=division1;
+               document.getElementById('twoNum'+xNo).value=division1;
+               document.getElementById('threeNum'+xNo).value=division2;
+            });
+         }
 
-                        var interDate = parseInt(document.getElementById('days-input').value, 10);
+         function autoFillDate(){
+            const startDateInput=document.getElementById('baseDate').value;
+            const all=document.querySelectorAll('[id^="oneNum"]');
+            all.forEach(x=>{
+               var xId=x.id;
+               var xNo=xId.substr(6);
 
-                        var realtoday = new Date();
+               var interDate = parseInt(document.getElementById('days-input').value, 10);
 
-                        var today=new Date(realtoday);
-                        today.setDate(realtoday.getDate() + 20);
-                        var year = today.getFullYear();
-                        var month = today.getMonth() + 1;
-                        var day = today.getDate();
-                        var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
-                        document.getElementById('oneDate' + xNo).value = formattedDate;
+               var realtoday = new Date(startDateInput);
 
-                        var futureDate1 = new Date(today);
-                        futureDate1.setDate(today.getDate() + interDate);
-                        year = futureDate1.getFullYear();
-                        month = futureDate1.getMonth() + 1;
-                        day = futureDate1.getDate();
-                        formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
-                        document.getElementById('twoDate' + xNo).value = formattedDate;
+               var today=new Date(realtoday);
+               var year = today.getFullYear();
+               var month = today.getMonth() + 1;
+               var day = today.getDate();
+               var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+               document.getElementById('oneDate' + xNo).value = formattedDate;
 
-                        var futureDate2 = new Date(today);
-                        futureDate2.setDate(today.getDate() + interDate * 2);
-                        year = futureDate2.getFullYear();
-                        month = futureDate2.getMonth() + 1;
-                        day = futureDate2.getDate();
-                        formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
-                        document.getElementById('threeDate' + xNo).value = formattedDate;
-                    });
-                }
+               var futureDate1 = new Date(today);
+               futureDate1.setDate(today.getDate() + interDate);
+               year = futureDate1.getFullYear();
+               month = futureDate1.getMonth() + 1;
+               day = futureDate1.getDate();
+               formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+               document.getElementById('twoDate' + xNo).value = formattedDate;
 
-                function saveChasu(){
-                    const chasuRows=document.querySelectorAll('#contentTbody tr');
-                    chasuData=[];
+               var futureDate2 = new Date(today);
+               futureDate2.setDate(today.getDate() + interDate * 2);
+               year = futureDate2.getFullYear();
+               month = futureDate2.getMonth() + 1;
+               day = futureDate2.getDate();
+               formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+               document.getElementById('threeDate' + xNo).value = formattedDate;
+            });
+         }
 
-                    chasuRows.forEach(x=>{
-                        const checkbox=x.querySelector('input[type="checkbox"]');
+         function saveChasu(){
+            const chasuRows=document.querySelectorAll('#contentTbody tr');
+            chasuData=[];
 
-                        if(checkbox&&checkbox.checked){
-                            const cells=x.querySelectorAll('td');
+            chasuRows.forEach(x=>{
+               const checkbox=x.querySelector('input[type="checkbox"]');
 
-                            const id=cells[11].innerText;
+               if(checkbox&&checkbox.checked){
+                  const cells=x.querySelectorAll('td');
 
-                            const oneNum=document.getElementById('oneNum'+id).value;
-                            const twoNum=document.getElementById('twoNum'+id).value;
-                            const threeNum=document.getElementById('threeNum'+id).value;
-                            const oneDate=document.getElementById('oneDate'+id).value;
-                            const twoDate=document.getElementById('twoDate'+id).value;
-                            const threeDate=document.getElementById('threeDate'+id).value;
+                  const id=cells[11].innerText;
 
-                            console.log(oneNum, twoNum, threeNum, oneDate, twoDate, threeDate);
-                            chasuData.push({id:id, oneNum:oneNum, twoNum:twoNum, threeNum:threeNum, oneDate:oneDate, twoDate:twoDate, threeDate:threeDate});
-                        }
-                    });
+                  const oneNum=document.getElementById('oneNum'+id).value;
+                  const twoNum=document.getElementById('twoNum'+id).value;
+                  const threeNum=document.getElementById('threeNum'+id).value;
+                  const oneDate=document.getElementById('oneDate'+id).value;
+                  const twoDate=document.getElementById('twoDate'+id).value;
+                  const threeDate=document.getElementById('threeDate'+id).value;
 
-                    $.ajax({
-                        url:'/jodal/saveJodalChasu',
-                        method:'POST',
-                        contentType:'application/json',
-                        data: JSON.stringify(chasuData),
-                        success:function(response) {
-                            console.log("성공");
-                            window.location.href = '/jodal/list_jodal';
-                        },
-                        error: function(xhr, status, error) {
-                            console.log("실패");
-                            window.location.href = '/jodal/list_jodal';
-                        }
-                    });
+                  console.log(oneNum, twoNum, threeNum, oneDate, twoDate, threeDate);
+                  chasuData.push({id:id, oneNum:oneNum, twoNum:twoNum, threeNum:threeNum, oneDate:oneDate, twoDate:twoDate, threeDate:threeDate});
+               }
+            });
 
+            $.ajax({
+               url:'/jodal/saveJodalChasu',
+               method:'POST',
+               contentType:'application/json',
+               data: JSON.stringify(chasuData),
+               success:function(response) {
+                  console.log("성공");
+                  window.location.href = '/jodal/list_jodal';
+               },
+               error: function(xhr, status, error) {
+                  console.log("실패");
+                  window.location.href = '/jodal/list_jodal';
+               }
+            });
 
-                }
+         }
+      </script>
+      <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('auto-fill-button').addEventListener('click', function() {
+               document.querySelectorAll('tr[data-index]').forEach(row => {
+                  const index = row.getAttribute('data-index');
 
-            </script>
+                  // 요청자재 수량 추출
+                  const quantityText = row.querySelector('td:nth-child(3)').innerText;
+                  const quantity = parseFloat(quantityText) || 0;
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    document.getElementById('auto-fill-button').addEventListener('click', function() {
-                        document.querySelectorAll('tr[data-index]').forEach(row => {
-                            const index = row.getAttribute('data-index');
+                  // 재고 수량 추출
+                  const stockText = row.querySelector('td:nth-child(4)').innerText;
+                  const stock = parseFloat(stockText) || 0;
 
-                            // 요청자재 수량 추출
-                            const quantityText = row.querySelector('td:nth-child(3)').innerText;
-                            const quantity = parseFloat(quantityText) || 0;
+                  // 계산
+                  const result = quantity - stock;
+                  const eachQuantity = Math.floor(result / 3); // 소수점을 버리고 정수 부분만 사용
+                  const remainder = result % 3; // 나머지 값
 
-                            // 재고 수량 추출
-                            const stockText = row.querySelector('td:nth-child(4)').innerText;
-                            const stock = parseFloat(stockText) || 0;
+                  // 각 입력 필드에 값 설정
+                  row.querySelector(`input[name="quantities[${index}].firstQuantity"]`).value = eachQuantity;
+                  row.querySelector(`input[name="quantities[${index}].secondQuantity"]`).value = eachQuantity;
 
-                            // 계산
-                            const result = quantity - stock;
-                            const eachQuantity = Math.floor(result / 3); // 소수점을 버리고 정수 부분만 사용
-                            const remainder = result % 3; // 나머지 값
-
-                            // 각 입력 필드에 값 설정
-                            row.querySelector(`input[name="quantities[${index}].firstQuantity"]`).value = eachQuantity;
-                            row.querySelector(`input[name="quantities[${index}].secondQuantity"]`).value = eachQuantity;
-
-                            // 나머지 값을 마지막 필드에 추가
-                            const thirdQuantity = eachQuantity + remainder;
-                            row.querySelector(`input[name="quantities[${index}].thirdQuantity"]`).value = thirdQuantity;
-                        });
-                    });
-                });
-            </script>
-        </div>
-    </span>
+                  // 나머지 값을 마지막 필드에 추가
+                  const thirdQuantity = eachQuantity + remainder;
+                  row.querySelector(`input[name="quantities[${index}].thirdQuantity"]`).value = thirdQuantity;
+               });
+            });
+         });
+      </script>
+      <!--/script-->
+   </span>
 </th:block>
 </html>
