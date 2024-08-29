@@ -249,7 +249,8 @@
             method:'GET',
             success:function(data){
               data.forEach(x=>{
-                var joNo=x.joNo;
+
+                var joNo=x.jodalPlanDTO.joNo;
 
                 var tempId='inputDate'+joNo;
                 var temp=document.getElementById(tempId);
@@ -257,8 +258,9 @@
 
                   console.log("temp:", temp);
 
-                  var materCode=x.materialDTO.materCode;
-                  var materName=x.materialDTO.name;
+                  var materCode=x.jodalPlanDTO.materialDTO.materCode;
+                  var materName=x.jodalPlanDTO.materialDTO.name;
+                  var allNum=x.allJodalChasuNum;
 
                   var newRow = document.createElement('tr');
 
@@ -275,6 +277,11 @@
                     td.innerText = text;
                     newRow.appendChild(td);
                   });
+
+                  var numTd = document.createElement('td');
+                  numTd.innerText = allNum;
+                  numTd.style.display = 'none';
+                  newRow.appendChild(numTd);
 
                   tbodyArea.appendChild(newRow);
 
@@ -308,6 +315,7 @@
               const joNo=cells[1].innerText;
               const materNo=cells[2].innerText;
               const materName=cells[3].innerText;
+              const allNum=cells[4].innerText;
 
               const newRow = document.createElement('tr');
 
@@ -331,6 +339,7 @@
               inputNum.style.border = '0px';
               inputNum.style.width = '150px';
               inputNum.id = 'inputNum'+joNo;
+              inputNum.value=allNum;
               const numTd = document.createElement('td');
               numTd.appendChild(inputNum);
               newRow.appendChild(numTd);

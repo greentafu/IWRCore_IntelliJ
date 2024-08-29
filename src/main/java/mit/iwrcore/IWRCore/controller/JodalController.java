@@ -178,7 +178,12 @@ public class JodalController {
         return "redirect:/jodal/list_jodal";
     }
     @GetMapping("/modify_jodal")
-    public void modify_jodal(){
+    public void modify_jodal(Long joNo){
 
+    }
+    @GetMapping("/delete_jodalchasu")
+    public String delete_jodalchasu(@RequestParam(required = false) Long joNo){
+        jodalChasuService.deleteJodalChasuByPlan(joNo);
+        return "redirect:/jodal/list_jodal";
     }
 }

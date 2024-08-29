@@ -83,6 +83,12 @@ public class JodalChasuServiceImpl implements JodalChasuService {
     }
 
     @Override
+    public void deleteJodalChasuByPlan(Long joNo){
+        List<JodalChasu> list=jodalChasuRepository.getJodalChausFromPlan(joNo);
+        list.forEach(x->deleteJodalChasu(x.getJcnum()));
+    }
+
+    @Override
     public List<JodalChasuDTO> getAllJodalChasus() {
         return jodalChasuRepository.findAll().stream()
                 .map(this::convertToDTO)

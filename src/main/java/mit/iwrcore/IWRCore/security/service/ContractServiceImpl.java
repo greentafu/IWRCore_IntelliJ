@@ -8,7 +8,7 @@ import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,27 +103,29 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public PageResultDTO<ContractJodalChasyDTO, Object[]> yesJodalplanMaterial(PageRequestDTO2 requestDTO) {
+    public PageResultDTO<ContractJodalChasuDTO, Object[]> yesJodalplanMaterial(PageRequestDTO2 requestDTO) {
         Pageable pageable=requestDTO.getPageable(Sort.by("joNo").descending());
         Page<Object[]> entityPage=contractRepository.yesplanMaterial(pageable);
         return new PageResultDTO<>(entityPage, this::JodalPlanContractToDTO);
     }
     @Override
-    public PageResultDTO<ContractJodalChasyDTO, Object[]> couldContractMaterial(PageRequestDTO requestDTO) {
+    public PageResultDTO<ContractJodalChasuDTO, Object[]> couldContractMaterial(PageRequestDTO requestDTO) {
         Pageable pageable=requestDTO.getPageable(Sort.by("joNo").descending());
         Page<Object[]> entityPage=contractRepository.couldContractMaterial(pageable);
         return new PageResultDTO<>(entityPage, this::JodalPlanContractToDTO);
     }
-    private ContractJodalChasyDTO JodalPlanContractToDTO(Object[] objects){
+    private ContractJodalChasuDTO JodalPlanContractToDTO(Object[] objects){
         JodalPlan jodalPlan=(JodalPlan) objects[0];
         Contract contract=(Contract) objects[1];
         JodalChasu jodalChasu=(JodalChasu) objects[2];
+        Long allNum=(Long) objects[3];
 
         ContractDTO contractDTO=(contract!=null)?convertToDTO(contract):null;
         JodalPlanDTO jodalPlanDTO=(jodalPlan!=null)?jodalPlanService.entityToDTO(jodalPlan):null;
         JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
+        Long num=(allNum!=null)?allNum:0L;
 
-        return new ContractJodalChasyDTO(jodalPlanDTO, contractDTO, jodalChasuDTO);
+        return new ContractJodalChasuDTO(jodalPlanDTO, contractDTO, jodalChasuDTO, num);
     }
 
     // 협력회사용 계약서 목록

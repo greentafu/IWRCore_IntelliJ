@@ -7,10 +7,8 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BaljuService {
     // DTO를 엔티티로 변환

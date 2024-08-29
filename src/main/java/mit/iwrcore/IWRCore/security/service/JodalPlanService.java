@@ -4,6 +4,7 @@ import mit.iwrcore.IWRCore.entity.JodalPlan;
 import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalPlanJodalChsuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ProPlanSturctureDTO;
 
 import java.util.List;
@@ -33,4 +34,8 @@ public interface JodalPlanService {
     PageResultDTO<JodalPlanDTO, Object[]> noContract(PageRequestDTO requestDTO);
 
     List<JodalPlanDTO> findJodalPlanByProPlan(Long proplanNo);
+
+    List<JodalPlanJodalChsuDTO> noneContract();
+
+
 }

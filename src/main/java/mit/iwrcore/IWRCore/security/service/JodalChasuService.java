@@ -21,6 +21,8 @@ public interface JodalChasuService {
 
     void deleteJodalChasu(Long id);
 
+    void deleteJodalChasuByPlan(Long joNo);
+
     List<JodalChasuDTO> getAllJodalChasus();
     // 조달계획에 따른 조달차수 리스트
     List<QuantityDateDTO> partnerMainJodal(Long jodalplanId, LocalDateTime baljuDate, Long make);

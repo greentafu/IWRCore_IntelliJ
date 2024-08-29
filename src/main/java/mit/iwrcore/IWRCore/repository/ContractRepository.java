@@ -18,10 +18,11 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "where c.conNo=:conNo")
     List<Object[]> findContract(Long conNo);
 
-    @Query("select j, c, jc from JodalPlan j " +
+    @Query("select j, c, jc, sum(jc.joNum) from JodalPlan j " +
             "left join Contract c on (j.joNo=c.jodalPlan.joNo) " +
             "left join JodalChasu jc on (j.joNo=jc.jodalPlan.joNo) " +
-            "where jc.jcnum = (select min(jc2.jcnum) from JodalChasu jc2 where jc2.jodalPlan.joNo = j.joNo)")
+            "where jc.jcnum = (select min(jc2.jcnum) from JodalChasu jc2 where jc2.jodalPlan.joNo = j.joNo) " +
+            "group by j")
     Page<Object[]> yesplanMaterial(Pageable pageable);
 
     @Query("select j, c, jc, p from JodalPlan j " +

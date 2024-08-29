@@ -2,13 +2,11 @@ package mit.iwrcore.IWRCore.security.service;
 
 import mit.iwrcore.IWRCore.entity.Contract;
 import mit.iwrcore.IWRCore.security.dto.ContractDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasyDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -35,9 +33,9 @@ public interface ContractService {
     List<ContractDTO> getAllContracts();
 
     // 조달차수 있는(조달계획한) 자재 목록+계약서 등록여부
-    PageResultDTO<ContractJodalChasyDTO, Object[]> yesJodalplanMaterial(PageRequestDTO2 requestDTO);
+    PageResultDTO<ContractJodalChasuDTO, Object[]> yesJodalplanMaterial(PageRequestDTO2 requestDTO);
     // 계약서 등록해야 하는 조달계획목록
-    PageResultDTO<ContractJodalChasyDTO, Object[]> couldContractMaterial(PageRequestDTO requestDTO);
+    PageResultDTO<ContractJodalChasuDTO, Object[]> couldContractMaterial(PageRequestDTO requestDTO);
 
     // 협력회사용 계약서목록
     PageResultDTO<ContractDTO, Object[]> partnerContractList(PageRequestDTO requestDTO);

@@ -8,14 +8,12 @@ import mit.iwrcore.IWRCore.security.dto.JodalPlanDTO;
 
 @Builder
 @Data
-public class ContractJodalChasyDTO {
+public class JodalPlanJodalChsuDTO {
     private JodalPlanDTO jodalPlanDTO;
-    private ContractDTO contractDTO;
-    private JodalChasuDTO jodalChasuDTO;
+    private Long allJodalChasuNum;
 
-    public ContractJodalChasyDTO(JodalPlanDTO jodalPlanDTO, ContractDTO contractDTO, JodalChasuDTO jodalChasuDTO){
+    public JodalPlanJodalChsuDTO(JodalPlanDTO jodalPlanDTO, Long allJodalChasuNum){
         this.jodalPlanDTO=jodalPlanDTO;
-        this.contractDTO=contractDTO;
-        this.jodalChasuDTO=jodalChasuDTO;
+        this.allJodalChasuNum=allJodalChasuNum;
     }
 }
