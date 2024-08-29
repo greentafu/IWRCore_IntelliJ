@@ -139,7 +139,9 @@ public class ProductServiceImpl implements ProductService {
         if (entity == null) {
             return null;
         }
-        return ProductDTO.builder()
+
+        // Product 엔티티를 ProductDTO로 변환
+        ProductDTO productDTO = ProductDTO.builder()
                 .manuCode(entity.getManuCode())
                 .name(entity.getName())
                 .color(entity.getColor())
@@ -152,7 +154,26 @@ public class ProductServiceImpl implements ProductService {
                 .proSDTO(proCodeService.proSTodto(entity.getProS()))
                 .memberDTO(memberService.memberTodto(entity.getMember()))
                 .build();
+
+        // proPlans 필드 추가: Product 엔티티의 proPlans를 DTO로 변환하여 설정
+        if (entity.getProPlans() != null) {
+            List<ProplanDTO> proPlans = entity.getProPlans().stream()
+                    .map(proPlan -> ProplanDTO.builder()
+                            .proplanNo(proPlan.getProplanNo())
+                            .pronum(proPlan.getPronum())
+                            .filename(proPlan.getFilename())
+                            .startDate(proPlan.getStartDate())
+                            .endDate(proPlan.getEndDate())
+                            .line(proPlan.getLine())
+                            .details(proPlan.getDetails())
+                            .build())
+                    .collect(Collectors.toList());
+            productDTO.setProPlans(proPlans);
+        }
+
+        return productDTO;
     }
+
     @Override
     public List<ProplanDTO> convertProPlans(Product entity) {
         if (entity == null || entity.getProPlans() == null) {

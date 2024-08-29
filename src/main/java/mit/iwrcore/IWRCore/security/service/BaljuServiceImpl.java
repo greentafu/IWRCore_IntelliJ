@@ -49,6 +49,13 @@ public class BaljuServiceImpl implements BaljuService {
     // 엔티티를 DTO로 변환
     @Override
     public BaljuDTO convertToDTO(Balju entity) {
+        ContractDTO contractDTO = contractService.convertToDTO(entity.getContract());
+
+        // Contract의 연관 데이터들까지 모두 DTO로 변환
+        JodalPlanDTO jodalPlanDTO = contractDTO.getJodalPlanDTO();
+        ProplanDTO proplanDTO = jodalPlanDTO.getProplanDTO();
+        MaterialDTO materialDTO = jodalPlanDTO.getMaterialDTO();
+
         return BaljuDTO.builder()
                 .baljuNo(entity.getBaljuNo())
                 .baljuNum(entity.getBaljuNum())
@@ -57,10 +64,11 @@ public class BaljuServiceImpl implements BaljuService {
                 .filename(entity.getFilename())
                 .finCheck(entity.getFinCheck())
                 .regDate(entity.getRegDate())
-                .memberDTO(memberService.memberTodto(entity.getWriter())) // 엔티티를 DTO로 변환
-                .contractDTO(contractService.convertToDTO(entity.getContract())) // 엔티티를 DTO로 변환
+                .memberDTO(memberService.memberTodto(entity.getWriter()))
+                .contractDTO(contractDTO) // 필요한 모든 데이터를 포함한 ContractDTO
                 .build();
     }
+
 
     @Override
     public BaljuDTO createBalju(BaljuDTO baljuDTO) {

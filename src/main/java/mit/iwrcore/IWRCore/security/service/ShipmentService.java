@@ -64,5 +64,5 @@ public interface ShipmentService {
 
     Long allShipmnetNum(Long joNo);
 
-    Long calculateCurrentStock(String materialCode);
+    List<ShipmentDTO> getShipmentsByReceiveCheck(long receiveCheck);
 }

@@ -48,6 +48,14 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractDTO convertToDTO(Contract entity) {
+        // JodalPlanDTO 변환
+        JodalPlanDTO jodalPlanDTO = jodalPlanService.entityToDTO(entity.getJodalPlan());
+
+        // JodalPlan과 관련된 ProPlanDTO와 MaterialDTO도 가져오기
+        ProplanDTO proplanDTO = jodalPlanDTO.getProplanDTO();
+        MaterialDTO materialDTO = jodalPlanDTO.getMaterialDTO();
+
+        // ContractDTO로 변환
         return ContractDTO.builder()
                 .conNo(entity.getConNo())
                 .conNum(entity.getConNum())
@@ -57,11 +65,12 @@ public class ContractServiceImpl implements ContractService {
                 .filename(entity.getFilename())
                 .who(entity.getWho())
                 .regDate(entity.getRegDate())
-                .jodalPlanDTO(jodalPlanService.entityToDTO(entity.getJodalPlan()))
-                .memberDTO(memberService.memberTodto(entity.getWriter()))
-                .partnerDTO(partnerService.partnerTodto(entity.getPartner()))
+                .jodalPlanDTO(jodalPlanDTO) // JodalPlanDTO 설정
+                .memberDTO(memberService.memberTodto(entity.getWriter())) // MemberDTO 설정
+                .partnerDTO(partnerService.partnerTodto(entity.getPartner())) // PartnerDTO 설정
                 .build();
     }
+
 
     @Override
     public void createContract(ContractDTO contractDTO) {
