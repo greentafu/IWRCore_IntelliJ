@@ -91,13 +91,14 @@ public class JodalPlanServiceTests {
     @Transactional
     @Commit
     public void test2222(){
-        System.out.println(jodalPlanRepository.getJodalPlanByProPlan(2L));
+        System.out.println(jodalPlanRepository.stock(1L));
     }
     @Test
     @Transactional
     @Commit
     public void test1111111111(){
-        System.out.println(jodalPlanRepository.stock(1L));
+        List<Object[]> list=jodalPlanRepository.stock2(1L);
+        list.forEach(System.out::println);
     }
 
     @Test

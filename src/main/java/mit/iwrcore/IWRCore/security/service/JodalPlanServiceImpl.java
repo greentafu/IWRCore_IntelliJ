@@ -80,23 +80,22 @@ public class JodalPlanServiceImpl implements JodalPlanService {
 
     @Override
     public List<ProPlanSturctureDTO> newJodalChasu(Long proplanNo) {
-        List<Object[]> list = jodalPlanRepository.stock(proplanNo);
+        List<Object[]> list = jodalPlanRepository.stock2(proplanNo);
         List<ProPlanSturctureDTO> dtoList = list.stream().map(this::proPlanSturctureToDTO).toList();
         return dtoList;
     }
-
     private ProPlanSturctureDTO proPlanSturctureToDTO(Object[] objects) {
-        ProPlan proPlan = (ProPlan) objects[0];
+        JodalPlan jodalPlan = (JodalPlan) objects[0];
         Structure structure = (Structure) objects[1];
         Long tempSumRequest = (Long) objects[2];
         Long tempSumShip = (Long) objects[3];
-        JodalPlan jodalPlan = (JodalPlan) objects[4];
 
-        ProplanDTO proplanDTO = (proPlan != null) ? proplanService.entityToDTO(proPlan) : null;
         StructureDTO structureDTO = (structure != null) ? structureService.structureTodto(structure) : null;
         Long sumRequest = (tempSumRequest != null) ? tempSumRequest : 0L;
         Long sumShip = (tempSumShip != null) ? tempSumShip : 0L;
         JodalPlanDTO jodalPlanDTO = (jodalPlan != null) ? entityToDTO(jodalPlan) : null;
+
+        ProplanDTO proplanDTO = (jodalPlanDTO != null) ? jodalPlanDTO.getProplanDTO() : null;
 
         return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO);
     }

@@ -23,16 +23,13 @@ public interface JodalPlanRepository extends JpaRepository<JodalPlan, Long> {
             "where j.joNo not in (select jc.jodalPlan.joNo from JodalChasu jc)")
     Page<Object[]> nonPlanMaterial2(Pageable pageable);
 
-    @Query("select pp, st, sum(r.requestNum), sum(sh.shipNum), j, pro " +
-            "from Structure st " +
-            "left join ProPlan pp on (st.product.manuCode=pp.product.manuCode) " +
-            "left join Request r on (r.material.materCode=st.material.materCode) and r.reqCheck=1 " +
-            "left join Shipment sh on (sh.balju.contract.jodalPlan.material.materCode=st.material.materCode) and sh.receiveCheck=1 " +
-            "left join JodalPlan j on (j.material.materCode=st.material.materCode) " +
-            "left join Product pro on (st.product.manuCode=pro.manuCode) " +
-            "where pp.proplanNo=:proplanNo and j.joNo not in (select jc.jodalPlan.joNo from JodalChasu jc) " +
-            "group by st")
-    List<Object[]> stock(Long proplanNo);
+    @Query("select j, st, sum(r.requestNum), sum(sh.shipNum) from JodalPlan j " +
+            "join Structure st on (j.material.materCode=st.material.materCode and j.proPlan.product.manuCode=st.product.manuCode) " +
+            "left join Request r on (j.material.materCode=r.material.materCode and r.reqCheck=1) " +
+            "left join Shipment sh on (j.joNo=sh.balju.contract.jodalPlan.joNo and sh.receiveCheck=1) " +
+            "where j.joNo not in (select jc.jodalPlan.joNo from JodalChasu jc) and j.proPlan.proplanNo=:proplanNo " +
+            "group by j")
+    List<Object[]> stock2(Long proplanNo);
 
     @EntityGraph(attributePaths = {"proPlan"})
     @Query("select j, p from JodalPlan j " +

@@ -52,16 +52,11 @@ public class JodalController {
 
     @GetMapping("/jodal_ready")
     public void jodalReady(@RequestParam("manufactureCode") Long manuCode, @RequestParam(required = false) Long joNo, Model model) {
-        List<StructureDTO> structureList = structureService.findByProduct_ManuCode(manuCode);
+
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@"+manuCode);
+        System.out.println("######################"+joNo);
+
         JodalPlanDTO jodalPlanDTO = jodalPlanService.findById(joNo);
-
-
-        model.addAttribute("structureList", structureList);
-        model.addAttribute("manuCode", manuCode);
-        model.addAttribute("joNo", joNo);
-
-
-
         List<ProPlanSturctureDTO> list=jodalPlanService.newJodalChasu(jodalPlanDTO.getProplanDTO().getProplanNo());
         model.addAttribute("structure_list", list);
 

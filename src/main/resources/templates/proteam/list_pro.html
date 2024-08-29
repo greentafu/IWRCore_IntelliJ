@@ -202,6 +202,7 @@
                     <button th:onclick="|location.href='@{/proteam/modify_plan(proplanNo=${list.proplanDTO.proplanNo})}'|" class="btn  btn-primary">수정</button>
                     <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list.proplanDTO.proplanNo}" onclick="deleteBtn(this)">삭제</button>
                   </td>
+                  <td style="display:none;" th:id="'contractCount'+${list.proplanDTO.proplanNo}">[[${list.contractNum}]]</td>
                 </tr>
               </tbody>
             </table>
@@ -275,13 +276,13 @@
         var manuName=document.getElementById('manuName').innerText;
         var period=document.getElementById('period').innerText;
         var pronum=document.getElementById('pronum').innerText;
-        var progress=document.getElementById('progress').innerText;
+        var contractCount=document.getElementById('contractCount'+proplanNo).innerText;
 
-        if(progress!='계약 체결'){
+        if(contractCount==0){
           document.getElementById('deleteText').innerHTML=manuName+"("+manuCode+")"+"의 생산계획(생산량:"+pronum+", 생산기간: "+period+")을 <br/>삭제합니다.<br/>삭제시 복구가 불가능합니다.";
           document.getElementById('deleteBtn').value=proplanNo;
         }
-        if(progress=='계약 체결'){
+        if(contractCount!=0){
           document.getElementById('deleteText').innerHTML=manuName+"("+manuCode+")"+"의 생산계획(생산량:"+pronum+", 생산기간: "+period+")의 <br/>계약이 체결되었습니다.<br/>삭제가 불가능합니다.";
         }
 
