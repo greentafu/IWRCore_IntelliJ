@@ -86,8 +86,9 @@ public class OrderController {
             }
 
             BaljuDTO baljuDTO=BaljuDTO.builder()
+                    .baljuNo((saveBaljuDTO.getBaljuNo()!=null)?Long.valueOf(saveBaljuDTO.getBaljuNo()):null)
                     .baljuWhere(saveBaljuDTO.getBaljuWhere())
-                    .baljuPlz(saveBaljuDTO.getBaljuWhere())
+                    .baljuPlz(saveBaljuDTO.getBaljuPlz())
                     .baljuNum(sum)
                     .finCheck(0L)
                     .contractDTO(contractDTO)
@@ -97,9 +98,10 @@ public class OrderController {
         }
         return "redirect:/order/list_order";
     }
-    @PostMapping("/delete_order")
-    public void delete_order(){
-
+    @PostMapping ("/delete_order")
+    public String delete_order(@RequestParam(required = false) Long baljuNo){
+        baljuService.deleteBalju(baljuNo);
+        return "redirect:/order/list_order";
     }
     @PostMapping("/urgent")
     public void urgent(){

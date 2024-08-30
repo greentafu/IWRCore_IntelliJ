@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class SaveBaljuDTO {
+    private String baljuNo;
     private String conNo;
     private String baljuWhere;
     private String baljuPlz;

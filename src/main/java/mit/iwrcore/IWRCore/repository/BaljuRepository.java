@@ -38,7 +38,7 @@ public interface BaljuRepository extends JpaRepository<Balju, Long> {
     Page<Object[]> couldBalju(Pageable pageable);
 
 
-    @Query("select b, b.contract, p, pp from Balju b " +
+    @Query("select b, b.contract from Balju b " +
             "left join Product p on (p.manuCode=b.contract.jodalPlan.proPlan.product.manuCode) " +
             "left join ProPlan pp on (pp.proplanNo=b.contract.jodalPlan.proPlan.proplanNo) " +
             "where b.contract.partner.pno=:pno")
