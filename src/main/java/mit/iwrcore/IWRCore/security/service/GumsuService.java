@@ -24,6 +24,8 @@ public interface GumsuService {
 
     GumsuDTO getGumsuById(Long id);
 
+    GumsuDTO getGumsuByBalju(Long baljuNo);
+
     GumsuDTO updateGumsu(Long id, GumsuDTO gumsuDTO);
 
     void deleteGumsu(Long id);

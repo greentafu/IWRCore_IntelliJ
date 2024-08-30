@@ -42,13 +42,16 @@ public class GumsuServiceImpl implements GumsuService{
 
     @Override
     public GumsuDTO convertToDTO(Gumsu entity) {
-        return GumsuDTO.builder()
-                .gumsuNo(entity.getGumsuNo())
-                .make(entity.getMake())
-                .who(entity.getWho())
-                .baljuDTO(baljuService.convertToDTO(entity.getBalju())) // Balju를 BaljuDTO로 변환
-                .memberDTO(memberService.memberTodto(entity.getWriter())) // Member를 MemberDTO로 변환
-                .build();
+        if(entity!=null){
+            return GumsuDTO.builder()
+                    .gumsuNo(entity.getGumsuNo())
+                    .make(entity.getMake())
+                    .who(entity.getWho())
+                    .baljuDTO(baljuService.convertToDTO(entity.getBalju())) // Balju를 BaljuDTO로 변환
+                    .memberDTO(memberService.memberTodto(entity.getWriter())) // Member를 MemberDTO로 변환
+                    .build();
+        }
+        else return null;
     }
 
     @Override
@@ -63,6 +66,11 @@ public class GumsuServiceImpl implements GumsuService{
         List<Object[]> list=gumsuReposetory.getGumsuFromBalju(id);
         Gumsu gumsu=(Gumsu) list.get(0)[0];
         return convertToDTO(gumsu);
+    }
+
+    @Override
+    public GumsuDTO getGumsuByBalju(Long baljuNo){
+        return convertToDTO(gumsuReposetory.findGumsuByBalju(baljuNo));
     }
 
     @Override

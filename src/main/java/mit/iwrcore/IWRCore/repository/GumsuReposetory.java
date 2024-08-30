@@ -23,6 +23,8 @@ public interface GumsuReposetory extends JpaRepository<Gumsu,Long> {
     @Query("select g.make from Gumsu g where g.balju.baljuNo=:baljuNo")
     Long quantityMake(Long baljuNo);
 
+    @Query("select g from Gumsu g where g.balju.baljuNo=:baljuNo")
+    Gumsu findGumsuByBalju(Long baljuNo);
 
     @EntityGraph(attributePaths = {"balju"})
     @Query("select g, g.balju.contract, p, pp from Gumsu g " +

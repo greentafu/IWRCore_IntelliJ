@@ -2,6 +2,7 @@ package mit.iwrcore.IWRCore.controller;
 
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.Gumsu;
+import mit.iwrcore.IWRCore.entity.GumsuChasu;
 import mit.iwrcore.IWRCore.security.dto.AjaxDTO.SaveGumsuDTO;
 import mit.iwrcore.IWRCore.security.dto.AjaxDTO.SaveJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.AjaxDTO.TdData;
@@ -84,11 +85,10 @@ public class ProgressController {
         for(SaveGumsuDTO saveGumsuDTO:list){
             BaljuDTO baljuDTO=baljuService.getBaljuById(Long.valueOf(saveGumsuDTO.getBaljuNo()));
 
-
-
-
+            GumsuDTO existGumsu=gumsuService.getGumsuByBalju(baljuDTO.getBaljuNo());
 
             GumsuDTO gumsuDTO=GumsuDTO.builder()
+                    .gumsuNo((existGumsu!=null)? existGumsu.getGumsuNo() : null)
                     .who(saveGumsuDTO.getPerson())
                     .make(0L)
                     .memberDTO(memberDTO)
@@ -97,18 +97,34 @@ public class ProgressController {
             GumsuDTO savedGumsu=gumsuService.createGumsu(gumsuDTO);
             Gumsu gumsu=gumsuService.convertToEntity(savedGumsu);
 
-            for(TdData tdData: saveGumsuDTO.getTdData()){
-                LocalDateTime localDateTime=LocalDateTime.parse(tdData.getGumDate()+" 00:00:00", formatter);
-                GumsuChasuDTO gumsuChasuDTO=GumsuChasuDTO.builder()
-                        .gumsuNum(Long.valueOf(tdData.getGumNum()))
-                        .gumsuDate(localDateTime)
-                        .gumsuDTO(savedGumsu)
-                        .memberDTO(memberDTO)
-                        .build();
+            if(existGumsu!=null){
+                List<GumsuChasuDTO> gumsuChasuDTOs=gumsuChasuService.getGumsuChasuFromBalju(baljuDTO.getBaljuNo());
+                int tempIndex=0;
+                for(TdData tdData: saveGumsuDTO.getTdData()){
+                    LocalDateTime localDateTime=LocalDateTime.parse(tdData.getGumDate()+" 00:00:00", formatter);
+                    GumsuChasuDTO gumsuChasuDTO=GumsuChasuDTO.builder()
+                            .gcnum(gumsuChasuDTOs.get(tempIndex).getGcnum())
+                            .gumsuNum(Long.valueOf(tdData.getGumNum()))
+                            .gumsuDate(localDateTime)
+                            .gumsuDTO(savedGumsu)
+                            .memberDTO(memberDTO)
+                            .build();
+                    gumsuChasuService.createGumsuChasu(gumsuChasuDTO, gumsu);
+                    tempIndex+=1;
+                }
+            }else{
+                for(TdData tdData: saveGumsuDTO.getTdData()){
+                    LocalDateTime localDateTime=LocalDateTime.parse(tdData.getGumDate()+" 00:00:00", formatter);
+                    GumsuChasuDTO gumsuChasuDTO=GumsuChasuDTO.builder()
+                            .gumsuNum(Long.valueOf(tdData.getGumNum()))
+                            .gumsuDate(localDateTime)
+                            .gumsuDTO(savedGumsu)
+                            .memberDTO(memberDTO)
+                            .build();
 
-                gumsuChasuService.createGumsuChasu(gumsuChasuDTO, gumsu);
+                    gumsuChasuService.createGumsuChasu(gumsuChasuDTO, gumsu);
+                }
             }
-
         }
     }
 }
