@@ -37,4 +37,6 @@ public interface GumsuService {
     List<Partner> getNonGumsuPartner();
 
     List<BaljuJodalChasuDTO> getNoneGumsuBalju(Long pno);
+
+    List<BaljuJodalChasuDTO> modifyGumsu(Long baljuNo);
 }

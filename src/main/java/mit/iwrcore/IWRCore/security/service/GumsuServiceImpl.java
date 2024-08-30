@@ -126,5 +126,11 @@ public class GumsuServiceImpl implements GumsuService{
         JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
         return new BaljuJodalChasuDTO(baljuDTO, jodalChasuDTO);
     }
+    @Override
+    public List<BaljuJodalChasuDTO> modifyGumsu(Long baljuNo){
+        List<Object[]> list=gumsuReposetory.modifyGumsu(baljuNo);
+        List<BaljuJodalChasuDTO> dtoList=list.stream().map(this::baljuJodalChasuToDTO).toList();
+        return dtoList;
+    }
 
 }

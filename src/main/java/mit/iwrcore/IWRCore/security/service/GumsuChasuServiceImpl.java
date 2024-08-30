@@ -158,4 +158,9 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
 
         return new GumsuChasuContractDTO(gumsuChasuDTO, contractDTO, allNum, remainingDate, percent);
     }
+
+    @Override
+    public List<GumsuChasuDTO> getGumsuChasuFromBalju(Long baljuNo){
+        return gumsuChasuRepository.getGumsuChasuByBaljuNo(baljuNo).stream().map(this::convertToDTO).toList();
+    }
 }

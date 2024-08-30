@@ -55,8 +55,14 @@ public class ProgressController {
 
     }
     @GetMapping("/modify_progress")
-    public void modify_progress(){
-
+    public void modify_progress(Long gcnum, Model model){
+        GumsuChasuDTO gumsuChasuDTO=gumsuChasuService.getGumsuChasuById(gcnum);
+        BaljuDTO baljuDTO=gumsuChasuDTO.getGumsuDTO().getBaljuDTO();
+        model.addAttribute("gumsu", gumsuChasuDTO.getGumsuDTO());
+        model.addAttribute("balju", baljuDTO);
+        model.addAttribute("selectedPno", baljuDTO.getContractDTO().getPartnerDTO().getPno());
+        model.addAttribute("selectedName", baljuDTO.getContractDTO().getPartnerDTO().getName());
+        model.addAttribute("nonGumsu_list", gumsuService.getNonGumsuPartner());
     }
     @GetMapping("/requiring_progress")
     public void requiring_progress(PageRequestDTO pageRequestDTO, Model model){
@@ -77,6 +83,11 @@ public class ProgressController {
 
         for(SaveGumsuDTO saveGumsuDTO:list){
             BaljuDTO baljuDTO=baljuService.getBaljuById(Long.valueOf(saveGumsuDTO.getBaljuNo()));
+
+
+
+
+
             GumsuDTO gumsuDTO=GumsuDTO.builder()
                     .who(saveGumsuDTO.getPerson())
                     .make(0L)
