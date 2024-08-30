@@ -166,7 +166,7 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         JodalChasu jodalChasu=(JodalChasu) objects[4];
         Long countContract=(Long) objects[5];
 
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@"+jodalPlan.getJoNo()+":"+countContract);
+        System.out.println(jodalPlan.getJoNo()+":"+countContract);
 
         StructureDTO structureDTO = (structure != null) ? structureService.structureTodto(structure) : null;
         Long sumRequest = (tempSumRequest != null) ? tempSumRequest : 0L;

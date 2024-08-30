@@ -150,14 +150,14 @@
             <table class="table table-bordered mb-4">
               <thead>
                 <tr>
-                  <th>회사</th>
-                  <th>제품</th>
-                  <th>자재</th>
-                  <th>수량</th>
-                  <th>검수일</th>
-                  <th>준비수량</th>
-                  <th>남은기일</th>
-                  <th>
+                  <th rowspan="2">회사</th>
+                  <th rowspan="2">제품</th>
+                  <th rowspan="2">자재</th>
+                  <th rowspan="2">수량</th>
+                  <th rowspan="2">검수일</th>
+                  <th colspan="2">협력회사</th>
+                  <th rowspan="2">남은기일</th>
+                  <th rowspan="2">
                     <select class="form-select form-select-sm" style="width: fit-content;">
                       <option>전체 진척도</option>
                       <option>여유</option>
@@ -165,8 +165,12 @@
                       <option>미달</option>
                     </select>
                   </th>
-                  <th>수정</th>
-                  <th>추가 요청</th>
+                  <th rowspan="2">수정</th>
+                  <th rowspan="2">추가 요청</th>
+                </tr>
+                <tr>
+                  <th>제작수량</th>
+                  <th>보유수량</th>
                 </tr>
               </thead>
               <tbody>
@@ -177,17 +181,18 @@
                   <td>[[${list.gumsuChasuDTO.gumsuNum}]]</td>
                   <td>[[${#temporals.format(list.gumsuChasuDTO.gumsuDate, 'yyyy-MM-dd')}]]</td>
                   <td>[[${list.gumsuChasuDTO.gumsuDTO.make}]]</td>
-                  <td>--</td>
-                  <td>--
-<!--                    <th:block th:if="${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}>=70">-->
-<!--                      <p class="green-text">[[${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}]]%</p>-->
-<!--                    </th:block>-->
-<!--                    <th:block th:if="${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}>=40">-->
-<!--                      <p class="yellow-text">[[${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}]]%</p>-->
-<!--                    </th:block>-->
-<!--                    <th:block th:if="${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}<40">-->
-<!--                      <p class="red-text">[[${(list.gumsuChasuDTO.gumsuDTO.make/list.gumsuChasuDTO.gumsuNum)*100}]]%</p>-->
-<!--                    </th:block>-->
+                  <td>[[${list.gumsuChasuDTO.gumsuDTO.make - list.allShipNum}]]</td>
+                  <td>[[${list.remainingDate}]]일</td>
+                  <td>
+                    <th:block th:if="${list.percent}>=70">
+                      <p class="green-text">[[${list.percent}]]%</p>
+                    </th:block>
+                    <th:block th:if="${list.percent}>=30 and ${list.percent}<70">
+                      <p class="yellow-text">[[${list.percent}]]%</p>
+                    </th:block>
+                    <th:block th:if="${list.percent}<30">
+                      <p class="red-text">[[${list.percent}]]%</p>
+                    </th:block>
                   </td>
                   <td>
                     <a th:href="@{/progress/modify_progress(gcnum=${list.gumsuChasuDTO.gcnum})}">
@@ -197,7 +202,7 @@
                   <td>
                     <button
                             type="button"
-                            class="btn btn-primary"
+                            class="btn btn-outline-primary"
                             data-bs-toggle="modal"
                             data-bs-target="#modalCenter"
                     >

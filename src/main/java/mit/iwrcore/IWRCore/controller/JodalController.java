@@ -78,7 +78,7 @@ public class JodalController {
 
         // 반복문
         for(ProPlanSturctureDTO item:list){
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@"+item.getJodalChasuDTO());
+            System.out.println(item.getJodalChasuDTO());
             if(tempJoNo==0L) {
                 tempJoNo=item.getJodalPlanDTO().getJoNo();
             }else if(tempJoNo!=item.getJodalPlanDTO().getJoNo()){
@@ -188,13 +188,13 @@ public class JodalController {
         AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
         MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
 
-        System.out.println("##########################"+list);
+        System.out.println(list);
 
         for(SaveJodalChasuDTO dto:list){
             JodalPlanDTO jodalPlanDTO=jodalPlanService.findById(Long.valueOf(dto.getId()));
 
             List<JodalChasuDTO> jodalChasuDTOs=jodalChasuService.findJCfromJP(jodalPlanDTO.getJoNo());
-            System.out.println("@@@@@@@@@@@@@@"+jodalChasuDTOs);
+            System.out.println(jodalChasuDTOs);
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime l1=LocalDateTime.parse(dto.getOneDate()+" 00:00:00", formatter);
@@ -257,7 +257,7 @@ public class JodalController {
 
         // 반복문
         for(ProPlanSturctureDTO item:list){
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@"+item.getJodalChasuDTO());
+            System.out.println(item.getJodalChasuDTO());
             if(tempJoNo==0L) {
                 tempJoNo=item.getJodalPlanDTO().getJoNo();
             }else if(tempJoNo!=item.getJodalPlanDTO().getJoNo()){

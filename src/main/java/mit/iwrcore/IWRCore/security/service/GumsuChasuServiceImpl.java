@@ -19,10 +19,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -34,6 +33,7 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     private final MemberService memberService;
     private final GumsuService gumsuService;
     private final ContractService contractService;
+    private final JodalChasuService jodalChasuService;
 
     @Override
     public GumsuChasu convertToEntity(GumsuChasuDTO dto) {
@@ -120,8 +120,42 @@ public class GumsuChasuServiceImpl implements GumsuChasuService{
     private GumsuChasuContractDTO gumsuChasuContractToDTO(Object[] objects){
         GumsuChasu gumsuChasu=(GumsuChasu) objects[0];
         Contract contract=(Contract) objects[1];
+        Long allShipNum=(Long) objects[2];
         GumsuChasuDTO gumsuChasuDTO=(gumsuChasu!=null)?convertToDTO(gumsuChasu):null;
         ContractDTO contractDTO=(contract!=null)?contractService.convertToDTO(contract):null;
-        return new GumsuChasuContractDTO(gumsuChasuDTO, contractDTO);
+        Long allNum=(allShipNum!=null)?allShipNum:0L;
+
+        Long remainingDate=0L;
+        Double percent=0d;
+
+        Long tempSum=0L;
+
+        if(gumsuChasuDTO!=null){
+            LocalDateTime gumsuDate=gumsuChasuDTO.getGumsuDate();
+            LocalDateTime today=LocalDateTime.now();
+            remainingDate= Duration.between(today, gumsuDate).toDays();
+        }
+
+        List<JodalChasuDTO> jodalChasuDTOs=jodalChasuService.findJCfromJP(contractDTO.getJodalPlanDTO().getJoNo())
+                .stream()
+                .sorted(Comparator.comparing(JodalChasuDTO::getJcnum))
+                .toList();
+        List<GumsuChasu> gumsuChasuList=gumsuChasuRepository.getGumsuChasuByBaljuNo(gumsuChasuDTO.getGumsuDTO().getBaljuDTO().getBaljuNo())
+                .stream()
+                .sorted(Comparator.comparing(GumsuChasu::getGcnum))
+                .toList();
+
+        for(int i=0; i<3; i++){
+            if(gumsuChasuList.get(i).getGcnum()<gumsuChasuDTO.getGcnum()){
+                tempSum+=jodalChasuDTOs.get(i).getJoNum();
+            }
+        }
+
+        percent=(double)(gumsuChasuDTO.getGumsuDTO().getMake()-tempSum)*100d/gumsuChasuDTO.getGumsuNum();
+        if(percent>=100) percent=100d;
+        else if(percent<=0) percent=0d;
+        else percent=percent;
+
+        return new GumsuChasuContractDTO(gumsuChasuDTO, contractDTO, allNum, remainingDate, percent);
     }
 }
