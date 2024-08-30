@@ -36,6 +36,8 @@ public interface ShipmentService {
 
     List<ShipmentDTO> getAllShipments();
 
+    List<ShipmentDTO> getInvoiceContent(Long tranNO);
+
     @Transactional
     void updateShipmentWithReturns(Long shipmentId, Long returnsId);
 

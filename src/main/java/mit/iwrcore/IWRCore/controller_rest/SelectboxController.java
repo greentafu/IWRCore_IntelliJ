@@ -20,6 +20,7 @@ import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalPlanJodalChsuDTO;
 import mit.iwrcore.IWRCore.security.service.*;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -221,5 +222,10 @@ public class SelectboxController {
     @GetMapping("/checkProPlan")
     public Long checkProPlan(@RequestParam(required = false) Long manuCode){
         return proplanService.checkProPlan(manuCode);
+    }
+
+    @PostMapping("/modify_invoice")
+    public List<ShipmentDTO> modify_invoice(@RequestParam(required = false) Long tranNO){
+        return shipmentService.getInvoiceContent(tranNO);
     }
 }

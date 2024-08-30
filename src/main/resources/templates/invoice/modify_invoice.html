@@ -19,12 +19,13 @@
 
   <span id="content">
     <div class="container-xxl flex-grow-1 container-p-y">
-      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">거래명세서 /</span> 거래명세서 발행</h4>
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">거래명세서 /</span> 거래명세서 수정</h4>
       <div class="row">
         <div class="col-md-12">
           <div class="card">
             <!-- Bordered Table -->
             <div class="card">
+              <div id="thisTranNO" style="display:none;">[[${invoice.tranNO}]]</div>
               <div class="card-body mb-4" style="height: 10px;">
                 <div>
                   <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
@@ -170,7 +171,7 @@
                     </a>
                     <input type="number" style="display:none;" name="pno" id="partnerPno" th:attr="value=${selectedPartner != null ? selectedPartner : ''}">
                     <input type="number" style="display:none;" id="selectedShipNo" th:attr="value=${selectedShipNo != null ? selectedShipNo : ''}">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="makeInvoice()">수정</button>
+                    <button type="button" class="btn btn-primary" onclick="makeInvoice()">수정</button>
                   </div>
                   <!--/-->
                 </div>
@@ -330,9 +331,15 @@
         initInvoicePartner();
         document.getElementById('writeDate').value = todayDate();
 
+        var tranNO=document.getElementById('thisTranNO').innerText;
+        initModifyInvoice(tranNO);
+
         var selectedPartner=document.getElementById('partnerPno').value;
         if(selectedPartner!=null && selectedPartner!='') selectPartner(selectedPartner);
 
+        setTimeout(function() {
+          calMoney();
+        }, 200);
       });
 
       function initInvoicePartner(){
@@ -398,6 +405,7 @@
       function initInvoiceShipment(pno){
         var pno=pno;
         var element=document.getElementById('selectedShipNo');
+        var tranNO=document.getElementById('thisTranNO').innerText;
         $.ajax({
             url:'/select/getInvoiceShipment',
             method:'GET',
@@ -462,6 +470,74 @@
               });
             }
         });
+
+
+        $.ajax({
+            url:'/select/modify_invoice',
+            method:'POST',
+            data:{tranNO:tranNO},
+            success:function(data){
+              var shipmentList=document.getElementById('shipmentList');
+
+              data.forEach(function(shipment) {
+                var shipNo=shipment.shipNO;
+
+                var findId='presupplyValue'+shipNo;
+                var temp=document.getElementById(findId);
+
+                if(temp==null){
+                  var materCode=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode;
+                  var name=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+                  var receipt=shipment.receipt.split('T')[0];
+                  var shipNum=shipment.shipNum;
+
+                  var standard=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.standard;
+                  var money=shipment.baljuDTO.contractDTO.money;
+                  var conNum=shipment.baljuDTO.contractDTO.conNum;
+                  var unitCost=money/conNum;
+
+                  var newRow = document.createElement('tr');
+
+                  var inputTd = document.createElement('td');
+                  var input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.id = 'checkbox'+shipNo;
+                  if(element){
+                    var selectedShipNo=element.value;
+                    var btn=document.getElementById('selectShipmentBtn');
+                    if(element.value==shipNo) {
+                      setTimeout(() => {
+                          input.checked = true;
+                          element.value = '';
+                          btn.click();
+                      }, 10);
+                    }
+                  }
+                  input.class='form-check-input';
+                  inputTd.appendChild(input);
+                  newRow.appendChild(inputTd);
+
+                  [materCode, name, receipt, shipNum].forEach(function(text) {
+                    var td = document.createElement('td');
+                    td.innerText = text;
+                    td.style.color = 'blue';
+                    td.style.fontWeight = 'bold';
+                    newRow.appendChild(td);
+                  });
+                  [standard, money, shipNo].forEach(function(text) {
+                    var td = document.createElement('td');
+                    td.innerText = text;
+                    td.style.display = 'none';
+                    newRow.appendChild(td);
+                  });
+
+                  shipmentList.appendChild(newRow);
+                }
+
+              });
+            }
+        });
+
       }
 
       function selectInvoiceShipment(button){
@@ -588,6 +664,7 @@
       }
 
       function makeInvoice(){
+        var tranNO=document.getElementById('thisTranNO').innerText;
         var writeDate=document.getElementById('writeDate').value;
         var text=document.getElementById('text').value;
         var cash=document.getElementById('cash').value;
@@ -617,6 +694,7 @@
           method:'POST',
           contentType:'application/json',
           data: JSON.stringify({
+            tranNO:tranNO,
             writeDate:writeDate,
             text:text,
             cash:parseFloat(cash),
@@ -652,6 +730,107 @@
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const day = String(today.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
+      }
+
+      function initModifyInvoice(tranNO){
+        const pno=document.getElementById('partnerPno').value;
+        $.ajax({
+          url:'/select/modify_invoice',
+          method:'POST',
+          data:{tranNO:tranNO},
+          success:function(data){
+            const insertPoint=document.querySelector('#shipmentSel');
+
+            data.forEach(x=>{
+              const materCode=x.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode;
+              const name=x.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+
+              const receipt=x.receipt;
+              const month=receipt.split('-')[1];
+              const day=receipt.split('-')[2].split('T')[0];
+
+              const shipNum=parseFloat(x.shipNum)||0;
+              const standard=x.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.standard;
+              const unitCost=parseFloat(x.baljuDTO.contractDTO.money)||0;
+              const supplyValue=shipNum*unitCost;
+              const tax=supplyValue/10;
+
+              console.log(x.bGo);
+
+              const shipNo=x.shipNO;
+
+              const newRow = document.createElement('tr');
+
+              [month, day].forEach(text => {
+                  const td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+              });
+
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'btn btn-sm btn-secondary';
+              button.innerText = '삭제';
+              button.onclick = function() {
+                  newRow.remove();
+                  calMoney();
+                  initInvoiceShipment(pno);
+              };
+
+              const nameTd = document.createElement('td');
+              nameTd.colSpan=6;
+              nameTd.innerHTML = name+'&nbsp;&nbsp;';
+              nameTd.appendChild(button);
+              newRow.appendChild(nameTd);
+
+              const standardTd = document.createElement('td');
+              standardTd.colSpan=2;
+              standardTd.innerText = standard;
+              newRow.appendChild(standardTd);
+
+              const shipNumTd = document.createElement('td');
+              shipNumTd.innerText = shipNum;
+              newRow.appendChild(shipNumTd);
+
+              const unitCostTd = document.createElement('td');
+              unitCostTd.colSpan=4;
+              unitCostTd.innerText = unitCost;
+              newRow.appendChild(unitCostTd);
+
+              const supplyValueTd = document.createElement('td');
+              supplyValueTd.colSpan=3;
+              supplyValueTd.innerText = supplyValue;
+              supplyValueTd.id = 'presupplyValue'+shipNo;
+              newRow.appendChild(supplyValueTd);
+
+              const taxTd = document.createElement('td');
+              taxTd.colSpan=3;
+              taxTd.innerText = tax;
+              taxTd.id = 'pretax'+shipNo;
+              newRow.appendChild(taxTd);
+
+              const inputText = document.createElement('input');
+              inputText.type = 'text';
+              inputText.style.border = '0px';
+              inputText.style.width = '150px';
+              inputText.id = 'inputText'+shipNo;
+
+              const EmptyTd = document.createElement('td');
+              EmptyTd.appendChild(inputText);
+              newRow.appendChild(EmptyTd);
+
+              const shipNoTd = document.createElement('td');
+              shipNoTd.innerText = shipNo;
+              shipNoTd.style.display = 'none';
+              shipNoTd.id = 'shipNo'+shipNo;
+              newRow.appendChild(shipNoTd);
+
+              insertPoint.appendChild(newRow);
+
+            });
+          }
+        });
+        calMoney();
       }
     </script>
     <!--Script-->

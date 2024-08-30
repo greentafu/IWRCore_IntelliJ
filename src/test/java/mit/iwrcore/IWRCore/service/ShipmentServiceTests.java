@@ -123,9 +123,7 @@ public class ShipmentServiceTests {
     @Transactional
     @Commit
     public void test1111(){
-        LocalDateTime now=LocalDateTime.now();
-//        shipmentRepository.updateShipmentDateMember(now, member, 1L);
-        shipmentService.updateShipmentDate(now, 1L);
+        System.out.println(shipmentRepository.getInvoiceContent(1L));
     }
     @Test
     @Transactional
