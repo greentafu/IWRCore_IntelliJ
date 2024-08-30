@@ -32,8 +32,8 @@
           <label class="form-label" style="width: fit-content;">협력회사</label>
           <div class="row">
             <div class="col-md-6">
-              <input type="number" style="display:none;" id="partnerNo">
-              <input type="text" class="form-control" id="partnerName">
+              <input type="number" style="display:none;" id="partnerNo" th:value="${selectedPno}">
+              <input type="text" class="form-control" id="partnerName" th:value="${selectedName}">
             </div>
             <div class="col-md-4">
               <button
@@ -49,18 +49,25 @@
         </div>
         <div class="card-body">
           <div class="mb-4">
-            <button type="button" class="btn btn-primary mb-1">모두 선택</button>
-            <button type="button" class="btn btn-primary mb-1">30% 수량</button>
-            <button type="button" class="btn btn-primary mb-1">50% 수량</button>
-            <button type="button" class="btn btn-primary mb-1">70% 수량</button><br/>
-          </div>
-          <div class="col">
-            <div class="row mb-4">
-              <div class="col-md-5">
-                <input type="date" class="form-control">
+            <div class="row">
+              <div class="col-md-2">
+                <button type="button" class="btn btn-outline-primary mb-1" onclick="selectAllBalju()">모두 선택</button>
               </div>
-              <div class="col-md-5">
-                <button type="button" class="btn btn-outline-primary" style="width: fit-content;">일괄등록</button>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-primary mb-1" onclick="amountPer(30)">30% 수량</button>
+                <button type="button" class="btn btn-primary mb-1" onclick="amountPer(50)">50% 수량</button>
+                <button type="button" class="btn btn-primary mb-1" onclick="amountPer(70)">70% 수량</button>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <span style="width: fit-content;" class="col-md-1">입고예정일 기준</span>
+                  <input id="days-input" type="number" class="form-control col-md-2" style="width: 100px;">&nbsp;
+                  <span style="width: fit-content;" class="col-md-1">일 전</span>
+                  <button id="bulk-date-button" type="button" class="btn btn-outline-primary col-md-2"
+                          style="width: fit-content;" onclick="autoFillDate()">
+                    진척검수일 일괄 등록
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -139,7 +146,18 @@
 
     <!--Script-->
     <script>
+      $(document).ready(function(){
+        const partnerNo=document.getElementById('partnerNo').value;
+        const partnerName=document.getElementById('partnerName').value;
+        if(partnerNo!=''){
+          selectPartner({ value: partnerNo, name: partnerName });
+        }
+      });
+
       function selectPartner(button){
+
+        console.log('gggggg',button);
+
         var pno=button.value;
         document.getElementById('partnerName').value= button.name;
         document.getElementById('partnerNo').value=pno;
@@ -196,16 +214,19 @@
 
                 var numTd = document.createElement('td');
                 numTd.innerText = x.joNum;
+                numTd.id = 'jodalNum'+x.jcnum;
                 newRow.appendChild(numTd);
 
                 var dateTd = document.createElement('td');
                 dateTd.innerText = x.joDate.split('T')[0];
+                dateTd.id = 'jodalDate'+x.jcnum;
                 newRow.appendChild(dateTd);
 
                 var gumNumTd = document.createElement('td');
                 var gumNumInput = document.createElement('input');
                 gumNumInput.type = 'number';
                 gumNumInput.id = 'gumNum'+x.jcnum;
+                gumNumInput.style.border = '0px';
                 gumNumTd.appendChild(gumNumInput);
                 newRow.appendChild(gumNumTd);
 
@@ -213,6 +234,7 @@
                 var gumDateInput = document.createElement('input');
                 gumDateInput.type = 'date';
                 gumDateInput.id = 'gumDate'+x.jcnum;
+                gumDateInput.style.border = '0px';
                 gumDateTd.appendChild(gumDateInput);
                 newRow.appendChild(gumDateTd);
 
@@ -229,6 +251,77 @@
         });
 
       }
+
+      let checkValue = 0;
+      function selectAllBalju(){
+        const checkBox=document.querySelectorAll('input[type="checkbox"]');
+        checkBox.forEach(x=>{
+          if(checkValue==0) {x.checked=true;}
+          if(checkValue==1) {x.checked=false;}
+        });
+        checkValue=(checkValue===0)?1:0;
+      }
+
+      function amountPer(percent){
+        const allTables = document.querySelectorAll('#alltable table');
+        allTables.forEach(table=>{
+          const checkbox=table.querySelector('input[type="checkbox"]');
+          if(checkbox&&checkbox.checked){
+            var baseId="checkbox";
+            var baljuNo=checkbox.id.substring(baseId.length);
+
+            const all=table.querySelectorAll('[id^="jodalNum"]');
+
+            all.forEach(x=>{
+              var baseId2="jodalNum";
+              var jodalNo=x.id.substring(baseId2.length);
+
+              var amount=parseInt(x.innerText, 10);
+              var amountpercent=Math.floor(amount*percent/100);
+
+              document.getElementById('gumNum'+jodalNo).value=amountpercent;
+
+            });
+          }
+        });
+      }
+
+      function autoFillDate(){
+        const allTables = document.querySelectorAll('#alltable table');
+          allTables.forEach(table=>{
+            const checkbox=table.querySelector('input[type="checkbox"]');
+            if(checkbox&&checkbox.checked){
+              var baseId="checkbox";
+              var baljuNo=checkbox.id.substring(baseId.length);
+
+             const all=table.querySelectorAll('[id^="jodalDate"]');
+
+              all.forEach(x=>{
+                var baseId2="jodalDate";
+                var jodalNo=x.id.substring(baseId2.length);
+
+                var joDateStr = x.innerText.trim();
+                var minusDate = parseInt(document.getElementById('days-input').value, 10);
+
+                var joDate = new Date(joDateStr);
+                if (isNaN(joDate.getTime())) {
+                    console.error('Invalid date format for jodalDate:', joDateStr);
+                    return;
+                }
+
+                joDate.setDate(joDate.getDate() - minusDate);
+
+                var year = joDate.getFullYear();
+                var month = joDate.getMonth() + 1;
+                var day = joDate.getDate();
+                var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+                document.getElementById('gumDate' + jodalNo).value = formattedDate;
+             });
+          }
+        });
+      }
+
 
       function saveGumsu(){
         var person=document.getElementById('person').value;

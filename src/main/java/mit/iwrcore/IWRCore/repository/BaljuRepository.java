@@ -48,9 +48,7 @@ public interface BaljuRepository extends JpaRepository<Balju, Long> {
 
 
     @EntityGraph(attributePaths = {"contract"})
-    @Query("select b, b.contract, p, pro from Balju b " +
-            "left join Product p on (b.contract.jodalPlan.proPlan.product.manuCode=p.manuCode) " +
-            "left join ProPlan pro on (pro.proplanNo=b.contract.jodalPlan.proPlan.proplanNo) " +
+    @Query("select b, b.contract from Balju b " +
             "where b.contract.partner.pno=:pno")
     List<Object[]> partListBalju(Long pno);
 

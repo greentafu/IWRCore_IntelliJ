@@ -110,6 +110,7 @@
                   <th>발주일</th>
                   <th>협력업체명</th>
                   <th>발주서 파일명</th>
+                  <th>제품명</th>
                   <th>자재명</th>
                   <th>수량</th>
                   <th>진척검수일 등록</th>
@@ -118,11 +119,12 @@
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${list.dtoList}">
                   <td>[[${list.baljuDTO.baljuNo}]]</td>
-                  <td>--</td>
+                  <td>[[${#temporals.format(list.baljuDTO.regDate, 'yyyy-MM-dd')}]]</td>
                   <td>[[${list.baljuDTO.contractDTO.partnerDTO.name}]]</td>
                   <td>
                     <a th:href="@{/order/download_order(baljuNo=${list.baljuDTO.baljuNo})}">[[${list.baljuDTO.filename}]]</a>
                   </td>
+                  <td>[[${list.baljuDTO.contractDTO.jodalPlanDTO.proplanDTO.productDTO.name}]]</td>
                   <td>[[${list.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
                   <td>[[${list.baljuDTO.contractDTO.conNum}]]</td>
                   <td>

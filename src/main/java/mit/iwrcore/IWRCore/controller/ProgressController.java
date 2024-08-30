@@ -42,9 +42,17 @@ public class ProgressController {
     }
     @GetMapping("/add_progress")
     public void add_progress(@RequestParam(required = false) Long baljuNo, Model model){
-        BaljuDTO baljuDTO =baljuService.getBaljuById(baljuNo);
-        model.addAttribute("balju", baljuDTO);
+        if(baljuNo!=null){
+            BaljuDTO baljuDTO =baljuService.getBaljuById(baljuNo);
+            model.addAttribute("balju", baljuDTO);
+            model.addAttribute("selectedPno", baljuDTO.getContractDTO().getPartnerDTO().getPno());
+            model.addAttribute("selectedName", baljuDTO.getContractDTO().getPartnerDTO().getName());
+        }else{
+            model.addAttribute("selectedPno", null);
+            model.addAttribute("selectedName", null);
+        }
         model.addAttribute("nonGumsu_list", gumsuService.getNonGumsuPartner());
+
     }
     @GetMapping("/modify_progress")
     public void modify_progress(){
