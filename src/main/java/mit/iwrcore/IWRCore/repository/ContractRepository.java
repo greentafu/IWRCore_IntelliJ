@@ -44,4 +44,12 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "left join JodalChasu jc on (c.jodalPlan.joNo=jc.jodalPlan.joNo) " +
             "where b.baljuNo is null and c.partner.pno=:pno")
     List<Object[]> newOrderContract(Long pno);
+
+    @Query("select m2, c2.money, sum(sh.shipNum), sum(re.requestNum) from Material m2 " +
+            "left join Contract c2 on c2.conNo = (select max(c1.conNo) from Contract c1 " +
+            "where c1.jodalPlan.material.materCode = m2.materCode) " +
+            "left join Shipment sh on (sh.balju.contract.jodalPlan.material.materCode=m2.materCode and sh.receiveCheck=1) " +
+            "left join Request re on (re.material.materCode=m2.materCode and re.reqCheck=1) " +
+            "group by m2")
+    List<Object[]> stockList();
 }

@@ -97,8 +97,7 @@ public class ContractServiceTests {
     @Transactional
     @Commit
     public void test12345(){
-        PageRequestDTO2 pageRequestDTO=PageRequestDTO2.builder().size2(2).page2(1).build();
-        System.out.println(contractService.yesJodalplanMaterial(pageRequestDTO));
+        System.out.println(contractService.stockList());
     }
     @Test
     public void test5566(){

@@ -10,6 +10,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.StockDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -28,6 +29,7 @@ public class ContractServiceImpl implements ContractService {
     private final PartnerService partnerService;
     private final ProplanService proplanService;
     private final JodalChasuService jodalChasuService;
+    private final MaterialService materialService;
 
     @Override
     public Contract convertToEntity(ContractDTO dto) {
@@ -177,6 +179,26 @@ public class ContractServiceImpl implements ContractService {
             }
         }
         return newOrderDTOList;
+    }
+
+    @Override
+    public List<StockDTO> stockList(){
+        List<Object[]> entityList=contractRepository.stockList();
+        List<StockDTO> dtoList=entityList.stream().map(this::exStockDTO).toList();
+        return dtoList;
+    }
+    private StockDTO exStockDTO(Object[] objects){
+        Material material=(Material) objects[0];
+        Long tempMoney=(Long) objects[1];
+        Long tempSumShip=(Long) objects[2];
+        Long tempSumReq=(Long) objects[3];
+
+        MaterialDTO materialDTO=(material!=null)?materialService.materTodto(material):null;
+        Long money=(tempMoney!=null)?tempMoney:0L;
+        Long sumShip=(tempSumShip!=null)?tempSumShip:0L;
+        Long sumReq=(tempSumReq!=null)?tempSumReq:0L;
+
+        return new StockDTO(materialDTO, money, sumShip, sumReq);
     }
 
 }

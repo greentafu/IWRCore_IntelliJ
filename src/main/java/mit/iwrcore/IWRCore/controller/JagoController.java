@@ -3,6 +3,8 @@ package mit.iwrcore.IWRCore.controller;
 import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
+import mit.iwrcore.IWRCore.security.service.BoxService;
+import mit.iwrcore.IWRCore.security.service.ContractService;
 import mit.iwrcore.IWRCore.security.service.MaterService;
 import mit.iwrcore.IWRCore.security.service.ProCodeService;
 import org.springframework.stereotype.Controller;
@@ -17,12 +19,17 @@ public class JagoController {
 
     private final MaterService materService;
     private final ProCodeService proCodeService;
+    private final ContractService contractService;
+    private final BoxService boxService;
 
     @GetMapping("/list_stock")
-    public void list_stock(){
+    public void list_stock(Model model){
+        model.addAttribute("list", contractService.stockList());
+        model.addAttribute("box_list", boxService.list());
     }
     @GetMapping("/list_stockM")
-    public void list_stockM(){
+    public void list_stockM(Model model){
+        model.addAttribute("list", contractService.stockList());
     }
     @GetMapping("/stock")
     public void stock(){
