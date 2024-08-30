@@ -251,118 +251,62 @@
         <!--/Card-->
         <div class="col-lg-12 col-md-6 mb-4">
           <!-- Card 6 -->
-          <div class="card" style="height: 446px;">
-            <div class="card-body">
-              <div><strong>납품 지시</strong></div>
-              <div class="dropdown">
-                <button class="btn btn-sm btn-outline-primary dropdown-toggle mb-4" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  ALL
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                  <a class="dropdown-item" href="javascript:void(0);">리모콘</a>
-                  <a class="dropdown-item" href="javascript:void(0);">전동 킥보드</a>
-                  <a class="dropdown-item" href="javascript:void(0);">모니터</a>
-                </div>
-                <button class="btn btn-sm btn-outline-primary dropdown-toggle mb-4" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  ALL
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                  <a class="dropdown-item" href="javascript:void(0);">AAA</a>
-                  <a class="dropdown-item" href="javascript:void(0);">BBB</a>
-                  <a class="dropdown-item" href="javascript:void(0);">CCC</a>
-                </div>
-              </div>
-              <div class="table-responsive text-nowrap" style="height: 300px;">
-                <table class="table table-bordered mb-2">
-                  <thead>
-                  <tr>
-                    <th>회사</th>
+<div class="card" style="height: 446px;">
+  <div class="card-body">
+    <div><strong>긴급 납품 지시</strong></div>
+       <div class="btn-group">
+           <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                수량 순
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="fetchEmergencyDeliveryRequests('high')">수량 높은순</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="fetchEmergencyDeliveryRequests('low')">수량 낮은순</a></li>
+            </ul>
+        </div>
+     <div class="btn-group">
+            <!-- 검수일 정렬 드롭다운 -->
+            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                검수일 순
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="fetchEmergencyDeliveryRequests('early')">검수일 빠른순</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="fetchEmergencyDeliveryRequests('late')">검수일 늦은순</a></li>
+            </ul>
+        </div>
+        <table id="emergency-requests-table" class="table table-bordered mb-2">
+            <thead>
+                <tr>
+                    <th>발주번호</th>
                     <th>제품</th>
                     <th>자재</th>
-                    <th>협력 회사 보유 수량</th>
-                    <th>검수 수량</th>
-                    <th>재고 수량</th>
-                    <th>부족수량</th>
+                  <th>부족 수량</th>
                     <th>검수일</th>
                     <th>요청</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>
-                      AAA
-                    </td>
-                    <td>전동 킥보드</td>
-                    <td><strong>앞 브레이크</strong></td>
-                    <td>300</td>
-                    <td>150</td><td>100</td>
-                    <td>50</td> <td>2024-08-14</td>
-                    <td>
-                      <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-bs-toggle="modal"
-                              data-bs-target="#modalCenter"
-                      >
-                        요청
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      AAA
-                    </td>
-                    <td>전동 킥보드</td>
-                    <td><strong>뒷 브레이크</strong></td>
-                    <td>350</td>
-                    <td>150</td><td>100</td><td>50</td>
-                    <td>2024-08-11</td>
-                    <td>
-                      <button
-                              type="button"
-                              class="btn btn-primary"
-                              data-bs-toggle="modal"
-                              data-bs-target="#modalCenter"
-                      >
-                        요청
-                      </button>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-              <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item prev">
-                    <a class="page-link" href="javascript:void(0);"
-                    ><i class="tf-icon bx bx-chevrons-left"></i
-                    ></a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="javascript:void(0);">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">2</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">3</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">4</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">5</a>
-                  </li>
-                  <li class="page-item next">
-                    <a class="page-link" href="javascript:void(0);"
-                    ><i class="tf-icon bx bx-chevrons-right"></i
-                    ></a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </div>
+                </tr>
+            </thead>
+            <tbody id="emergency-table-body">
+                <!-- JavaScript로 데이터를 여기에 동적으로 삽입합니다. -->
+
+
+        </tbody>
+      </table>
+    </div>
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <li class="page-item prev">
+          <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
+        </li>
+        <li class="page-item active">
+          <a class="page-link" href="javascript:void(0);">1</a>
+        </li>
+        <!-- Pagination items should be dynamically created based on data -->
+        <li class="page-item next">
+          <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
         <!-- New Card -->
         <!--/Card-->
       </div>
@@ -378,7 +322,7 @@
           <div class="modal-body">
             <div class="row">
               <div class="col mb-3 text-center">
-                [긴급]추가 납품지시 가능 수량 : 380개
+                [긴급]부족 수량 :  <span id="shortageAmount"></span>개
               </div>
             </div>
             <div class="row g-2">
@@ -389,56 +333,194 @@
                         id="emailWithTitle"
                         class="form-control"
                         placeholder="실명 입력"
-                /> <label for="dobWithTitle" class="form-label">납품 받을 날짜 입력</label>
-                <input
+                /> <label class="form-label">납품 받을 날짜 입력</label>
+                <input  id="deliveryDate"
                         type="date"
-                        id="dobWithTitle"
+
                         class="form-control"
                 />
               </div>
               <div class="col mb-0">
-                <label for="dobWithTitle" class="form-label">납품지시 수량 입력</label>
+                <label  class="form-label">납품지시 수량 입력</label>
                 <input
+                        id="deliveryQuantity"
                         type="number"
-                        id="dobWithTitle"
                         class="form-control"
                 />
               </div>
             </div>
           </div>
           <div class="modal-footer">
+    <input type="hidden" id="requestIdInput"> <!-- 숨겨진 입력 필드 추가 -->
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
               취소
             </button>
-            <button type="button" class="btn btn-primary">납품 지시</button>
+            <button type="button" class="btn btn-primary" id="deliveryConfirmButton" >납품 지시</button>
           </div>
         </div>
       </div>
     </div>
 
+
     <!--/Modal-->
 
     <!--Script-->
-    <script>
-      function showOptions() {
-        document.getElementById("myModal").style.display = "block";
+  <script>
+// Function to fetch emergency delivery requests and update the table
+function fetchEmergencyDeliveryRequests(orderBy) {
+  fetch('/proteam/login/emergency-delivery-requests?orderBy=' + orderBy)
+    .then(response => response.json())
+    .then(data => {
+      updateEmergencyTable(data);
+    })
+    .catch(error => {
+      console.error('Error fetching emergency delivery requests:', error);
+    });
+}
+
+// Function to update the table with fetched data
+function updateEmergencyTable(data) {
+  var tableBody = document.getElementById('emergency-table-body');
+  tableBody.innerHTML = ''; // Clear existing table content
+
+  data.forEach(function (item) {
+    var shortage = 0; // Initialize shortage to 0
+
+    // Extract shortage amount from the text if available
+    if (item.text && item.text.includes('부족')) {
+      var matches = item.text.match(/\d+/); // Extract number from text
+      if (matches) {
+        shortage = parseInt(matches[0], 10); // Convert to integer
       }
-      function closeModal() {
-        document.getElementById("myModal").style.display = "none";
+    }
+
+    var row = `<tr data-request-code="${item.requestCode ? item.requestCode : ''}"> <!-- requestCode로 변경 -->
+                    <td>${item.baljuDTO ? item.baljuDTO.baljuNo : ''}</td> <!-- 발주번호 추가 -->
+                  <td>${item.proplanDTO ? item.proplanDTO.productDTO.name : ''}</td>
+                  <td><strong>${item.materialDTO ? item.materialDTO.name : ''}</strong></td>
+                  <td>${shortage || 0}</td> <!-- Show shortage amount -->
+                  <td>${item.eventDate || ''}</td>
+                  <td><button type="button" class="btn btn-primary request-btn" data-shortage="${shortage}">요청</button></td>
+              </tr>`;
+    tableBody.insertAdjacentHTML('beforeend', row);
+  });
+}
+
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  fetchEmergencyDeliveryRequests('high'); // 기본적으로 수량 높은순으로 정렬하여 데이터 로드
+
+  // Attach click event to request buttons
+  document.getElementById('emergency-table-body').addEventListener('click', function (event) {
+    if (event.target && event.target.matches('button.request-btn')) {
+      var shortage = event.target.getAttribute('data-shortage'); // Get shortage value from button attribute
+      var requestCode = event.target.closest('tr').dataset.requestCode; // 테이블 행에서 requestCode를 가져옴
+      showOptions(shortage, requestCode); // Show modal with shortage value and requestCode
+    }
+  });
+});
+
+// Function to show the modal with the updated shortage amount
+function showOptions(shortage, requestCode) {  // requestCode 사용
+  // Set the shortage amount in the modal
+  document.getElementById('shortageAmount').textContent = shortage || 0;
+  document.getElementById('deliveryQuantity').value = shortage || 0;
+
+  // 숨겨진 input 필드를 사용하여 requestCode를 설정합니다.
+  document.getElementById('requestIdInput').value = requestCode;
+
+  // Show the modal
+  var myModal = new bootstrap.Modal(document.getElementById('modalCenter'), {
+    keyboard: false
+  });
+  myModal.show();
+}
+
+</script>
+
+<script>
+// Function to show the modal with the updated shortage amount
+function showOptions(shortage, requestCode) {  // requestCode 사용
+  // Set the shortage amount in the modal
+  document.getElementById('shortageAmount').textContent = shortage || 0;
+  document.getElementById('deliveryQuantity').value = shortage || 0;
+
+  // 숨겨진 input 필드를 사용하여 requestCode를 설정합니다.
+  document.getElementById('requestIdInput').value = requestCode;
+
+  // Show the modal
+  var myModal = new bootstrap.Modal(document.getElementById('modalCenter'), {
+    keyboard: false
+  });
+  myModal.show();
+}
+
+// Attach click event to the delivery confirmation button
+document.getElementById('deliveryConfirmButton').addEventListener('click', function () {
+  // Collect input values from the modal
+  const emerNum = document.getElementById('deliveryQuantity').value;
+  const emerDate = document.querySelector('input[type="date"]').value;
+  const who = document.getElementById('emailWithTitle').value;
+  const requestCode = document.getElementById('requestIdInput').value; // Hidden input에서 requestCode를 가져옴
+
+  // Convert date format to LocalDateTime compatible string
+  const emerDateTime = emerDate ? emerDate + 'T00:00:00' : null; // YYYY-MM-DDT00:00:00 format
+
+  // Balju 번호 가져오기
+  // requestCode를 기반으로 Balju 번호를 가져와야 한다면, 추가적인 로직 필요
+  const baljuNo = getBaljuNoFromRequestCode(requestCode); // 이 함수는 필요에 따라 정의해야 합니다.
+
+  // Create DTO object
+  const emergencyDTO = {
+    emerNum: emerNum,
+    emerDate: emerDateTime,
+    who: who,
+    emcheck: 0, // Default value 0
+    baljuDTO: {  // 서버에 BaljuDTO 객체를 전달하기 위해 추가
+      baljuNo: baljuNo
+    }
+  };
+
+  // Send data to the server
+  fetch('/order/createEmergency', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(emergencyDTO)
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        alert('납품 지시가 성공적으로 저장되었습니다.');
+        location.reload(); // Reload the page to update the list or table
+      } else {
+        alert('납품 지시 저장에 실패했습니다.');
       }
-      function callContact() {
-        window.location.href = 'tel:123-456-7890'; // 전화 번호를 실제 담당자 번호로 변경하세요
-      }
-      function emailContact() {
-        window.location.href = 'mailto:contact@example.com'; // 이메일 주소를 실제 담당자 이메일로 변경하세요
-      }
-      window.onclick = function(event) {
-        var modal = document.getElementById("myModal");
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    </script>
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('납품 지시 저장 중 오류가 발생했습니다.');
+    });
+});
+
+// Helper function to get BaljuNo from requestCode
+function getBaljuNoFromRequestCode(requestCode) {
+  // requestCode를 기반으로 BaljuNo를 결정하는 로직을 여기에 구현하세요.
+  // 예: 요청 목록을 조회하거나 이미 로드된 데이터를 활용하는 방식
+  // 임시 예제 코드:
+  let baljuNo;
+  // 로직이 여기에 추가됩니다.
+  return baljuNo;
+}
+
+</script>
+
+
+
+
     <!--Script-->
   </span>
 

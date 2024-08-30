@@ -22,4 +22,5 @@ public interface RequestService {
     PageResultDTO<RequestDTO, Request> requestPage(PageRequestDTO requestDTO);
 
     List<RequestDTO> getRequestsByReqCheck(long reqCheck);
+    List<RequestDTO> getRequestsByTextContains(String keyword);
 }

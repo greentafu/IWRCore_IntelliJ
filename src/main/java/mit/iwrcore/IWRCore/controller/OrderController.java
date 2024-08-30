@@ -3,19 +3,21 @@ package mit.iwrcore.IWRCore.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import mit.iwrcore.IWRCore.entity.*;
+import mit.iwrcore.IWRCore.repository.EmergencyRepository;
+import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.AjaxDTO.MiniJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.AjaxDTO.SaveBaljuDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
-import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
-import mit.iwrcore.IWRCore.security.dto.ContractDTO;
-import mit.iwrcore.IWRCore.security.dto.JodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
-import mit.iwrcore.IWRCore.security.dto.MemberDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.service.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,13 +31,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/order")
 @RequiredArgsConstructor
+@Log4j2
 public class OrderController {
 
     private final BaljuService baljuService;
     private final ContractService contractService;
     private final MemberService memberService;
     private final JodalChasuService jodalChasuService;
-
+    private final EmergencyService emergencyService;
+    private final RequestService requestService;
+    private final EmergencyRepository emergencyRepository;
+    private final MaterialService materialService;
+    private final ProplanService proplanService;
     @GetMapping("/download_order")
     public void download_order(){
 
@@ -104,4 +111,46 @@ public class OrderController {
     public void urgent(){
 
     }
+    @PostMapping("/createEmergency")
+    public ResponseEntity<Void> createEmergency(@RequestBody EmergencyDTO emergencyDTO) {
+        log.info("Received EmergencyDTO: {}", emergencyDTO);
+
+        // 인증된 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthMemberDTO authMemberDTO = (AuthMemberDTO) authentication.getPrincipal();
+        MemberDTO memberDTO = memberService.findMemberDto(authMemberDTO.getMno(), null);
+        Member writer = memberService.memberdtoToEntity(memberDTO);
+
+        try {
+            // Emergency 엔티티 생성 및 필수 정보 설정
+            Emergency emergency = new Emergency();
+            emergency.setWriter(writer);
+            emergency.setEmerNum(emergencyDTO.getEmerNum());
+            emergency.setEmerDate(emergencyDTO.getEmerDate());
+            emergency.setWho(emergencyDTO.getWho());
+            emergency.setEmcheck(emergencyDTO.getEmcheck());
+
+            // BaljuDTO를 사용하여 Balju 엔티티 설정
+            BaljuDTO baljuDTO = emergencyDTO.getBaljuDTO();
+            if (baljuDTO != null && baljuDTO.getBaljuNo() != null) {
+                Balju balju = baljuService.convertToEntity(baljuDTO);
+                emergency.setBalju(balju);
+            } else {
+                log.warn("BaljuDTO is null or baljuNo is missing for EmergencyDTO: {}", emergencyDTO);
+                return ResponseEntity.badRequest().build();
+            }
+
+            // Emergency 엔티티를 데이터베이스에 저장
+            emergencyRepository.save(emergency);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error("Error processing EmergencyDTO: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+
+
 }

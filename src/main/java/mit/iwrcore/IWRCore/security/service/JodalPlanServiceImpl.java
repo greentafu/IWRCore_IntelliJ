@@ -137,13 +137,24 @@ public class JodalPlanServiceImpl implements JodalPlanService {
 
     @Override
     public JodalPlanDTO entityToDTO(JodalPlan entity) {
+        // MemberDTO 변환
+        MemberDTO memberDTO = memberService.memberTodto(entity.getWriter());
+
+        // ProPlanDTO 변환
+        ProplanDTO proplanDTO = proplanService.entityToDTO(entity.getProPlan());
+
+        // MaterialDTO 변환
+        MaterialDTO materialDTO = materialService.materTodto(entity.getMaterial());
+
+        // JodalPlanDTO로 변환
         return JodalPlanDTO.builder()
                 .joNo(entity.getJoNo())
-                .memberDTO(memberService.memberTodto(entity.getWriter()))
-                .proplanDTO(proplanService.entityToDTO(entity.getProPlan()))
-                .materialDTO(materialService.materTodto(entity.getMaterial()))
+                .memberDTO(memberDTO) // MemberDTO 설정
+                .proplanDTO(proplanDTO) // ProPlanDTO 설정
+                .materialDTO(materialDTO) // MaterialDTO 설정
                 .build();
     }
+
 
     @Override
     public List<JodalPlanDTO> noneContractJodalPlan(){

@@ -107,5 +107,13 @@ public class RequestServiceImpl implements RequestService{
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<RequestDTO> getRequestsByTextContains(String keyword) {
+        // '부족'이라는 키워드를 포함하는 요청을 필터링하여 반환
+        return requestRepository.findAll().stream()
+                .filter(request -> request.getText() != null && request.getText().contains(keyword)) // '부족'이 포함된 경우 필터링
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
 }

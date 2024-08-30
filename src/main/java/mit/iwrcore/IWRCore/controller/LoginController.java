@@ -15,6 +15,7 @@ import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthMemberDTO;
 import mit.iwrcore.IWRCore.security.dto.AuthDTO.AuthPartnerDTO;
+import mit.iwrcore.IWRCore.security.dto.RequestDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,7 +27,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Log4j2
@@ -44,6 +47,7 @@ public class LoginController {
     private final MemberService memberService;
     private final BoxService boxService;
     private final BoxRepository boxRepository;
+    private final RequestService requestService;
 
     @GetMapping("/login")
     @Transactional
@@ -91,3 +95,5 @@ public class LoginController {
     }
 
 }
+
+

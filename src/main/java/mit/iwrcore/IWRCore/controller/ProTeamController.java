@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 ;
 
@@ -355,7 +352,35 @@ public class ProTeamController {
         }
     }
 
+    @GetMapping("/login/emergency-delivery-requests")
+    public ResponseEntity<List<RequestDTO>> getEmergencyDeliveryRequests(
+            @RequestParam(value = "orderBy", required = false) String orderBy) {
 
+        // "부족"이라는 키워드를 포함하는 요청 목록을 가져옵니다.
+        List<RequestDTO> requests = requestService.getRequestsByTextContains("부족");
+
+        // 정렬 기준에 따라 리스트를 정렬합니다.
+        if ("high".equals(orderBy)) {
+            requests = requests.stream()
+                    .sorted(Comparator.comparing(RequestDTO::getRequestNum).reversed())
+                    .collect(Collectors.toList());
+        } else if ("low".equals(orderBy)) {
+            requests = requests.stream()
+                    .sorted(Comparator.comparing(RequestDTO::getRequestNum))
+                    .collect(Collectors.toList());
+        } else if ("early".equals(orderBy)) {
+            requests = requests.stream()
+                    .sorted(Comparator.comparing(RequestDTO::getEventDate))
+                    .collect(Collectors.toList());
+        } else if ("late".equals(orderBy)) {
+            requests = requests.stream()
+                    .sorted(Comparator.comparing(RequestDTO::getEventDate).reversed())
+                    .collect(Collectors.toList());
+        }
+
+        // 정렬된 요청 목록을 JSON 형식으로 반환합니다.
+        return ResponseEntity.ok(requests);
+    }
 
 
 

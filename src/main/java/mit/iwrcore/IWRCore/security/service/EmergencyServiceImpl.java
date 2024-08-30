@@ -1,9 +1,11 @@
 package mit.iwrcore.IWRCore.security.service;
 
 import lombok.RequiredArgsConstructor;
+import mit.iwrcore.IWRCore.entity.Balju;
 import mit.iwrcore.IWRCore.entity.Emergency;;
 import mit.iwrcore.IWRCore.entity.ProPlan;
 import mit.iwrcore.IWRCore.repository.EmergencyRepository;
+import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
 import mit.iwrcore.IWRCore.security.dto.EmergencyDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
@@ -40,17 +42,23 @@ public class EmergencyServiceImpl implements EmergencyService{
 
     @Override
     public EmergencyDTO convertToDTO(Emergency entity) {
+        Balju balju = entity.getBalju();  // Emergency에서 Balju 엔티티 가져오기
+        BaljuDTO baljuDTO = null;
+
+        if (balju != null) {
+            baljuDTO = baljuService.convertToDTO(balju);  // Balju 엔티티를 DTO로 변환
+        }
+
         return EmergencyDTO.builder()
                 .emerNo(entity.getEmerNo())
                 .emerNum(entity.getEmerNum())
                 .emerDate(entity.getEmerDate())
                 .who(entity.getWho())
                 .emcheck(entity.getEmcheck())
-                .baljuDTO(baljuService.convertToDTO(entity.getBalju()))
+                .baljuDTO(baljuDTO)  // DTO에 baljuDTO 설정
                 .memberDTO(memberService.memberTodto(entity.getWriter()))
                 .build();
     }
-
     @Override
     public EmergencyDTO createEmergency(EmergencyDTO emergencyDTO) {
         Emergency emergency = convertToEntity(emergencyDTO);
@@ -84,20 +92,19 @@ public class EmergencyServiceImpl implements EmergencyService{
 
     @Override
     public PageResultDTO<EmergencyDTO, Object[]> getAllEmergencies(PageRequestDTO requestDTO) {
-        Pageable pageable=requestDTO.getPageable(Sort.by("emerNo").descending());
-        Page<Object[]> entityPage=emergencyRepository.findEmergency(pageable, requestDTO.getPno());
+        Pageable pageable = requestDTO.getPageable(Sort.by("emerNo").descending());
+        Page<Object[]> entityPage = emergencyRepository.findEmergency(pageable, requestDTO.getPno());
         return new PageResultDTO<>(entityPage, this::extractEmergencyDTO);
     }
-    private EmergencyDTO extractEmergencyDTO(Object[] objects){
-        Emergency emergency=(Emergency) objects[0];
-        EmergencyDTO emergencyDTO=(emergency!=null)? convertToDTO(emergency):null;
-        return emergencyDTO;
+
+    private EmergencyDTO extractEmergencyDTO(Object[] objects) {
+        Emergency emergency = (Emergency) objects[0];
+        return (emergency != null) ? convertToDTO(emergency) : null;
     }
 
     @Override
-    public List<EmergencyDTO> getEmergencyByBalju(Long baljuNo){
-        List<Emergency> entityList=emergencyRepository.getEmengencyListByBalju(baljuNo);
-        List<EmergencyDTO> dtoList=entityList.stream().map(this::convertToDTO).toList();
-        return dtoList;
+    public List<EmergencyDTO> getEmergencyByBalju(Long baljuNo) {
+        List<Emergency> entityList = emergencyRepository.getEmengencyListByBalju(baljuNo);
+        return entityList.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 }

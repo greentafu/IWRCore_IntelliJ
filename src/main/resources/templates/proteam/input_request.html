@@ -323,7 +323,8 @@ $('#submitbutton').on('click', function(event) {
         const requestNum = parseFloat($row.find('td:nth-child(5)').text()) || 0;
         const eventDate = $('#desired-date').val();
         const shortage = parseFloat($row.find('td:nth-child(6)').text()) || 0;
-        const text = shortage < 0 ? `${Math.abs(shortage)}개 부족` : '';
+       const text = shortage > 0 ? `${Math.abs(shortage)}개 부족` : '';
+
         const line = $('#line-select-button').text().trim();
         const materialCode = $row.data('index');
 
