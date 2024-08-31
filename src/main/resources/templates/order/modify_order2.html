@@ -11,78 +11,126 @@
 <th:block th:replace="~{layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
-    <title>발주서 수정</title>
+    <title>신규 등록</title>
       <!--Style-->
 
       <!--/Style-->
   </span>
 
-  <span id="content">
+    <span id="content">
     <div class="container-xxl flex-grow-1 container-p-y">
-      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">발주서 /</span> 발주서 수정</h4>
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">발주서 /</span> 신규 등록</h4>
       <div class="fullscreen-background">
         <div class="card mb-4">
           <div class="card-body">
             <div>
-              <label class="col-form-label" ><h5>발주 요청 가능 목록</h5></label><br/>
-              <div class="btn-group">
-                <button type="button" class="btn btn-outline-primary mb-4">
-                  모두선택
-                </button>
-              </div>
+              <label class="col-form-label mb-4"><h5>발주 요청 가능 목록</h5></label>
               <div class="row mb-4">
-                &nbsp;&nbsp;&nbsp;
-                <button type="button" class="col-md-2 btn btn-outline-primary" style="width: fit-content;">전체수량</button>&nbsp;
+                <div class="col-md-2">
+                  <input type="number" style="display:none;" value="0" id="checkAllBtn">
+                  <button type="button" class="btn btn-outline-primary mb-4" onclick="selectAll()">
+                    모두선택
+                  </button>
+                </div>
                 <div class="col-md-10">
                   <div class="row">
-                    <input type="date" class="form-control col-md-2" style="width: 300px;">&nbsp;
-                    <button type="button" class="btn btn-outline-primary col-md-2" style="width: fit-content;">예정일 일괄 등록</button>
+                    <input id="loc-input" type="text" class="form-control col-md-2"
+                           placeholder="배송장소" style="width: 200px;">&nbsp;
+                    <button id="bulk-date-button" type="button" class="btn btn-outline-primary col-md-2"
+                            style="width: fit-content;" onclick="fillLocation()">
+                      배송장소 일괄 등록
+                    </button>
                   </div>
                 </div>
               </div>
-              <table class="table table-bordered mb-4">
+              <table class="table table-bordered mb-4" th:each="list:${contract_list}" th:id="'shipmentTable'+${list.contractDTO.conNo}">
                 <tr>
-                  <th rowspan="6" style="width: 10px;" class="text-center"><input type="checkbox" class="form-check-input"></th>
-                  <th>자재번호</th>
+                  <th rowspan="6" style="width: 10px;" class="text-center">
+                    <input type="checkbox" class="form-check-input" th:id="'checkBox'+${list.contractDTO.conNo}">
+                    <input type="number" style="display:none;" th:value="${list.contractDTO.conNo}" th:id="'contractNo'+${list.contractDTO.conNo}">
+                    <input type="number" style="display:none;" th:value="${list.baljuDTO.baljuNo}" th:id="'baljuNo'+${list.contractDTO.conNo}">
+                  </th>
+                  <th style="width: 200px;" >자재번호</th>
                   <th>자재명</th>
-                  <th></th>
-                  <th>수량</th>
+                  <th style="width: 80px;" ></th>
+                  <th style="width: 150px;" >수량</th>
                   <th>요청일</th>
                 </tr>
                 <tr>
-                  <td rowspan="3">AE-8704</td>
-                  <td rowspan="3">앞타이어</td>
-                  <td>1차</td>
-                  <td>500</td>
-                  <td><input type="date" style="border: 0; width: 100%;"></td>
+                  <td rowspan="3">[[${list.contractDTO.jodalPlanDTO.materialDTO.materCode}]]</td>
+                  <td rowspan="3">[[${list.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
+                  <td>
+                    1차
+                    <input type="number" style="display:none;"
+                           th:value="${list.jodalChasuDTOs[0].jcnum}"
+                           th:id="'JodlaNo'+${list.jodalChasuDTOs[0].jcnum}"
+                    >
+                  </td>
+                  <td>
+                    <input type="number" style="border: 0; width: 100%;"
+                           th:value="${list.jodalChasuDTOs[0].joNum}"
+                           th:id="'JodlaNum'+${list.jodalChasuDTOs[0].jcnum}">
+                  <td>
+                    <input type="date" style="border: 0; width: 100%;"
+                           th:value="${#temporals.format(list.jodalChasuDTOs[0].joDate, 'yyyy-MM-dd')}"
+                           th:id="'JodlaDate'+${list.jodalChasuDTOs[0].jcnum}">
+                  </td>
                 </tr>
                 <tr>
-                  <td>2차</td>
-                  <td>500</td>
-                  <td><input type="date" style="border: 0; width: 100%;"></td>
+                  <td>
+                    2차
+                    <input type="number" style="display:none;"
+                           th:value="${list.jodalChasuDTOs[1].jcnum}"
+                           th:id="'JodlaNo'+${list.jodalChasuDTOs[1].jcnum}"
+                    >
+                  </td>
+                  <td>
+                    <input type="number" style="border: 0; width: 100%;"
+                           th:value="${list.jodalChasuDTOs[1].joNum}"
+                           th:id="'JodlaNum'+${list.jodalChasuDTOs[1].jcnum}">
+                  </td>
+                  <td>
+                    <input type="date" style="border: 0; width: 100%;"
+                           th:value="${#temporals.format(list.jodalChasuDTOs[1].joDate, 'yyyy-MM-dd')}"
+                           th:id="'JodlaDate'+${list.jodalChasuDTOs[1].jcnum}">
+                  </td>
                 </tr>
                 <tr>
-                  <td>3차</td>
-                  <td>500</td>
-                  <td><input type="date" style="border: 0; width: 100%;"></td>
+                  <td>
+                    3차
+                    <input type="number" style="display:none;"
+                           th:value="${list.jodalChasuDTOs[2].jcnum}"
+                           th:id="'JodlaNo'+${list.jodalChasuDTOs[2].jcnum}"
+                    >
+                  </td>
+                  <td>
+                    <input type="number" style="border: 0; width: 100%;"
+                           th:value="${list.jodalChasuDTOs[2].joNum}"
+                           th:id="'JodlaNum'+${list.jodalChasuDTOs[2].jcnum}">
+                  </td>
+                  <td>
+                    <input type="date" style="border: 0; width: 100%;"
+                           th:value="${#temporals.format(list.jodalChasuDTOs[2].joDate, 'yyyy-MM-dd')}"
+                           th:id="'JodlaDate'+${list.jodalChasuDTOs[2].jcnum}">
+                  </td>
                 </tr>
                 <tr>
                   <td>배송장소</td>
-                  <td colspan="4"><input type="text" style="border: 0; width: 100%;"></td>
+                  <td colspan="4">
+                    <input type="text" style="border: 0; width: 100%;" th:id="'location'+${list.contractDTO.conNo}" th:value="${list.baljuDTO.baljuWhere}">
+                  </td>
                 </tr>
                 <tr>
                   <td>배송 요청 사항</td>
-                  <td colspan="4"><textarea style="width: 100%; border: 0;" rows="4"></textarea></td>
+                  <td colspan="4">
+                    <textarea style="width: 100%; border: 0;" rows="4" th:id="'text'+${list.contractDTO.conNo}">[[${list.baljuDTO.baljuPlz}]]</textarea>
+                  </td>
                 </tr>
               </table>
             </div>
             <div class="d-flex justify-content-between w-100">
-              <a th:href="@{/order/list_order}">
-                <button type="reset" class="btn btn-outline-secondary">취소</button>
-              </a>
-              <a th:href="@{/order/list_order}">
-                <button class="btn btn-primary">수정</button>
-              </a>
+              <button type="reset" class="btn btn-outline-secondary" th:onclick="|location.href='@{/order/list_order}'|">취소</button>
+              <button class="btn btn-primary" th:onclick="addBalju()">수정</button>
             </div>
           </div>
           <!--/Card body-->
@@ -96,7 +144,80 @@
     <!--/Modal-->
 
     <!--Script-->
+    <script>
+      function selectAll(){
+        var checkAllBtn = document.getElementById('checkAllBtn');
+        var allTable=document.querySelectorAll('[id^="shipmentTable"]');
+        var isChecked = checkAllBtn.value === '1';
+        allTable.forEach(x=> {
+           x.querySelectorAll('input[type="checkbox"]').forEach(box => {
+             box.checked = !isChecked;
+          });
+        });
+        checkAllBtn.value = isChecked ? '0' : '1';
+      }
 
+      function addBalju(){
+        var allTable=document.querySelectorAll('[id^="shipmentTable"]');
+        var baljuDataList=[];
+
+        allTable.forEach(x=>{
+          var tableId=x.id;
+          var conNo=tableId.substr(13);
+          var boxId='checkBox'+conNo;
+          var box=document.getElementById(boxId);
+          var baljuNo=document.getElementById('baljuNo'+conNo).value;
+
+          if(box.checked==true){
+            var chasuList=[];
+
+            var locationId='location'+conNo;
+            var textId='text'+conNo;
+            var baljuWhere=document.getElementById(locationId).value;
+            var baljuPlz=document.getElementById(textId).value;
+
+            var allChasu=x.querySelectorAll('[id^="JodlaNo"]');
+
+            allChasu.forEach(y=>{
+
+              var chasuNo=y.value;
+              var JodlaNumId='JodlaNum'+chasuNo;
+              var JodlaDateId='JodlaDate'+chasuNo;
+              var JodlaNum=document.getElementById(JodlaNumId).value;
+              var JodlaDate=document.getElementById(JodlaDateId).value;
+
+              var detailChasu={jodalNo:chasuNo, JodlaNum:JodlaNum, JodlaDate:JodlaDate};
+
+              chasuList.push(detailChasu);
+            });
+            baljuDataList.push({baljuNo:baljuNo, conNo:conNo, baljuWhere:baljuWhere, baljuPlz:baljuPlz, chasuList:chasuList});
+          }
+        });
+
+        $.ajax({
+          url:'/order/saveBalju',
+          method:'POST',
+          contentType:'application/json',
+          data: JSON.stringify(baljuDataList),
+          success: function(response) {
+            console.log("성공");
+            window.location.href = '/order/list_order';
+          },
+          error: function(xhr, status, error) {
+            console.log("실패");
+            window.location.href = '/order/list_order';
+          }
+        });
+      }
+
+      function fillLocation(){
+        const location=document.getElementById('loc-input').value;
+        const allLoc=document.querySelectorAll('[id^="location"]');
+        allLoc.forEach(x=>{
+          x.value=location;
+        });
+      }
+    </script>
     <!--Script-->
   </span>
 

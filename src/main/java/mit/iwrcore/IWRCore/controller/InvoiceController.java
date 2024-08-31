@@ -54,8 +54,12 @@ public class InvoiceController {
 
     }
     @GetMapping("/modify_invoice")
-    public void modify_invoice(){
-
+    public void modify_invoice(Long tranNO, Model model){
+        InvoiceDTO invoiceDTO=invoiceService.getInvoiceById(tranNO);
+        List<ShipmentDTO> shipmentDTOs=shipmentService.getInvoiceContent(tranNO);
+        model.addAttribute("invoice", invoiceDTO);
+        model.addAttribute("company", partnerService.findPartnerDto(1L, null, null));
+        model.addAttribute("selectedPartner", shipmentDTOs.get(0).getBaljuDTO().getContractDTO().getPartnerDTO().getPno());
     }
     @GetMapping("/view_invoice")
     public void view_invoice(){
@@ -72,6 +76,7 @@ public class InvoiceController {
         LocalDateTime localDateTime=LocalDateTime.parse(saveInvoiceDTO.getWriteDate()+" 00:00:00", formatter);
 
         InvoiceDTO invoiceDTO=InvoiceDTO.builder()
+                .tranNO((saveInvoiceDTO.getTranNO()!=null)? saveInvoiceDTO.getTranNO() : null)
                 .plz(saveInvoiceDTO.getRadio())
                 .dateCreated(localDateTime)
                 .text(saveInvoiceDTO.getText())

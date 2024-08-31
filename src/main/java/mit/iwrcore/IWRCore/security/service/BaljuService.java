@@ -7,6 +7,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO2;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractBaljuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
 
 import java.util.List;
 
@@ -45,4 +46,7 @@ public interface BaljuService {
     PageResultDTO<BaljuDTO, Object[]> partnerBaljuList(PageRequestDTO requestDTO);
     // 협력회사 발주서 목록
     List<BaljuDTO> partListBalju(Long pno);
+
+    // 발주한 하는 목록(협력회사로 묶음)
+    List<NewOrderDTO> modifyBalju(Long pno);
 }

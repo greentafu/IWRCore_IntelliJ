@@ -19,18 +19,15 @@
 
   <span id="content">
     <div class="container-xxl flex-grow-1 container-p-y">
-      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">거래명세서 /</span> 거래명세서 발행</h4>
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">거래명세서 /</span> 거래명세서 수정</h4>
       <div class="row">
         <div class="col-md-12">
           <div class="card">
             <!-- Bordered Table -->
             <div class="card">
+              <div id="thisTranNO" style="display:none;">[[${invoice.tranNO}]]</div>
               <div class="card-body mb-4" style="height: 10px;">
                 <div>
-                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                          data-bs-target="#modalScrollable">
-                    공급자 선택
-                  </button>
                   <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                           data-bs-target="#modalScrollable2">
                     자재선택
@@ -45,11 +42,10 @@
                                border-top: 2px solid red; border-bottom: 2px solid red;">
                         공급자
                       </th>
-                      <th style="text-align: center; border-top: 2px solid red;">
+                      <th style="text-align: center; border-top: 2px solid red; width: 5%;">
                         등록<br />번호
                       </th>
-                      <td colspan="5" style="border-top: 2px solid red;">
-                        <input type="text" style="border: 0; width: 100%; min-width: 100px;" value="000-00-00000">
+                      <td colspan="5" style="border-top: 2px solid red; width: 260px;" id="partnerRegister">
                       </td>
                       <th style="text-align: center; border-top: 2px solid red;">
                         종사업장<br />번호
@@ -62,12 +58,10 @@
                                border-top: 2px solid blue; border-bottom: 2px solid blue; border-left: 3px solid gray;">
                         공급받는자
                       </th>
-                      <th style="text-align: center; border-top: 2px solid blue;">
+                      <th style="text-align: center; border-top: 2px solid blue; width: 5%;">
                         등록<br />번호
                       </th>
-                      <td colspan="5" style="border-top: 2px solid blue;">
-                        <input type="text" style="border: 0; width: 100%; min-width: 100px;" value="000-00-00000">
-                      </td>
+                      <td colspan="5" style="border-top: 2px solid blue; width: 260px;">[[${company.registrationNumber}]]</td>
                       <th style="text-align: center; border-top: 2px solid blue;">
                         종사업자<br />번호
                       </th>
@@ -77,42 +71,37 @@
                     </tr>
                     <tr>
                       <th style="text-align: center;">상호</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="(주)한일전자"> </td>
+                      <td colspan="5" id="partnerName"></td>
                       <th style="text-align: center;">성명</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="이대표"> </td>
+                      <td colspan="5" id="partnerCEO"></td>
                       <th style="text-align: center;">상호</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="DG물산"> </td>
+                      <td colspan="5">[[${company.name}]]</td>
                       <th style="text-align: center;">성명</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="박대표"> </td>
+                      <td colspan="5">[[${company.ceo}]]</td>
                     </tr>
                     <tr>
                       <th style="text-align: center;">사업장</th>
-                      <td colspan="11"> <input type="text" style="border: 0; width: 100%;"
-                                               value="충청북도 청주시 흥덕구 ...">
-                      </td>
+                      <td colspan="11" id="partnerLocation"></td>
                       <th style="text-align: center;">사업장</th>
-                      <td colspan="11"> <input type="text" style="border: 0; width: 100%;" value="경기도 수원시 ...">
-                      </td>
+                      <td colspan="11">[[${company.location}]]</td>
                     </tr>
                     <tr>
                       <th style="text-align: center;">업태</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="제조업"> </td>
+                      <td colspan="5" id="partnerType"></td>
                       <th style="text-align: center;">종목</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="도매 및 소매업"> </td>
+                      <td colspan="5" id="partnerSector"></td>
                       <th style="text-align: center;">업태</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="제조업"> </td>
+                      <td colspan="5">[[${company.type}]]</td>
                       <th style="text-align: center;">종목</th>
-                      <td colspan="5"> <input type="text" style="border: 0;" value="도매 및 소매업"> </td>
+                      <td colspan="5">[[${company.sector}]]</td>
                     </tr>
                     <tr>
                       <th rowspan="2" style="text-align: center; border-bottom: 2px solid red;">
                         이메일
                       </th>
-                      <td rowspan="2" colspan="11" style=" border-bottom: 2px solid red;">
-                        <input type="text" style="border: 0;" value="asd1234@mail.com">
-                      </td>
+                      <td rowspan="2" colspan="11" style=" border-bottom: 2px solid red;" id="partnerEmail"></td>
                       <th style="text-align: center;">이메일</th>
-                      <td colspan="11"> <input type="text" style="border: 0;" value="qwe4567@mail.com"> </td>
+                      <td colspan="11">[[${company.email}]]</td>
                     </tr>
                     <tr>
                       <th style="text-align: center; border-bottom: 2px solid blue;">이메일</th>
@@ -125,25 +114,20 @@
                     </tr>
                     <tr>
                       <th colspan="2" style="text-align: center;">작성일자</th>
-                      <td colspan="11"> <input type="date" value="2024-07-23"> </td>
+                      <td colspan="11"> <input type="date" id="writeDate"> </td>
                       <th colspan="2" style="text-align: center;">비고</th>
-                      <td colspan="11"> <input type="text" style="border: 0;"> </td>
+                      <td colspan="11"> <input type="text" style="border: 0; width: 400px;" id="text"> </td>
                     </tr>
                     <tr>
                       <th colspan="2" style="text-align: center;">합계금액</th>
-                      <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="902,000"> </td>
+                      <td colspan="6" id="totalSum"></td>
                       <th style="text-align: center;">공급가액</th>
-                      <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="820,000"> </td>
+                      <td colspan="6" id="totalSupply"></td>
                       <th style="text-align: center;">세액</th>
-                      <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="82,000"> </td>
+                      <td colspan="6" id="totalTax"></td>
                     </tr>
                     <tr>
-                      <td colspan="22">
-                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#modalScrollable3">
-                          품목 추가
-                        </button>
-                      </td>
+                      <td colspan="22"></td>
                     </tr>
                     <tr>
                       <th style="text-align: center;">월</th>
@@ -156,28 +140,7 @@
                       <th colspan="3" style="text-align: center;">세액</th>
                       <th colspan="2" style="text-align: center;">비고</th>
                     </tr>
-                    <tr>
-                      <td> <input type="text" style="border: 0; width: 100%;" value="07"> </td>
-                      <td> <input type="text" style="border: 0; width: 100%;" value="02"> </td>
-                      <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="전선100m"> </td>
-                      <td colspan="2"> <input type="text" style="border: 0; width: 100%;" value="3mm"> </td>
-                      <td> <input type="text" style="border: 0; width: 100%;" value="10"> </td>
-                      <td colspan="4"> <input type="text" style="border: 0; width: 100%;" value="50,000"> </td>
-                      <td colspan="3"> <input type="text" style="border: 0; width: 100%;" value="500,000"> </td>
-                      <td colspan="3"> <input type="text" style="border: 0; width: 100%;" value="50,000"> </td>
-                      <td colspan="2"> <input type="text" style="border: 0; width: 100%;"> </td>
-                    </tr>
-                    <tr>
-                      <td> <input type="text" style="border: 0; width: 100%;" value="07"> </td>
-                      <td> <input type="text" style="border: 0; width: 100%;" value="03"> </td>
-                      <td colspan="6"> <input type="text" style="border: 0; width: 100%;" value="전선100m"> </td>
-                      <td colspan="2"> <input type="text" style="border: 0; width: 100%;" value="1.5mm"> </td>
-                      <td> <input type="text" style="border: 0; width: 100%;" value="10"> </td>
-                      <td colspan="4"> <input type="text" style="border: 0; width: 100%;" value="32,000"> </td>
-                      <td colspan="3"> <input type="text" style="border: 0; width: 100%;" value="320,000"> </td>
-                      <td colspan="3"> <input type="text" style="border: 0; width: 100%;" value="32,000"> </td>
-                      <td colspan="2"> <input type="text" style="border: 0; width: 100%;"> </td>
-                    </tr>
+                    <tbody id="shipmentSel"></tbody>
                     <tr>
                       <td colspan="22"></td>
                     </tr>
@@ -188,16 +151,16 @@
                       <th colspan="5" style="text-align: center;">외상미수금</th>
                       <th rowspan="2" colspan="2">
                         <div class="text-center">
-                          <input type="radio" name="type" value="영수" class="mb-2" checked>영수<br />
+                          <input type="radio" name="type" value="영수" class="mb-2" checked>영수<br/>
                           <input type="radio" name="type" value="청구">청구
                         </div>
                       </th>
                     </tr>
                     <tr>
-                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" value="902,000"> </td>
-                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;"> </td>
-                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;"> </td>
-                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="cash" id="cash"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="cheque" id="cheque"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="promissory" id="promissory"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="receivable" id="receivable"> </td>
                     </tr>
                   </table>
                   <br>
@@ -206,8 +169,9 @@
                     <a th:href="@{/invoice/list_invoice}">
                       <button type="reset" class="btn btn-outline-secondary">취소</button>
                     </a>
-                    <div></div>
-                    <button type="button" class="btn btn-primary btn-sm">발급하기</button>
+                    <input type="number" style="display:none;" name="pno" id="partnerPno" th:attr="value=${selectedPartner != null ? selectedPartner : ''}">
+                    <input type="number" style="display:none;" id="selectedShipNo" th:attr="value=${selectedShipNo != null ? selectedShipNo : ''}">
+                    <button type="button" class="btn btn-primary" onclick="makeInvoice()">수정</button>
                   </div>
                   <!--/-->
                 </div>
@@ -219,7 +183,7 @@
       </div>
     </div>
 
-    <!--Modal-->
+    <!-- Modal -->
     <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -256,51 +220,7 @@
           </div>
           <hr class="m-0">
           <div class="modal-body" style="height: 350px;">
-            <table class="table table-hover">
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
-              <tr>
-                <td>(주)한일전자</td>
-                <td>000-00-00000</td>
-              </tr>
+            <table class="table table-hover" id="partnerList">
             </table>
           </div>
           <div class="modal-footer">
@@ -317,7 +237,7 @@
       <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width: fit-content;">
           <div class="modal-body">
-            <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
+            <h5 class="modal-title mb-4">자재 검색</h5>
             <div class="row mb-10 mb-2">
               <label class="form-label col-md-2" style="width: fit-content;">제품</label>
               <div class="col-md-10">
@@ -373,54 +293,26 @@
           <div class="modal-body" style="height: 350px;">
             <div class="table-responsive text-nowrap">
               <table class="table table-hover">
-                <tr>
-                  <th></th>
-                  <th>자재번호</th>
-                  <th>자재명</th>
-                  <th>입고일</th>
-                  <th>입고수량</th>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input" checked>
-                  </td>
-                  <td>KE-8705</td>
-                  <td>전선100m(3mm)</td>
-                  <td>2024-07-02</td>
-                  <td>10</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input" checked>
-                  </td>
-                  <td>KE-8706</td>
-                  <td>전선100m(1.5mm)</td>
-                  <td>2024-07-03</td>
-                  <td>10</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>YF-8705</td>
-                  <td>브레이크(검정)</td>
-                  <td>2024-07-05</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>YF-8705</td>
-                  <td>충전기(검정)</td>
-                  <td>2024-07-06</td>
-                  <td>200</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>자재번호</th>
+                    <th>자재명</th>
+                    <th>입고일</th>
+                    <th>입고수량</th>
+                  </tr>
+                </thead>
+                <tbody id="shipmentList"></tbody>
               </table>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+            <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    id="selectShipmentBtn"
+                    onclick="selectInvoiceShipment(this)">
               확인
             </button>
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -431,162 +323,516 @@
       </div>
     </div>
     <!--/ Modal2-->
-    <!-- Modal3 -->
-    <div class="modal fade" id="modalScrollable3" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content" style="width: 500px;">
-          <div class="modal-body">
-            <h5 class="modal-title mb-4" id="modalScrollableTitle">자재 검색</h5>
-            <div class="row mb-10 mb-2">
-              <label class="form-label col-md-2" style="width: fit-content;">제품</label>
-              <div class="col-md-10">
-                <div class="row">
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mb-10 mb-2">
-              <label class="form-label col-md-2" style="width: fit-content;">자재</label>
-              <div class="col-md-10">
-                <div class="row">
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                  <div class="col-md-4">
-                    <select class="form-select form-select-sm">
-                      <option>전체보기</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <form class="d-flex" onsubmit="return false">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-              </form>
-            </div>
-          </div>
-          <hr class="m-0">
-          <div class="modal-body" style="height: 350px;">
-            <button type="button" class="btn btn-primary btn-sm mb-2">모두선택</button>
-            <div class="table-responsive text-nowrap">
-              <table class="table table-hover">
-                <tr>
-                  <th></th>
-                  <th>자재번호</th>
-                  <th>자재명</th>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td></td>
-                  <td>직접입력</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>QR-1234</td>
-                  <td>앞브레이크</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>QR-1235</td>
-                  <td>뒷브레이크</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>OC-2765</td>
-                  <td>T바</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>YX-8125</td>
-                  <td>스티어링튜브</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>WE-1534</td>
-                  <td>폴딩레버</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>LB-2795</td>
-                  <td>충전소켓</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>ZO-3548</td>
-                  <td>배터리</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>ZA-2154</td>
-                  <td>모터</td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" class="form-check-input">
-                  </td>
-                  <td>VG-3012</td>
-                  <td>킥스탠드</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-              확인
-            </button>
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              닫기
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--/ Modal3-->
     <!--/Modal-->
 
     <!--Script-->
+    <script>
+      $(document).ready(function(){
+        initInvoicePartner();
+        document.getElementById('writeDate').value = todayDate();
 
+        var tranNO=document.getElementById('thisTranNO').innerText;
+        initModifyInvoice(tranNO);
+
+        var selectedPartner=document.getElementById('partnerPno').value;
+        if(selectedPartner!=null && selectedPartner!='') selectPartner(selectedPartner);
+
+        setTimeout(function() {
+          calMoney();
+        }, 200);
+      });
+
+      function initInvoicePartner(){
+        $.ajax({
+            url:'/select/getInvoicePartner',
+            method:'GET',
+            success:function(data){
+              var partnerList=document.getElementById('partnerList');
+              partnerList.innerHTML='';
+
+              data.forEach(function(partner) {
+                var name=partner.name;
+                var pno=partner.pno;
+                var registerNum=partner.registrationNumber;
+
+                var newRow = document.createElement('tr');
+
+                [pno, name, registerNum].forEach(function(text) {
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+                });
+
+                var btnTd = document.createElement('td');
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.value=pno;
+                btn.innerText='선택';
+                btn.className='btn btn-sm btn-outline-primary';
+                btn.onclick = function() {
+                  selectPartner(pno);
+                };
+                btnTd.appendChild(btn);
+                newRow.appendChild(btnTd);
+
+                partnerList.appendChild(newRow)
+              });
+            }
+        });
+      }
+
+      function selectPartner(pno){
+        var pno=pno;
+        $.ajax({
+          url:'/select/selectInvoicePartner',
+          method:'POST',
+          data:{pno:pno},
+          success:function(data){
+            $('#partnerPno').text(data.pno);
+            $('#partnerRegister').text(data.registrationNumber);
+            $('#partnerName').text(data.name);
+            $('#partnerCEO').text(data.ceo);
+            $('#partnerLocation').text(data.location);
+            $('#partnerType').text(data.type);
+            $('#partnerSector').text(data.sector);
+            $('#partnerEmail').text(data.email);
+            initInvoiceShipment(pno);
+          }
+        });
+        document.getElementById('selectShipmentBtn').value=pno;
+      }
+
+      function initInvoiceShipment(pno){
+        var pno=pno;
+        var element=document.getElementById('selectedShipNo');
+        var tranNO=document.getElementById('thisTranNO').innerText;
+        $.ajax({
+            url:'/select/getInvoiceShipment',
+            method:'GET',
+            data:{pno:pno},
+            success:function(data){
+              var shipmentList=document.getElementById('shipmentList');
+              shipmentList.innerHTML='';
+
+              data.forEach(function(shipment) {
+                var shipNo=shipment.shipNO;
+
+                var findId='presupplyValue'+shipNo;
+                var temp=document.getElementById(findId);
+
+                if(temp==null){
+                  var materCode=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode;
+                  var name=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+                  var receipt=shipment.receipt.split('T')[0];
+                  var shipNum=shipment.shipNum;
+
+                  var standard=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.standard;
+                  var money=shipment.baljuDTO.contractDTO.money;
+                  var conNum=shipment.baljuDTO.contractDTO.conNum;
+                  var unitCost=money/conNum;
+
+                  var newRow = document.createElement('tr');
+
+                  var inputTd = document.createElement('td');
+                  var input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.id = 'checkbox'+shipNo;
+                  if(element){
+                    var selectedShipNo=element.value;
+                    var btn=document.getElementById('selectShipmentBtn');
+                    if(element.value==shipNo) {
+                      setTimeout(() => {
+                          input.checked = true;
+                          element.value = '';
+                          btn.click();
+                      }, 10);
+                    }
+                  }
+                  input.class='form-check-input';
+                  inputTd.appendChild(input);
+                  newRow.appendChild(inputTd);
+
+                  [materCode, name, receipt, shipNum].forEach(function(text) {
+                    var td = document.createElement('td');
+                    td.innerText = text;
+                    newRow.appendChild(td);
+                  });
+                  [standard, money, shipNo].forEach(function(text) {
+                    var td = document.createElement('td');
+                    td.innerText = text;
+                    td.style.display = 'none';
+                    newRow.appendChild(td);
+                  });
+
+                  shipmentList.appendChild(newRow);
+                }
+
+              });
+            }
+        });
+
+
+        $.ajax({
+            url:'/select/modify_invoice',
+            method:'POST',
+            data:{tranNO:tranNO},
+            success:function(data){
+              var shipmentList=document.getElementById('shipmentList');
+
+              data.forEach(function(shipment) {
+                var shipNo=shipment.shipNO;
+
+                var findId='presupplyValue'+shipNo;
+                var temp=document.getElementById(findId);
+
+                if(temp==null){
+                  var materCode=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode;
+                  var name=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+                  var receipt=shipment.receipt.split('T')[0];
+                  var shipNum=shipment.shipNum;
+
+                  var standard=shipment.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.standard;
+                  var money=shipment.baljuDTO.contractDTO.money;
+                  var conNum=shipment.baljuDTO.contractDTO.conNum;
+                  var unitCost=money/conNum;
+
+                  var newRow = document.createElement('tr');
+
+                  var inputTd = document.createElement('td');
+                  var input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.id = 'checkbox'+shipNo;
+                  if(element){
+                    var selectedShipNo=element.value;
+                    var btn=document.getElementById('selectShipmentBtn');
+                    if(element.value==shipNo) {
+                      setTimeout(() => {
+                          input.checked = true;
+                          element.value = '';
+                          btn.click();
+                      }, 10);
+                    }
+                  }
+                  input.class='form-check-input';
+                  inputTd.appendChild(input);
+                  newRow.appendChild(inputTd);
+
+                  [materCode, name, receipt, shipNum].forEach(function(text) {
+                    var td = document.createElement('td');
+                    td.innerText = text;
+                    td.style.color = 'blue';
+                    td.style.fontWeight = 'bold';
+                    newRow.appendChild(td);
+                  });
+                  [standard, money, shipNo].forEach(function(text) {
+                    var td = document.createElement('td');
+                    td.innerText = text;
+                    td.style.display = 'none';
+                    newRow.appendChild(td);
+                  });
+
+                  shipmentList.appendChild(newRow);
+                }
+
+              });
+            }
+        });
+
+      }
+
+      function selectInvoiceShipment(button){
+        var pno=button.value;
+        const shipmentRows=document.querySelectorAll('#shipmentList tr');
+        const insertPoint=document.querySelector('#shipmentSel');
+
+        shipmentRows.forEach(x=>{
+            const checkbox=x.querySelector('input[type="checkbox"]');
+
+            if(checkbox&&checkbox.checked){
+                const cells=x.querySelectorAll('td');
+
+                const materCode=cells[1].innerText;
+                const name=cells[2].innerText;
+
+                const receipt=cells[3].innerText;
+                const month=receipt.split('-')[1];
+                const day=receipt.split('-')[2];
+
+                const shipNum=parseFloat(cells[4].innerText)||0;
+                const standard=cells[5].innerText;
+                const unitCost=parseFloat(cells[6].innerText)||0;
+                const supplyValue=shipNum*unitCost;
+                const tax=supplyValue/10;
+
+                const shipNo=cells[7].innerText;
+
+                const newRow = document.createElement('tr');
+
+                [month, day].forEach(text => {
+                    const td = document.createElement('td');
+                    td.innerText = text;
+                    newRow.appendChild(td);
+                });
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'btn btn-sm btn-secondary';
+                button.innerText = '삭제';
+                button.onclick = function() {
+                    newRow.remove();
+                    calMoney();
+                    initInvoiceShipment(pno);
+                };
+
+                const nameTd = document.createElement('td');
+                nameTd.colSpan=6;
+                nameTd.innerHTML = name+'&nbsp;&nbsp;';
+                nameTd.appendChild(button);
+                newRow.appendChild(nameTd);
+
+                const standardTd = document.createElement('td');
+                standardTd.colSpan=2;
+                standardTd.innerText = standard;
+                newRow.appendChild(standardTd);
+
+                const shipNumTd = document.createElement('td');
+                shipNumTd.innerText = shipNum;
+                newRow.appendChild(shipNumTd);
+
+                const unitCostTd = document.createElement('td');
+                unitCostTd.colSpan=4;
+                unitCostTd.innerText = unitCost;
+                newRow.appendChild(unitCostTd);
+
+                const supplyValueTd = document.createElement('td');
+                supplyValueTd.colSpan=3;
+                supplyValueTd.innerText = supplyValue;
+                supplyValueTd.id = 'presupplyValue'+shipNo;
+                newRow.appendChild(supplyValueTd);
+
+                const taxTd = document.createElement('td');
+                taxTd.colSpan=3;
+                taxTd.innerText = tax;
+                taxTd.id = 'pretax'+shipNo;
+                newRow.appendChild(taxTd);
+
+                const inputText = document.createElement('input');
+                inputText.type = 'text';
+                inputText.style.border = '0px';
+                inputText.style.width = '150px';
+                inputText.id = 'inputText'+shipNo;
+
+                const EmptyTd = document.createElement('td');
+                EmptyTd.appendChild(inputText);
+                newRow.appendChild(EmptyTd);
+
+                const shipNoTd = document.createElement('td');
+                shipNoTd.innerText = shipNo;
+                shipNoTd.style.display = 'none';
+                shipNoTd.id = 'shipNo'+shipNo;
+                newRow.appendChild(shipNoTd);
+
+                insertPoint.appendChild(newRow);
+            }
+        });
+
+        calMoney();
+        initInvoiceShipment(pno);
+      }
+
+      function calMoney(){
+        const allSupplyValue=document.querySelectorAll('[id^="presupplyValue"]');
+        let totalSupplyValue=0;
+        allSupplyValue.forEach(x => {
+          const SupplyValue=parseFloat(x.innerText)||0;
+          totalSupplyValue+=SupplyValue;
+        });
+
+        const allTax=document.querySelectorAll('[id^="pretax"]');
+        let totalTax=0;
+        allTax.forEach(x => {
+          const tax=parseFloat(x.innerText)||0;
+          totalTax+=tax;
+        });
+
+        let totalSum=totalSupplyValue+totalTax;
+
+        $('#totalSum').text(totalSum);
+        $('#totalSupply').text(totalSupplyValue);
+        $('#totalTax').text(totalTax);
+        $('#cash').val(totalSum);
+      }
+
+      function makeInvoice(){
+        var tranNO=document.getElementById('thisTranNO').innerText;
+        var writeDate=document.getElementById('writeDate').value;
+        var text=document.getElementById('text').value;
+        var cash=document.getElementById('cash').value;
+        var cheque=document.getElementById('cheque').value;
+        var promissory=document.getElementById('promissory').value;
+        var receivable=document.getElementById('receivable').value;
+        var radio=whoChecked();
+
+        const shipmentSelTable=document.querySelector('#shipmentSel');
+        const shipmentRows=shipmentSelTable.querySelectorAll('tr');
+
+        const shipmentData=[];
+
+        shipmentRows.forEach(x=>{
+           const cells=x.querySelectorAll('td');
+
+           const shipNo=parseFloat(cells[9].innerText);
+           const inputId='inputText'+shipNo;
+           const inputElement=document.querySelector('#'+inputId);
+           const shipText=inputElement.value;
+
+           shipmentData.push({shipNo:shipNo, shipText:shipText});
+        });
+
+        $.ajax({
+          url:'/invoice/saveInvoice',
+          method:'POST',
+          contentType:'application/json',
+          data: JSON.stringify({
+            tranNO:tranNO,
+            writeDate:writeDate,
+            text:text,
+            cash:parseFloat(cash),
+            cheque:parseFloat(cheque),
+            promissory:parseFloat(promissory),
+            receivable:parseFloat(receivable),
+            radio:radio,
+            invoiceTextDTOs:shipmentData,
+          }),
+          success: function(response) {
+            console.log("성공");
+            window.location.href = '/invoice/list_invoice';
+          },
+          error: function(xhr, status, error) {
+            console.log("실패");
+            window.location.href = '/invoice/list_invoice';
+          }
+        });
+      }
+
+      function whoChecked(){
+        const radios=document.querySelectorAll('input[name="type"]');
+        let selectedValue;
+        radios.forEach(x => {
+          if(x.checked){selectedValue=x.value;}
+        });
+        return selectedValue;
+      }
+
+      function todayDate(){
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
+
+      function initModifyInvoice(tranNO){
+        const pno=document.getElementById('partnerPno').value;
+        $.ajax({
+          url:'/select/modify_invoice',
+          method:'POST',
+          data:{tranNO:tranNO},
+          success:function(data){
+            const insertPoint=document.querySelector('#shipmentSel');
+
+            data.forEach(x=>{
+              const materCode=x.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.materCode;
+              const name=x.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+
+              const receipt=x.receipt;
+              const month=receipt.split('-')[1];
+              const day=receipt.split('-')[2].split('T')[0];
+
+              const shipNum=parseFloat(x.shipNum)||0;
+              const standard=x.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.standard;
+              const unitCost=parseFloat(x.baljuDTO.contractDTO.money)||0;
+              const supplyValue=shipNum*unitCost;
+              const tax=supplyValue/10;
+
+              console.log(x.bGo);
+
+              const shipNo=x.shipNO;
+
+              const newRow = document.createElement('tr');
+
+              [month, day].forEach(text => {
+                  const td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+              });
+
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'btn btn-sm btn-secondary';
+              button.innerText = '삭제';
+              button.onclick = function() {
+                  newRow.remove();
+                  calMoney();
+                  initInvoiceShipment(pno);
+              };
+
+              const nameTd = document.createElement('td');
+              nameTd.colSpan=6;
+              nameTd.innerHTML = name+'&nbsp;&nbsp;';
+              nameTd.appendChild(button);
+              newRow.appendChild(nameTd);
+
+              const standardTd = document.createElement('td');
+              standardTd.colSpan=2;
+              standardTd.innerText = standard;
+              newRow.appendChild(standardTd);
+
+              const shipNumTd = document.createElement('td');
+              shipNumTd.innerText = shipNum;
+              newRow.appendChild(shipNumTd);
+
+              const unitCostTd = document.createElement('td');
+              unitCostTd.colSpan=4;
+              unitCostTd.innerText = unitCost;
+              newRow.appendChild(unitCostTd);
+
+              const supplyValueTd = document.createElement('td');
+              supplyValueTd.colSpan=3;
+              supplyValueTd.innerText = supplyValue;
+              supplyValueTd.id = 'presupplyValue'+shipNo;
+              newRow.appendChild(supplyValueTd);
+
+              const taxTd = document.createElement('td');
+              taxTd.colSpan=3;
+              taxTd.innerText = tax;
+              taxTd.id = 'pretax'+shipNo;
+              newRow.appendChild(taxTd);
+
+              const inputText = document.createElement('input');
+              inputText.type = 'text';
+              inputText.style.border = '0px';
+              inputText.style.width = '150px';
+              inputText.id = 'inputText'+shipNo;
+
+              const EmptyTd = document.createElement('td');
+              EmptyTd.appendChild(inputText);
+              newRow.appendChild(EmptyTd);
+
+              const shipNoTd = document.createElement('td');
+              shipNoTd.innerText = shipNo;
+              shipNoTd.style.display = 'none';
+              shipNoTd.id = 'shipNo'+shipNo;
+              newRow.appendChild(shipNoTd);
+
+              insertPoint.appendChild(newRow);
+
+            });
+          }
+        });
+        calMoney();
+      }
+    </script>
     <!--Script-->
   </span>
 

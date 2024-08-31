@@ -171,8 +171,10 @@ public class ShipmentServiceImpl implements ShipmentService {
                 .collect(Collectors.toList());
     }
 
-
-
+    @Override
+    public List<ShipmentDTO> getInvoiceContent(Long tranNO){
+        return shipmentRepository.getInvoiceContent(tranNO).stream().map(this::convertToDTO).toList();
+    }
 
     @Override
     public ShipmentReturnDTO findShipment(Long shipNo){

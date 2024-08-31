@@ -38,7 +38,7 @@ public interface BaljuRepository extends JpaRepository<Balju, Long> {
     Page<Object[]> couldBalju(Pageable pageable);
 
 
-    @Query("select b, b.contract, p, pp from Balju b " +
+    @Query("select b, b.contract from Balju b " +
             "left join Product p on (p.manuCode=b.contract.jodalPlan.proPlan.product.manuCode) " +
             "left join ProPlan pp on (pp.proplanNo=b.contract.jodalPlan.proPlan.proplanNo) " +
             "where b.contract.partner.pno=:pno")
@@ -48,9 +48,7 @@ public interface BaljuRepository extends JpaRepository<Balju, Long> {
 
 
     @EntityGraph(attributePaths = {"contract"})
-    @Query("select b, b.contract, p, pro from Balju b " +
-            "left join Product p on (b.contract.jodalPlan.proPlan.product.manuCode=p.manuCode) " +
-            "left join ProPlan pro on (pro.proplanNo=b.contract.jodalPlan.proPlan.proplanNo) " +
+    @Query("select b, b.contract from Balju b " +
             "where b.contract.partner.pno=:pno")
     List<Object[]> partListBalju(Long pno);
 
@@ -62,4 +60,10 @@ public interface BaljuRepository extends JpaRepository<Balju, Long> {
             "left join ProPlan pro on (pro.proplanNo=b.contract.jodalPlan.proPlan.proplanNo) " +
             "where b.baljuNo=:baljuNo")
     List<Object[]> findBaljuFromNo(Long baljuNo);
+
+    @Query("select c, jc, b from Contract c " +
+            "left join Balju b on (c.conNo=b.contract.conNo) " +
+            "left join JodalChasu jc on (c.jodalPlan.joNo=jc.jodalPlan.joNo) " +
+            "where b.baljuNo is not null and b.finCheck=0 and c.partner.pno=:pno")
+    List<Object[]> modifyBalju(Long pno);
 }

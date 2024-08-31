@@ -11,7 +11,7 @@
 <th:block th:replace="~{layout/mainlayout::all(~{this::#head} ,~{this::#content})}">
 
   <span id="head">
-    <title>검수일정 수정</title>
+    <title>진척검수일 수정</title>
     <!--Style-->
 
     <!--/Style-->
@@ -20,78 +20,314 @@
   <span id="content">
     <div class="container-xxl flex-grow-1 container-p-y">
       <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">진척검수 관리 /</span> 진척검수 일정 수정</h4>
-      <div class="row">
-        <div class="fullscreen-background">
-          <div class="card mb-4">
-            <h5 class="card-header">담당자</h5>
-            <div class="card-body">
-              <div>
-                <label for="defaultFormControlInput" class="form-label">이름</label>
-                <input
-                        type="text"
-                        class="form-control"
-                        id="defaultFormControlInput"
-                        placeholder="실명 작성"
-                        aria-describedby="defaultFormControlHelp"
-                />
-              </div>
+      <div class="card">
+        <div class="card-body">
+          <label class="form-label" style="width: fit-content;">담당자</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="person" th:value="${gumsu.who}">
+          </div>
+        </div>
+        <hr class="m-0">
+        <div class="card-body">
+          <label class="form-label" style="width: fit-content;">협력회사</label>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="number" style="display:none;" id="baljuNoId" th:value="${gumsu.baljuDTO.baljuNo}">
+              <input type="number" style="display:none;" id="partnerNo" th:value="${selectedPno}">
+              <input type="text" class="form-control" id="partnerName" th:value="${selectedName}" readonly>
             </div>
-            <hr class="m-0">
-            <div class="card-body">
-              <h5>진척검수 일정 자재</h5>
-              <div class="table-responsive text-nowrap mb-4">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th>자재</th>
-                      <th>발주수량</th>
-                      <th>입고희망일</th>
-                      <th>날짜</th>
-                      <th>수량</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="table-row">
-                      <td>
-                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>프런트 브레이크</strong>
-                      </td>
-                      <td>300</td>
-                      <td>2024-12-07</td>
-                      <td>
-                        <div class="select-box">
-                          <label for="year">년도:</label>
-                          <select class="year-select"></select>
-                          <label for="month">월:</label>
-                          <select class="month-select"></select>
-                          <label for="day">일:</label>
-                          <select class="day-select"></select>
-                        </div>
-                      </td>
-                      <td>
-                        <input type="number">
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="mb-4">
+            <div class="row">
+              <div class="col-md-4">
+                <button type="button" class="btn btn-primary mb-1" onclick="amountPer(30)">30% 수량</button>
+                <button type="button" class="btn btn-primary mb-1" onclick="amountPer(50)">50% 수량</button>
+                <button type="button" class="btn btn-primary mb-1" onclick="amountPer(70)">70% 수량</button>
               </div>
-              <div class="d-flex justify-content-between w-100">
-                <a th:href="@{/progress/list_progress}">
-                  <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
-                </a>
-                <a th:href="@{/progress/modify_progress}">
-                  <button class="btn btn-primary">수정</button>
-                </a>
+              <div class="col-md-6">
+                <div class="row">
+                  <span style="width: fit-content;" class="col-md-1">입고예정일 기준</span>
+                  <input id="days-input" type="number" class="form-control col-md-2" style="width: 100px;">&nbsp;
+                  <span style="width: fit-content;" class="col-md-1">일 전</span>
+                  <button id="bulk-date-button" type="button" class="btn btn-outline-primary col-md-2"
+                          style="width: fit-content;" onclick="autoFillDate()">
+                    진척검수일 일괄 등록
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+          <div class="table-responsive text-nowrap" id="alltable"></div>
+        </div>
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <a th:href="@{/progress/list_progress}">
+            <button type="button" class="btn btn-outline-secondary">뒤로가기</button>
+          </a>
+          <button type="button" class="btn btn-primary" onclick="saveGumsu()">수정</button>
         </div>
       </div>
     </div>
 
-    <!--Modal-->
+    <!-- Modal -->
 
     <!--/Modal-->
+
     <!--Script-->
+    <script>
+      $(document).ready(function(){
+        const baljuNo=document.getElementById('baljuNoId').value;
+        const partnerNo=document.getElementById('partnerNo').value;
+        const partnerName=document.getElementById('partnerName').value;
+        if(partnerNo!=''){
+          selectPartner({ value: partnerNo, name: partnerName, baljuNo:baljuNo });
+        }
+      });
+
+      function selectPartner(button){
+
+        var pno=button.value;
+        var baljuNo=button.baljuNo;
+
+        document.getElementById('partnerName').value= button.name;
+        document.getElementById('partnerNo').value=pno;
+        var alltable=document.getElementById('alltable');
+        alltable.innerHTML='';
+
+        $.ajax({
+          url:'/select/modifyGumsu',
+          method:'GET',
+          data:{baljuNo:baljuNo},
+          success:function(data){
+            var alltable = document.getElementById('alltable');
+            var joli=data.result;
+            var guli=data.gumsuChasuDTOs;
+
+            console.log(data);
+            console.log(joli);
+
+            joli.forEach(function(tableData){
+              var newBody=document.createElement('table');
+              newBody.classList.add('table', 'table-bordered', 'mb-4');
+
+              var newTable=document.createElement('tbody');
+
+              var newRowHead=document.createElement('tr');
+
+              var checkTd = document.createElement('td');
+              checkTd.innerText = '선택';
+              checkTd.style.display = 'none';
+              newRowHead.appendChild(checkTd);
+              newTable.appendChild(newRowHead);
+
+              ['자재', '발주수량', '입고예정일', '진척검수 수량', '진척검수 날짜'].forEach(function(text) {
+                var td = document.createElement('td');
+                td.innerText = text;
+                newRowHead.appendChild(td);
+              });
+              newTable.appendChild(newRowHead);
+
+              var tempNum=0;
+              var tempCount=0;
+
+              var baljuNo=tableData.baljuDTO.baljuNo;
+              var materialName=tableData.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name;
+              var jodalChasuDTOs=tableData.jodalChasuDTOs;
+
+              jodalChasuDTOs.forEach(x=>{
+                var newRow = document.createElement('tr');
+
+                if(tempNum==0){
+                  var inputTd = document.createElement('td');
+                  inputTd.rowSpan = 3;
+                  var input = document.createElement('input');
+                  input.type = 'checkbox';
+                  input.id = 'checkbox'+baljuNo;
+                  input.checked=true;
+                  input.readOnly=true;
+                  input.class='form-check-input';
+                  inputTd.appendChild(input);
+                  inputTd.style.display = 'none';
+                  newRow.appendChild(inputTd);
+
+                  var nameTd = document.createElement('td');
+                  nameTd.rowSpan = 3;
+                  nameTd.innerText = materialName;
+                  newRow.appendChild(nameTd);
+
+                  tempNum=1;
+                }
+
+                var numTd = document.createElement('td');
+                numTd.innerText = x.joNum;
+                numTd.id = 'jodalNum'+x.jcnum;
+                newRow.appendChild(numTd);
+
+                var dateTd = document.createElement('td');
+                dateTd.innerText = x.joDate.split('T')[0];
+                dateTd.id = 'jodalDate'+x.jcnum;
+                newRow.appendChild(dateTd);
+
+                var gumNumTd = document.createElement('td');
+                var gumNumInput = document.createElement('input');
+                gumNumInput.type = 'number';
+                gumNumInput.id = 'gumNum'+x.jcnum;
+                gumNumInput.value = guli[tempCount].gumsuNum;
+                gumNumInput.style.border = '0px';
+                gumNumTd.appendChild(gumNumInput);
+                newRow.appendChild(gumNumTd);
+
+                var gumDateTd = document.createElement('td');
+                var gumDateInput = document.createElement('input');
+                gumDateInput.type = 'date';
+                gumDateInput.id = 'gumDate'+x.jcnum;
+                gumDateInput.value = guli[tempCount].gumsuDate.split('T')[0];
+                gumDateInput.style.border = '0px';
+                gumDateTd.appendChild(gumDateInput);
+                newRow.appendChild(gumDateTd);
+
+                newTable.appendChild(newRow);
+
+                tempCount+=1;
+              });
+
+              newBody.appendChild(newTable);
+              alltable.appendChild(newBody);
+
+            });
+
+          }
+        });
+
+      }
+
+      let checkValue = 0;
+      function selectAllBalju(){
+        const checkBox=document.querySelectorAll('input[type="checkbox"]');
+        checkBox.forEach(x=>{
+          if(checkValue==0) {x.checked=true;}
+          if(checkValue==1) {x.checked=false;}
+        });
+        checkValue=(checkValue===0)?1:0;
+      }
+
+      function amountPer(percent){
+        const allTables = document.querySelectorAll('#alltable table');
+        allTables.forEach(table=>{
+          const checkbox=table.querySelector('input[type="checkbox"]');
+          if(checkbox&&checkbox.checked){
+            var baseId="checkbox";
+            var baljuNo=checkbox.id.substring(baseId.length);
+
+            const all=table.querySelectorAll('[id^="jodalNum"]');
+
+            all.forEach(x=>{
+              var baseId2="jodalNum";
+              var jodalNo=x.id.substring(baseId2.length);
+
+              var amount=parseInt(x.innerText, 10);
+              var amountpercent=Math.floor(amount*percent/100);
+
+              document.getElementById('gumNum'+jodalNo).value=amountpercent;
+
+            });
+          }
+        });
+      }
+
+      function autoFillDate(){
+        const allTables = document.querySelectorAll('#alltable table');
+          allTables.forEach(table=>{
+            const checkbox=table.querySelector('input[type="checkbox"]');
+            if(checkbox&&checkbox.checked){
+              var baseId="checkbox";
+              var baljuNo=checkbox.id.substring(baseId.length);
+
+             const all=table.querySelectorAll('[id^="jodalDate"]');
+
+              all.forEach(x=>{
+                var baseId2="jodalDate";
+                var jodalNo=x.id.substring(baseId2.length);
+
+                var joDateStr = x.innerText.trim();
+                var minusDate = parseInt(document.getElementById('days-input').value, 10);
+
+                var joDate = new Date(joDateStr);
+                if (isNaN(joDate.getTime())) {
+                    console.error('Invalid date format for jodalDate:', joDateStr);
+                    return;
+                }
+
+                joDate.setDate(joDate.getDate() - minusDate);
+
+                var year = joDate.getFullYear();
+                var month = joDate.getMonth() + 1;
+                var day = joDate.getDate();
+                var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+
+                document.getElementById('gumDate' + jodalNo).value = formattedDate;
+             });
+          }
+        });
+      }
+
+
+      function saveGumsu(){
+        var person=document.getElementById('person').value;
+        var partnerNo=document.getElementById('partnerNo').value;
+
+        const allTables = document.querySelectorAll('#alltable table');
+
+        const allData=[];
+
+        allTables.forEach(table=>{
+          const tableData={};
+
+          const checkbox=table.querySelector('input[type="checkbox"]');
+          if(checkbox&&checkbox.checked){
+            const tdData=[];
+            var baseId="checkbox";
+            var baljuNo=checkbox.id.substring(baseId.length);
+
+            const all=table.querySelectorAll('[id^="gumNum"]');
+            all.forEach(x=>{
+              var baseId2="gumNum";
+              var saveGumNum=x.value;
+              const tempNum=x.id.substring(baseId2.length);
+              var saveGumDate=document.getElementById('gumDate'+tempNum).value;
+
+              tdData.push({ gumNum: saveGumNum, gumDate: saveGumDate });
+
+            });
+
+            tableData.baljuNo = baljuNo;
+            tableData.person=person;
+            tableData.partnerNo=partnerNo;
+            tableData.tdData = tdData;
+
+
+            allData.push(tableData);
+
+          }
+
+        });
+
+        console.log(allData);
+
+        $.ajax({
+          url:'/progress/save_gumsu',
+          method:'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(allData),
+          success:function(data){
+            window.location.href = '/progress/list_progress';
+          }
+        });
+
+      }
+    </script>
+
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const tableRows = document.querySelectorAll('.table-row');

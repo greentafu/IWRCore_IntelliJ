@@ -3,6 +3,7 @@ package mit.iwrcore.IWRCore.controller_rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import mit.iwrcore.IWRCore.security.dto.*;
+import mit.iwrcore.IWRCore.security.dto.AjaxDTO.NoneGumsuChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.AjaxDTO.NoneGumsuDTO;
 import mit.iwrcore.IWRCore.security.dto.MaterDTO.MaterCodeListDTO;
 import mit.iwrcore.IWRCore.security.dto.PartDTO.PartCodeListDTO;
@@ -19,6 +20,7 @@ import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalPlanJodalChsuDTO;
 import mit.iwrcore.IWRCore.security.service.*;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -39,6 +41,7 @@ public class SelectboxController {
     private final MaterialService materialService;
     private final StructureService structureService;
     private final ProplanService proplanService;
+    private final GumsuChasuService gumsuChasuService;
 
     @GetMapping("/getPart")
     public PartCodeListDTO getPart(){
@@ -164,6 +167,34 @@ public class SelectboxController {
         }
         return result;
     }
+    @GetMapping("/modifyGumsu")
+    public NoneGumsuChasuDTO modifyGumsu(@RequestParam(required = false) Long baljuNo, @RequestParam(required = false) Long gumsuNo){
+        List<NoneGumsuDTO> result=new ArrayList<>();
+        Set<BaljuDTO> baljuDTOSet=new HashSet<>();
+        Set<JodalChasuDTO> jodalChasuDTOSet=new HashSet<>();
+
+        List<BaljuJodalChasuDTO> baljuJodalChasuDTOList=gumsuService.modifyGumsu(baljuNo);
+        for(BaljuJodalChasuDTO dto:baljuJodalChasuDTOList){
+            baljuDTOSet.add(dto.getBaljuDTO());
+            jodalChasuDTOSet.add(dto.getJodalChasuDTO());
+            if(jodalChasuDTOSet.size()==3){
+                BaljuDTO baljuDTO=baljuDTOSet.stream().toList().get(0);
+                List<JodalChasuDTO> jodalChasuDTOList=jodalChasuDTOSet.stream().toList();
+                List<JodalChasuDTO> sortedJC=jodalChasuDTOList.stream().sorted(Comparator.comparing(JodalChasuDTO::getJcnum)).toList();
+                System.out.println(sortedJC);
+                NoneGumsuDTO noneGumsuDTO= NoneGumsuDTO.builder().baljuDTO(baljuDTO).jodalChasuDTOs(sortedJC).build();
+                result.add(noneGumsuDTO);
+                baljuDTOSet.clear();
+                jodalChasuDTOSet.clear();
+            }
+        }
+
+        List<GumsuChasuDTO> gumsuChasuDTOs=gumsuChasuService.getGumsuChasuFromBalju(baljuNo);
+        System.out.println(gumsuChasuDTOs);
+
+        NoneGumsuChasuDTO noneGumsuChasuDTO=NoneGumsuChasuDTO.builder().result(result).gumsuChasuDTOs(gumsuChasuDTOs).build();
+        return noneGumsuChasuDTO;
+    }
 
     @GetMapping("/anyPartner")
     public PartnerDTO anyPartner(@RequestParam(required = false) Long pno){
@@ -191,5 +222,10 @@ public class SelectboxController {
     @GetMapping("/checkProPlan")
     public Long checkProPlan(@RequestParam(required = false) Long manuCode){
         return proplanService.checkProPlan(manuCode);
+    }
+
+    @PostMapping("/modify_invoice")
+    public List<ShipmentDTO> modify_invoice(@RequestParam(required = false) Long tranNO){
+        return shipmentService.getInvoiceContent(tranNO);
     }
 }

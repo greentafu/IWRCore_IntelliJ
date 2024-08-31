@@ -429,7 +429,7 @@
         var conNo=button.value;
         $.ajax({
           url:'/contract/delete_contract',
-          method:'POST',
+          method:'GET',
           data:{conNo:conNo},
           success:function(response){
             window.location.reload();

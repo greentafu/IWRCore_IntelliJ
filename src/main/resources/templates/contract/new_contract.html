@@ -32,6 +32,7 @@
               <input class="form-control" type="text" id="person" name="firstName" placeholder="홍길동" autofocus />
             </div>
             <hr class="m-0">
+            <div style="display:none;" th:id="selectedJoNo" th:text="${jodalPlan!=null? jodalPlan.joNo:null}"></div>
             <div class="card-body">
               <div class="mb-3 col-md-6">
                 <h5>공급자 정보</h5>
@@ -81,7 +82,8 @@
                     <th>단가</th>
                     <th>수량</th>
                     <th>걸리는 일수</th>
-                    <th>체결일 </th>
+                    <th>체결일</th>
+                    <th>삭제</th>
                   </tr>
                   <tbody id="insertPoint"></tbody>
                 </table>
@@ -139,7 +141,7 @@
           <hr class="m-0">
           <div class="modal-body" style="height: 350px;">
             <table class="table table-hover">
-              <tr th:each="partner:${partner}">
+              <tr th:each="partner:${partner}" th:if="${partner.pno!=1}">
                 <td>[[${partner.name}]]</td>
                 <td>[[${partner.registrationNumber}]]</td>
                 <td>
@@ -226,7 +228,8 @@
     <!--Script-->
     <script>
         $(document).ready(function(){
-          initNoneContract();
+          var selectedJoNo=document.getElementById('selectedJoNo').innerText;
+          initNoneContract(selectedJoNo);
         });
 
         function selPartner(button){
@@ -242,54 +245,65 @@
           });
         }
 
-        function initNoneContract(){
+        function initNoneContract(selectedJoNo){
+          var setJoNo=(selectedJoNo!='')?selectedJoNo:null;
           var tbodyArea=document.getElementById('noneContract');
-          $.ajax({
-            url:'/select/noneContractJodalPlan',
-            method:'GET',
-            success:function(data){
-              data.forEach(x=>{
+          setTimeout(function() {
+            tbodyArea.innerHTML = '';
 
-                var joNo=x.jodalPlanDTO.joNo;
+            $.ajax({
+              url:'/select/noneContractJodalPlan',
+              method:'GET',
+              success:function(data){
+                data.forEach(x=>{
 
-                var tempId='inputDate'+joNo;
-                var temp=document.getElementById(tempId);
-                if(temp==null){
+                  var joNo=x.jodalPlanDTO.joNo;
 
-                  console.log("temp:", temp);
+                  var tempId='inputDate'+joNo;
+                  var temp=document.getElementById(tempId);
+                  if(temp==null){
 
-                  var materCode=x.jodalPlanDTO.materialDTO.materCode;
-                  var materName=x.jodalPlanDTO.materialDTO.name;
-                  var allNum=x.allJodalChasuNum;
+                    var materCode=x.jodalPlanDTO.materialDTO.materCode;
+                    var materName=x.jodalPlanDTO.materialDTO.name;
+                    var allNum=x.allJodalChasuNum;
 
-                  var newRow = document.createElement('tr');
+                    var newRow = document.createElement('tr');
 
-                  var inputTd = document.createElement('td');
-                  var input = document.createElement('input');
-                  input.type = 'checkbox';
-                  input.id = 'checkbox'+joNo;
-                  input.class='form-check-input';
-                  inputTd.appendChild(input);
-                  newRow.appendChild(inputTd);
+                    var inputTd = document.createElement('td');
+                    var input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.id = 'checkbox'+joNo;
+                    input.class='form-check-input';
 
-                  [joNo, materCode, materName].forEach(function(text){
-                    var td = document.createElement('td');
-                    td.innerText = text;
-                    newRow.appendChild(td);
-                  });
+                    if(setJoNo==joNo){
+                      input.checked = true;
+                    }
+                    inputTd.appendChild(input);
+                    newRow.appendChild(inputTd);
 
-                  var numTd = document.createElement('td');
-                  numTd.innerText = allNum;
-                  numTd.style.display = 'none';
-                  newRow.appendChild(numTd);
+                    [joNo, materCode, materName].forEach(function(text){
+                      var td = document.createElement('td');
+                      td.innerText = text;
+                      newRow.appendChild(td);
+                    });
 
-                  tbodyArea.appendChild(newRow);
+                    var numTd = document.createElement('td');
+                    numTd.innerText = allNum;
+                    numTd.style.display = 'none';
+                    newRow.appendChild(numTd);
 
-                }
+                    tbodyArea.appendChild(newRow);
 
-              });
-            }
-          });
+                    if(setJoNo==joNo){
+                      addJodalPlan();
+                    }
+
+                  }
+
+                });
+              }
+            });
+          }, 100);
         }
 
         let checkValue = 0;
@@ -361,6 +375,18 @@
               const dateTd = document.createElement('td');
               dateTd.appendChild(inputDate);
               newRow.appendChild(dateTd);
+
+              const deleteTd = document.createElement('td');
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'btn btn-sm btn-secondary';
+              button.innerText = '삭제';
+              button.onclick = function() {
+                  newRow.remove(); // Remove the row when the button is clicked
+                  initNoneContract();
+              };
+              deleteTd.appendChild(button);
+              newRow.appendChild(deleteTd);
 
               insertPoint.appendChild(newRow);
             }

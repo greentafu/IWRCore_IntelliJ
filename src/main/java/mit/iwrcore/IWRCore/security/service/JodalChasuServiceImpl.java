@@ -117,15 +117,17 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         LocalDateTime now=LocalDateTime.now();
 
         long entire1= ChronoUnit.DAYS.between(baljuDate, list.get(0).getDueDate()); // 전체 일수
-        long current1= ChronoUnit.DAYS.between(baljuDate, now)+1; // 현재까지의 일수
+        long current1= ChronoUnit.DAYS.between(baljuDate, now); // 현재까지의 일수
         Float temp1=Float.parseFloat(String.format("%.2f", current1*100f/entire1));
+        if(current1==0L) temp1=100.0f;
+
         if(temp1<0) list.get(0).setPercent(0f);
         else if(temp1>100) list.get(0).setPercent(100f);
         else list.get(0).setPercent(temp1);
 
         for(int i=0; i<list.size()-1; i++){
             long entire2= ChronoUnit.DAYS.between(list.get(i).getDueDate(), list.get(i+1).getDueDate()); // 전체 일수
-            long current2=ChronoUnit.DAYS.between(list.get(i).getDueDate(), now)+1; // 현재까지의 일수
+            long current2=ChronoUnit.DAYS.between(list.get(i).getDueDate(), now); // 현재까지의 일수
             Float temp2=Float.parseFloat(String.format("%.2f", current2*100f/entire2));
             if(temp2<0) list.get(i+1).setPercent(0f);
             else if(temp2>100) list.get(i+1).setPercent(100f);
@@ -162,6 +164,9 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         Long tempSumRequest = (Long) objects[2];
         Long tempSumShip = (Long) objects[3];
         JodalChasu jodalChasu=(JodalChasu) objects[4];
+        Long countContract=(Long) objects[5];
+
+        System.out.println(jodalPlan.getJoNo()+":"+countContract);
 
         StructureDTO structureDTO = (structure != null) ? structureService.structureTodto(structure) : null;
         Long sumRequest = (tempSumRequest != null) ? tempSumRequest : 0L;
@@ -170,8 +175,9 @@ public class JodalChasuServiceImpl implements JodalChasuService {
         System.out.println(jodalPlanDTO);
         ProplanDTO proplanDTO = (jodalPlanDTO != null) ? jodalPlanDTO.getProplanDTO() : null;
         JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?convertToDTO(jodalChasu):null;
+        Long sumContract=(countContract!=null)?countContract:0L;
 
-        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, jodalChasuDTO);
+        return new ProPlanSturctureDTO(proplanDTO, structureDTO, sumRequest, sumShip, jodalPlanDTO, jodalChasuDTO, sumContract);
     }
 
     @Override

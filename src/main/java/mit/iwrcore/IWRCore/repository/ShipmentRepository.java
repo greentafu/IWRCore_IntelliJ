@@ -98,17 +98,9 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
             "where s.invoice is not null and s.balju.contract.partner.pno=:pno")
     Page<Object[]> partnerInvoicePage(Pageable pageable, Long pno);
 
-//    @Transactional
-//    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
-//    @Query("select s, s.balju.contract.partner, p, pp from Invoice i " +
-//            "join Shipment s on (s.invoice.tranNO=i.tranNO) " +
-//            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
-//            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo)")
-//    Page<Object[]> deliverMaterial(Pageable pageable);
-
-
     @Query("select sum(s.shipNum) from Shipment s where s.balju.contract.jodalPlan.joNo=:joNo")
     Long allShipNum(Long joNo);
+
     @Query("SELECT s FROM Shipment s " +
             "JOIN FETCH s.balju b " +
             "JOIN FETCH b.contract c " +
@@ -116,4 +108,7 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
             "JOIN FETCH jp.material m " +
             "WHERE s.receiveCheck = :receiveCheck")
     List<Shipment> findByReceiveCheckWithDetails(Long receiveCheck);
+
+    @Query("select s from Shipment s where s.invoice.tranNO=:tranNO")
+    List<Shipment> getInvoiceContent(Long tranNO);
 }

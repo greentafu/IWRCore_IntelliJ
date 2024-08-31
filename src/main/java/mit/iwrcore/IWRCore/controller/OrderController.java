@@ -53,8 +53,9 @@ public class OrderController {
         model.addAttribute("didBalju_list", baljuService.finBaljuPage(pageRequestDTO2));
     }
     @GetMapping("/modify_order2")
-    public void modify_order2(){
-
+    public void modify_order2(Long baljuNo, Model model){
+        BaljuDTO baljuDTO=baljuService.getBaljuById(baljuNo);
+        model.addAttribute("contract_list", baljuService.modifyBalju(baljuDTO.getContractDTO().getPartnerDTO().getPno()));
     }
     @GetMapping("/new_order")
     public void new_order(@RequestParam(required = false) Long conNo, Model model){
@@ -92,8 +93,9 @@ public class OrderController {
             }
 
             BaljuDTO baljuDTO=BaljuDTO.builder()
+                    .baljuNo((saveBaljuDTO.getBaljuNo()!=null)?Long.valueOf(saveBaljuDTO.getBaljuNo()):null)
                     .baljuWhere(saveBaljuDTO.getBaljuWhere())
-                    .baljuPlz(saveBaljuDTO.getBaljuWhere())
+                    .baljuPlz(saveBaljuDTO.getBaljuPlz())
                     .baljuNum(sum)
                     .finCheck(0L)
                     .contractDTO(contractDTO)
@@ -103,9 +105,10 @@ public class OrderController {
         }
         return "redirect:/order/list_order";
     }
-    @PostMapping("/delete_order")
-    public void delete_order(){
-
+    @PostMapping ("/delete_order")
+    public String delete_order(@RequestParam(required = false) Long baljuNo){
+        baljuService.deleteBalju(baljuNo);
+        return "redirect:/order/list_order";
     }
     @PostMapping("/urgent")
     public void urgent(){

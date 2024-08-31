@@ -23,6 +23,8 @@ public interface GumsuReposetory extends JpaRepository<Gumsu,Long> {
     @Query("select g.make from Gumsu g where g.balju.baljuNo=:baljuNo")
     Long quantityMake(Long baljuNo);
 
+    @Query("select g from Gumsu g where g.balju.baljuNo=:baljuNo")
+    Gumsu findGumsuByBalju(Long baljuNo);
 
     @EntityGraph(attributePaths = {"balju"})
     @Query("select g, g.balju.contract, p, pp from Gumsu g " +
@@ -51,4 +53,13 @@ public interface GumsuReposetory extends JpaRepository<Gumsu,Long> {
             "left join ProPlan pp on (g.balju.contract.jodalPlan.proPlan.proplanNo=pp.proplanNo) " +
             "where g.gumsuNo=:gumsuNo")
     List<Object[]> getGumsu(Long gumsuNo);
+
+    @EntityGraph(attributePaths = {"balju"})
+    @Query("select b, jc, b.contract, p, pp from Balju b " +
+            "left join Gumsu g on(g.balju.baljuNo=b.baljuNo) " +
+            "left join JodalChasu jc on (b.contract.jodalPlan.joNo=jc.jodalPlan.joNo) " +
+            "left Join Product p on (b.contract.jodalPlan.proPlan.product.manuCode=p.manuCode) " +
+            "left join ProPlan pp on (b.contract.jodalPlan.proPlan.proplanNo=pp.proplanNo) " +
+            "where b.baljuNo =:baljuNo")
+    List<Object[]> modifyGumsu(Long baljuNo);
 }

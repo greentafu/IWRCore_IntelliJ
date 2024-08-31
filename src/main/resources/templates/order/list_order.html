@@ -160,7 +160,7 @@
                   <td>[[${list1.contractDTO.filename}]]</td>
                   <td>[[${list1.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
                   <td>[[${list1.contractDTO.jodalPlanDTO.proplanDTO.pronum}]]</td>
-                  <td>--</td>
+                  <td>[[${#temporals.format(list1.contractDTO.regDate, 'yyyy-MM-dd')}]]</td>
                   <td>
                     <a th:href="@{/order/new_order2(conNo=${list1.contractDTO.conNo})}">
                       <button class="btn btn-primary">발주하기</button>
@@ -340,8 +340,8 @@
                   <td>[[${list2.baljuDTO.baljuNo}]]</td>
                   <td>[[${list2.contractDTO.partnerDTO.name}]]</td>
                   <td>[[${list2.baljuDTO.filename}]]</td>
-                  <td>[[${list2.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
-                  <td>[[${list2.baljuDTO.baljuNum}]]</td>
+                  <td th:id="'materialName'+${list2.baljuDTO.baljuNo}">[[${list2.contractDTO.jodalPlanDTO.materialDTO.name}]]</td>
+                  <td th:id="'baljuNum'+${list2.baljuDTO.baljuNo}">[[${list2.baljuDTO.baljuNum}]]</td>
                   <td>
                     <button type="button" class="btn btn-sm btn-outline-primary">
                       <span class="bx bx-arrow-to-bottom"></span>
@@ -351,7 +351,7 @@
                     <a th:href="@{/order/modify_order2(baljuNo=${list2.baljuDTO.baljuNo})}">
                       <button class="btn btn-primary">수정</button>
                     </a>
-                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle">삭제</button>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" href="#modalToggle" th:value="${list2.baljuDTO.baljuNo}" onclick="deleteBtn(this)">삭제</button>
                   </td>
                 </tr>
               </tbody>
@@ -387,11 +387,65 @@
     </div>
 
     <!--Modal-->
+    <div
+            class="modal fade"
+            id="modalToggle"
+            aria-labelledby="modalToggleLabel"
+            tabindex="-1"
+            style="display: none"
+            aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalToggleLabel">삭제하시겠습니까?</h5>
+          </div>
+          <div class="modal-body" id="deleteText"></div>
+          <div class="modal-footer">
+            <button
+                    class="btn btn-primary"
+                    data-bs-target="#modalToggle2"
+                    data-bs-dismiss="modal"
+                    id="deleteBtn"
+                    onclick="deleteBalju(this)"
+            >
+              삭제
+            </button>
+            <button
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+            >
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!--/Modal-->
 
     <!--Script-->
+    <script>
+      function deleteBtn(button){
+        var baljuNo=button.value;
+        var materialName=document.getElementById('materialName'+baljuNo).innerText;
+        var baljuNum=document.getElementById('baljuNum'+baljuNo).innerText;
 
+        document.getElementById('deleteText').innerHTML=materialName+"(수량: "+baljuNum+")의 발주를 삭제합니다.<br/>삭제시 복구가 불가능합니다.";
+        document.getElementById('deleteBtn').value=baljuNo;
+      }
+      function deleteBalju(button){
+        var baljuNo=button.value;
+        $.ajax({
+          url:'/order/delete_order',
+          method:'POST',
+          data:{baljuNo:baljuNo},
+          success:function(response){
+            window.location.reload();
+          }
+        });
+      }
+    </script>
     <!--Script-->
   </span>
 

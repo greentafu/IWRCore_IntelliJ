@@ -186,16 +186,23 @@
                   />
                 </div>
                 <div class="col mb-0">
-                  <label for="dobWithTitle" class="form-label">출고량</label>
+                  <label for="dobWithTitle" class="form-label">보유수량</label>
                   <input
                           type="text"
-                          id="dobWithTitle"
                           class="form-control"
-                          placeholder="출고량 입력"
-                          name="shipNum"
+                          th:value="${list.gumsuList[0].totalOrder-list.totalShipment}"
+                          readonly
                   />
                 </div>
               </div>
+              <label for="dobWithTitle" class="form-label">출고량</label>
+              <input
+                      type="text"
+                      id="dobWithTitle"
+                      class="form-control"
+                      placeholder="출고량 입력"
+                      name="shipNum"
+              />
               <label class="form-label">비고</label>
               <textarea class="form-control mb-4" rows="15" style="width: 100%;" name="text"></textarea>
             </div>

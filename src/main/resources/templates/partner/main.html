@@ -32,6 +32,13 @@
               </h5>
             </a>
           </th:block>
+          <th:block th:if="${list.gumsuList}==null">
+            <h5 class="card-header">
+              <button type="button" class="btn btn-outline-secondary btn-lg">
+                [[${list.baljuDTO.contractDTO.jodalPlanDTO.materialDTO.name}]]
+              </button>
+            </h5>
+          </th:block>
 
           <div class="demo-inline-spacing">
 

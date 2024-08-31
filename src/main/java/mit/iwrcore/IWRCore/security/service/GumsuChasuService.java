@@ -34,4 +34,6 @@ public interface GumsuChasuService {
     List<QuantityDateDTO> partnerMainGumsu(Long baljuNo);
 
     PageResultDTO<GumsuChasuContractDTO, Object[]> getAllGumsuChasuContract(PageRequestDTO requestDTO);
+
+    List<GumsuChasuDTO> getGumsuChasuFromBalju(Long baljuNo);
 }

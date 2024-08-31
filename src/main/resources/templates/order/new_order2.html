@@ -24,7 +24,7 @@
         <div class="card mb-4">
           <div class="card-body">
             <div>
-              <label class="col-form-label" ><h5>발주 요청 가능 목록</h5></label><br/>
+              <label class="col-form-label mb-4"><h5>발주 요청 가능 목록</h5></label>
               <div class="row mb-4">
                 <div class="col-md-2">
                   <input type="number" style="display:none;" value="0" id="checkAllBtn">
@@ -32,11 +32,15 @@
                     모두선택
                   </button>
                 </div>
-                <div class="col-md-4">
-                  <input type="date" class="form-control" style="width: 300px;">&nbsp;
-                </div>
-                <div class="col-md-2">
-                  <button type="button" class="btn btn-outline-primary" style="width: fit-content;">예정일 일괄 등록</button>
+                <div class="col-md-10">
+                  <div class="row">
+                    <input id="loc-input" type="text" class="form-control col-md-2"
+                           placeholder="배송장소" style="width: 200px;">&nbsp;
+                    <button id="bulk-date-button" type="button" class="btn btn-outline-primary col-md-2"
+                            style="width: fit-content;" onclick="fillLocation()">
+                      배송장소 일괄 등록
+                    </button>
+                  </div>
                 </div>
               </div>
               <table class="table table-bordered mb-4" th:each="list:${contract_list}" th:id="'shipmentTable'+${list.contractDTO.conNo}">
@@ -201,6 +205,14 @@
             console.log("실패");
             window.location.href = '/order/list_order';
           }
+        });
+      }
+
+      function fillLocation(){
+        const location=document.getElementById('loc-input').value;
+        const allLoc=document.querySelectorAll('[id^="location"]');
+        allLoc.forEach(x=>{
+          x.value=location;
         });
       }
     </script>

@@ -136,7 +136,7 @@ public class PartnerController {
             PartnerMainDTO partnerMainDTO=PartnerMainDTO.builder()
                     .baljuDTO(baljuDTO)
                     .jodalList(jodalList)
-                    .gumsuList(gumsuList)
+                    .gumsuList((gumsuList.size()!=0)?gumsuList:null)
                     .build();
             if(emergencyDTOs!=null) emergencyDTOs.forEach(x->{
                 if(x.getEmcheck()==0) partnerMainDTO.setEmergency(x.getEmerNo());

@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class SaveInvoiceDTO {
+    private Long tranNO;
     private String writeDate;
     private String text;
     private Long cash;

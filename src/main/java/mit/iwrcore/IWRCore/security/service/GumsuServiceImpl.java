@@ -42,13 +42,16 @@ public class GumsuServiceImpl implements GumsuService{
 
     @Override
     public GumsuDTO convertToDTO(Gumsu entity) {
-        return GumsuDTO.builder()
-                .gumsuNo(entity.getGumsuNo())
-                .make(entity.getMake())
-                .who(entity.getWho())
-                .baljuDTO(baljuService.convertToDTO(entity.getBalju())) // Balju를 BaljuDTO로 변환
-                .memberDTO(memberService.memberTodto(entity.getWriter())) // Member를 MemberDTO로 변환
-                .build();
+        if(entity!=null){
+            return GumsuDTO.builder()
+                    .gumsuNo(entity.getGumsuNo())
+                    .make(entity.getMake())
+                    .who(entity.getWho())
+                    .baljuDTO(baljuService.convertToDTO(entity.getBalju())) // Balju를 BaljuDTO로 변환
+                    .memberDTO(memberService.memberTodto(entity.getWriter())) // Member를 MemberDTO로 변환
+                    .build();
+        }
+        else return null;
     }
 
     @Override
@@ -63,6 +66,11 @@ public class GumsuServiceImpl implements GumsuService{
         List<Object[]> list=gumsuReposetory.getGumsuFromBalju(id);
         Gumsu gumsu=(Gumsu) list.get(0)[0];
         return convertToDTO(gumsu);
+    }
+
+    @Override
+    public GumsuDTO getGumsuByBalju(Long baljuNo){
+        return convertToDTO(gumsuReposetory.findGumsuByBalju(baljuNo));
     }
 
     @Override
@@ -125,6 +133,12 @@ public class GumsuServiceImpl implements GumsuService{
         BaljuDTO baljuDTO=(balju!=null)?baljuService.convertToDTO(balju):null;
         JodalChasuDTO jodalChasuDTO=(jodalChasu!=null)?jodalChasuService.convertToDTO(jodalChasu):null;
         return new BaljuJodalChasuDTO(baljuDTO, jodalChasuDTO);
+    }
+    @Override
+    public List<BaljuJodalChasuDTO> modifyGumsu(Long baljuNo){
+        List<Object[]> list=gumsuReposetory.modifyGumsu(baljuNo);
+        List<BaljuJodalChasuDTO> dtoList=list.stream().map(this::baljuJodalChasuToDTO).toList();
+        return dtoList;
     }
 
 }

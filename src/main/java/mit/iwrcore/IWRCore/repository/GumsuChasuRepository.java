@@ -16,8 +16,8 @@ public interface GumsuChasuRepository extends JpaRepository<GumsuChasu,Long> {
     List<GumsuChasu> getGumsuChasuByBaljuNo(Long baljuNo);
 
 
-    @Query("select gc, gc.gumsu.balju.contract, p, pp from GumsuChasu gc " +
-            "left join Product p on (p.manuCode=gc.gumsu.balju.contract.jodalPlan.proPlan.product.manuCode) " +
-            "left join ProPlan pp on (pp.proplanNo=gc.gumsu.balju.contract.jodalPlan.proPlan.proplanNo)")
+    @Query("select gc, gc.gumsu.balju.contract, sum(sh.shipNum) from GumsuChasu gc " +
+            "left join Shipment sh on (gc.gumsu.balju.baljuNo=sh.balju.baljuNo) " +
+            "group by gc")
     Page<Object[]> getAllGumsuChasuContract(Pageable pageable);
 }
