@@ -17,4 +17,6 @@ public class EmergencyDTO {
 
     private BaljuDTO baljuDTO;
     private MemberDTO memberDTO;
+    private RequestDTO requestDTO;
+
 }

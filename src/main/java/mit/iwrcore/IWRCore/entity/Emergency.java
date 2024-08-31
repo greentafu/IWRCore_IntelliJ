@@ -35,4 +35,7 @@ public class Emergency extends BaseEntity {
     @JoinColumn(name = "balju_id")  // 외래 키 컬럼 이름
     @NotNull
     private Balju balju;           // 연관된 Balju 엔티티
+    @ManyToOne
+    @JoinColumn(name = "request_id")
+    private Request request;
 }

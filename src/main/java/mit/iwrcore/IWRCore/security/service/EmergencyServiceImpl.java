@@ -4,12 +4,11 @@ import lombok.RequiredArgsConstructor;
 import mit.iwrcore.IWRCore.entity.Balju;
 import mit.iwrcore.IWRCore.entity.Emergency;;
 import mit.iwrcore.IWRCore.entity.ProPlan;
+import mit.iwrcore.IWRCore.entity.Request;
 import mit.iwrcore.IWRCore.repository.EmergencyRepository;
-import mit.iwrcore.IWRCore.security.dto.BaljuDTO;
-import mit.iwrcore.IWRCore.security.dto.EmergencyDTO;
+import mit.iwrcore.IWRCore.security.dto.*;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
-import mit.iwrcore.IWRCore.security.dto.ProplanDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,27 +25,47 @@ public class EmergencyServiceImpl implements EmergencyService{
     private final EmergencyRepository emergencyRepository;
     private final BaljuService baljuService;
     private final MemberService memberService;
-
+    private final RequestService requestService;
     @Override
     public Emergency convertToEntity(EmergencyDTO dto) {
-        return Emergency.builder()
+        if (dto == null) {
+            return null;
+        }
+
+        // Emergency 엔티티를 생성하면서 필요한 필드들을 설정합니다.
+        Emergency emergency = Emergency.builder()
                 .emerNo(dto.getEmerNo())
                 .emerNum(dto.getEmerNum())
                 .emerDate(dto.getEmerDate())
                 .who(dto.getWho())
                 .emcheck(dto.getEmcheck())
-                .balju(baljuService.convertToEntity(dto.getBaljuDTO()))
-                .writer(memberService.memberdtoToEntity(dto.getMemberDTO()))
+                .balju(dto.getBaljuDTO() != null ? baljuService.convertToEntity(dto.getBaljuDTO()) : null)
+                .writer(dto.getMemberDTO() != null ? memberService.memberdtoToEntity(dto.getMemberDTO()) : null)
                 .build();
+
+        // Request 엔티티와의 관계 설정
+        if (dto.getRequestDTO() != null) {
+            Request request = requestService.convertToEntity(dto.getRequestDTO());
+            emergency.setRequest(request);
+        }
+
+        return emergency;
     }
 
     @Override
     public EmergencyDTO convertToDTO(Emergency entity) {
-        Balju balju = entity.getBalju();  // Emergency에서 Balju 엔티티 가져오기
-        BaljuDTO baljuDTO = null;
+        if (entity == null) {
+            return null;
+        }
 
-        if (balju != null) {
-            baljuDTO = baljuService.convertToDTO(balju);  // Balju 엔티티를 DTO로 변환
+        BaljuDTO baljuDTO = null;
+        if (entity.getBalju() != null) {
+            baljuDTO = baljuService.convertToDTO(entity.getBalju());
+        }
+
+        MemberDTO memberDTO = null;
+        if (entity.getWriter() != null) {
+            memberDTO = memberService.memberTodto(entity.getWriter());
         }
 
         return EmergencyDTO.builder()
@@ -55,16 +74,22 @@ public class EmergencyServiceImpl implements EmergencyService{
                 .emerDate(entity.getEmerDate())
                 .who(entity.getWho())
                 .emcheck(entity.getEmcheck())
-                .baljuDTO(baljuDTO)  // DTO에 baljuDTO 설정
-                .memberDTO(memberService.memberTodto(entity.getWriter()))
+                .baljuDTO(baljuDTO)
+                .memberDTO(memberDTO)
                 .build();
     }
+
     @Override
     public EmergencyDTO createEmergency(EmergencyDTO emergencyDTO) {
+        // Emergency 엔티티로 변환
         Emergency emergency = convertToEntity(emergencyDTO);
+
+        // Emergency 엔티티 저장
         Emergency savedEmergency = emergencyRepository.save(emergency);
+
         return convertToDTO(savedEmergency);
     }
+
 
     @Override
     public Optional<EmergencyDTO> getEmergencyById(Long id) {

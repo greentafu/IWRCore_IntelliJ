@@ -123,25 +123,10 @@ public class OrderController {
 
         try {
             // Emergency 엔티티 생성 및 필수 정보 설정
-            Emergency emergency = new Emergency();
-            emergency.setWriter(writer);
-            emergency.setEmerNum(emergencyDTO.getEmerNum());
-            emergency.setEmerDate(emergencyDTO.getEmerDate());
-            emergency.setWho(emergencyDTO.getWho());
-            emergency.setEmcheck(emergencyDTO.getEmcheck());
+            emergencyDTO.setMemberDTO(memberDTO);
 
-            // BaljuDTO를 사용하여 Balju 엔티티 설정
-            BaljuDTO baljuDTO = emergencyDTO.getBaljuDTO();
-            if (baljuDTO != null && baljuDTO.getBaljuNo() != null) {
-                Balju balju = baljuService.convertToEntity(baljuDTO);
-                emergency.setBalju(balju);
-            } else {
-                log.warn("BaljuDTO is null or baljuNo is missing for EmergencyDTO: {}", emergencyDTO);
-                return ResponseEntity.badRequest().build();
-            }
-
-            // Emergency 엔티티를 데이터베이스에 저장
-            emergencyRepository.save(emergency);
+            // Emergency 엔티티를 서비스 레이어를 통해 저장
+            emergencyService.createEmergency(emergencyDTO);
 
             return ResponseEntity.ok().build();
         } catch (Exception e) {

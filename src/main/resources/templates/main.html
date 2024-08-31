@@ -276,7 +276,6 @@
         <table id="emergency-requests-table" class="table table-bordered mb-2">
             <thead>
                 <tr>
-                    <th>발주번호</th>
                     <th>제품</th>
                     <th>자재</th>
                   <th>부족 수량</th>
@@ -365,7 +364,74 @@
     <!--/Modal-->
 
     <!--Script-->
-  <script>
+    <script>
+  // Function to show the modal with the updated shortage amount
+function showOptions(shortage) {
+  // Set the shortage amount in the modal
+  document.getElementById('shortageAmount').textContent = shortage || 0;
+  document.getElementById('deliveryQuantity').value = shortage || 0;
+
+  // Show the modal
+  var myModal = new bootstrap.Modal(document.getElementById('modalCenter'), {
+    keyboard: false
+  });
+  myModal.show();
+}
+
+// Event listener for the request button
+document.addEventListener('DOMContentLoaded', function () {
+  fetchEmergencyDeliveryRequests('high'); // 기본적으로 수량 높은순으로 정렬하여 데이터 로드
+
+  // Attach click event to request buttons
+  document.getElementById('emergency-table-body').addEventListener('click', function (event) {
+    if (event.target && event.target.matches('button.request-btn')) {
+      var shortage = event.target.getAttribute('data-shortage'); // Get shortage value from button attribute
+      showOptions(shortage); // Show modal with shortage value
+    }
+  });
+
+  // Attach click event to the delivery confirmation button
+  document.getElementById('deliveryConfirmButton').addEventListener('click', function () {
+    // Collect input values from the modal
+    const emerNum = document.getElementById('deliveryQuantity').value;
+    const emerDate = document.querySelector('input[type="date"]').value;
+    const who = document.getElementById('emailWithTitle').value;
+
+    // Convert date format to LocalDateTime compatible string
+    const emerDateTime = emerDate ? emerDate + 'T00:00:00' : null; // YYYY-MM-DDT00:00:00 format
+
+    // Create DTO object
+    const emergencyDTO = {
+      emerNum: emerNum,
+      emerDate: emerDateTime,
+      who: who,
+      emcheck: 0 // Default value 0
+    };
+
+    // Send data to the server
+    fetch('/order/createEmergency', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(emergencyDTO)
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data) {
+          alert('납품 지시가 성공적으로 저장되었습니다.');
+          location.reload(); // Reload the page to update the list or table
+        } else {
+          alert('납품 지시 저장에 실패했습니다.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('납품 지시 저장 중 오류가 발생했습니다.');
+      });
+  });
+});
+
 // Function to fetch emergency delivery requests and update the table
 function fetchEmergencyDeliveryRequests(orderBy) {
   fetch('/proteam/login/emergency-delivery-requests?orderBy=' + orderBy)
@@ -394,8 +460,8 @@ function updateEmergencyTable(data) {
       }
     }
 
-    var row = `<tr data-request-code="${item.requestCode ? item.requestCode : ''}"> <!-- requestCode로 변경 -->
-                    <td>${item.baljuDTO ? item.baljuDTO.baljuNo : ''}</td> <!-- 발주번호 추가 -->
+    var row = `<tr>
+
                   <td>${item.proplanDTO ? item.proplanDTO.productDTO.name : ''}</td>
                   <td><strong>${item.materialDTO ? item.materialDTO.name : ''}</strong></td>
                   <td>${shortage || 0}</td> <!-- Show shortage amount -->
@@ -406,117 +472,7 @@ function updateEmergencyTable(data) {
   });
 }
 
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  fetchEmergencyDeliveryRequests('high'); // 기본적으로 수량 높은순으로 정렬하여 데이터 로드
-
-  // Attach click event to request buttons
-  document.getElementById('emergency-table-body').addEventListener('click', function (event) {
-    if (event.target && event.target.matches('button.request-btn')) {
-      var shortage = event.target.getAttribute('data-shortage'); // Get shortage value from button attribute
-      var requestCode = event.target.closest('tr').dataset.requestCode; // 테이블 행에서 requestCode를 가져옴
-      showOptions(shortage, requestCode); // Show modal with shortage value and requestCode
-    }
-  });
-});
-
-// Function to show the modal with the updated shortage amount
-function showOptions(shortage, requestCode) {  // requestCode 사용
-  // Set the shortage amount in the modal
-  document.getElementById('shortageAmount').textContent = shortage || 0;
-  document.getElementById('deliveryQuantity').value = shortage || 0;
-
-  // 숨겨진 input 필드를 사용하여 requestCode를 설정합니다.
-  document.getElementById('requestIdInput').value = requestCode;
-
-  // Show the modal
-  var myModal = new bootstrap.Modal(document.getElementById('modalCenter'), {
-    keyboard: false
-  });
-  myModal.show();
-}
-
-</script>
-
-<script>
-// Function to show the modal with the updated shortage amount
-function showOptions(shortage, requestCode) {  // requestCode 사용
-  // Set the shortage amount in the modal
-  document.getElementById('shortageAmount').textContent = shortage || 0;
-  document.getElementById('deliveryQuantity').value = shortage || 0;
-
-  // 숨겨진 input 필드를 사용하여 requestCode를 설정합니다.
-  document.getElementById('requestIdInput').value = requestCode;
-
-  // Show the modal
-  var myModal = new bootstrap.Modal(document.getElementById('modalCenter'), {
-    keyboard: false
-  });
-  myModal.show();
-}
-
-// Attach click event to the delivery confirmation button
-document.getElementById('deliveryConfirmButton').addEventListener('click', function () {
-  // Collect input values from the modal
-  const emerNum = document.getElementById('deliveryQuantity').value;
-  const emerDate = document.querySelector('input[type="date"]').value;
-  const who = document.getElementById('emailWithTitle').value;
-  const requestCode = document.getElementById('requestIdInput').value; // Hidden input에서 requestCode를 가져옴
-
-  // Convert date format to LocalDateTime compatible string
-  const emerDateTime = emerDate ? emerDate + 'T00:00:00' : null; // YYYY-MM-DDT00:00:00 format
-
-  // Balju 번호 가져오기
-  // requestCode를 기반으로 Balju 번호를 가져와야 한다면, 추가적인 로직 필요
-  const baljuNo = getBaljuNoFromRequestCode(requestCode); // 이 함수는 필요에 따라 정의해야 합니다.
-
-  // Create DTO object
-  const emergencyDTO = {
-    emerNum: emerNum,
-    emerDate: emerDateTime,
-    who: who,
-    emcheck: 0, // Default value 0
-    baljuDTO: {  // 서버에 BaljuDTO 객체를 전달하기 위해 추가
-      baljuNo: baljuNo
-    }
-  };
-
-  // Send data to the server
-  fetch('/order/createEmergency', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(emergencyDTO)
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data) {
-        alert('납품 지시가 성공적으로 저장되었습니다.');
-        location.reload(); // Reload the page to update the list or table
-      } else {
-        alert('납품 지시 저장에 실패했습니다.');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('납품 지시 저장 중 오류가 발생했습니다.');
-    });
-});
-
-// Helper function to get BaljuNo from requestCode
-function getBaljuNoFromRequestCode(requestCode) {
-  // requestCode를 기반으로 BaljuNo를 결정하는 로직을 여기에 구현하세요.
-  // 예: 요청 목록을 조회하거나 이미 로드된 데이터를 활용하는 방식
-  // 임시 예제 코드:
-  let baljuNo;
-  // 로직이 여기에 추가됩니다.
-  return baljuNo;
-}
-
-</script>
+    </script>
 
 
 
