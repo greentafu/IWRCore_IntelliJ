@@ -65,7 +65,10 @@ public interface ShipmentService {
 
     PageResultDTO<InvoicePartnerDTO, Object[]> partnerInvoicePage(PageRequestDTO requestDTO);
 
+    PageResultDTO<ShipmentGumsuDTO, Object[]> mainShipment(PageRequestDTO requestDTO);
+
     Long allShipmnetNum(Long joNo);
+    Long mainShipNum();
 
     List<ShipmentDTO> getShipmentsByReceiveCheck(long receiveCheck);
 }

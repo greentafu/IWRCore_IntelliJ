@@ -130,7 +130,7 @@ public class ShipmentServiceTests {
     @Commit
     public void test12312(){
         Pageable pageable=PageRequest.of(0,2);
-        System.out.println(shipmentRepository.shipmentPage(pageable));
+        System.out.println(shipmentRepository.mainShipment());
     }
     @Test
     @Transactional

@@ -253,6 +253,12 @@ public class ShipmentServiceImpl implements ShipmentService {
         reNo=(reNo!=null)?reNo:0L;
         return new ShipmentGumsuDTO(shipmentDTO, gumsuDTO, totalShipment, reNo);
     }
+    @Override
+    public PageResultDTO<ShipmentGumsuDTO, Object[]> mainShipment(PageRequestDTO requestDTO){
+        Pageable pageable=requestDTO.getPageable(Sort.by("shipNO").descending());
+        Page<Object[]> entityPage=shipmentRepository.mainShipment(pageable);
+        return new PageResultDTO<>(entityPage, this::shipmentGumsuToDTO);
+    }
 
     @Override
     public PageResultDTO<ShipmentDTO, Object[]> noneInvoiceShipment(PageRequestDTO requestDTO){
@@ -291,6 +297,14 @@ public class ShipmentServiceImpl implements ShipmentService {
     public Long allShipmnetNum(Long joNo){
         return shipmentRepository.allShipNum(joNo);
     }
+    @Override
+    public Long mainShipNum(){
+        Long aa= shipmentRepository.mainShipment();
+        return (aa!=null)?aa:0L;
+    }
+
+
+
     @Override
     public List<ShipmentDTO> getShipmentsByReceiveCheck(long receiveCheck) {
         List<Shipment> shipments = shipmentRepository.findByReceiveCheckWithDetails(receiveCheck);

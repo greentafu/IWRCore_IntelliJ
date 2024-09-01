@@ -23,4 +23,6 @@ public interface RequestService {
 
     List<RequestDTO> getRequestsByReqCheck(long reqCheck);
     List<RequestDTO> getRequestsByTextContains(String keyword);
+
+    Long mainRequestCount();
 }

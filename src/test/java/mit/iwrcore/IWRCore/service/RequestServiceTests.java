@@ -1,6 +1,7 @@
 package mit.iwrcore.IWRCore.service;
 
 import jakarta.transaction.Transactional;
+import mit.iwrcore.IWRCore.repository.RequestRepository;
 import mit.iwrcore.IWRCore.security.dto.PageDTO.PageRequestDTO;
 import mit.iwrcore.IWRCore.security.dto.RequestDTO;
 import mit.iwrcore.IWRCore.security.service.MaterialService;
@@ -25,6 +26,8 @@ public class RequestServiceTests {
     private MaterialService materialService;
     @Autowired
     private ProplanService proplanService;
+    @Autowired
+    private RequestRepository requestRepository;
 
     @Test
     public void insertRequest() {
@@ -83,7 +86,7 @@ public class RequestServiceTests {
     @Commit
     public void test12(){
         PageRequestDTO requestDTO=PageRequestDTO.builder().page(1).size(2).build();
-        System.out.println(requestService.requestPage(requestDTO));
+        System.out.println(requestRepository.mainRequestCount());
     }
 
 }

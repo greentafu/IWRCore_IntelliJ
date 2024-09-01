@@ -30,6 +30,20 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
             "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo)")
     Page<Object[]> shipmentPage(Pageable pageable);
 
+    @EntityGraph(attributePaths = {"balju", "returns", "invoice"})
+    @Query("select s, g, sss.totalsum, r.reNO, s.balju.contract, p, pp from Shipment s " +
+            "left join Gumsu g on (s.balju.baljuNo=g.balju.baljuNo) " +
+            "left join (select ss.balju.baljuNo as baljuNo1, sum(ss.shipNum) as totalsum " +
+            "from Shipment ss " +
+            "where ss.receiveCheck=1 " +
+            "group by ss.balju.baljuNo) as sss " +
+            "on (s.balju.baljuNo=sss.baljuNo1) " +
+            "left join Returns r on (s.shipNO=r.shipment.shipNO) " +
+            "left join Product p on (p.manuCode=s.balju.contract.jodalPlan.proPlan.product.manuCode) " +
+            "left join ProPlan pp on (pp.proplanNo=s.balju.contract.jodalPlan.proPlan.proplanNo) " +
+            "where s.receipt is null")
+    Page<Object[]> mainShipment(Pageable pageable);
+
     @Modifying
     @Transactional
     @Query("update Shipment s set s.receipt=:receiveDate where s.shipNO=:shipNo")
@@ -117,4 +131,11 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
 
     @Query("select s from Shipment s where s.invoice.tranNO=:tranNO")
     List<Shipment> getInvoiceContent(Long tranNO);
+
+    @Transactional
+    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+    @Query("select count(s) from Shipment s " +
+            "left join Returns r on (s.shipNO=r.shipment.shipNO) " +
+            "where s.receiveCheck=0 and r is null")
+    Long mainShipment();
 }

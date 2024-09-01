@@ -116,4 +116,10 @@ public class RequestServiceImpl implements RequestService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Long mainRequestCount(){
+        Long aa=requestRepository.mainRequestCount();
+        return (aa!=null)?aa:0L;
+    }
+
 }

@@ -18,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @Controller
 @RequestMapping("/manager")
 @RequiredArgsConstructor
@@ -42,8 +44,8 @@ public class ManagerController {
 
     }
     @GetMapping("/modify_member")
-    public void modify_member(){
-
+    public void modify_member(Long mno, Model model){
+        model.addAttribute("member", memberService.findMemberDto(mno, null));
     }
     @GetMapping("/list_partner")
     public void list_partner(PageRequestDTO pageRequestDTO, Model model){
@@ -54,8 +56,8 @@ public class ManagerController {
 
     }
     @GetMapping("/modify_partner")
-    public void modify_partner(){
-
+    public void modify_partner(Long pno, Model model){
+        model.addAttribute("partner", partnerService.findPartnerDto(pno, null, null));
     }
     @GetMapping("/category")
     public void category(Model model){
