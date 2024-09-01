@@ -116,7 +116,7 @@
                       <th colspan="2" style="text-align: center;">작성일자</th>
                       <td colspan="11"> <input type="date" id="writeDate"> </td>
                       <th colspan="2" style="text-align: center;">비고</th>
-                      <td colspan="11"> <input type="text" style="border: 0; width: 400px;" id="text"> </td>
+                      <td colspan="11"> <input type="text" style="border: 0; width: 400px;" id="text" th:value="${invoice.text}"></td>
                     </tr>
                     <tr>
                       <th colspan="2" style="text-align: center;">합계금액</th>
@@ -151,16 +151,16 @@
                       <th colspan="5" style="text-align: center;">외상미수금</th>
                       <th rowspan="2" colspan="2">
                         <div class="text-center">
-                          <input type="radio" name="type" value="영수" class="mb-2" checked>영수<br/>
-                          <input type="radio" name="type" value="청구">청구
+                          <input type="radio" name="type" value="영수" class="mb-2" th:checked="${invoice.plz == '영수'}">영수<br/>
+                          <input type="radio" name="type" value="청구" th:checked="${invoice.plz == '청구'}">청구
                         </div>
                       </th>
                     </tr>
                     <tr>
-                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="cash" id="cash"> </td>
-                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="cheque" id="cheque"> </td>
-                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="promissory" id="promissory"> </td>
-                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="receivable" id="receivable"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="cash" id="cash" th:value="${invoice.cash}"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="cheque" id="cheque" th:value="${invoice.cheque}"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="promissory" id="promissory" th:value="${invoice.promissory}"> </td>
+                      <td colspan="5"> <input type="text" style="border: 0; width: 100%;" name="receivable" id="receivable" th:value="${invoice.receivable}"> </td>
                     </tr>
                   </table>
                   <br>
@@ -338,8 +338,26 @@
         if(selectedPartner!=null && selectedPartner!='') selectPartner(selectedPartner);
 
         setTimeout(function() {
-          calMoney();
-        }, 200);
+          const allSupplyValue=document.querySelectorAll('[id^="presupplyValue"]');
+          let totalSupplyValue=0;
+          allSupplyValue.forEach(x => {
+            const SupplyValue=parseFloat(x.innerText)||0;
+            totalSupplyValue+=SupplyValue;
+          });
+
+          const allTax=document.querySelectorAll('[id^="pretax"]');
+          let totalTax=0;
+          allTax.forEach(x => {
+            const tax=parseFloat(x.innerText)||0;
+            totalTax+=tax;
+          });
+
+          let totalSum=totalSupplyValue+totalTax;
+
+          $('#totalSum').text(totalSum);
+          $('#totalSupply').text(totalSupplyValue);
+          $('#totalTax').text(totalTax);
+        }, 500);
       });
 
       function initInvoicePartner(){
@@ -755,7 +773,7 @@
               const supplyValue=shipNum*unitCost;
               const tax=supplyValue/10;
 
-              console.log(x.bGo);
+              const bgo=x.bgo;
 
               const shipNo=x.shipNO;
 
@@ -813,6 +831,7 @@
               inputText.type = 'text';
               inputText.style.border = '0px';
               inputText.style.width = '150px';
+              inputText.value=bgo;
               inputText.id = 'inputText'+shipNo;
 
               const EmptyTd = document.createElement('td');

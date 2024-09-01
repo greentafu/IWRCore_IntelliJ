@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -88,10 +89,31 @@ public class InvoiceController {
         InvoiceDTO savedInvoiceDTO=invoiceService.createInvoice(invoiceDTO);
         Invoice invoice=invoiceService.convertToEntity(savedInvoiceDTO);
 
+
+        List<ShipmentDTO> shipmentDTOs=(savedInvoiceDTO.getTranNO()!=null)?shipmentService.getInvoiceContent(savedInvoiceDTO.getTranNO()):null;
+        List<Long> shipmentNo=new ArrayList<>();
+        List<Long> exShipNo=new ArrayList<>();
+        if(shipmentDTOs!=null) shipmentDTOs.stream().forEach(x->shipmentNo.add(x.getShipNO()));
+
         List<InvoiceTextDTO> invoiceTextDTOs=saveInvoiceDTO.getInvoiceTextDTOs();
         for(InvoiceTextDTO invoiceTextDTO:invoiceTextDTOs){
-            shipmentService.updateSHipmentInvoice(invoice, invoiceTextDTO.getShipText(), invoiceTextDTO.getShipNo());
+            if(shipmentNo.size()==0){
+                shipmentService.updateSHipmentInvoice(invoice, invoiceTextDTO.getShipText(), invoiceTextDTO.getShipNo());
+            }else{
+                if(shipmentNo.contains(invoiceTextDTO.getShipNo())){
+                    shipmentService.updateSHipmentInvoice(invoice, invoiceTextDTO.getShipText(), invoiceTextDTO.getShipNo());
+                    exShipNo.add(invoiceTextDTO.getShipNo());
+                }
+            }
         }
+        for(Long temp:shipmentNo){
+            if(!exShipNo.contains(temp)){
+                shipmentService.updateShipmentInvoicebGo(temp);
+            }
+        }
+
+
+
 
         return "redirect:/invoice/list_invoice";
     }

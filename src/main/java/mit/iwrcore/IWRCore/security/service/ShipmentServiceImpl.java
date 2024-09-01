@@ -154,6 +154,11 @@ public class ShipmentServiceImpl implements ShipmentService {
         Shipment updatedShipment = shipmentRepository.save(existingShipment);
         return convertToDTO(updatedShipment);
     }
+    @Override
+    @Transactional
+    public void updateShipmentInvoicebGo(Long shipNo){
+        shipmentRepository.updateShipmentInvoiceText(shipNo);
+    }
 
     @Override
     @Transactional

@@ -50,6 +50,12 @@ public interface ShipmentRepository extends JpaRepository<Shipment,Long> {
     @Modifying
     @Transactional
     @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
+    @Query("update Shipment s set s.invoice=null, s.bGo=null where s.shipNO=:shipNo")
+    void updateShipmentInvoiceText(Long shipNo);
+
+    @Modifying
+    @Transactional
+    @EntityGraph(attributePaths = {"balju", "writer", "returns", "invoice"})
     @Query("update Shipment s set s.invoice=:invoice, s.bGo=:text where s.shipNO=:shipNo")
     void updateShipmentInvoice(Invoice invoice, String text, Long shipNo);
 

@@ -51,6 +51,7 @@ public interface ShipmentService {
     void updateShipmentDate(LocalDateTime dateTime, Long shipNo);
     void updateMemberCheck(Member member, Long shipNo);
     void updateSHipmentInvoice(Invoice invoice, String text, Long shipNo);
+    void updateShipmentInvoicebGo(Long shipNo);
 
     List<ShipmentDTO> getShipmentByBalju(Long baljuNo);
     List<ShipmentDTO> canInvoiceShipment(Long pno);
