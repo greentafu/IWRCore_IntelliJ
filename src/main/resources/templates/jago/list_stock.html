@@ -160,10 +160,15 @@
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${list}">
                   <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>[[${list.materialDTO.materCode}]]</strong></td>
-                  <td><a th:href="@{/jago/stock}"> [[${list.materialDTO.name}]]</a></td>
+                  <td><a th:href="@{/jago/stock(materCode=${list.materialDTO.materCode})}"> [[${list.materialDTO.name}]]</a></td>
                   <td>[[${list.materialDTO.materSDTO.Sname}]]</td>
                   <td>[[${list.sumShipNum - list.sumRequestNum}]]</td>
-                  <td>--</td>
+                  <th:block th:if="${list.sumBaljuNum}!=0">
+                    <td>발주중</td>
+                  </th:block>
+                  <th:block th:if="${list.sumBaljuNum}==0">
+                    <td>진행없음</td>
+                  </th:block>
                   <td>[[${list.materialDTO.boxDTO.boxname}]]</td>
                   <td><button th:onclick="|location.href='@{/order/new_order}'|"
                               class="btn  btn-primary">발주</button>

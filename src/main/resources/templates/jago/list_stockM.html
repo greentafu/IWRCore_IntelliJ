@@ -140,7 +140,7 @@
               <tbody class="table-border-bottom-0">
                 <tr th:each="list:${list}">
                   <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>[[${list.materialDTO.materCode}]]</strong></td>
-                  <td><a th:href="@{/jago/stock}"> [[${list.materialDTO.name}]]</a></td>
+                  <td><a th:href="@{/jago/stock(materCode=${list.materialDTO.materCode})}"> [[${list.materialDTO.name}]]</a></td>
                   <td>[[${list.materialDTO.materSDTO.Sname}]]</td>
                   <td>[[${list.money}]]</td>
                   <td>[[${list.sumShipNum - list.sumRequestNum}]]</td>

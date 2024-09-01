@@ -8,6 +8,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.StockDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.StockDetailDTO;
 
 import java.util.List;
 
@@ -45,5 +46,7 @@ public interface ContractService {
     List<NewOrderDTO> newOrderContract(Long pno);
 
     List<StockDTO> stockList();
+
+    List<StockDetailDTO> detailStock(Long materCode);
 
 }

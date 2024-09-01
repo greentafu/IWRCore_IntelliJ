@@ -11,6 +11,7 @@ import mit.iwrcore.IWRCore.security.dto.PageDTO.PageResultDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.ContractJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.NewOrderDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.StockDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.StockDetailDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -193,13 +194,31 @@ public class ContractServiceImpl implements ContractService {
         Long tempMoney=(Long) objects[1];
         Long tempSumShip=(Long) objects[2];
         Long tempSumReq=(Long) objects[3];
+        Long tempCountBal=(Long) objects[4];
 
         MaterialDTO materialDTO=(material!=null)?materialService.materTodto(material):null;
         Long money=(tempMoney!=null)?tempMoney:0L;
         Long sumShip=(tempSumShip!=null)?tempSumShip:0L;
         Long sumReq=(tempSumReq!=null)?tempSumReq:0L;
+        Long countBal=(tempCountBal!=null)?tempCountBal:0L;
 
-        return new StockDTO(materialDTO, money, sumShip, sumReq);
+        return new StockDTO(materialDTO, money, sumShip, sumReq, countBal);
+    }
+    @Override
+    public List<StockDetailDTO> detailStock(Long materCode){
+        List<Object[]> entityList=contractRepository.detailStock(materCode);
+        List<StockDetailDTO> dtoList=entityList.stream().map(this::exStockDetailDTO).toList();
+        return dtoList;
+    }
+    private StockDetailDTO exStockDetailDTO(Object[] objects){
+        Contract contract=(Contract) objects[0];
+        Long tempSumShip=(Long) objects[1];
+        Long tempSumReq=(Long) objects[2];
+
+        ContractDTO contractDTO=(contract!=null)?convertToDTO(contract):null;
+        Long sumShip=(tempSumShip!=null)?tempSumShip:0L;
+        Long sumReq=(tempSumReq!=null)?tempSumReq:0L;
+        return new StockDetailDTO(contractDTO, sumShip, sumReq);
     }
 
 }

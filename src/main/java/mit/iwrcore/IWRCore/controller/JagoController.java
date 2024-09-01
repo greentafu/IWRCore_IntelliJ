@@ -32,7 +32,7 @@ public class JagoController {
         model.addAttribute("list", contractService.stockList());
     }
     @GetMapping("/stock")
-    public void stock(){
-
+    public void stock(Long materCode, Model model){
+        model.addAttribute("materCode", materCode);
     }
 }

@@ -13,11 +13,13 @@ public class StockDTO {
     private Long money;
     private Long sumShipNum;
     private Long sumRequestNum;
+    private Long sumBaljuNum;
 
-    public StockDTO(MaterialDTO materialDTO, Long money, Long sumShipNum, Long sumRequestNum){
+    public StockDTO(MaterialDTO materialDTO, Long money, Long sumShipNum, Long sumRequestNum, Long sumBaljuNum){
         this.materialDTO=materialDTO;
         this.money=money;
         this.sumShipNum=sumShipNum;
         this.sumRequestNum=sumRequestNum;
+        this.sumBaljuNum=sumBaljuNum;
     }
 }

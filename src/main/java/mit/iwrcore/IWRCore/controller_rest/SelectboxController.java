@@ -19,6 +19,7 @@ import mit.iwrcore.IWRCore.security.dto.ProDTO.ProMDTO;
 import mit.iwrcore.IWRCore.security.dto.ProDTO.ProSDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.BaljuJodalChasuDTO;
 import mit.iwrcore.IWRCore.security.dto.multiDTO.JodalPlanJodalChsuDTO;
+import mit.iwrcore.IWRCore.security.dto.multiDTO.StockDetailDTO;
 import mit.iwrcore.IWRCore.security.service.*;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,7 @@ public class SelectboxController {
     private final StructureService structureService;
     private final ProplanService proplanService;
     private final GumsuChasuService gumsuChasuService;
+    private final ContractService contractService;
 
     @GetMapping("/getPart")
     public PartCodeListDTO getPart(){
@@ -227,5 +229,10 @@ public class SelectboxController {
     @PostMapping("/modify_invoice")
     public List<ShipmentDTO> modify_invoice(@RequestParam(required = false) Long tranNO){
         return shipmentService.getInvoiceContent(tranNO);
+    }
+
+    @PostMapping("/stockDetail")
+    public List<StockDetailDTO> stockDetail(@RequestParam(required = false) Long materCode){
+        return contractService.detailStock(materCode);
     }
 }

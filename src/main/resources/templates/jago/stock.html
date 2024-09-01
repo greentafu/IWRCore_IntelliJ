@@ -17,241 +17,172 @@
       <!--/Style-->
   </span>
 
-    <span id="content">
-     <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">재고 목록 /</span>월별 현황</h4>
-
-       <!-- Bordered Table -->
-              <div class="card">
-                <h5 class="card-header">
-                  <div class="d-flex justify-content-between w-100">
-                    <div class="d-flex">
-                      <div class="btn-group">
-                        <button
-                                type="button"
-                                class="btn btn-outline-primary dropdown-toggle"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                        >
-                          날짜
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li><a class="dropdown-item" href="javascript:void(0);">~2024년</a></li>
-                          <li><a class="dropdown-item" href="javascript:void(0);">2024년</a></li>
-                          <li><a class="dropdown-item" href="javascript:void(0);">2023년</a></li>
-                          <li><a class="dropdown-item" href="javascript:void(0);">2022년</a></li>
-                          <li><a class="dropdown-item" href="javascript:void(0);">2021년</a></li>
-                          <li><a class="dropdown-item" href="javascript:void(0);">~2020년</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="mt-3">
-                      <!-- Button trigger modal -->
-                      <button
-                              type="button"
-                              class="btn btn-outline-primary"
-                              data-bs-toggle="modal"
-                              data-bs-target="#basicModal"
-                      >
-                        다운로드
-                      </button>
-                    </div>
-
-                  </div>
-                </h5>
-
-                <div class="card-body">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-bordered mb-4">
-                      <thead>
-                        <tr>
-                          <th>날짜</th>
-                          <th>자재번호</th>
-                          <th>자재명</th>
-                          <th>규격</th>
-                          <th>단위</th>
-                          <th>당 계약 가격</th>
-                          <th>전 계약 가격</th>
-                          <th>전 계약 대비</th>
-                          <th>재고 수량</th>
-                          <th>재고 금액</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>2024-07-10</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>32,000</td>
-                          <td>31,500</td>
-                          <td>500</td>
-                          <th>1,000</th>
-                          <th>29,445,000</th>
-                        </tr>
-                        <tr>
-                          <td>2024-04-10</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>31,500</td>
-                          <td>31,000</td>
-                          <td>500</td>
-                          <th>1,000</th>
-                          <th>28,945,000</th>
-                        </tr>
-                        <tr>
-                          <td>2024-01-10</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>31,000</td>
-                          <td>30,000</td>
-                          <td>1,000</td>
-                          <th>1,000</th>
-                          <th>28,445,000</th>
-                        </tr>
-                        <tr>
-                          <td>2023-09-10</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>30,000</td>
-                          <td>29,500</td>
-                          <td>500</td>
-                          <th>900</th>
-                          <th>25,445,000</th>
-                        </tr>
-                        <tr>
-                          <td>2023-05-10</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>29,500</td>
-                          <td>29,000</td>
-                          <td>500</td>
-                          <th>1,00</th>
-                          <th>28,645,000</th>
-                        </tr>
-                        <tr>
-                          <td>2023-04-07</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>29,000</td>
-                          <td>29,000</td>
-                          <td></td>
-                          <th>950</th>
-                          <th>28,445,000</th>
-                        </tr>
-
-                        <tr>
-                          <td>2023-01-08</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>29,000</td>
-                          <td>28,500</td>
-                          <td>500</td>
-                          <th>1,000</th>
-                          <th>28,545,000</th>
-                        </tr>
-
-                        <tr>
-                          <td>2022-10-09</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>28,500</td>
-                          <td>28,000</td>
-                          <td>500</td>
-                          <th>1,000</th>
-                          <th>28,300,000</th>
-                        </tr>
-
-                        <tr>
-                          <td>2022-03-08</td>
-                          <td>
-                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>AM-823</strong>
-                          </td>
-                          <td>앞 브레이크</td>
-                          <td>5mm</td>
-                          <td>㎡</td>
-                          <td>28,000</td>
-                          <td>      </td>
-                          <td></td>
-                          <th>1,000</th>
-                          <th>28,000,000</th>
-                        </tr>
-
-
-                      </tbody>
-                    </table>
-                    <div class="mt-2">
-                      <a th:href="@{/production/list_manufacture}">
-                      <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
-                    </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-       <!--/ Bordered Table -->
-            </div>
-
-
-
-
-      <!-- Modal -->
-            <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    현재 화면(2024년도 자료)의 정보 다운
-                  </div>
-                  <div class="modal-body">
-                    <div class="text-center">
-                      <button type="button" class="btn btn-outline-primary">
-                        예
-                      </button>
-                      <button type="button" class="btn btn-outline-primary">
-                        아니오(전체 다운로드)
-                      </button>
-                    </div>
-                  </div>
-                </div>
+  <span id="content">
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <div id="materCode" style="display:none;">[[${materCode}]]</div>
+      <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">재고 목록 /</span>월별 현황</h4>
+      <!-- Bordered Table -->
+      <div class="card">
+        <h5 class="card-header">
+          <div class="d-flex justify-content-between w-100">
+            <div class="d-flex">
+              <div class="btn-group">
+                <button
+                        type="button"
+                        class="btn btn-outline-primary dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                >
+                  날짜
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="javascript:void(0);">~2024년</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">2024년</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">2023년</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">2022년</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">2021년</a></li>
+                  <li><a class="dropdown-item" href="javascript:void(0);">~2020년</a></li>
+                </ul>
               </div>
             </div>
+            <div class="mt-3">
+              <!-- Button trigger modal -->
+              <button
+                      type="button"
+                      class="btn btn-outline-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#basicModal"
+              >
+                다운로드
+              </button>
+            </div>
+          </div>
+        </h5>
+        <div class="card-body">
+          <div class="table-responsive text-nowrap">
+            <table class="table table-bordered mb-4">
+              <thead>
+                <tr>
+                  <th>날짜</th>
+                  <th>자재번호</th>
+                  <th>자재명</th>
+                  <th>규격</th>
+                  <th>단위</th>
+                  <th>당 계약 가격</th>
+                  <th>전 계약 가격</th>
+                  <th>전 계약 대비</th>
+                  <th>재고 수량</th>
+                  <th>재고 금액</th>
+                </tr>
+              </thead>
+              <tbody id="detailContent"></tbody>
+            </table>
+            <div class="mt-2">
+              <a th:href="@{/jago/list_stock}">
+                <button type="reset" class="btn btn-outline-secondary">뒤로가기</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Bordered Table -->
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            현재 화면(2024년도 자료)의 정보 다운
+          </div>
+          <div class="modal-body">
+            <div class="text-center">
+              <button type="button" class="btn btn-outline-primary">
+                예
+              </button>
+              <button type="button" class="btn btn-outline-primary">
+                아니오(전체 다운로드)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal-->
 
-        <!--Modal-->
+    <!--/Modal-->
+    <!--Script-->
+    <script>
+      $(document).ready(function(){
+        var materCode=document.getElementById('materCode').innerText;
+        initStockDetail(materCode);
+      });
 
-        <!--/Modal-->
-        <!--Script-->
+      function initStockDetail(code){
+        var materCode=code;
+        $.ajax({
+          url:'/select/stockDetail',
+          method:'POST',
+          data:{materCode:materCode},
+          success:function(data){
+            console.log('aaaaa', data);
+            var insertTbody=document.getElementById('detailContent');
 
-        <!--Script-->
+            var tempNum=0;
+
+            if(data){
+              data.forEach(x=>{
+                var newRow = document.createElement('tr');
+
+                var date=x.contractDTO.conDate.split('T')[0];
+                var mcode=x.contractDTO.jodalPlanDTO.materialDTO.materCode;
+                var mname=x.contractDTO.jodalPlanDTO.materialDTO.name;
+                var standard=x.contractDTO.jodalPlanDTO.materialDTO.standard;
+                var unit=x.contractDTO.jodalPlanDTO.materialDTO.unit;
+                var cmoney=x.contractDTO.money;
+                var sumship=x.sumShipNum;
+                var sumreq=x.sumRequestNum;
+
+                var stock=sumship-sumreq;
+
+                [date, mcode, mname, standard, unit, cmoney].forEach(function(text){
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+                });
+
+                var td1 = document.createElement('td');
+                td1.innerText = '';
+                td1.id='pre'+tempNum;
+                newRow.appendChild(td1);
+
+                var td2 = document.createElement('td');
+                td2.innerText = '';
+                td2.id='minus'+tempNum;
+                newRow.appendChild(td2);
+
+                [stock, cmoney*stock].forEach(function(text){
+                  var td = document.createElement('td');
+                  td.innerText = text;
+                  newRow.appendChild(td);
+                });
+                insertTbody.appendChild(newRow);
+
+                if(tempNum!=0){
+                  document.getElementById('pre'+(tempNum-1)).innerText=cmoney;
+                  document.getElementById('minus'+(tempNum-1)).innerText=cmoney-document.getElementById('pre'+(tempNum-1)).innerText;
+                }
+
+                tempNum+=1;
+
+              });
+
+            }
+
+          }
+        });
+      }
+    </script>
+    <!--Script-->
   </span>
 
 </th:block>

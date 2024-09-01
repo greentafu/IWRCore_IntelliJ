@@ -45,11 +45,19 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
             "where b.baljuNo is null and c.partner.pno=:pno")
     List<Object[]> newOrderContract(Long pno);
 
-    @Query("select m2, c2.money, sum(sh.shipNum), sum(re.requestNum) from Material m2 " +
+    @Query("select m2, c2.money, sum(sh.shipNum), sum(re.requestNum), count(b) from Material m2 " +
             "left join Contract c2 on c2.conNo = (select max(c1.conNo) from Contract c1 " +
             "where c1.jodalPlan.material.materCode = m2.materCode) " +
             "left join Shipment sh on (sh.balju.contract.jodalPlan.material.materCode=m2.materCode and sh.receiveCheck=1) " +
             "left join Request re on (re.material.materCode=m2.materCode and re.reqCheck=1) " +
+            "left join Balju b on (b.contract.jodalPlan.material.materCode=m2.materCode and b.finCheck=0) " +
             "group by m2")
     List<Object[]> stockList();
+
+    @Query("select c, sum(sh.shipNum), sum(re.requestNum) from Contract c " +
+            "left join Shipment sh on (sh.balju.contract.jodalPlan.material.materCode=c.jodalPlan.material.materCode and sh.receiveCheck=1 and c.conNo>=sh.balju.contract.conNo) " +
+            "left join Request re on (re.material.materCode=c.jodalPlan.material.materCode and re.reqCheck=1 and c.jodalPlan.proPlan.proplanNo>=re.proPlan.proplanNo) " +
+            "where c.jodalPlan.material.materCode=:materCode " +
+            "group by c.conNo order by c.conNo desc")
+    List<Object[]> detailStock(Long materCode);
 }

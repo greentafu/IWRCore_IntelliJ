@@ -97,7 +97,7 @@ public class ContractServiceTests {
     @Transactional
     @Commit
     public void test12345(){
-        System.out.println(contractService.stockList());
+        System.out.println(contractRepository.detailStock(4L));
     }
     @Test
     public void test5566(){
