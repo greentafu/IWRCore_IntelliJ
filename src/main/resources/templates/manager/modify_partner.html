@@ -34,7 +34,7 @@
                           type="text"
                           id="firstName"
                           name="firstName"
-                          value="60841"
+                          th:value="${partner.pno}"
                           autofocus
                   />
                 </div>
@@ -42,16 +42,15 @@
             </div>
             <hr class="m-0">
             <div class="card-body">
-              <form id="formAccountSettings" method="POST" onsubmit="return false">
+              <form method="POST" onsubmit="return false">
                 <div class="row">
                   <div class="mb-3 col-md-6">
                     <label for="firstName" class="form-label">상호</label>
                     <input
                             class="form-control"
                             type="text"
-                            id="firstName"
                             name="firstName"
-                            value="협력업체 상호 입력"
+                            th:value="${partner.name}"
                             autofocus
                     />
                   </div>
@@ -63,7 +62,7 @@
                               id="phoneNumber"
                               name="phoneNumber"
                               class="form-control"
-                              value="000-00-00000"
+                              th:value="${partner.registrationNumber}"
                       />
                     </div>
                   </div>
@@ -72,10 +71,9 @@
                     <div class="input-group input-group-merge">
                       <input
                               type="text"
-                              id="phoneNumber"
                               name="phoneNumber"
                               class="form-control"
-                              value="홍길동"
+                              th:value="${partner.ceo}"
                       />
                     </div>
                   </div>
@@ -84,10 +82,9 @@
                     <div class="input-group input-group-merge">
                       <input
                               type="text"
-                              id="phoneNumber"
                               name="phoneNumber"
                               class="form-control"
-                              value="경기도 화성시 활초리 ..."
+                              th:value="${partner.location}"
                       />
                     </div>
                   </div>
@@ -96,10 +93,9 @@
                     <div class="input-group input-group-merge">
                       <input
                               type="text"
-                              id="phoneNumber"
                               name="phoneNumber"
                               class="form-control"
-                              value="제조업"
+                              th:value="${partner.type}"
                       />
                     </div>
                   </div>
@@ -108,10 +104,9 @@
                     <div class="input-group input-group-merge">
                       <input
                               type="text"
-                              id="phoneNumber"
                               name="phoneNumber"
                               class="form-control"
-                              value="금속사출부품"
+                              th:value="${partner.sector}"
                       />
                     </div>
                   </div>
@@ -120,10 +115,10 @@
                     <div class="input-group input-group-merge">
                       <input
                               type="text"
-                              id="phoneNumber"
                               name="phoneNumber"
                               class="form-control"
                               value="000-000-0000"
+                              th:value="${partner.telNumber}"
                       />
                     </div>
                   </div>
@@ -132,10 +127,9 @@
                     <div class="input-group input-group-merge">
                       <input
                               type="text"
-                              id="phoneNumber"
                               name="phoneNumber"
                               class="form-control"
-                              value="000-000-0000"
+                              th:value="${partner.faxNumber}"
                       />
                     </div>
                   </div>
@@ -144,10 +138,9 @@
                     <div class="input-group input-group-merge">
                       <input
                               type="text"
-                              id="phoneNumber"
                               name="phoneNumber"
                               class="form-control"
-                              value="aaa1111@mail.com"
+                              th:value="${partner.email}"
                       />
                     </div>
                   </div>
@@ -156,78 +149,28 @@
             </div>
             <hr class="m-0">
             <div class="card-body">
-              <form id="formAccountSettings" method="POST" onsubmit="return false">
+              <form method="POST" onsubmit="return false">
                 <div class="row">
                   <div class="mb-3 col-md-6">
                     <label class="form-label" for="phoneNumber">대분류</label>
                     <div class="input-group input-group-merge">
-                      <select id="country" class="select2 form-select">
-                        <option value="">선택</option>
-                        <option value="Australia" selected>기계부품</option>
-                        <option value="Bangladesh">전기부품</option>
-                        <option value="Belarus">화학제품</option>
-                        <option value="Belarus">기타</option>
+                      <select id="selectPartL" onchange="updatePartCode('L')" class="select2 form-select">
                       </select>
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">대분류 직접입력</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              placeholder="대분류 직접입력"
-                      />
                     </div>
                   </div>
                   <div class="mb-3 col-md-6">
                     <label class="form-label" for="phoneNumber">중분류</label>
                     <div class="input-group input-group-merge">
-                      <select id="country" class="select2 form-select">
-                        <option value="">선택</option>
-                        <option value="Australia" selected>프레임 및 관련 부품</option>
-                        <option value="Bangladesh">브레이크 시스템</option>
-                        <option value="Belarus">변속 시스템</option>
-                        <option value="Belarus">기타</option>
+                      <select id="selectPartM" onchange="updatePartCode('M')" class="select2 form-select">
                       </select>
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">중분류 직접입력</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              placeholder="중분류 직접입력"
-                      />
                     </div>
                   </div>
                   <div class="mb-3 col-md-6">
                     <label class="form-label" for="phoneNumber">소분류</label>
                     <div class="input-group input-group-merge">
-                      <select id="country" class="select2 form-select">
-                        <option value="">선택</option>
-                        <option value="Australia">프레임</option>
-                        <option value="Bangladesh" selected>핸들바 및 그립</option>
-                        <option value="Belarus">서스펜션 및 충격흡수기</option>
-                        <option value="Belarus">기타</option>
+                      <select class="select2 form-select" id="selectPartS" onchange="updatePartCode('S')">
+                        <option th:value="${partner.partSDTO.partScode}" selected></option>
                       </select>
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label class="form-label" for="phoneNumber">소분류 직접입력</label>
-                    <div class="input-group input-group-merge">
-                      <input
-                              type="text"
-                              id="phoneNumber"
-                              name="phoneNumber"
-                              class="form-control"
-                              placeholder="소분류 직접입력"
-                      />
                     </div>
                   </div>
                 </div>
@@ -235,7 +178,7 @@
             </div>
             <hr class="m-0">
             <div class="card-body">
-              <form id="formAccountSettings" method="POST" onsubmit="return false">
+              <form method="POST" onsubmit="return false">
                 <div class="row">
                   <div class="mb-3 col-md-6">
                     <label for="organization" class="form-label">담당자 이름</label>
@@ -244,7 +187,7 @@
                             class="form-control"
                             id="organization"
                             name="organization"
-                            value="박담당"
+                            th:value="${partner.contacter}"
                     />
                   </div>
                   <div class="mb-3 col-md-6">
@@ -252,9 +195,8 @@
                     <input
                             type="text"
                             class="form-control"
-                            id="organization"
                             name="organization"
-                            value="000-0000-0000"
+                            th:value="${partner.contacterNumber}"
                     />
                   </div>
                   <div class="mb-3 col-md-6">
@@ -262,9 +204,8 @@
                     <input
                             type="text"
                             class="form-control"
-                            id="organization"
                             name="organization"
-                            value="lkj@mail.com"
+                            th:value="${partner.contacterEmail}"
                     />
                   </div>
                 </div>
@@ -279,9 +220,8 @@
                     <input
                             type="text"
                             class="form-control"
-                            id="organization"
                             name="organization"
-                            value="efs1234"
+                            th:value="${partner.id}"
                     />
                   </div>
                   <div class="mb-3 col-md-6">
@@ -289,9 +229,8 @@
                     <input
                             type="text"
                             class="form-control"
-                            id="organization"
                             name="organization"
-                            value="qe@df243z"
+                            th:value="${partner.pw}"
                     />
                   </div>
                     </div>
